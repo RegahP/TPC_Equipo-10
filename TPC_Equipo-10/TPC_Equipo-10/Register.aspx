@@ -1,20 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="TPC_Equipo_10.Register" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <style>
+        .btn-danger {
+            margin-right: 5px;
+        }
+
+        .title {
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-md-center align-items-center vh-100" style="background-color: antiquewhite">
-        <div class="container form-control">
+    <div class="d-flex justify-content-md-center align-items-center vh-100" style="background-image: url(https://st4.depositphotos.com/2866075/26868/i/450/depositphotos_268682238-stock-photo-stained-old-brown-paper-texture.jpg); background-position: center; background-size: cover;">
+        <div class="container form-control" style="background-color: beige; padding-top: 25px; border-width: medium; border-color: black;">
             <div class="mb-3 row">
-                <label for="inputUsername" class="col-sm-2 col-form-label">Usuario</label>
+                <h4 class="title" style="display: flex; justify-content: center">¡UNETE A LA AVENTURA!</h4>
+                <label for="inputUsername" class="col-sm-2 col-form-label">Usuario:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputUsername">
+                    <input type="text" class="form-control" id="inputUsername" style="width: 90%">
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña:</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword">
+                    <input type="password" class="form-control" id="inputPassword" style="width: 90%">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="confirmPassword" class="col-sm-2 col-form-label">Confirmar contraseña:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="confirmPassword" style="width: 90%">
                 </div>
             </div>
             <div class="mb-3 row">

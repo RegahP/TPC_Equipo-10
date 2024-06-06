@@ -1,102 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\",
+  "WorkspaceRootPath": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\domainmodel\\armor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\armor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\weapon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\equippable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\equippable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\consumable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\consumable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\item.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\creature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\creature.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\ability.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\ability.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\skill.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\damagetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\damagetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\class.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\race.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\race.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\domainmodel\\background.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\background.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\play.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\play.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\characters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\characters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\default.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\masterpage.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\masterpage.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
       "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\masterpage.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\mainmenu.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\mainmenu.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\docs.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\docs.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
       "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\docs.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\register.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\characters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\characters.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\register.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repositorio\\tpc_equipo-10\\tpc_equipo-10\\mainmenu.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\mainmenu.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
     }
   ],
   "DocumentGroupContainers": [
@@ -106,296 +38,98 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Weapon.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Weapon.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Weapon.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Weapon.cs",
-              "RelativeToolTip": "DomainModel\\Weapon.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:30:52.637Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Background.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Background.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Background.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Background.cs",
-              "RelativeToolTip": "DomainModel\\Background.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:23:22.126Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Class.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Class.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Class.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Class.cs",
-              "RelativeToolTip": "DomainModel\\Class.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:21:04.211Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Character.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Character.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Character.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Character.cs",
-              "RelativeToolTip": "DomainModel\\Character.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAywB4AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:05:29.441Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Item.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Item.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Item.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Item.cs",
-              "RelativeToolTip": "DomainModel\\Item.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:24:21.143Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Equippable.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Equippable.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Equippable.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Equippable.cs",
-              "RelativeToolTip": "DomainModel\\Equippable.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:30:01.389Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Consumable.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Consumable.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Consumable.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Consumable.cs",
-              "RelativeToolTip": "DomainModel\\Consumable.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:26:52.942Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Armor.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Armor.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Armor.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Armor.cs",
-              "RelativeToolTip": "DomainModel\\Armor.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:34:43.102Z",
+              "Title": "MasterPage.Master",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\MasterPage.Master",
+              "RelativeDocumentMoniker": "TPC_Equipo-10\\MasterPage.Master",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\MasterPage.Master",
+              "RelativeToolTip": "TPC_Equipo-10\\MasterPage.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-06T00:10:17.341Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DamageType.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\DamageType.cs",
-              "RelativeDocumentMoniker": "DomainModel\\DamageType.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\DamageType.cs",
-              "RelativeToolTip": "DomainModel\\DamageType.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:33:10.849Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Ability.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Ability.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Ability.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Ability.cs",
-              "RelativeToolTip": "DomainModel\\Ability.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:39:24.174Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Skill.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Skill.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Skill.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Skill.cs",
-              "RelativeToolTip": "DomainModel\\Skill.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:41:27.094Z"
+              "DocumentIndex": 0,
+              "Title": "Register.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo-10\\Register.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx",
+              "RelativeToolTip": "TPC_Equipo-10\\Register.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-05T22:59:30.241Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Creature.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Creature.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Creature.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Creature.cs",
-              "RelativeToolTip": "DomainModel\\Creature.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABMAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T03:12:51.707Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Race.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Race.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Race.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Race.cs",
-              "RelativeToolTip": "DomainModel\\Race.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T02:16:25.186Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Login.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Login.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\Login.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:16:23.845Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Default.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx.cs",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Default.aspx.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx.cs",
-              "RelativeToolTip": "TPC_Equipo-10\\Default.aspx.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAwwBcAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:14:18.422Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MasterPage.Master",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\MasterPage.Master",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\MasterPage.Master",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\MasterPage.Master",
-              "RelativeToolTip": "TPC_Equipo-10\\MasterPage.Master",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-02T23:40:27.002Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Play.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Play.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Play.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Play.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\Play.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:58:01.168Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "Default.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Default.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\Default.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-02T23:41:43.993Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Register.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx.cs",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Register.aspx.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx.cs",
-              "RelativeToolTip": "TPC_Equipo-10\\Register.aspx.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAqwBcAAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:51:14.85Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Characters.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Characters.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Characters.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Characters.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\Characters.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:57:15.165Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
               "Title": "MainMenu.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\MainMenu.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\MainMenu.aspx",
               "RelativeDocumentMoniker": "TPC_Equipo-10\\MainMenu.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\MainMenu.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\MainMenu.aspx",
               "RelativeToolTip": "TPC_Equipo-10\\MainMenu.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:30:57.101Z"
+              "WhenOpened": "2024-06-05T22:59:25.718Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 5,
+              "Title": "Login.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo-10\\Login.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx",
+              "RelativeToolTip": "TPC_Equipo-10\\Login.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-05T22:59:21.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Docs.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Docs.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Docs.aspx",
               "RelativeDocumentMoniker": "TPC_Equipo-10\\Docs.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Docs.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Docs.aspx",
               "RelativeToolTip": "TPC_Equipo-10\\Docs.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:58:22.116Z"
+              "WhenOpened": "2024-06-05T22:59:09.493Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "Login.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx.cs",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Login.aspx.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Login.aspx.cs",
-              "RelativeToolTip": "TPC_Equipo-10\\Login.aspx.cs",
-              "ViewState": "AQIAAAcAAAAAAAAAAADwvxcAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T00:28:22.54Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Register.aspx",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Register.aspx",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Register.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\Register.aspx",
+              "DocumentIndex": 1,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo-10\\Default.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Default.aspx",
+              "RelativeToolTip": "TPC_Equipo-10\\Default.aspx",
               "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-06-03T00:50:38.162Z"
+              "WhenOpened": "2024-06-05T22:59:08.482Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Characters.aspx",
+              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Characters.aspx",
+              "RelativeDocumentMoniker": "TPC_Equipo-10\\Characters.aspx",
+              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repositorio\\TPC_Equipo-10\\TPC_Equipo-10\\Characters.aspx",
+              "RelativeToolTip": "TPC_Equipo-10\\Characters.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-06-05T22:59:06.323Z",
+              "EditorCaption": ""
             }
           ]
         }
