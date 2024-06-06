@@ -17,7 +17,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-
 </head>
 <body>
     <form id="form1" runat="server">
@@ -43,12 +42,10 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="/Docs.aspx">Documentación</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/Default.aspx">Cerrar Sesión</a>
-                                    </li>
                                 </ul>
-                            </form>
+                            </form>   
                         </div>
+                        <a style="display:flex; justify-content:right" class="nav-link" href="/Default.aspx">Cerrar Sesión</a>
                     </div>
                 </nav>
             </header>
