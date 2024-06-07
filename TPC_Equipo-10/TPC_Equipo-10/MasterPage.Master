@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url(https://st4.depositphotos.com/2866075/26868/i/450/depositphotos_268682238-stock-photo-stained-old-brown-paper-texture.jpg); background-position: center; background-size: cover;">
     <form id="form1" runat="server">
         <div>
             <% if (this.Page.Request.FilePath != "/Default.aspx" && this.Page.Request.FilePath != "/Login.aspx" && this.Page.Request.FilePath != "/Register.aspx")

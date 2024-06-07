@@ -17,8 +17,8 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="d-flex justify-content-md-center align-items-center vh-100" style="background-image: url(https://st4.depositphotos.com/2866075/26868/i/450/depositphotos_268682238-stock-photo-stained-old-brown-paper-texture.jpg); background-position: center; background-size: cover;">
-        <div class="container form-control" style="background-color: beige; padding-top: 25px; border-width: medium; border-color: black;">
+    <div class="d-flex justify-content-md-center align-items-center vh-100">
+        <div class="container form-control" style="background-color: beige; padding-top: 25px; border-width: medium; border-color: black;  ">
             <h4 class="title" style="display: flex; justify-content: center">¡VUELVE EL HEROE!</h4>
             <div class="mb-3 row">
                 <label for="inputUsername" class="col-sm-2 col-form-label">Usuario</label>
