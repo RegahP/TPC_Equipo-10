@@ -18,13 +18,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
-<body style="background-image: url(https://st4.depositphotos.com/2866075/26868/i/450/depositphotos_268682238-stock-photo-stained-old-brown-paper-texture.jpg); background-position: center; background-size: cover;">
+<body style="background-image: url(https://st4.depositphotos.com/2866075/26868/i/450/depositphotos_268682238-stock-photo-stained-old-brown-paper-texture.jpg); background-position:center; background-size:cover; background-attachment: fixed">
     <form id="form1" runat="server">
         <div>
-            <% if (this.Page.Request.FilePath != "/Default.aspx" && this.Page.Request.FilePath != "/Login.aspx" && this.Page.Request.FilePath != "/Register.aspx")
+            <% if (this.Page.Request.FilePath != "/Default.aspx" && this.Page.Request.FilePath != "/Login.aspx" && this.Page.Request.FilePath != "/Register.aspx" && this.Page.Request.FilePath != "/Game.aspx")
                 { %>
-            <header>
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <header style="padding-bottom: 60px">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="/MainMenu.aspx">Chambers & Wyverns</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,12 +43,13 @@
                                         <a class="nav-link" href="/Docs.aspx">Documentación</a>
                                     </li>
                                 </ul>
-                            </form>   
+                            </form>
                         </div>
-                        <a style="display:flex; justify-content:right" class="nav-link" href="/Default.aspx">Cerrar Sesión</a>
+                        <a style="display: flex; justify-content: right" class="nav-link" href="/Default.aspx">Cerrar Sesión</a>
                     </div>
                 </nav>
             </header>
+
             <% } %>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>

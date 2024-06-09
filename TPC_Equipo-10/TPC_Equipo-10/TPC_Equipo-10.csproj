@@ -70,11 +70,20 @@
     <Content Include="Characters.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Docs.aspx" />
+    <Content Include="Game.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="MainMenu.aspx" />
     <Content Include="Play.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="Scripts\ajaxread.js" />
+    <Content Include="Scripts\ajaxwrite.js" />
+    <Content Include="Scripts\combat.js" />
+    <Content Include="Scripts\cutscenes.js" />
+    <Content Include="Scripts\domainmodel.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\store.js" />
+    <Content Include="Scripts\town.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +107,13 @@
     </Compile>
     <Compile Include="Docs.aspx.designer.cs">
       <DependentUpon>Docs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Game.aspx.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -152,6 +168,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainModel\DomainModel.csproj">
+      <Project>{ed870c48-1e0e-4561-bdda-1f2cf734947a}</Project>
+      <Name>DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

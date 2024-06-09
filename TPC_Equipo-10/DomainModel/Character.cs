@@ -10,7 +10,8 @@ namespace DomainModel
 {
     public class Character
     {
-        public int Id { get; } //id (db)
+        public int id { get; } //id (db)
+        public bool sex { get; } //sex
         public Race race { get; } //race
         public Class chrClass { get; } //class
         public Background bg { get; } //background
@@ -18,6 +19,11 @@ namespace DomainModel
         public int level { get; set; } //level
         public int xp { get; set; } //experience
         public int prof { get; set; } //proficiency
+        public int luck { get; set; } //luck streak from consecutive encounters
+        public int round { get; set; } //current round of combat
+        public int encounters { get; set; } //amount of encounters since playing
+        public int gameState { get; set; } //last gamestate recorded; 0=intro 1=combat 2=endcombat 3=town 4=store 5=rest
+        public bool playing { get; set; } //is currently alive and playing
 
         public int armor { get; set; } //armor class
         public int maxHealth { get; set; } //maximum health

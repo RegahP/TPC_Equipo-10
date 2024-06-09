@@ -1,0 +1,6 @@
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\bin\Debug\DomainModel.dll
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\bin\Debug\DomainModel.pdb
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.csproj.AssemblyReference.cache
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileInputs.cache
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.dll
+C:\Users\andre\OneDrive\Documentos\PROG3\Repositorios\TPC Chambers & Wyverns\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.pdb

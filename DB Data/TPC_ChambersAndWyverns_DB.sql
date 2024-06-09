@@ -15,14 +15,17 @@ create table Characters(
     ID_Character int not null primary key identity,
     ID_User int not null,
 
+    Sex bit not null,
     ID_Race int not null,
     ID_Class int not null,
     ID_Background int not null,
 
     _Name nvarchar(50) not null,
     _Level int not null,        --1
-    Experience int not null,    --no se va a mostrar
+    Experience int not null,    --0
     Proficiency int not null,   --2
+    Luck int not null,          --0
+    combatCount int not null,   --0
 
     ArmorClass int not null,    --10 + RA.Modifier where RA.ID = 1 (DEX)
     MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
@@ -147,7 +150,8 @@ create table Creatures(
 
 create table CreaturesXEncounter(
     ID_Creature int not null,
-    CurrentHealth int not null
+    CurrentHealth int not null,
+    GoldDrop int not null
 )
 
 create table ItemsXCreature(
