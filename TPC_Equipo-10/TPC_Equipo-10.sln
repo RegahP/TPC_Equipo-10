@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TPC_Equipo-10", "TPC_Equipo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DomainModel", "DomainModel\DomainModel.csproj", "{ED870C48-1E0E-4561-BDDA-1F2CF734947A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBAccess", "..\..\..\..\UTN 5to CUATRIMESTRE\Programación III\TP Final\Modificaciones\Mod 3\TPC_Equipo-10\TPC_Equipo-10\DBAccess\DBAccess.csproj", "{0112D6DC-BF7E-4609-B581-7A275A2AC476}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ED870C48-1E0E-4561-BDDA-1F2CF734947A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED870C48-1E0E-4561-BDDA-1F2CF734947A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED870C48-1E0E-4561-BDDA-1F2CF734947A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0112D6DC-BF7E-4609-B581-7A275A2AC476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0112D6DC-BF7E-4609-B581-7A275A2AC476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0112D6DC-BF7E-4609-B581-7A275A2AC476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0112D6DC-BF7E-4609-B581-7A275A2AC476}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
