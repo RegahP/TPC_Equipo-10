@@ -175,3 +175,57 @@ create table ItemsXCreature(
 
 --stored procedures para la creacion de toda la db (races, classes, backgrounds, abilities, skills, items)
 --stored procedures para el uso recurrente de inserciones (a usuarios, a characters, a items x character)
+
+CREATE PROCEDURE InsertItem
+    @Name NVARCHAR(50),
+    @Description TEXT,
+    @ItemType INT,
+    @Price INT,
+    -- Para Consumibles
+    @Effect INT,
+    @Amount INT,
+    -- Para Equippables
+    @EquippableType INT,
+    -- Para Weapons
+    @DamageType INT,
+    @WeaponAbility INT,
+    @Damage INT,
+    -- Para Armors
+    @ResistanceType INT,
+    @Armor INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @NewItemID INT;
+
+    -- Insertar en la tabla Items y obtener el ID del nuevo ítem
+    INSERT INTO Items (_Name, _Desc, ItemType, Price)
+    VALUES (@Name, @Description, @ItemType, @Price);
+
+    -- Obtener el ID del nuevo ítem insertado
+    SET @NewItemID = SCOPE_IDENTITY();
+
+    -- Insertar en las tablas correspondientes según el tipo de ítem
+    IF @ItemType = 1 -- Equippable
+    BEGIN
+        INSERT INTO Equippables (ID_Item, EquippableType)
+        VALUES (@NewItemID, @EquippableType);
+
+        IF @EquippableType = 0 -- Weapon
+        BEGIN
+            INSERT INTO Weapons (ID_Item, ID_DamageType, ID_Ability, Damage)
+            VALUES (@NewItemID, @DamageType, @WeaponAbility, @Damage);
+        END
+        ELSE IF @EquippableType = 1 -- Armor
+        BEGIN
+            INSERT INTO Armors (ID_Item, ID_ResistanceType, Armor)
+            VALUES (@NewItemID, @ResistanceType, @Armor);
+        END
+    END
+    ELSE IF @ItemType = 2 -- Consumable
+    BEGIN
+        INSERT INTO Consumables (ID_Item, ID_Effect, Amount)
+        VALUES (@NewItemID, @Effect, @Amount);
+    END
+END;

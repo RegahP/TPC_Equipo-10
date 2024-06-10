@@ -1,0 +1,970 @@
+--CARACTERISTICAS
+INSERT INTO Abilities (_Name, _Desc)
+VALUES
+('Fuerza', 'Capacidad física y potencia muscular.'),
+('Destreza', 'Agilidad, coordinación y reflejos.'),
+('Constitución', 'Resistencia y salud general.'),
+('Inteligencia', 'Capacidad lógica y conocimiento.'),
+('Sabiduría', 'Percepción y juicio intuitivo.'),
+('Carisma', 'Influencia y atractivo personal.');
+select * from Abilities;
+
+ --HABILIDADES
+ INSERT INTO Skills(_Name, _Desc, ID_Ability)
+VALUES
+('Acrobacias', 'Agilidad y coordinación en movimientos acrobáticos', 2),
+('Atletismo', 'Habilidad física para realizar acciones atléticas como saltar, trepar o nadar', 1),
+('Intimidación', 'Capacidad para infundir miedo o respeto en otros', 6),
+('Investigación', 'Habilidad para examinar y analizar información', 4),
+('Percepción', 'Capacidad para observar y detectar detalles sutiles', 5),
+('Persuasión', 'Capacidad para influir en los demás y convencerlos', 6),
+('Sigilo', 'Habilidad para moverse sin ser detectado', 2),
+('Supervivencia', 'Habilidad para sobrevivir en condiciones adversas', 5);
+select * from Skills
+
+--RAZAS
+ INSERT INTO Races(_Name, _Desc, ID_Ability)
+VALUES 
+--Humano
+('Humano', 
+ 'En el cómputo de la mayoría de los mundos, los humanos son la más joven de las razas comunes, con una llegada tardía al mundo y una vida corta en comparación con los enanos, elfos, y dragones. Quizás es por su corta vida que se esfuerzan en conseguir tanto como pueden en los años que se les han dado. O quizás sienten que tienen algo que demostrar a las razas más antiguas, y es por eso que construyen poderosos imperios basados en la conquista y el comercio. Sea lo que sea lo que les motiva, los humanos son los innovadores, los pioneros y los triunfadores de los mundos.', 
+ 4),
+--Elfo
+('Elfo', 
+ 'Los elfos son un pueblo mágico de gracia sobrenatural, viviendo en el mundo sin ser del todo parte de él. Viven en lugares de etérea belleza, en medio de antiguos bosques o en plateados minaretes que resplandecen con luz feérica, donde una suave música flota en el aire y delicadas fragancias son transportadas por la brisa. Los elfos aman la naturaleza y la magia, el arte y la maestría, la música y la poesía, y las cosas buenas del mundo.', 
+ 5),
+--Mediano
+('Mediano', 
+ 'Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos; un buen fuego y una comida generosa; buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo.', 
+ 2),
+--Dracónido
+('Dracónido', 
+ 'Nacido de los dragones, como su nombre proclama, el dracónido camina orgulloso a través de un mundo que le recibe lleno de miedo e incomprensión. Modelado por los dioses dracónidos o por los dragones mismos, el dracónido originalmente nacía de huevos de dragón como una raza única, combinando los mejores atributos de los dragones y los humanoides. Algunos dracónidos son fieles sirvientes de los verdaderos dragones, otros forman parte de ejércitos en grandes guerras e incluso otros se encuentran a la deriva, sin una visión clara de la vida.', 
+ 1),
+--Enano
+('Enano', 
+ 'Reinos ricos en antiguo esplendor, salas esculpidas en las raíces de las montañas, picos y martillos haciéndose eco en profundas minas y ardientes forjas, un compromiso con el clan y las tradiciones y un odio ardiente hacia orcos y goblins estos temas comunes unen a todos los enanos.', 
+ 3),
+--Tiflin
+('Tiflin', 
+ 'Ser recibido con miradas y susurros, sufrir violencia e insultos en la calle, ver la desconfianza y el miedo en todos los ojos: este es el destino de los tiflin. Y para retorcer el puñal, los tiflin saben que esto es a causa de un pacto sellado hace generaciones que infundió la esencia de Asmodeo, señor supremo de los Nueve Infiernos, en su linaje. Su apariencia y su naturaleza no tienen más culpa que el resultado de un antiguo pecado, por el que ellos y sus hijos, y los hijos de sus hijos, siempre se considerarán responsables.', 
+ 6);
+select * from Races;
+
+
+--CLASES
+INSERT INTO Classes(_Name, _Desc, ClassHealth, SpecialName, SpecialDesc)
+VALUES 
+--Guerrero
+('Guerrero', 
+ 'Héroes maestros de armas y armaduras, conocedores del combate. Incluyen caballeros, mercenarios y soldados de élite.', 
+ 10, 
+ 'Cobertura Impenetrable', 
+ '“Comprimes tu cuerpo, dedicas toda tu atención a los movimientos del enemigo, cubres cualquier apertura”. Durante 4 rondas, tu armadura aumenta en 2.'
+),
+--Mago
+('Mago', 
+ 'Practicantes supremos de la magia, lanzan hechizos explosivos, engaños sutiles y control mental. Invocan monstruos, vislumbran el futuro y transforman sustancias.', 
+ 6, 
+ 'Lluvia de meteoritos', 
+ '“Orbes de fuego en llamas caen en picado sobre la tierra en un estallido abrasador que arrasa con lo que sea que se encuentre en su camino”. La tirada de ataque es automáticamente exitosa y el daño es triplicado.'
+),
+--Paladín
+('Paladín', 
+ 'Guerreros devotos unidos por juramentos para luchar contra el mal. Sean cuales sean sus orígenes, sus juramentos los convierten en campeones bendecidos.', 
+ 12, 
+ 'Palabra Sagrada', 
+ '“Aunque estés sumido en un peligro indescriptible, aunque tus opciones se vean cada vez más acotadas, la fe en tu dios jamás temblará. Miras al cielo, alzas los brazos entregándote a él, y en respuesta una luz sagrada baña tu cuerpo, sanándolo”. Te curas 1/2 de tu vida máxima.'
+),
+
+-- Pícaro
+('Pícaro', 
+ 'Maestros del sigilo y las habilidades, confían en las vulnerabilidades de sus oponentes para sacar ventaja. Ingeniosos y versátiles, son la piedra angular de cualquier grupo de aventureros.', 
+ 8, 
+ 'Talón de Aquiles', 
+ '“Antes de que tu oponente siquiera note tus intenciones, en un impulso de adrenalina sales disparado hacia él, confundiéndolo con fintas, desviando sus golpes con gracia hasta que encuentras una apertura vital donde arremeter con todas tus fuerzas”. La tirada de ataque es automáticamente exitosa, haces el daño de tu arma y adicionalmente provocas una hemorragia en el enemigo hasta el final del combate que hace 2 de daño cada ronda.'
+);
+select * from Classes;
+
+--Background
+INSERT INTO Backgrounds(_Name, _Desc, ID_Ability1, ID_Ability2, InitialGold)
+VALUES 
+--Artesano
+ ('Artesano', 
+ 'Eres miembro de un gremio de artesanos, especializado en un campo particular y cercanamente asociado con otros artesanos. Eres una parte bien establecida del mundo mercantil, liberado por tu talento y riqueza de las limitaciones de la sociedad feudal. Aprendiste tus habilidades como aprendiz de un maestro, bajo el patrocinio de tu gremio, hasta que te convertiste en un maestro por tus propios medios.', 
+ 6, 
+ 4, 
+ 20),
+--Criminal
+ ('Criminal', 
+ 'Eres un criminal experimentado con un historial delictivo. Has pasado mucho tiempo entre criminales y todavía tienes contactos dentro del mundo criminal. Estas mucho más cerca que la mayoría de la gente del mundo del asesinato, el robo y la violencia que prevalece en los barrios bajos de la civilización y has sobrevivido hasta ahora gracias a burlarte de las reglas y reglamentos de la sociedad.', 
+ 3, 
+ 7, 
+ 10),
+--Ermitaño
+ ('Ermitaño', 
+ 'Vivías en la reclusión, ya sea en una comunidad resguardada como un monasterio o completamente solo por una parte importante de tu vida. Durante el tiempo que pasaste lejos del clamor de la sociedad, encontraste quietud, soledad, y quizá alguna de las respuestas que buscabas.', 
+ 8, 
+ 5, 
+ 10),
+--Forastero
+ ('Forastero', 
+ 'Creciste en las tierras salvajes, lejos de la civilización y del confort de la ciudad y la tecnología. Has sido testigo de la migración de rebaños grandes como bosques enteros, has sobrevivido a un clima más extremo que el que cualquier habitante de la ciudad haya podido padecer. Llevas las tierras salvajes en la sangre, fueras un nómada, un explorador, un eremita, un cazador-recolector o incluso un saqueador. Incluso en lugares donde no conozcas las características específicas del terreno, comprendes las formas de lo salvaje.', 
+ 2, 
+ 8, 
+ 5),
+-- Héroe del Pueblo
+('Héroe del Pueblo', 
+ 'Vienes de una clase social humilde, pero estás destinado para mucho más. Ya la gente de tu pueblo natal te considera como su campeón, y tú destino te llama a estar en contra de los tiranos y los monstruos que amenazan a la gente común en todas partes.', 
+ 6, 
+ 2, 
+ 15),
+-- Marinero 
+('Marinero', 
+ 'Navegaste en una nave marítima por años. En ese tiempo, enfrentaste exitosamente poderosas tormentas, monstruos de las profundidades y a aquellos que quisieron hundir tu trabajo en las infinitas profundidades. Tu primer amor es la lejana línea del horizonte, pero el tiempo llegó para probarte en algo nuevo.', 
+ 8, 
+ 5, 
+ 15),
+--Soldado
+ ('Soldado', 
+ 'La guerra ha sido tu vida desde que puedes recordar. Fuiste entrenado en tu juventud en el estudio del uso de las armas y armaduras y aprendiste las técnicas básicas de supervivencia, incluida la forma de mantenerte con vida en el campo de batalla. Es posible que hayas sido parte de un ejército nacional permanente o de una compañía de mercenarios, o tal vez miembro de una milicia local que saltó a la fama durante una guerra reciente.', 
+ 3, 
+ 1, 
+ 10);
+select * from Backgrounds;
+
+--Tipo de daño
+INSERT INTO DamageTypes(_Name)
+VALUES
+('Cortante'),
+('Contundente'),
+('Perforante'),
+('Hielo'),
+('Fuego'),
+('Electricidad');
+
+--INSERT ARMAS--
+EXEC InsertItem
+    @Name = 'Hacha de mano',
+    @Description = 'Un arma pequeña y versátil, utilizada para ataques cuerpo a cuerpo o arrojadizos. Tiene una hoja afilada montada en un mango corto.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Espada larga',
+    @Description = 'Tiene una hoja recta y afilada de buena longitud, ideal para ataques de corte y estocadas. Se maneja con una o dos manos, ofreciendo un equilibrio entre velocidad y potencia.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Alabarda',
+    @Description = 'Un arma de asta larga y pesada. Tiene una hoja de hacha combinada con una punta de lanza, permitiendo ataques de cortes profundos. Su longitud proporciona alcance adicional en combate cuerpo a cuerpo.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 75,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 5;
+
+EXEC InsertItem
+    @Name = 'Espadón',
+    @Description = 'Grande y poderosa. Tiene una hoja larga y pesada diseñada para ataques devastadores. Se maneja con dos manos, sacrificando velocidad por máxima potencia y alcance en el combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Hacha de Batalla',
+    @Description = 'Un arma robusta y poderosa. Tiene una hoja pesada montada en un mango largo, ideal para infligir golpes letales. Puede manejarse con una o dos manos, equilibrando versatilidad y potencia en el combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Gran Hacha',
+    @Description = 'Tiene una hoja ancha y pesada montada en un largo mango, diseñada para ataques poderosos. Se maneja con dos manos, ofreciendo máxima potencia a costa de velocidad.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Gran Clava',
+    @Description = 'Consiste en un grueso bastón de madera o metal, a menudo con puntas o protuberancias. Ideal para aplastar enemigos con fuerza bruta.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Maza',
+    @Description = 'Compacta y contundente. Tiene una cabeza pesada, a menudo con picos o protuberancias, montada en un mango corto.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Honda',
+    @Description = 'Es un arma a distancia simple y efectiva. Consiste en una correa de cuero o tela con una bolsa en el centro, usada para lanzar proyectiles como piedras.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Martillo de Guerra',
+    @Description = 'Tiene una cabeza grande y pesada, generalmente con una forma de prisma o cónica, montada en un mango corto. Se maneja con una o dos manos, ideal para golpear y destrozar la armadura de los enemigos.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Mayal',
+    @Description = 'Consiste en una bola de metal con picos, unida a un mango mediante una cadena o cordón, permitiendo golpes devastadores que pueden atravesar la armadura y causar daño grave a los enemigos.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Jabalina',
+    @Description = 'Una vara larga con una punta afilada en un extremo y un equilibrio adecuado para el vuelo estable. Es liviana y fácil de transportar, pero requiere habilidad para ser precisa en el combate a distancia.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Lanza de Caballería',
+    @Description = 'Tiene una hoja larga y afilada montada en un mango resistente. Ofrece alcance adicional y potencia en el combate, pero puede ser difícil de maniobrar en espacios cerrados.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Lucero del Alba',
+    @Description = 'Una bola de metal con puntas afiladas, montada en un mango corto y resistente. Se maneja con una o dos manos y es especialmente efectiva contra enemigos con armadura. Su diseño único permite golpear con fuerza concentrada.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Pica de Guerra',
+    @Description = 'Diseñada para enfrentamientos en formación y defensa de posiciones. Tiene una punta larga y afilada montada en un asta robusta y larga. Es ideal para detener cargas de caballería y proteger líneas de combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 75,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 5;
+
+EXEC InsertItem
+    @Name = 'Tridente',
+    @Description = 'Versátil y efectiva. Consiste en tres puntas afiladas montadas en un mango largo. Ofrece una combinación de ataques de estocada y corte.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+------------------
+
+EXEC InsertItem
+    @Name = 'Hoz',
+    @Description = 'Conformada por una hoja curva montada en un mango corto. Es conocida por su capacidad para realizar ataques de corte y barrido, haciéndola efectiva en combates cercanos. Además de ser un arma, la hoz también se utiliza en tareas agrícolas, lo que la convierte en una opción versátil tanto en la granja como en el campo de batalla.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Cimitarra',
+    @Description = 'Una hoja curva y afilada, similar a un sable. Es especialmente efectiva para realizar ataques de corte rápidos y precisos. Se maneja con una mano y es popular entre los guerreros ágiles y veloces. La forma curva de la hoja permite realizar ataques versátiles y fluidos en combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Espada Corta',
+    @Description = 'Tiene una hoja recta y afilada de longitud media, ideal para ataques rápidos y precisos en espacios reducidos. La espada corta es popular entre los aventureros que prefieren la movilidad y la rapidez en el combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Látigo',
+    @Description = 'Es un arma flexible y versátil que se utiliza para ataques a distancia y para restringir movimientos. Consiste en una tira larga de cuero o cuerda con un mango en un extremo. Es ideal para incapacitar a los oponentes, así como para realizar ataques a distancia en combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 1, -- Cortante
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Golpe Desarmado',
+    @Description = 'Puede ser efectuado con los puños, los codos, las rodillas u otras partes del cuerpo.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 5,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 1;
+
+EXEC InsertItem
+    @Name = 'Martillo Ligero',
+    @Description = 'Tiene una cabeza pequeña y un mango corto, lo que lo hace ideal para ataques rápidos y precisos. Aunque menos poderoso que un martillo de guerra, su ligereza permite al usuario ser más ágil en combate.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Clava',
+    @Description = 'Simple pero efectiva. Consiste en un palo pesado y contundente, generalmente hecho de madera o metal, con un extremo diseñado para golpear.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 2, -- Contundente
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Daga',
+    @Description = 'Tiene una hoja corta y afilada, ideal para ataques rápidos y precisos en combate cercano. Es fácil de ocultar y útil para realizar ataques sigilosos.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Lanza',
+    @Description = 'Una vara larga con una punta afilada en un extremo, ideal para realizar ataques de estocada desde la distancia. Es popular entre guerreros y cazadores que necesitan un arma versátil que pueda ser utilizada tanto en combate a distancia como en combate cuerpo a cuerpo.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+	EXEC InsertItem
+    @Name = 'Arco Corto',
+    @Description = 'Un arco más pequeño que el largo, lo que lo hace más manejable en espacios reducidos o en movimiento rápido. Es ideal para ataques precisos a corta y mediana distancia. Es la elección de los arqueros que valoran la movilidad y la rapidez en el combate, ya que les permite disparar con facilidad mientras se desplazan por el campo de batalla.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 30,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 3;
+
+EXEC InsertItem
+    @Name = 'Ballesta Ligera',
+    @Description = 'Se compone de un arco montado sobre un asta, con un mecanismo de tensión que permite disparar proyectiles con gran fuerza y precisión. Es más fácil de manejar que una ballesta pesada y puede dispararse con una sola mano, lo que la hace ideal para combate rápido y táctico.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 4;
+	
+EXEC InsertItem
+    @Name = 'Estoque',
+    @Description = 'Su hoja larga y estrecha facilita la penetración de la armadura y la realización de ataques precisos. Es especialmente efectivo en combate uno a uno, donde puede aprovechar su agilidad y velocidad para superar las defensas del oponente.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Arco Largo',
+    @Description = 'Con una estructura más larga y un mayor poder de tensión que un arco corto, el arco largo es ideal para disparos de largo alcance y ataques poderosos.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Ballesta Pesada',
+    @Description = 'Se compone de un arco montado sobre un asta más gruesa y resistente, con un mecanismo de tensión que permite disparar proyectiles con gran fuerza y precisión. A diferencia de la ballesta ligera, la ballesta pesada requiere más tiempo para cargar y apuntar, pero compensa con un mayor poder de penetración y alcance.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 75, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 3, -- Perforante
+    @WeaponAbility = 1,
+    @Damage = 5;
+
+-----------
+EXEC InsertItem
+    @Name = 'Varita de Hielo',
+    @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de hielo.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 4, -- Hielo
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Bastón Gélido',
+    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una fría sensación de calma.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 4, -- Hielo
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Báculo de las Nieves',
+    @Description = 'Un objeto mágico poderoso imbuido con el poder del frío y la nieve. Tallado con madera de árboles antiguos de los páramos helados y adornado con cristales de hielo, este bastón canaliza la esencia de los elementos invernales.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 4, -- Hielo
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Cetro Glacial',
+    @Description = 'Forjado a partir de los secretos más profundos del hielo y la magia glacial. Este cetro, hecho de cristal helado y adornado con runas de poder, es una encarnación de la esencia misma del frío y la congelación.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 180,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 4, -- Hielo
+    @WeaponAbility = 1,
+    @Damage = 8;
+
+EXEC InsertItem
+    @Name = 'Varita de Fuego',
+    @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de fuego.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 5, -- Fuego
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Bastón de Fuego',
+    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una cálida sensación de coraje.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50, 
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 5, -- Fuego
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Báculo Flamígero',
+    @Description = 'Un poderoso artefacto mágico imbuido con el poder del fuego y las llamas. Hecho de madera oscura y adornado con gemas rojas resplandecientes, este báculo es una manifestación de la furia elemental del fuego.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 5, -- Fuego
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Cetro Infernal',
+    @Description = 'Este cetro es una manifestación del poder oscuro y abrasador del Infierno, capaz de desencadenar terribles fuerzas infernales sobre los enemigos del portador. Permite lanzar hechizos ardientes y destructivos.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 180,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 5, -- Fuego
+    @WeaponAbility = 1,
+    @Damage = 8;
+
+EXEC InsertItem
+    @Name = 'Varita Eléctrica',
+    @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de electricidad.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 15,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 6, -- Electricidad
+    @WeaponAbility = 1,
+    @Damage = 2;
+
+EXEC InsertItem
+    @Name = 'Bastón Eléctrico',
+    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una chisporroteante sensación de adrenalina.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 50,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 6, -- Electricidad
+    @WeaponAbility = 1,
+    @Damage = 4;
+
+EXEC InsertItem
+    @Name = 'Báculo Paralizante',
+    @Description = 'Imbuido con el poder de la tormenta y la electricidad. Tallado con madera oscura y adornado con relámpagos esculpidos, este báculo es una manifestación del poderío elemental del trueno.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 105,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 6, -- Electricidad
+    @WeaponAbility = 1,
+    @Damage = 6;
+
+EXEC InsertItem
+    @Name = 'Cetro de las Tormentas',
+    @Description = 'Creado a partir de la esencia misma de la electricidad y la fuerza de las tormentas. Este cetro, adornado con relámpagos danzantes y grabados de nubes tormentosas, es una encarnación del poderío elemental del trueno y el relámpago. Permite a su portador lanzar hechizos de electricidad devastadores.',
+    @ItemType = 1, -- Tipo 1 para Equippable
+    @Price = 180,
+    @EquippableType = 0, -- Tipo 0 para armas
+    @DamageType = 6, -- Electricidad
+    @WeaponAbility = 1,
+    @Damage = 8;
+
+
+--PROTECCIONES
+--ARMOR
+EXEC InsertItem
+    @Name = 'Vestimentas comunes',
+    @Description = 'Ropajes iniciales de la aventura.',
+    @ItemType = 1, -- Equippable
+    @Price = 0,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 0,
+    @Armor = 0;
+
+EXEC InsertItem
+    @Name = 'Acolchada',
+    @Description = 'Una vestimenta protectora ligera y flexible, compuesta por capas de tela acolchada o cuero endurecido.',
+    @ItemType = 1, -- Equippable
+    @Price = 5,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 1,
+    @Armor = 1;
+
+EXEC InsertItem
+    @Name = 'Cuero',
+    @Description = 'Es una protección ligera y flexible hecha de cuero curtido y endurecido.',
+    @ItemType = 1, -- Equippable
+    @Price = 5,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 0, -- Cortante
+    @Armor = 1;
+
+EXEC InsertItem
+    @Name = 'Cuero Tachonado',
+    @Description = 'Una mejora de la armadura de cuero básica. Está reforzada con pequeñas placas de metal, generalmente remachadas en el cuero para aumentar su resistencia.',
+    @ItemType = 1, -- Equippable
+    @Price = 15,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 2, -- Perforante
+    @Armor = 2;
+
+EXEC InsertItem
+    @Name = 'Pieles',
+    @Description = 'Hecha de pieles de animales curtidas y tratadas. Aunque ofrece una protección limitada en comparación con las armaduras metálicas, es ligera, flexible y proporciona cierto grado de resistencia contra ataques físicos y climáticos.',
+    @ItemType = 1, -- Equippable
+    @Price = 15,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 1, -- Contundente
+    @Armor = 2;
+
+EXEC InsertItem
+    @Name = 'Camisote de mallas',
+    @Description = 'Protección intermedia hecha de anillos de metal entrelazados. Ofrece una mayor defensa que las armaduras de cuero, pero sin el peso ni la rigidez de las armaduras de placas completas.',
+    @ItemType = 1, -- Equippable
+    @Price = 30,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 3, -- Cortante
+    @Armor = 3;
+
+EXEC InsertItem
+    @Name = 'Cota de escamas',
+    @Description = 'Compuesta por pequeñas placas de metal o material duro cosidas sobre una base de cuero o tela. Las escamas se superponen como las de un pez, proporcionando una defensa sólida contra ataques de corte y perforación.',
+    @ItemType = 1, -- Equippable
+    @Price = 50,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 2, -- Perforante
+    @Armor = 4;
+
+EXEC InsertItem
+    @Name = 'Coraza',
+    @Description = 'Cubre el torso y la parte superior del cuerpo. Generalmente está hecha de metal, forjada en una sola pieza para proporcionar la máxima protección contra ataques físicos.',
+    @ItemType = 1, -- Equippable
+    @Price = 50,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 1, -- Contundente
+    @Armor = 4;
+
+EXEC InsertItem
+    @Name = 'Semiplacas',
+    @Description = 'Es una versión mejorada de la coraza, que combina la protección de las placas con la flexibilidad de la malla. Está compuesta por una mezcla de placas de metal y malla, lo que proporciona una defensa sólida sin sacrificar demasiada movilidad.',
+    @ItemType = 1, -- Equippable
+    @Price = 75,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 2, -- Perforante
+    @Armor = 5;
+
+EXEC InsertItem
+    @Name = 'Cota de anillas',
+    @Description = 'Compuesta por anillos de metal unidos entre sí para formar una malla flexible. Aunque no ofrece la misma protección que las armaduras más pesadas, como la cota de mallas o la armadura de placas, la cota de anillas es más ligera y permite una mayor movilidad.',
+    @ItemType = 1, -- Equippable
+    @Price = 75,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 3, -- Cortante
+    @Armor = 5;
+
+EXEC InsertItem
+    @Name = 'Cota de mallas',
+    @Description = 'Es una variante mejorada de la cota de anillas, reforzada con más anillos de metal y una construcción más resistente. Esta armadura proporciona una protección mejorada contra ataques de corte y perforación, mientras aún permite una cantidad razonable de movilidad.',
+    @ItemType = 1, -- Equippable
+    @Price = 105,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 2, -- Perforante
+    @Armor = 6;
+
+EXEC InsertItem
+    @Name = 'Bandas',
+    @Description = 'Está compuesta por tiras anchas de metal entrecruzadas y cosidas sobre una base de cuero o tela robusta. Esta armadura proporciona una defensa sólida contra golpes y cortes.',
+    @ItemType = 1, -- Equippable
+    @Price = 140,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 3, -- Cortante
+    @Armor = 7;
+
+EXEC InsertItem
+    @Name = 'Placas',
+    @Description = 'Es una protección pesada y robusta compuesta por placas de metal articuladas o laminadas que cubren gran parte del cuerpo. Esta armadura ofrece una defensa superior contra una amplia variedad de ataques, incluidos los golpes contundentes y los cortes.',
+    @ItemType = 1, -- Equippable
+    @Price = 180,
+    @EquippableType = 1, -- Armor
+    @ResistanceType = 1, -- Contundente
+    @Armor = 8;
+
+--SHIELD
+EXEC InsertItem
+    @Name = 'Rodela',
+    @Description = 'Pequeño escudo redondo, generalmente de metal o madera, que se sujeta al antebrazo con correas.',
+    @ItemType = 1, -- Equippable
+    @Price = 5,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 3, -- Cortante
+    @Armor = 1;
+
+EXEC InsertItem
+    @Name = 'Rondache',
+    @Description = 'Ligero, similar a una rodela, pero apenas más robusto. Hecho de madera o metal.',
+    @ItemType = 1, -- Equippable
+    @Price = 5,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 3, -- Cortante
+    @Armor = 1;
+
+EXEC InsertItem
+    @Name = 'Escudo de madera reforzada',
+    @Description = 'Un escudo hecho principalmente de madera, pero con refuerzos de metal o cuero para aumentar su durabilidad y capacidad de defensa.',
+    @ItemType = 1, -- Equippable
+    @Price = 5,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 1, -- Contundente
+    @Armor = 1;
+
+EXEC InsertItem
+    @Name = 'Escudo con correa',
+    @Description = 'Especialmente diseñado para ser utilizado sin necesidad de sostenerlo directamente con la mano. Este escudo se asegura al brazo del portador mediante correas y hebillas, lo que permite al usuario mantener ambas manos libres para otras tareas.',
+    @ItemType = 1, -- Equippable
+    @Price = 15,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 2, -- Perforante
+    @Armor = 2;
+
+EXEC InsertItem
+    @Name = 'Escudo de Pieles',
+    @Description = 'Está compuesto por capas gruesas de pieles curtidas y tratadas, reforzadas con tiras de cuero endurecido o placas de metal para aumentar su durabilidad y capacidad de defensa.',
+    @ItemType = 1, -- Equippable
+    @Price = 15,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 1, -- Contundente
+    @Armor = 2;
+
+EXEC InsertItem
+    @Name = 'Robaespadas',
+    @Description = 'Además de ofrecer protección estándar, este escudo tiene protuberancias, ganchos o ranuras que pueden atrapar las hojas de las espadas enemigas, logrando una disminución en la potencia del impacto de los enemigos.',
+    @ItemType = 1, -- Equippable
+    @Price = 15,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 3, -- Cortante
+    @Armor = 2;
+
+EXEC InsertItem
+    @Name = 'Fortaleza',
+    @Description = 'Grande y robusto, diseñado para proporcionar una defensa excepcional en combate. Este escudo es más grande y más pesado que los escudos estándar, a menudo cubriendo una mayor parte del cuerpo del portador.',
+    @ItemType = 1, -- Equippable
+    @Price = 30,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 2, -- Perforante
+    @Armor = 3;
+
+EXEC InsertItem
+    @Name = 'Escudo Salvo',
+    @Description = 'Escudo único diseñado para proporcionar una defensa móvil y versátil en combate. Este escudo tiene una característica especial que le permite lanzar pequeños proyectiles defensivos, como dardos o flechas, para deflectar los ataques antes de que impacten.',
+    @ItemType = 1, -- Equippable
+    @Price = 30,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 2, -- Perforante
+    @Armor = 3;
+
+EXEC InsertItem
+    @Name = 'Escudo de acero reforzado',
+    @Description = 'Un escudo pesado y resistente hecho principalmente de acero, con refuerzos adicionales para aumentar su durabilidad y capacidad defensiva.',
+    @ItemType = 1, -- Equippable
+    @Price = 30,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 3, -- Cortante
+    @Armor = 3;
+
+EXEC InsertItem
+    @Name = 'Escudo Meteoro',
+    @Description = 'Excepcionalmente resistente y poderoso, a menudo considerado un artefacto o una creación mágica. Se dice que está forjado con metales raros y materiales de meteoritos, lo que le otorga propiedades únicas y una increíble durabilidad.',
+    @ItemType = 1, -- Equippable
+    @Price = 50,
+    @EquippableType = 2, -- Shield
+    @ResistanceType = 1, -- Contundente
+    @Armor = 4;
+
+--CONSUMIBLES
+
+-- CURACIÓN
+EXEC InsertItem
+    @Name = 'Poción de curación',
+    @Description = 'Restaura una cantidad pequeña de puntos de golpe al usuario. Es una herramienta común para recuperarse durante o después de una batalla.',
+    @ItemType = 2, -- Consumable
+    @Price = 13,
+    @Effect = 0, -- Curación
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de curación mayor',
+    @Description = 'Una versión más potente de la poción básica. Al ser consumida, proporciona una cantidad considerablemente mayor de puntos de golpe al usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 28,
+    @Effect = 0, -- Curación
+    @Amount = 14;
+
+EXEC InsertItem
+    @Name = 'Poción de curación superior',
+    @Description = 'Una versión aún más poderosa de la poción de curación mayor. Al ser consumida, restaura una cantidad significativa de puntos de golpe.',
+    @ItemType = 2, -- Consumable
+    @Price = 60,
+    @Effect = 0, -- Curación
+    @Amount = 32;
+
+EXEC InsertItem
+    @Name = 'Poción de curación suprema',
+    @Description = 'Es la forma más poderosa de poción de curación disponible. Al consumirla, proporciona una cantidad extraordinaria de puntos de golpe, lo que la convierte en un recurso invaluable en situaciones críticas donde la supervivencia está en juego.',
+    @ItemType = 2, -- Consumable
+    @Price = 128,
+    @Effect = 0, -- Curación
+    @Amount = 72;
+	
+--BUFF
+EXEC InsertItem
+    @Name = 'Poción de Fuerza menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la fuerza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 1, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Fuerza media',
+    @Description = 'Una versión más potente de la poción de fuerza menor. Al ser consumida, proporciona un aumento moderado en la fuerza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 1, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Fuerza superior',
+    @Description = 'Una versión aún más potente de la poción de fuerza media. Al ser consumida, otorga un aumento significativo en la fuerza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 1, -- Buff
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de Destreza menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la destreza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 2, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Destreza media',
+    @Description = 'Una versión más potente de la poción de destreza menor. Al ser consumida, proporciona un aumento moderado en la destreza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 2, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Destreza superior',
+    @Description = 'Una versión aún más potente de la poción de destreza media. Al ser consumida, otorga un aumento significativo en la destreza del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 2, -- Buff
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de Constitución menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la constitución del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 3, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Constitución media',
+    @Description = 'Una versión más potente de la poción de constitución menor. Al ser consumida, proporciona un aumento moderado en la constitución del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 3, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Constitución superior',
+    @Description = 'Una versión aún más potente de la poción de constitución media. Al ser consumida, otorga un aumento significativo en la constitución del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 3, -- Buff
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de Inteligencia menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la inteligencia del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 4, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Inteligencia media',
+    @Description = 'Una versión más potente de la poción de inteligencia menor. Al ser consumida, proporciona un aumento moderado en la inteligencia del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 4, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Inteligencia superior',
+    @Description = 'Una versión aún más potente de la poción de inteligencia media. Al ser consumida, otorga un aumento significativo en la inteligencia del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 4, -- Buff
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de Sabiduría menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la sabiduría del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 5, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Sabiduría media',
+    @Description = 'Una versión más potente de la poción de sabiduría menor. Al ser consumida, proporciona un aumento moderado en la sabiduría del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 5, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Sabiduría superior',
+    @Description = 'Una versión aún más potente de la poción de sabiduría media. Al ser consumida, otorga un aumento significativo en la sabiduría del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 5, -- Buff
+    @Amount = 6;
+
+EXEC InsertItem
+    @Name = 'Poción de Carisma menor',
+    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en el carisma del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 6, -- Buff
+    @Amount = 2;
+
+EXEC InsertItem
+    @Name = 'Poción de Carisma media',
+    @Description = 'Una versión más potente de la poción de carisma menor. Al ser consumida, proporciona un aumento moderado en el carisma del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 6, -- Buff
+    @Amount = 4;
+
+EXEC InsertItem
+    @Name = 'Poción de Carisma superior',
+    @Description = 'Una versión aún más potente de la poción de carisma media. Al ser consumida, otorga un aumento significativo en el carisma del usuario.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 6, -- Buff
+    @Amount = 6;
+
+UPDATE Weapons
+SET ID_Ability = 4
+WHERE ID_Item in (31,32,33,34,35,36,37,38,39,40,41,42);
+
+---Buscador de armas
+SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, A._Name AS Ability, DT._Name AS Damage_Type, I.Price
+FROM Items I
+INNER JOIN Weapons W ON I.ID_Item = W.ID_Item
+INNER JOIN Abilities A  ON W.ID_Ability = A.ID_Ability
+INNER JOIN DamageTypes DT ON W.ID_DamageType = DT.ID_DamageType
