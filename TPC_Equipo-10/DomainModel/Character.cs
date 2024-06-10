@@ -22,8 +22,8 @@ namespace DomainModel
         public int luck { get; set; } //luck streak from consecutive encounters
         public int round { get; set; } //current round of combat
         public int encounters { get; set; } //amount of encounters since playing
-        public int gameState { get; set; } //last gamestate recorded; 0=intro 1=combat 2=endcombat 3=town 4=store 5=rest
-        public bool playing { get; set; } //is currently alive and playing
+        public int gameState { get; set; } //last gamestate recorded
+        //0=intro 1=combat 2=endcombat 3=town 4=store 5=rest 6=die
 
         public int armor { get; set; } //armor class
         public int maxHealth { get; set; } //maximum health

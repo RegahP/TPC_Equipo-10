@@ -17,8 +17,7 @@ async function setup() {
 
 function draw() {
     background(255);
-    if (chr && chr.playing) {
-
+    if (chr) {
         switch (chr.gameState) {
             case 0: //intro
                 drawIntro();

@@ -14,6 +14,7 @@ namespace DomainModel
         public int classHealth { get; }
         public string specialName { get; }
         public string specialDesc { get; }
+        public int abilityID { get; } //ability relevant to this class
 
         //constructor sets nonset properties
     }

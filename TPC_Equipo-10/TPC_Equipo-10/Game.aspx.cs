@@ -30,7 +30,6 @@ namespace TPC_Equipo_10
             //esto iria en el constructor de character, y los datos 
             //pasados como argumentos para el mismo deben venir desde la db
             character.gameState = 0;
-            character.playing = true;
             Debug.Write("Character sent from CodeBehind to AJAX Call succesfully.");
             return character;
         }

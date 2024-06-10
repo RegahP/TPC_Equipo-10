@@ -24,8 +24,12 @@ create table Characters(
     _Level int not null,        --1
     Experience int not null,    --0
     Proficiency int not null,   --2
+    
+    --relacionados a gameplay, importantes para restorar el estado de la partida
     Luck int not null,          --0
-    combatCount int not null,   --0
+    Round int not null,         --0
+    Encounters int not null,    --0
+    GameState int not null,     --0
 
     ArmorClass int not null,    --10 + RA.Modifier where RA.ID = 1 (DEX)
     MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
@@ -48,8 +52,16 @@ create table Classes(
     _Desc text not null,
     ClassHealth int not null,
     SpecialName nvarchar(50) not null,
-    SpecialDesc text not null
+    SpecialDesc text not null,
+    ID_Ability int not null --ability de las armas que prefiere la clase
 )
+
+--a que clase le interesa items que escalean con que abilidades
+--(ej. magos les interesa items que escalean con inteligencia(varitas))
+--warrior = strength
+--mage = intelligence
+--paladin = strength (constitution?)
+--rogue = dexterity
 
 create table Abilities(
     ID_Ability int not null primary key identity,
