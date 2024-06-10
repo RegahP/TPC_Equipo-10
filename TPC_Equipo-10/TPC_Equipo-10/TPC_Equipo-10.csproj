@@ -84,6 +84,8 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\store.js" />
     <Content Include="Scripts\town.js" />
+    <Content Include="Sprites\chr_fx_darkspotlight.png" />
+    <Content Include="Sprites\chr_spritesheet.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

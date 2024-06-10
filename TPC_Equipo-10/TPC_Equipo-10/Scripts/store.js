@@ -1,4 +1,3 @@
 ﻿function drawStore() {
-    textAlign(CENTER, CENTER);
-    text('store', width / 2, height / 2);
+    drawTextCentered('store', centerX, height - 24, 24, 'white')
 }

@@ -1,9 +1,28 @@
-﻿let chr;
+﻿//declaraciones de vars generales
+let chr;
+
+let centerX;
+let centerY;
+
+//todas las imagenes
+let chr_spritesheet;
+let chr_fx_darkspotlight;
+
+//la carga de imagenes se hace en preload, para que el juego arranque
+//solo una vez que se cargaron todas los archivos e imagenes necesarias
+function preload() {
+    chr_spritesheet = loadImage("../Sprites/chr_spritesheet.png");
+    chr_fx_darkspotlight = loadImage("../Sprites/chr_fx_darkspotlight.png");
+}
 
 //setup asincronico para que espere a las ajax calls hasta que terminen antes de avanzar
 async function setup() {
     var canvas = createCanvas(1280, 720);
     canvas.parent("gameCanvas");
+
+    noSmooth();
+    centerX = width / 2;
+    centerY = height / 2;
 
     try {
         chr = await loadCharacter();
@@ -16,7 +35,7 @@ async function setup() {
 }
 
 function draw() {
-    background(255);
+    background(0);
     if (chr) {
         switch (chr.gameState) {
             case 0: //intro
@@ -37,6 +56,9 @@ function draw() {
             case 5: //rest
                 drawRest();
                 break;
+            case 6: //dead
+                drawDead();
+                break;
             default:
                 break;
         }
@@ -50,7 +72,12 @@ function keyPressed() {
                 chr.gameState = 1;
                 break;
             case 1: //combat
-                chr.gameState = 2;
+                if (key === 'q') {
+                    chr.gameState = 6;
+                }
+                else if (key === 'e') {
+                    chr.gameState = 2;
+                }
                 break;
             case 2: //endcombat
                 if (key === 'q') {
@@ -73,6 +100,9 @@ function keyPressed() {
                 break;
             case 5: //rest
                 chr.gameState = 1;
+                break;
+            case 6: //dead
+                chr.gameState = 0;
                 break;
             default:
                 break;

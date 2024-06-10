@@ -27,10 +27,13 @@ namespace TPC_Equipo_10
             //esto seria de la db
             Character character = new Character();
 
-            //esto iria en el constructor de character, y los datos 
-            //pasados como argumentos para el mismo deben venir desde la db
+            //esto iria en el constructor de character, y los datos pasados como argumentos para el mismo deben venir desde la db
+            
+            //temp
             character.gameState = 0;
-            Debug.Write("Character sent from CodeBehind to AJAX Call succesfully.");
+            //temp
+
+            Debug.WriteLine("Character sent from CodeBehind to AJAX Call succesfully.");
             return character;
         }
 
@@ -38,7 +41,7 @@ namespace TPC_Equipo_10
         public static void SaveCharacter(Character character)
         {
             //aca recibimos el character del juego, cuando cambien los datos
-            Debug.Write("Character recieved from AJAX Call to CodeBehind succesfully.");
+            Debug.WriteLine("Character recieved from AJAX Call to CodeBehind succesfully.");
         }
     }
 }

@@ -17,5 +17,15 @@ namespace DomainModel
         public int abilityID { get; } //ability relevant to this class
 
         //constructor sets nonset properties
+
+        public Class()
+        {
+            id = 0;
+            name = string.Empty;
+            desc = string.Empty;
+            classHealth = 0;
+            abilityID = 0;
+        }
     }
+
 }

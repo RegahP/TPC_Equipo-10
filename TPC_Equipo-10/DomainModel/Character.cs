@@ -23,7 +23,7 @@ namespace DomainModel
         public int round { get; set; } //current round of combat
         public int encounters { get; set; } //amount of encounters since playing
         public int gameState { get; set; } //last gamestate recorded
-        //0=intro 1=combat 2=endcombat 3=town 4=store 5=rest 6=die
+        //0=intro 1=combat 2=endcombat 3=town 4=store 5=rest 6=dead
 
         public int armor { get; set; } //armor class
         public int maxHealth { get; set; } //maximum health
@@ -36,5 +36,11 @@ namespace DomainModel
 
         public List<Ability> abilities { get; set; } //abilities (6)
         public List<Skill> skills { get; set; } //skills (8)
+
+        public Character()
+        {
+            race = new Race();
+            chrClass = new Class();
+        }
     }
 }

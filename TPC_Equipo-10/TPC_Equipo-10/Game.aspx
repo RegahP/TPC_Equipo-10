@@ -8,10 +8,10 @@
     </div>
     <script src="Scripts/ajaxread.js"></script>
     <script src="Scripts/ajaxwrite.js"></script>
-    <script src="Scripts/main.js"></script>
     <script src="Scripts/cutscenes.js"></script>
     <script src="Scripts/combat.js"></script>
     <script src="Scripts/store.js"></script>
     <script src="Scripts/town.js"></script>
+    <script src="Scripts/main.js"></script>
 
 </asp:Content>

@@ -1,4 +1,3 @@
 ﻿function drawCombat() {
-    textAlign(CENTER, CENTER);
-    text('combat', width / 2, height / 2);
+    drawTextCentered('combat; lose or win?', centerX, height - 24, 24, 'white')
 }
