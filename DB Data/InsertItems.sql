@@ -1,157 +1,191 @@
---CARACTERISTICAS
+use TPC_ChambersAndWyverns
+
+--+-- ABILITY --+--
+
 INSERT INTO Abilities (_Name, _Desc)
 VALUES
-('Fuerza', 'Capacidad física y potencia muscular.'),
-('Destreza', 'Agilidad, coordinación y reflejos.'),
-('Constitución', 'Resistencia y salud general.'),
+--ID 0 - Fuerza
+('Fuerza', 'Capacidad física y potencia muscular.'), 
+--ID 1- Destreza
+('Destreza', 'Agilidad, coordinación y reflejos.'),  
+--ID 2 - Constitución
+('Constitución', 'Resistencia y salud general.'),    
+--ID 3 - Inteligencia
 ('Inteligencia', 'Capacidad lógica y conocimiento.'),
-('Sabiduría', 'Percepción y juicio intuitivo.'),
-('Carisma', 'Influencia y atractivo personal.');
+--ID 4 - Sabiduría
+('Sabiduría', 'Percepción y juicio intuitivo.'),	 
+--ID 5 - Carisma
+('Carisma', 'Influencia y atractivo personal.');	 
 select * from Abilities;
 
- --HABILIDADES
+--+-- SKILL --+--
+
  INSERT INTO Skills(_Name, _Desc, ID_Ability)
 VALUES
-('Acrobacias', 'Agilidad y coordinación en movimientos acrobáticos', 2),
-('Atletismo', 'Habilidad física para realizar acciones atléticas como saltar, trepar o nadar', 1),
-('Intimidación', 'Capacidad para infundir miedo o respeto en otros', 6),
-('Investigación', 'Habilidad para examinar y analizar información', 4),
-('Percepción', 'Capacidad para observar y detectar detalles sutiles', 5),
-('Persuasión', 'Capacidad para influir en los demás y convencerlos', 6),
-('Sigilo', 'Habilidad para moverse sin ser detectado', 2),
-('Supervivencia', 'Habilidad para sobrevivir en condiciones adversas', 5);
+--ID 0 - Acrobacias
+('Acrobacias', 'Agilidad y coordinación en movimientos acrobáticos', 1),
+--ID 1 - Atletismo
+('Atletismo', 'Habilidad física para realizar acciones atléticas como saltar, trepar o nadar', 0),
+--ID 2 - Intimidación
+('Intimidación', 'Capacidad para infundir miedo o respeto en otros', 5),
+--ID 3 - Investigación
+('Investigación', 'Habilidad para examinar y analizar información', 3),
+--ID 4 - Percepción
+('Percepción', 'Capacidad para observar y detectar detalles sutiles', 4),
+--ID 5 - Persuasión
+('Persuasión', 'Capacidad para influir en los demás y convencerlos', 5),
+--ID 6 - Sigilo
+('Sigilo', 'Habilidad para moverse sin ser detectado', 1),
+--ID 7 - Supervivencia
+('Supervivencia', 'Habilidad para sobrevivir en condiciones adversas', 4);
 select * from Skills
 
---RAZAS
+--+-- RACE --+--
+
  INSERT INTO Races(_Name, _Desc, ID_Ability)
 VALUES 
---Humano
+--ID 0 - Humano 
 ('Humano', 
  'En el cómputo de la mayoría de los mundos, los humanos son la más joven de las razas comunes, con una llegada tardía al mundo y una vida corta en comparación con los enanos, elfos, y dragones. Quizás es por su corta vida que se esfuerzan en conseguir tanto como pueden en los años que se les han dado. O quizás sienten que tienen algo que demostrar a las razas más antiguas, y es por eso que construyen poderosos imperios basados en la conquista y el comercio. Sea lo que sea lo que les motiva, los humanos son los innovadores, los pioneros y los triunfadores de los mundos.', 
- 4),
---Elfo
+ 3),
+--ID 1 - Elfo
 ('Elfo', 
  'Los elfos son un pueblo mágico de gracia sobrenatural, viviendo en el mundo sin ser del todo parte de él. Viven en lugares de etérea belleza, en medio de antiguos bosques o en plateados minaretes que resplandecen con luz feérica, donde una suave música flota en el aire y delicadas fragancias son transportadas por la brisa. Los elfos aman la naturaleza y la magia, el arte y la maestría, la música y la poesía, y las cosas buenas del mundo.', 
- 5),
---Mediano
-('Mediano', 
- 'Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos; un buen fuego y una comida generosa; buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo.', 
- 2),
---Dracónido
+ 4),
+--ID 2 - Dracónido
 ('Dracónido', 
  'Nacido de los dragones, como su nombre proclama, el dracónido camina orgulloso a través de un mundo que le recibe lleno de miedo e incomprensión. Modelado por los dioses dracónidos o por los dragones mismos, el dracónido originalmente nacía de huevos de dragón como una raza única, combinando los mejores atributos de los dragones y los humanoides. Algunos dracónidos son fieles sirvientes de los verdaderos dragones, otros forman parte de ejércitos en grandes guerras e incluso otros se encuentran a la deriva, sin una visión clara de la vida.', 
- 1),
---Enano
+ 0),
+--ID 3 - Enano
 ('Enano', 
  'Reinos ricos en antiguo esplendor, salas esculpidas en las raíces de las montañas, picos y martillos haciéndose eco en profundas minas y ardientes forjas, un compromiso con el clan y las tradiciones y un odio ardiente hacia orcos y goblins estos temas comunes unen a todos los enanos.', 
- 3),
---Tiflin
+ 2),
+--ID 4 - Tiflin
 ('Tiflin', 
  'Ser recibido con miradas y susurros, sufrir violencia e insultos en la calle, ver la desconfianza y el miedo en todos los ojos: este es el destino de los tiflin. Y para retorcer el puñal, los tiflin saben que esto es a causa de un pacto sellado hace generaciones que infundió la esencia de Asmodeo, señor supremo de los Nueve Infiernos, en su linaje. Su apariencia y su naturaleza no tienen más culpa que el resultado de un antiguo pecado, por el que ellos y sus hijos, y los hijos de sus hijos, siempre se considerarán responsables.', 
- 6);
+ 5),
+--ID 5 - Mediano
+('Mediano', 
+ 'Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos; un buen fuego y una comida generosa; buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo.', 
+ 4);
 select * from Races;
 
+--+-- CLASS --+--
 
---CLASES
-INSERT INTO Classes(_Name, _Desc, ClassHealth, SpecialName, SpecialDesc)
+INSERT INTO Classes(_Name, _Desc, ClassHealth, SpecialName, SpecialDesc, ID_Ability)
 VALUES 
---Guerrero
+--ID 0 - Guerrero
 ('Guerrero', 
  'Héroes maestros de armas y armaduras, conocedores del combate. Incluyen caballeros, mercenarios y soldados de élite.', 
  10, 
  'Cobertura Impenetrable', 
- '“Comprimes tu cuerpo, dedicas toda tu atención a los movimientos del enemigo, cubres cualquier apertura”. Durante 4 rondas, tu armadura aumenta en 2.'
+ '“Comprimes tu cuerpo, dedicas toda tu atención a los movimientos del enemigo, cubres cualquier apertura”. Durante 4 rondas, tu armadura aumenta en 2.',
+ 0
 ),
---Mago
+--ID 1 - Mago
 ('Mago', 
  'Practicantes supremos de la magia, lanzan hechizos explosivos, engaños sutiles y control mental. Invocan monstruos, vislumbran el futuro y transforman sustancias.', 
  6, 
  'Lluvia de meteoritos', 
- '“Orbes de fuego en llamas caen en picado sobre la tierra en un estallido abrasador que arrasa con lo que sea que se encuentre en su camino”. La tirada de ataque es automáticamente exitosa y el daño es triplicado.'
+ '“Orbes de fuego en llamas caen en picado sobre la tierra en un estallido abrasador que arrasa con lo que sea que se encuentre en su camino”. La tirada de ataque es automáticamente exitosa y el daño es triplicado.',
+ 3
 ),
---Paladín
+--ID 2 - Paladín
 ('Paladín', 
  'Guerreros devotos unidos por juramentos para luchar contra el mal. Sean cuales sean sus orígenes, sus juramentos los convierten en campeones bendecidos.', 
  12, 
  'Palabra Sagrada', 
- '“Aunque estés sumido en un peligro indescriptible, aunque tus opciones se vean cada vez más acotadas, la fe en tu dios jamás temblará. Miras al cielo, alzas los brazos entregándote a él, y en respuesta una luz sagrada baña tu cuerpo, sanándolo”. Te curas 1/2 de tu vida máxima.'
+ '“Aunque estés sumido en un peligro indescriptible, aunque tus opciones se vean cada vez más acotadas, la fe en tu dios jamás temblará. Miras al cielo, alzas los brazos entregándote a él, y en respuesta una luz sagrada baña tu cuerpo, sanándolo”. Te curas 1/2 de tu vida máxima.',
+ 0
 ),
 
--- Pícaro
+--ID 3 - Pícaro
 ('Pícaro', 
  'Maestros del sigilo y las habilidades, confían en las vulnerabilidades de sus oponentes para sacar ventaja. Ingeniosos y versátiles, son la piedra angular de cualquier grupo de aventureros.', 
  8, 
  'Talón de Aquiles', 
- '“Antes de que tu oponente siquiera note tus intenciones, en un impulso de adrenalina sales disparado hacia él, confundiéndolo con fintas, desviando sus golpes con gracia hasta que encuentras una apertura vital donde arremeter con todas tus fuerzas”. La tirada de ataque es automáticamente exitosa, haces el daño de tu arma y adicionalmente provocas una hemorragia en el enemigo hasta el final del combate que hace 2 de daño cada ronda.'
+ '“Antes de que tu oponente siquiera note tus intenciones, en un impulso de adrenalina sales disparado hacia él, confundiéndolo con fintas, desviando sus golpes con gracia hasta que encuentras una apertura vital donde arremeter con todas tus fuerzas”. La tirada de ataque es automáticamente exitosa, haces el daño de tu arma y adicionalmente provocas una hemorragia en el enemigo hasta el final del combate que hace 2 de daño cada ronda.',
+ 1
 );
 select * from Classes;
 
---Background
-INSERT INTO Backgrounds(_Name, _Desc, ID_Ability1, ID_Ability2, InitialGold)
+--+-- BACKGROUND --+--
+
+INSERT INTO Backgrounds(_Name, _Desc, ID_Skill1, ID_Skill2, InitialGold)
 VALUES 
---Artesano
+--ID 0 - Artesano
  ('Artesano', 
  'Eres miembro de un gremio de artesanos, especializado en un campo particular y cercanamente asociado con otros artesanos. Eres una parte bien establecida del mundo mercantil, liberado por tu talento y riqueza de las limitaciones de la sociedad feudal. Aprendiste tus habilidades como aprendiz de un maestro, bajo el patrocinio de tu gremio, hasta que te convertiste en un maestro por tus propios medios.', 
- 6, 
- 4, 
+ 5, 
+ 3, 
  20),
---Criminal
+--ID 1 - Criminal
  ('Criminal', 
  'Eres un criminal experimentado con un historial delictivo. Has pasado mucho tiempo entre criminales y todavía tienes contactos dentro del mundo criminal. Estas mucho más cerca que la mayoría de la gente del mundo del asesinato, el robo y la violencia que prevalece en los barrios bajos de la civilización y has sobrevivido hasta ahora gracias a burlarte de las reglas y reglamentos de la sociedad.', 
- 3, 
- 7, 
+ 2, 
+ 6, 
  10),
---Ermitaño
+--ID 2 - Ermitaño
  ('Ermitaño', 
  'Vivías en la reclusión, ya sea en una comunidad resguardada como un monasterio o completamente solo por una parte importante de tu vida. Durante el tiempo que pasaste lejos del clamor de la sociedad, encontraste quietud, soledad, y quizá alguna de las respuestas que buscabas.', 
- 8, 
- 5, 
+ 7, 
+ 4, 
  10),
---Forastero
+--ID 3 - Forastero
  ('Forastero', 
  'Creciste en las tierras salvajes, lejos de la civilización y del confort de la ciudad y la tecnología. Has sido testigo de la migración de rebaños grandes como bosques enteros, has sobrevivido a un clima más extremo que el que cualquier habitante de la ciudad haya podido padecer. Llevas las tierras salvajes en la sangre, fueras un nómada, un explorador, un eremita, un cazador-recolector o incluso un saqueador. Incluso en lugares donde no conozcas las características específicas del terreno, comprendes las formas de lo salvaje.', 
- 2, 
- 8, 
+ 1, 
+ 7, 
  5),
--- Héroe del Pueblo
+--ID 4 - Héroe del Pueblo
 ('Héroe del Pueblo', 
  'Vienes de una clase social humilde, pero estás destinado para mucho más. Ya la gente de tu pueblo natal te considera como su campeón, y tú destino te llama a estar en contra de los tiranos y los monstruos que amenazan a la gente común en todas partes.', 
- 6, 
- 2, 
+ 5, 
+ 1, 
  15),
--- Marinero 
+--ID 5 - Marinero 
 ('Marinero', 
  'Navegaste en una nave marítima por años. En ese tiempo, enfrentaste exitosamente poderosas tormentas, monstruos de las profundidades y a aquellos que quisieron hundir tu trabajo en las infinitas profundidades. Tu primer amor es la lejana línea del horizonte, pero el tiempo llegó para probarte en algo nuevo.', 
- 8, 
- 5, 
+ 7, 
+ 4, 
  15),
---Soldado
+--ID 6 - Soldado
  ('Soldado', 
  'La guerra ha sido tu vida desde que puedes recordar. Fuiste entrenado en tu juventud en el estudio del uso de las armas y armaduras y aprendiste las técnicas básicas de supervivencia, incluida la forma de mantenerte con vida en el campo de batalla. Es posible que hayas sido parte de un ejército nacional permanente o de una compañía de mercenarios, o tal vez miembro de una milicia local que saltó a la fama durante una guerra reciente.', 
- 3, 
- 1, 
+ 2, 
+ 0, 
  10);
 select * from Backgrounds;
 
---Tipo de daño
+--+-- DAMAGE TYPE --+--
+
 INSERT INTO DamageTypes(_Name)
 VALUES
+--ID 0 - Cortante
 ('Cortante'),
+--ID 1 - Contundente
 ('Contundente'),
+--ID 2 - Perforante
 ('Perforante'),
+--ID 3 - Hielo
 ('Hielo'),
+--ID 4 - Fuego
 ('Fuego'),
+--ID 5 - Electricidad
 ('Electricidad');
+select * from DamageTypes;
 
---INSERT ARMAS--
+--+-- WEAPON --+--
+
+--Weapon - Fuerza
 EXEC InsertItem
     @Name = 'Hacha de mano',
     @Description = 'Un arma pequeña y versátil, utilizada para ataques cuerpo a cuerpo o arrojadizos. Tiene una hoja afilada montada en un mango corto.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 3;
 
 EXEC InsertItem
@@ -160,8 +194,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -170,8 +204,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 75,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 5;
 
 EXEC InsertItem
@@ -180,8 +214,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 6;
 
 EXEC InsertItem
@@ -190,8 +224,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -200,8 +234,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
-    @WeaponAbility = 1,
+    @DamageType = 0, -- Cortante
+    @WeaponAbility = 0,
     @Damage = 6;
 
 EXEC InsertItem
@@ -210,8 +244,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
-    @WeaponAbility = 1,
+    @DamageType = 1, -- Contundente
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -220,8 +254,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
-    @WeaponAbility = 1,
+    @DamageType = 1, -- Contundente
+    @WeaponAbility = 0,
     @Damage = 3;
 
 EXEC InsertItem
@@ -230,8 +264,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
-    @WeaponAbility = 1,
+    @DamageType = 1, -- Contundente
+    @WeaponAbility = 0,
     @Damage = 2;
 
 EXEC InsertItem
@@ -240,8 +274,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
-    @WeaponAbility = 1,
+    @DamageType = 1, -- Contundente
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -250,8 +284,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
-    @WeaponAbility = 1,
+    @DamageType = 1, -- Contundente
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -260,8 +294,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
-    @WeaponAbility = 1,
+    @DamageType = 2, -- Perforante
+    @WeaponAbility = 0,
     @Damage = 3;
 
 EXEC InsertItem
@@ -270,8 +304,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
-    @WeaponAbility = 1,
+    @DamageType = 2, -- Perforante
+    @WeaponAbility = 0,
     @Damage = 6;
 
 EXEC InsertItem
@@ -280,8 +314,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
-    @WeaponAbility = 1,
+    @DamageType = 2, -- Perforante
+    @WeaponAbility = 0,
     @Damage = 4;
 
 EXEC InsertItem
@@ -290,8 +324,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 75,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
-    @WeaponAbility = 1,
+    @DamageType = 2, -- Perforante
+    @WeaponAbility = 0,
     @Damage = 5;
 
 EXEC InsertItem
@@ -300,19 +334,18 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
-    @WeaponAbility = 1,
+    @DamageType = 2, -- Perforante
+    @WeaponAbility = 0,
     @Damage = 3;
 
-------------------
-
+--Weapon - Destreza
 EXEC InsertItem
     @Name = 'Hoz',
     @Description = 'Conformada por una hoja curva montada en un mango corto. Es conocida por su capacidad para realizar ataques de corte y barrido, haciéndola efectiva en combates cercanos. Además de ser un arma, la hoz también se utiliza en tareas agrícolas, lo que la convierte en una opción versátil tanto en la granja como en el campo de batalla.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
+    @DamageType = 0, -- Cortante
     @WeaponAbility = 1,
     @Damage = 2;
 
@@ -322,7 +355,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
+    @DamageType = 0, -- Cortante
     @WeaponAbility = 1,
     @Damage = 3;
 
@@ -332,7 +365,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
+    @DamageType = 0, -- Cortante
     @WeaponAbility = 1,
     @Damage = 3;
 
@@ -342,7 +375,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 1, -- Cortante
+    @DamageType = 0, -- Cortante
     @WeaponAbility = 1,
     @Damage = 2;
 
@@ -352,7 +385,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 5,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
+    @DamageType = 1, -- Contundente
     @WeaponAbility = 1,
     @Damage = 1;
 
@@ -362,7 +395,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
+    @DamageType = 1, -- Contundente
     @WeaponAbility = 1,
     @Damage = 2;
 
@@ -372,7 +405,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 2, -- Contundente
+    @DamageType = 1, -- Contundente
     @WeaponAbility = 1,
     @Damage = 2;
 
@@ -382,7 +415,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 2;
 
@@ -392,7 +425,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 3;
 
@@ -402,7 +435,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 3;
 
@@ -412,7 +445,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 4;
 	
@@ -422,7 +455,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 4;
 
@@ -432,7 +465,7 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 4;
 
@@ -442,19 +475,19 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 75, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 3, -- Perforante
+    @DamageType = 2, -- Perforante
     @WeaponAbility = 1,
     @Damage = 5;
 
------------
+--Weapon - Inteligencia
 EXEC InsertItem
     @Name = 'Varita de Hielo',
     @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de hielo.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 4, -- Hielo
-    @WeaponAbility = 1,
+    @DamageType = 3, -- Hielo
+    @WeaponAbility = 3,
     @Damage = 2;
 
 EXEC InsertItem
@@ -463,8 +496,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 4, -- Hielo
-    @WeaponAbility = 1,
+    @DamageType = 3, -- Hielo
+    @WeaponAbility = 3,
     @Damage = 4;
 
 EXEC InsertItem
@@ -473,8 +506,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 4, -- Hielo
-    @WeaponAbility = 1,
+    @DamageType = 3, -- Hielo
+    @WeaponAbility = 3,
     @Damage = 6;
 
 EXEC InsertItem
@@ -483,8 +516,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 180,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 4, -- Hielo
-    @WeaponAbility = 1,
+    @DamageType = 3, -- Hielo
+    @WeaponAbility = 3,
     @Damage = 8;
 
 EXEC InsertItem
@@ -493,8 +526,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 5, -- Fuego
-    @WeaponAbility = 1,
+    @DamageType = 4, -- Fuego
+    @WeaponAbility = 3,
     @Damage = 2;
 
 EXEC InsertItem
@@ -503,8 +536,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50, 
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 5, -- Fuego
-    @WeaponAbility = 1,
+    @DamageType = 4, -- Fuego
+    @WeaponAbility = 3,
     @Damage = 4;
 
 EXEC InsertItem
@@ -513,8 +546,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 5, -- Fuego
-    @WeaponAbility = 1,
+    @DamageType = 4, -- Fuego
+    @WeaponAbility = 3,
     @Damage = 6;
 
 EXEC InsertItem
@@ -523,8 +556,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 180,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 5, -- Fuego
-    @WeaponAbility = 1,
+    @DamageType = 4, -- Fuego
+    @WeaponAbility = 3,
     @Damage = 8;
 
 EXEC InsertItem
@@ -533,8 +566,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 6, -- Electricidad
-    @WeaponAbility = 1,
+    @DamageType = 5, -- Electricidad
+    @WeaponAbility = 3,
     @Damage = 2;
 
 EXEC InsertItem
@@ -543,8 +576,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 6, -- Electricidad
-    @WeaponAbility = 1,
+    @DamageType = 5, -- Electricidad
+    @WeaponAbility = 3,
     @Damage = 4;
 
 EXEC InsertItem
@@ -553,8 +586,8 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 105,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 6, -- Electricidad
-    @WeaponAbility = 1,
+    @DamageType = 5, -- Electricidad
+    @WeaponAbility = 3,
     @Damage = 6;
 
 EXEC InsertItem
@@ -563,13 +596,14 @@ EXEC InsertItem
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 180,
     @EquippableType = 0, -- Tipo 0 para armas
-    @DamageType = 6, -- Electricidad
-    @WeaponAbility = 1,
+    @DamageType = 5, -- Electricidad
+    @WeaponAbility = 3,
     @Damage = 8;
 
 
---PROTECCIONES
---ARMOR
+--+-- PROTECTIONS --+--
+
+--Armor
 EXEC InsertItem
     @Name = 'Vestimentas comunes',
     @Description = 'Ropajes iniciales de la aventura.',
@@ -621,7 +655,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 30,
     @EquippableType = 1, -- Armor
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 3;
 
 EXEC InsertItem
@@ -657,7 +691,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 75,
     @EquippableType = 1, -- Armor
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 5;
 
 EXEC InsertItem
@@ -675,7 +709,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 140,
     @EquippableType = 1, -- Armor
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 7;
 
 EXEC InsertItem
@@ -687,14 +721,14 @@ EXEC InsertItem
     @ResistanceType = 1, -- Contundente
     @Armor = 8;
 
---SHIELD
+--Shield
 EXEC InsertItem
     @Name = 'Rodela',
     @Description = 'Pequeño escudo redondo, generalmente de metal o madera, que se sujeta al antebrazo con correas.',
     @ItemType = 1, -- Equippable
     @Price = 5,
     @EquippableType = 2, -- Shield
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 1;
 
 EXEC InsertItem
@@ -703,7 +737,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 5,
     @EquippableType = 2, -- Shield
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 1;
 
 EXEC InsertItem
@@ -739,7 +773,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 15,
     @EquippableType = 2, -- Shield
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 2;
 
 EXEC InsertItem
@@ -766,7 +800,7 @@ EXEC InsertItem
     @ItemType = 1, -- Equippable
     @Price = 30,
     @EquippableType = 2, -- Shield
-    @ResistanceType = 3, -- Cortante
+    @ResistanceType = 0, -- Cortante
     @Armor = 3;
 
 EXEC InsertItem
@@ -778,15 +812,15 @@ EXEC InsertItem
     @ResistanceType = 1, -- Contundente
     @Armor = 4;
 
---CONSUMIBLES
+--+-- CONSUMABLES --+--
 
--- CURACIÓN
+--Cure
 EXEC InsertItem
     @Name = 'Poción de curación',
     @Description = 'Restaura una cantidad pequeña de puntos de golpe al usuario. Es una herramienta común para recuperarse durante o después de una batalla.',
     @ItemType = 2, -- Consumable
     @Price = 13,
-    @Effect = 0, -- Curación
+    @Effect = -1, -- Curación
     @Amount = 6;
 
 EXEC InsertItem
@@ -794,7 +828,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción básica. Al ser consumida, proporciona una cantidad considerablemente mayor de puntos de golpe al usuario.',
     @ItemType = 2, -- Consumable
     @Price = 28,
-    @Effect = 0, -- Curación
+    @Effect = -1, -- Curación
     @Amount = 14;
 
 EXEC InsertItem
@@ -802,7 +836,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más poderosa de la poción de curación mayor. Al ser consumida, restaura una cantidad significativa de puntos de golpe.',
     @ItemType = 2, -- Consumable
     @Price = 60,
-    @Effect = 0, -- Curación
+    @Effect = -1, -- Curación
     @Amount = 32;
 
 EXEC InsertItem
@@ -810,7 +844,7 @@ EXEC InsertItem
     @Description = 'Es la forma más poderosa de poción de curación disponible. Al consumirla, proporciona una cantidad extraordinaria de puntos de golpe, lo que la convierte en un recurso invaluable en situaciones críticas donde la supervivencia está en juego.',
     @ItemType = 2, -- Consumable
     @Price = 128,
-    @Effect = 0, -- Curación
+    @Effect = -1, -- Curación
     @Amount = 72;
 	
 --BUFF
@@ -819,7 +853,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la fuerza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 1, -- Buff
+    @Effect = 0, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -827,7 +861,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de fuerza menor. Al ser consumida, proporciona un aumento moderado en la fuerza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 1, -- Buff
+    @Effect = 0, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -835,7 +869,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de fuerza media. Al ser consumida, otorga un aumento significativo en la fuerza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 1, -- Buff
+    @Effect = 0, -- Buff
     @Amount = 6;
 
 EXEC InsertItem
@@ -843,7 +877,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la destreza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 2, -- Buff
+    @Effect = 1, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -851,7 +885,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de destreza menor. Al ser consumida, proporciona un aumento moderado en la destreza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 2, -- Buff
+    @Effect = 1, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -859,7 +893,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de destreza media. Al ser consumida, otorga un aumento significativo en la destreza del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 2, -- Buff
+    @Effect = 1, -- Buff
     @Amount = 6;
 
 EXEC InsertItem
@@ -867,7 +901,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la constitución del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 3, -- Buff
+    @Effect = 2, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -875,7 +909,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de constitución menor. Al ser consumida, proporciona un aumento moderado en la constitución del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 3, -- Buff
+    @Effect = 2, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -883,7 +917,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de constitución media. Al ser consumida, otorga un aumento significativo en la constitución del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 3, -- Buff
+    @Effect = 2, -- Buff
     @Amount = 6;
 
 EXEC InsertItem
@@ -891,7 +925,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la inteligencia del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 4, -- Buff
+    @Effect = 3, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -899,7 +933,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de inteligencia menor. Al ser consumida, proporciona un aumento moderado en la inteligencia del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 4, -- Buff
+    @Effect = 3, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -907,7 +941,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de inteligencia media. Al ser consumida, otorga un aumento significativo en la inteligencia del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 4, -- Buff
+    @Effect = 3, -- Buff
     @Amount = 6;
 
 EXEC InsertItem
@@ -915,7 +949,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la sabiduría del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 5, -- Buff
+    @Effect = 4, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -923,7 +957,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de sabiduría menor. Al ser consumida, proporciona un aumento moderado en la sabiduría del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 5, -- Buff
+    @Effect = 4, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -931,7 +965,7 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de sabiduría media. Al ser consumida, otorga un aumento significativo en la sabiduría del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 5, -- Buff
+    @Effect = 4, -- Buff
     @Amount = 6;
 
 EXEC InsertItem
@@ -939,7 +973,7 @@ EXEC InsertItem
     @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en el carisma del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 23,
-    @Effect = 6, -- Buff
+    @Effect = 5, -- Buff
     @Amount = 2;
 
 EXEC InsertItem
@@ -947,7 +981,7 @@ EXEC InsertItem
     @Description = 'Una versión más potente de la poción de carisma menor. Al ser consumida, proporciona un aumento moderado en el carisma del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 49,
-    @Effect = 6, -- Buff
+    @Effect = 5, -- Buff
     @Amount = 4;
 
 EXEC InsertItem
@@ -955,12 +989,9 @@ EXEC InsertItem
     @Description = 'Una versión aún más potente de la poción de carisma media. Al ser consumida, otorga un aumento significativo en el carisma del usuario.',
     @ItemType = 2, -- Consumable
     @Price = 94,
-    @Effect = 6, -- Buff
+    @Effect = 5, -- Buff
     @Amount = 6;
 
-UPDATE Weapons
-SET ID_Ability = 4
-WHERE ID_Item in (31,32,33,34,35,36,37,38,39,40,41,42);
 
 ---Buscador de armas
 SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, A._Name AS Ability, DT._Name AS Damage_Type, I.Price

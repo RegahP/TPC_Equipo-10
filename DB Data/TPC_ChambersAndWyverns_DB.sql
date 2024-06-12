@@ -1,18 +1,19 @@
---create database TPC_ChambersAndWyverns
---use TPC_ChambersAndWyverns
+create database TPC_ChambersAndWyverns
+use TPC_ChambersAndWyverns
 
---no use ninguna relacion excepto primary keys, identities y un unique, porque en teoria los datos deberian manejarse
---limpiamente desde el programa, y la db se crea una vez y ya, no vamos a estar agregando a clases, razas, trasfondos,
---etc. podria ser una capa mas de seguridad, pero creo que es redundante si el c# hace su trabajo como corresponde
+---Items Genericos
+---Creatures
+---Attacks
+
 
 create table Users(
-    ID_User int not null primary key identity,
+    ID_User int not null primary key identity(0,1),
     Username nvarchar(50) unique,
     PasswordHash nvarchar(255) not null
 )
 
 create table Characters(
-    ID_Character int not null primary key identity,
+    ID_Character int not null primary key identity(0,1),
     ID_User int not null,
 
     Sex bit not null,
@@ -40,14 +41,14 @@ create table Characters(
 )
 
 create table Races(
-    ID_Race int not null primary key identity,
+    ID_Race int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null,
     ID_Ability int not null --ability a la que le agrega al modificador un +2
 )
 
 create table Classes(
-    ID_Class int not null primary key identity,
+    ID_Class int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null,
     ClassHealth int not null,
@@ -64,29 +65,29 @@ create table Classes(
 --rogue = dexterity
 
 create table Abilities(
-    ID_Ability int not null primary key identity,
+    ID_Ability int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null
 )
 
 create table Skills(
-    ID_Skill int not null primary key identity,
+    ID_Skill int not null primary key identity(0,1),
     ID_Ability int not null,
     _Name nvarchar(50) not null,
     _Desc text not null
 )
 
 create table Backgrounds(
-    ID_Background int not null primary key identity,
+    ID_Background int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null,
-    ID_Ability1 int not null,
-    ID_Ability2 int not null,
+    ID_Skill1 int not null,
+    ID_Skill2 int not null,
     InitialGold int not null
 )
 
 create table Items(
-    ID_Item int not null primary key identity,
+    ID_Item int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null,
     ItemType int not null, -- 0 = generic, 1 = equippable, 2 = consumable
@@ -135,7 +136,6 @@ create table AbilitiesXCharacter(
     RolledScore int not null, --que roll salio
     Modifier int not null --por cada personaje, al crearlos, se guarda en esta tabla 6 filas, una para cada ability que rolleo
     primary key(ID_Character, ID_Ability)
-
 )
 
 create table SkillsXCharacter(
@@ -145,12 +145,12 @@ create table SkillsXCharacter(
 )
 
 create table DamageTypes(
-    ID_DamageType int not null primary key identity,
+    ID_DamageType int not null primary key identity(0,1),
     _Name nvarchar(50) not null
 )
 
 create table Creatures(
-    ID_Creature int not null primary key identity,
+    ID_Creature int not null primary key identity(0,1),
     _Name nvarchar(50) not null,
     _Desc text not null,
     Rating int not null,
@@ -159,6 +159,22 @@ create table Creatures(
     ArmorClass int not null,
     MaxHealth int not null
 )
+
+create table Attacks(
+    ID_Attack int not null primary key identity(0,1),
+	_Name nvarchar(50) not null,
+    _Desc text not null,
+    ID_DamageType int not null, --proviene de la tabla de tipos de daño, en este caso representa el tipo de daño que inflige
+    ID_Ability int not null, --ability cuyo modificador aplica encima del daño base
+    Damage int not null
+)
+
+create table AttacksXCreature(
+	ID_Creature int not null,
+	ID_Attack int not null,
+	primary key(ID_Attack, ID_Creature)
+)
+
 
 create table CreaturesXEncounter(
     ID_Creature int not null,
@@ -170,8 +186,16 @@ create table ItemsXCreature(
     ID_Creature int not null,
     ID_Item int not null,
     Chance int not null
-    primary key(ID_Item, ID_Character)
+    primary key(ID_Item, ID_Creature)
 )
+
+create table AbilitiesXCreatures(
+    ID_Creature int not null, --para que personaje
+    ID_Ability int not null, --que ability se rolleo
+    Modifier int not null 
+	primary key(ID_Creature, ID_Ability)
+)
+
 
 --stored procedures para la creacion de toda la db (races, classes, backgrounds, abilities, skills, items)
 --stored procedures para el uso recurrente de inserciones (a usuarios, a characters, a items x character)
@@ -182,17 +206,17 @@ CREATE PROCEDURE InsertItem
     @ItemType INT,
     @Price INT,
     -- Para Consumibles
-    @Effect INT,
-    @Amount INT,
+    @Effect INT = NULL,
+    @Amount INT = NULL,
     -- Para Equippables
-    @EquippableType INT,
+    @EquippableType INT = NULL,
     -- Para Weapons
-    @DamageType INT,
-    @WeaponAbility INT,
-    @Damage INT,
+    @DamageType INT = NULL,
+    @WeaponAbility INT = NULL,
+    @Damage INT = NULL,
     -- Para Armors
-    @ResistanceType INT,
-    @Armor INT
+    @ResistanceType NVARCHAR(50) = NULL,
+    @Armor INT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -219,13 +243,12 @@ BEGIN
         END
         ELSE IF @EquippableType = 1 -- Armor
         BEGIN
-            INSERT INTO Armors (ID_Item, ID_ResistanceType, Armor)
-            VALUES (@NewItemID, @ResistanceType, @Armor);
+            EXEC InsertArmor @Name, @Armor, @ResistanceType, @Price, @Description;
         END
     END
     ELSE IF @ItemType = 2 -- Consumable
     BEGIN
         INSERT INTO Consumables (ID_Item, ID_Effect, Amount)
         VALUES (@NewItemID, @Effect, @Amount);
-    END
+    END;
 END;
