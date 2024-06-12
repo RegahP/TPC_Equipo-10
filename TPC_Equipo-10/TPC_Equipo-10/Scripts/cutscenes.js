@@ -5,7 +5,7 @@ function drawIntro() {
 
     //temp
     chr.sex = 0;
-    chr.race.id = 2;
+    chr.race.id = 1;
     chr.chrClass.id = 3;
     //temp
 
