@@ -1,5 +1,7 @@
 ﻿//declaraciones de vars generales
-let chr;
+let chr; //character
+let items; //todos los items
+let creatures; //todas las creatures
 
 let centerX;
 let centerY;
@@ -7,12 +9,14 @@ let centerY;
 //todas las imagenes
 let chr_spritesheet;
 let chr_fx_darkspotlight;
+let creatures_0;
 
 //la carga de imagenes se hace en preload, para que el juego arranque
 //solo una vez que se cargaron todas los archivos e imagenes necesarias
 function preload() {
     chr_spritesheet = loadImage("../Sprites/chr_spritesheet.png");
     chr_fx_darkspotlight = loadImage("../Sprites/chr_fx_darkspotlight.png");
+    creatures_0 = loadImage("../Sprites/creatures_0.png");
 }
 
 //setup asincronico para que espere a las ajax calls hasta que terminen antes de avanzar
@@ -31,11 +35,17 @@ async function setup() {
     }
     if (chr) {
         console.log("Character loaded in p5js succesfully:", chr);
+        //temp
+        chr.sex = 0;
+        chr.race.id = 1;
+        chr.chrClass.id = 3;
+        //temp
     }
 }
 
 function draw() {
     background(0);
+
     if (chr) {
         switch (chr.gameState) {
             case 0: //intro
@@ -78,6 +88,14 @@ function keyPressed() {
                 else if (key === 'e') {
                     chr.gameState = 2;
                 }
+                //keycontrol del nav
+                if (keyCode === LEFT_ARROW) {
+                    navIndex = (navIndex - 1 + nav.length) % nav.length;
+                } else if (keyCode === RIGHT_ARROW) {
+                    navIndex = (navIndex + 1) % nav.length;
+                }
+                //habria que checkear si hacemos enter
+
                 break;
             case 2: //endcombat
                 if (key === 'q') {
