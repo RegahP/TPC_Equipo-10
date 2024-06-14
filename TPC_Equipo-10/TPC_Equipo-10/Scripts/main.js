@@ -1,7 +1,7 @@
 ﻿//declaraciones de vars generales
 let chr; //character
-let items; //todos los items
-let creatures; //todas las creatures
+//let items; //todos los items
+//let creatures; //todas las creatures
 
 let centerX;
 let centerY;
@@ -37,8 +37,8 @@ async function setup() {
         console.log("Character loaded in p5js succesfully:", chr);
         //temp
         chr.sex = 0;
-        chr.race.id = 1;
-        chr.chrClass.id = 3;
+        chr.race.id = 0;
+        chr.chrClass.id = 0;
         //temp
     }
 }
@@ -75,6 +75,7 @@ function draw() {
     }
 }
 
+//keycontrol de todo el juego
 function keyPressed() {
     if (chr) {
         switch (chr.gameState) {
@@ -89,12 +90,44 @@ function keyPressed() {
                     chr.gameState = 2;
                 }
                 //keycontrol del nav
-                if (keyCode === LEFT_ARROW) {
-                    navIndex = (navIndex - 1 + nav.length) % nav.length;
-                } else if (keyCode === RIGHT_ARROW) {
-                    navIndex = (navIndex + 1) % nav.length;
+                if (!navFocus) { //estamos viendo el nav
+                    if (keyCode === LEFT_ARROW) {
+                        navIndex = (navIndex - 1 + nav.length) % nav.length;
+                    } else if (keyCode === RIGHT_ARROW) {
+                        navIndex = (navIndex + 1) % nav.length;
+                    } else if (keyCode === ENTER) {
+                        if (navIndex === 3) { //si estamos parados en el inventario
+                            navFocus = true; //focus en el inventario
+                            setupInventory();
+                        }
+                    }
                 }
-                //habria que checkear si hacemos enter
+                else { //estamos viendo el inventario
+                    if (keyCode === ESCAPE) {
+                        navFocus = false;
+                    }
+                    //si el focus esta en la lista, nos podemos mover
+                    if (!invFocus) {
+                        if (keyCode === UP_ARROW) {
+                            invIndex = (invIndex - 1 + items.length) % items.length;
+                        } else if (keyCode === DOWN_ARROW) {
+                            invIndex = (invIndex + 1) % items.length;
+                        }
+                    }
+
+                    //alternamos el focus de la lista a detalles
+                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                        invFocus = !invFocus;
+                    }
+
+                    //si estamos en detalles y el item no esta equipado
+                    if (invFocus && items[invIndex].equipped === false) {
+                        if (keyCode === ENTER) {
+                            items.forEach(item => { item.equipped = false; });
+                            items[invIndex].equipped = true;
+                        }
+                    }
+                }
 
                 break;
             case 2: //endcombat
@@ -127,5 +160,5 @@ function keyPressed() {
         }
     }
     console.log("gameState ", chr.gameState)
-    saveCharacter(chr);
+    //saveCharacter(chr);
 }
