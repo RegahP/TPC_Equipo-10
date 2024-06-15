@@ -824,173 +824,30 @@ EXEC InsertItem
     @Amount = 6;
 
 EXEC InsertItem
-    @Name = 'Poción de curación mayor',
-    @Description = 'Una versión más potente de la poción básica. Al ser consumida, proporciona una cantidad considerablemente mayor de puntos de golpe al usuario.',
+    @Name = 'Tereré de Yuyos Fey',
+    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
     @Price = 28,
     @Effect = -1, -- Curación
     @Amount = 14;
 
 EXEC InsertItem
-    @Name = 'Poción de curación superior',
-    @Description = 'Una versión aún más poderosa de la poción de curación mayor. Al ser consumida, restaura una cantidad significativa de puntos de golpe.',
+    @Name = 'Suprema de Wyvern',
+    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
     @Price = 60,
     @Effect = -1, -- Curación
     @Amount = 32;
 
 EXEC InsertItem
-    @Name = 'Poción de curación suprema',
-    @Description = 'Es la forma más poderosa de poción de curación disponible. Al consumirla, proporciona una cantidad extraordinaria de puntos de golpe, lo que la convierte en un recurso invaluable en situaciones críticas donde la supervivencia está en juego.',
+    @Name = 'Ojo de Bife del Contemplador',
+    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
     @Price = 128,
     @Effect = -1, -- Curación
     @Amount = 72;
 	
---BUFF
-EXEC InsertItem
-    @Name = 'Poción de Fuerza menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la fuerza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 0, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Fuerza media',
-    @Description = 'Una versión más potente de la poción de fuerza menor. Al ser consumida, proporciona un aumento moderado en la fuerza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 0, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Fuerza superior',
-    @Description = 'Una versión aún más potente de la poción de fuerza media. Al ser consumida, otorga un aumento significativo en la fuerza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 0, -- Buff
-    @Amount = 6;
-
-EXEC InsertItem
-    @Name = 'Poción de Destreza menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la destreza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 1, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Destreza media',
-    @Description = 'Una versión más potente de la poción de destreza menor. Al ser consumida, proporciona un aumento moderado en la destreza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 1, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Destreza superior',
-    @Description = 'Una versión aún más potente de la poción de destreza media. Al ser consumida, otorga un aumento significativo en la destreza del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 1, -- Buff
-    @Amount = 6;
-
-EXEC InsertItem
-    @Name = 'Poción de Constitución menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la constitución del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 2, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Constitución media',
-    @Description = 'Una versión más potente de la poción de constitución menor. Al ser consumida, proporciona un aumento moderado en la constitución del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 2, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Constitución superior',
-    @Description = 'Una versión aún más potente de la poción de constitución media. Al ser consumida, otorga un aumento significativo en la constitución del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 2, -- Buff
-    @Amount = 6;
-
-EXEC InsertItem
-    @Name = 'Poción de Inteligencia menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la inteligencia del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 3, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Inteligencia media',
-    @Description = 'Una versión más potente de la poción de inteligencia menor. Al ser consumida, proporciona un aumento moderado en la inteligencia del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 3, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Inteligencia superior',
-    @Description = 'Una versión aún más potente de la poción de inteligencia media. Al ser consumida, otorga un aumento significativo en la inteligencia del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 3, -- Buff
-    @Amount = 6;
-
-EXEC InsertItem
-    @Name = 'Poción de Sabiduría menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en la sabiduría del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 4, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Sabiduría media',
-    @Description = 'Una versión más potente de la poción de sabiduría menor. Al ser consumida, proporciona un aumento moderado en la sabiduría del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 4, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Sabiduría superior',
-    @Description = 'Una versión aún más potente de la poción de sabiduría media. Al ser consumida, otorga un aumento significativo en la sabiduría del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 4, -- Buff
-    @Amount = 6;
-
-EXEC InsertItem
-    @Name = 'Poción de Carisma menor',
-    @Description = 'Brebaje mágico que, al ser consumido, otorga temporalmente un aumento menor en el carisma del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 23,
-    @Effect = 5, -- Buff
-    @Amount = 2;
-
-EXEC InsertItem
-    @Name = 'Poción de Carisma media',
-    @Description = 'Una versión más potente de la poción de carisma menor. Al ser consumida, proporciona un aumento moderado en el carisma del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 49,
-    @Effect = 5, -- Buff
-    @Amount = 4;
-
-EXEC InsertItem
-    @Name = 'Poción de Carisma superior',
-    @Description = 'Una versión aún más potente de la poción de carisma media. Al ser consumida, otorga un aumento significativo en el carisma del usuario.',
-    @ItemType = 2, -- Consumable
-    @Price = 94,
-    @Effect = 5, -- Buff
-    @Amount = 6;
+--INSERTAR ACA TODAS LAS POCIONES REWORKEADAS
 
 --+-- Attacks --+--
 

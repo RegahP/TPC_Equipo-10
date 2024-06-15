@@ -125,7 +125,8 @@ create table ItemsXCharacter(
     ID_Character int not null,
     ID_Item int not null,
     Equipped bit default 0, --estos datos son relevantes para el jugador cuando tiene items, no para la db de los items del juego, aca se guarda
-    Consumed bit default 0 --si el jugador tiene un item actualmente consumido, o si tiene una arma o armadura equipada
+    Consumed bit default 0, --si el jugador tiene un item actualmente consumido, o si tiene una arma o armadura equipada
+	CurrRound int not null
     --vale nombrar que ambos bools van a ser ignorados si el item que alocamos en memoria, tenia itemtype = 0, para eso el default
     primary key(ID_Item, ID_Character) -- (algo que note es que si usamos esta primary key, no podes tener pociones repetidas,
     --                                      seria mismo item en inventario del mismo jugador, pero bueno se puede revisar)
