@@ -25,6 +25,7 @@ create table Characters(
     _Level int not null,        --1
     Experience int not null,    --0
     Proficiency int not null,   --2
+	DamageMod int not null,
     
     --relacionados a gameplay, importantes para restorar el estado de la partida
     Luck int not null,          --0
@@ -35,7 +36,7 @@ create table Characters(
     ArmorClass int not null,    --10 + RA.Modifier where RA.ID = 1 (DEX)
     MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
     CurrentHealth int not null, --maxHealth
-    Gold int not null,          --BG.InitialGold where BG.ID_Background = ID_Background
+    Gold int not null         --BG.InitialGold where BG.ID_Background = ID_Background
     --necesitamos una stored procedure para armar con un solo comando el pj entero, aplicando modificadores
     --de raza, clase, trasfondo, configurando proficiencia, armorclass, maxhp y currenthp, y el oro
 )
@@ -157,7 +158,8 @@ create table Creatures(
     Experience int not null,
     Proficiency int not null,
     ArmorClass int not null,
-    MaxHealth int not null
+    MaxHealth int not null,
+	DamageMod int not null
 )
 
 create table Attacks(
@@ -165,7 +167,6 @@ create table Attacks(
 	_Name nvarchar(50) not null,
     _Desc text not null,
     ID_DamageType int not null, --proviene de la tabla de tipos de daño, en este caso representa el tipo de daño que inflige
-    ID_Ability int not null, --ability cuyo modificador aplica encima del daño base
     Damage int not null
 )
 
@@ -251,4 +252,67 @@ BEGIN
         INSERT INTO Consumables (ID_Item, ID_Effect, Amount)
         VALUES (@NewItemID, @Effect, @Amount);
     END;
+END;
+
+--------------------
+
+CREATE PROCEDURE InsertCreature
+    @Name NVARCHAR(50),
+    @Description TEXT,
+    @Rating INT,
+    @Experience INT,
+    @Proficiency INT,
+    @ArmorClass INT,
+    @MaxHealth INT,
+    @DamageMod INT,
+    @Abilities NVARCHAR(50), -- Lista de valores separados por comas: e.g., '1,2,3,0,-1,2'
+    @Attacks NVARCHAR(50)   -- Lista de valores separados por comas: e.g., '0,3'
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @CreatureId INT;
+
+    -- Insertar en la tabla Creatures
+    INSERT INTO Creatures (_Name, _Desc, Rating, Experience, Proficiency, ArmorClass, MaxHealth, DamageMod)
+    VALUES (@Name, @Description, @Rating, @Experience, @Proficiency, @ArmorClass, @MaxHealth, @DamageMod);
+
+    -- Obtener el ID de la nueva criatura insertada
+    SET @CreatureId = SCOPE_IDENTITY();
+
+    -- Insertar habilidades (abilities) asociadas a la criatura
+    DECLARE @AbilityId INT;
+    DECLARE @AbilityValue INT;
+    DECLARE @AbilityPosition INT = 0;
+    DECLARE @AbilityList NVARCHAR(MAX) = @Abilities;
+    
+    WHILE CHARINDEX(',', @AbilityList) > 0
+    BEGIN
+        SET @AbilityValue = SUBSTRING(@AbilityList, 1, CHARINDEX(',', @AbilityList) - 1);
+        INSERT INTO AbilitiesXCreatures (ID_Creature, ID_Ability, Modifier)
+        VALUES (@CreatureId, @AbilityPosition, @AbilityValue);
+        SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
+        SET @AbilityPosition = @AbilityPosition + 1;
+    END
+    -- Insertar la última habilidad en la lista
+    INSERT INTO AbilitiesXCreatures (ID_Creature, ID_Ability, Modifier)
+    VALUES (@CreatureId, @AbilityPosition, @AbilityList);
+
+    -- Insertar ataques (attacks) asociados a la criatura
+    DECLARE @AttackId INT;
+    DECLARE @AttackPosition INT = 0;
+    DECLARE @AttackList NVARCHAR(MAX) = @Attacks;
+    
+    WHILE CHARINDEX(',', @AttackList) > 0
+    BEGIN
+        SET @AttackId = SUBSTRING(@AttackList, 1, CHARINDEX(',', @AttackList) - 1);
+        INSERT INTO AttacksXCreature (ID_Creature, ID_Attack)
+        VALUES (@CreatureId, @AttackId);
+        SET @AttackList = SUBSTRING(@AttackList, CHARINDEX(',', @AttackList) + 1, LEN(@AttackList));
+        SET @AttackPosition = @AttackPosition + 1;
+    END
+    -- Insertar el último ataque en la lista
+    INSERT INTO AttacksXCreature (ID_Creature, ID_Attack)
+    VALUES (@CreatureId, @AttackList);
+
 END;

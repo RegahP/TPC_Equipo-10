@@ -992,6 +992,351 @@ EXEC InsertItem
     @Effect = 5, -- Buff
     @Amount = 6;
 
+--+-- Attacks --+--
+
+INSERT INTO Attacks (_Name, _Desc, ID_DamageType, Damage)
+VALUES 
+    ('Garras', 'Un ataque con afiladas garras que puede desgarrar la piel y causar daños profundos.', 0, 1),
+    ('Garrote', 'Un golpe contundente con un garrote que puede romper huesos y causar severos hematomas.', 1, 2),
+    ('Tentáculos', 'Tentáculos que golpean con fuerza, aplastando y envolviendo a su objetivo.', 1, 1),
+    ('Daga Espectral', 'Un ataque con una daga fantasmal que atraviesa la carne con facilidad.', 2, 3),
+    ('Toque Corruptor', 'Un toque maligno que no solo corta la piel sino que también infecta con energía corrupta.', 0, 3),
+    ('Piedra', 'Un lanzamiento de piedra que impacta con fuerza bruta.', 1, 1),
+    ('Rayos Oculares', 'Poderosos rayos de energía eléctrica disparados desde los ojos.', 5, 5),
+    ('Mordisco', 'Un mordisco feroz que puede desgarrar carne y hueso.', 2, 1),
+    ('Choque Aplastante', 'Un ataque demoledor que aplasta todo a su paso.', 1, 4),
+    ('Tridente', 'Un golpe con un tridente que puede atravesar y empalar al enemigo.', 2, 3),
+    ('Látigo de Raíces', 'Un látigo hecho de raíces que desgarra la piel al contacto.', 0, 2),
+    ('Gran hacha', 'Un poderoso hachazo que puede partir al enemigo en dos.', 0, 4),
+    ('Embestida Cornamentada', 'Una carga con cuernos afilados que puede atravesar a los enemigos.', 2, 4),
+    ('Aliento Gélido', 'Un soplo de aire helado que congela a todo lo que toca.', 3, 5),
+    ('Lanza', 'Un ataque con una lanza que puede perforar armaduras y carne.', 2, 2),
+    ('Cimitarra', 'Un corte rápido y mortal con una cimitarra curva.', 0, 4),
+    ('Arco Corto', 'Una flecha disparada con precisión que perfora la piel del enemigo.', 2, 2),
+    ('Daga', 'Un ataque rápido y letal con una daga afilada.', 2, 1),
+    ('Galope Flamígero', 'Un ataque ardiente mientras se carga hacia adelante, envolviendo al enemigo en llamas.', 4, 5),
+    ('Pezuña', 'Una patada fuerte con pezuñas que puede aplastar huesos.', 1, 3),
+    ('Embestida', 'Un embate brutal que derriba y aplasta al enemigo.', 1, 3);
+select * from Attacks;
+
+--+-- Creatures --+--
+----OJO CON LOS DAMAGE MOD, REVISAR QUE SE SUBAN BIEN
+EXEC InsertCreature
+    @Name = 'Arpía',
+    @Description = 'Las arpías son criaturas sádicas que cazan constantemente, disfrutando con el sufrimiento y la muerte. Su dulce canción ha llevado a una infinidad de aventureros a sus muertes, ya que provoca que se acerquen a la arpía para que esta los mate y los devore.',
+    @Rating = 2,
+    @Experience = 7,
+    @Proficiency = 1,
+    @ArmorClass = 11,
+    @MaxHealth = 15,
+    @DamageMod = 1,  -- Destreza
+    @Abilities = N'0,1,1,1,-2,0,1',
+    @Attacks = N'0,1';
+
+EXEC InsertCreature
+    @Name = 'Azotamentes',
+    @Description = 'Los azotamentes son una plaga para las criaturas inteligentes de incontables mundos. Se trata de viajeros interdimensionales, esclavistas, tiranos psiónicos y genios insidiosos que cosechan razas enteras para sus propios fines retorcidos. De su cabeza de pulpo surgen cuatro tentáculos que se retuercen de hambre cuando una criatura inteligente se acerca.',
+    @Rating = 7,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 15,
+    @MaxHealth = 38,
+    @DamageMod = 2,  -- Constitución
+    @Abilities = N'0,1,1,4,3,3',
+    @Attacks = N'2,0';
+
+EXEC InsertCreature
+    @Name = 'Banshee',
+    @Description = 'Al caer la noche, los viajeros más desafortunados escuchan los distantes lamentos de espíritus abandonados a su suerte. Este desgraciado espíritu es una banshee, almas en pena rencorosas creadas a partir de los espíritus de mujeres elfas.',
+    @Rating = 4,
+    @Experience = 7,
+    @Proficiency = 3,
+    @ArmorClass = 12,
+    @MaxHealth = 26,
+    @DamageMod = 1,  -- Destreza
+    @Abilities = N'-5,2,0,1,0,3',
+    @Attacks = N'3,4';
+
+EXEC InsertCreature
+    @Name = 'Cíclope',
+    @Description = 'Los cíclopes son gigantes con un solo ojo que viven sumidos en la pobreza en zonas despobladas. Estas criaturas son retraídas por naturaleza y evitan el contacto con otras razas, expulsando a aquellos que se adentran en sus tierras.',
+    @Rating = 6,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 14,
+    @MaxHealth = 32,
+    @DamageMod = 0,  -- Fuerza
+    @Abilities = N'4,0,5,-1,2,0',
+    @Attacks = N'1,5';
+
+EXEC InsertCreature
+    @Name = 'Contemplador',
+    @Description = 'Una sola mirada a un contemplador basta para percibir su naturaleza ultraterrena e infame. Agresivas, llenas de odio y codiciosas, estas aberraciones se consideran superiores al resto de criaturas, con las que juguetean o destruyen a su antojo.',
+    @Rating = 16,
+    @Experience = 7,
+    @Proficiency = 11,
+    @ArmorClass = 19,
+    @MaxHealth = 80,
+    @DamageMod = 2,  -- Constitución
+    @Abilities = N'0,2,4,3,2,3',
+    @Attacks = N'6,7,8';
+
+	---DE ACA PARA ABAJO LAS CRIATURAS NO VAN
+EXEC InsertCreature
+    @Name = 'Arpía',
+    @Description = 'Las arpías son criaturas sádicas que cazan constantemente, disfrutando con el sufrimiento y la muerte. Su dulce canción ha llevado a una infinidad de aventureros a sus muertes, ya que provoca que se acerquen a la arpía para que esta los mate y los devore.',
+    @Rating = 2,
+    @Experience = 7,
+    @Proficiency = 1,
+    @ArmorClass = 11,
+    @MaxHealth = 15,
+    @CurrentHealth = 15,
+    @GoldDrop = 10,
+    @DamageMod = 1, -- Destreza
+    @Abilities = O,1,1,1,-2,0,1,
+    @Attacks = 0,1;  -- Garras y Garrote
+
+	EXEC InsertCreature
+    @Name = 'Azotamentes',
+    @Description = 'Los azotamentes son una plaga para las criaturas inteligentes de incontables mundos. Se trata de viajeros interdimensionales, esclavistas, tiranos psiónicos y genios insidiosos que cosechan razas enteras para sus propios fines retorcidos. De su cabeza de pulpo surgen cuatro tentáculos que se retuercen de hambre cuando una criatura inteligente se acerca.',
+    @Rating = 7,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 15,
+    @MaxHealth = 38,
+    @CurrentHealth = 38,
+    @GoldDrop = 20,
+    @DamageMod = 2, -- Constitución
+    @Abilities = '0,1,1,4,3,3',
+    @Attacks = '2,0';  -- Tentáculos y Garras
+
+EXEC InsertCreature
+    @Name = 'Banshee',
+    @Description = 'Al caer la noche, los viajeros más desafortunados escuchan los distantes lamentos de espíritus abandonados a su suerte. Este desgraciado espíritu es una banshee, almas en pena rencorosas creadas a partir de los espíritus de mujeres elfas.',
+    @Rating = 4,
+    @Experience = 7,
+    @Proficiency = 3,
+    @ArmorClass = 12,
+    @MaxHealth = 26,
+    @CurrentHealth = 26,
+    @GoldDrop = 14,
+    @DamageMod = 1, -- Destreza
+    @Abilities = '-5,2,0,1,0,3',
+    @Attacks = '3,4';  -- Daga espectral y Toque Corruptor
+
+EXEC InsertCreature
+    @Name = 'Cíclope',
+    @Description = 'Los cíclopes son gigantes con un solo ojo que viven sumidos en la pobreza en zonas despobladas. Estas criaturas son retraídas por naturaleza y evitan el contacto con otras razas, expulsando a aquellos que se adentran en sus tierras.',
+    @Rating = 6,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 14,
+    @MaxHealth = 32,
+    @CurrentHealth = 32,
+    @GoldDrop = 18,
+    @DamageMod = 0, -- Fuerza
+    @Abilities = '4,0,5,-1,2,0',
+    @Attacks = '1,5';  -- Garrote y Piedra
+
+EXEC InsertCreature
+    @Name = 'Contemplador',
+    @Description = 'Una sola mirada a un contemplador basta para percibir su naturaleza ultraterrena e infame. Agresivas, llenas de odio y codiciosas, estas aberraciones se consideran superiores al resto de criaturas, con las que juguetean o destruyen a su antojo.',
+    @Rating = 16,
+    @Experience = 7,
+    @Proficiency = 11,
+    @ArmorClass = 19,
+    @MaxHealth = 80,
+    @CurrentHealth = 80,
+    @GoldDrop = 40,
+    @DamageMod = 2, -- Constitución
+    @Abilities = '0,2,4,3,2,3',
+    @Attacks = '6,7,8';  -- Rayos oculares, Mordisco y Choque aplastante
+
+EXEC InsertCreature
+    @Name = 'Diablo Astado',
+    @Description = 'Los diablos astados son perezosos hasta límites insospechados y se muestran reacios a exponerse a situaciones peligrosas. Además, odian y temen a cualquier criatura más fuerte que ellos. Pero cuando se los provoca pueden demostrar una furia terrible.',
+    @Rating = 11,
+    @Experience = 7,
+    @Proficiency = 7,
+    @ArmorClass = 17,
+    @MaxHealth = 60,
+    @CurrentHealth = 60,
+    @GoldDrop = 30,
+    @DamageMod = 3, -- Destreza
+    @Abilities = N'3,3,5,1,3,3',
+    @Attacks = N'9,0';  -- Tridente y Garras
+
+EXEC InsertCreature
+    @Name = 'Dracoliche',
+    @Description = 'Todos los dragones mueren, incluso teniendo en cuenta lo longevos que pueden llegar a ser. Esta idea no suele sentar bien a muchos dragones, por lo que algunos de ellos permiten que se les transforme con energía nigromántica y rituales antiguos en poderosos dracoliches muertos vivientes.',
+    @Rating = 13,
+    @Experience = 7,
+    @Proficiency = 9,
+    @ArmorClass = 18,
+    @MaxHealth = 67,
+    @CurrentHealth = 67,
+    @GoldDrop = 34,
+    @DamageMod = 4, -- Inteligencia
+    @Abilities = N'4,0,4,3,2,4',
+    @Attacks = N'7,0';  -- Mordisco y Garras
+
+	EXEC InsertCreature
+    @Name = 'Dríade',
+    @Description = 'Aquellas personas que entren en un bosque podrían ser capaces de vislumbrar una figura femenina que viaja entre los árboles. Una cálida risa inunda el ambiente y atrae a quienes la escuchan a las profundidades de la sombra esmeralda.',
+    @Rating = 3,
+    @Experience = 7,
+    @Proficiency = 3,
+    @ArmorClass = 12,
+    @MaxHealth = 18,
+    @CurrentHealth = 18,
+    @GoldDrop = 14,
+    @DamageMod = 4, -- Inteligencia
+    @Abilities = N'0,1,0,2,2,4',
+    @Attacks = N'1,10';  -- Garrote y Látigo de Raíces
+
+EXEC InsertCreature
+    @Name = 'Ent',
+    @Description = 'Los ents son árboles despertados que habitan en bosques antiguos. Aunque prefieren pasar los días, meses y años en una quietud contemplativa, protegen con ferocidad los bosques, que son su herencia, de amenazas exteriores.',
+    @Rating = 9,
+    @Experience = 7,
+    @Proficiency = 7,
+    @ArmorClass = 15,
+    @MaxHealth = 55,
+    @CurrentHealth = 55,
+    @GoldDrop = 26,
+    @DamageMod = 1, -- Destreza
+    @Abilities = N'1,1,1,-2,0,1',
+    @Attacks = N'10,5';  -- Látigo de Raíces y Piedra
+
+EXEC InsertCreature
+    @Name = 'Gigante de Escarcha',
+    @Description = 'Los gigantes de escarcha, enormes saqueadores provenientes de las heladas tierras de más allá de la civilización, son fieros y duros guerreros que sobreviven de lo conseguido en sus incursiones y saqueos. Tan solo respetan la fuerza bruta y la habilidad para el combate, mostrando ambas con cicatrices y los grotescos trofeos que cogen de sus enemigos.',
+    @Rating = 16,
+    @Experience = 7,
+    @Proficiency = 11,
+    @ArmorClass = 19,
+    @MaxHealth = 80,
+    @CurrentHealth = 80,
+    @GoldDrop = 40,
+    @DamageMod = 0, -- Fuerza
+    @Abilities = N'5,-1,5,-1,0,1',
+    @Attacks = N'11,12,13';  -- Gran Hacha, Embestida Cornamentada, Aliento Gélido
+
+EXEC InsertCreature
+    @Name = 'Gnoll',
+    @Description = 'Los gnolls son humanoides salvajes que atacan sin previo aviso asentamientos en las fronteras de la civilización, asesinando a sus víctimas y devorando su carne.',
+    @Rating = 2,
+    @Experience = 7,
+    @Proficiency = 1,
+    @ArmorClass = 12,
+    @MaxHealth = 17,
+    @CurrentHealth = 17,
+    @GoldDrop = 12,
+    @DamageMod = 2, -- Fuerza
+    @Abilities = N'2,1,0,-2,0,-2',
+    @Attacks = N'7,14';  -- Mordisco y Lanza
+
+EXEC InsertCreature
+    @Name = 'Goblin',
+    @Description = 'Los goblins son pequeños humanoides, egoístas y de negro corazón, que habitan en cavernas, minas abandonadas, mazmorras saqueadas y otros lugares lúgubres.',
+    @Rating = 1,
+    @Experience = 7,
+    @Proficiency = 1,
+    @ArmorClass = 11,
+    @MaxHealth = 12,
+    @CurrentHealth = 12,
+    @GoldDrop = 10,
+    @DamageMod = 1, -- Destreza
+    @Abilities = N'-1,2,0,0,-1,-1',
+    @Attacks = N'15,16';  -- Cimitarra y Arco Corto
+
+
+EXEC InsertCreature
+    @Name = 'Golem de Piedra',
+    @Description = 'Los gólems de piedra existen en múltiples formas, pero siempre tallados en roca como altas e impresionantes estatuas. Aunque la mayoría tienen rasgos humanoides, los gólems de piedra pueden estar tallados de cualquier manera que quien los esculpe decida.',
+    @Rating = 7,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 14,
+    @MaxHealth = 48,
+    @CurrentHealth = 48,
+    @GoldDrop = 22,
+    @DamageMod = 3, -- Fuerza
+    @Abilities = N'3,-1,4,-4,0,-4',
+    @Attacks = N'5,5';  -- Piedra y Garrote
+
+EXEC InsertCreature
+    @Name = 'Grifo',
+    @Description = 'Los grifos son feroces aves carnívoras con los musculosos cuerpos de un león y las cabezas, patas delanteras y alas de un águila. Cuando atacan, son ágiles y letales como águilas, pero luchan con el poder y la gracilidad de un león.',
+    @Rating = 4,
+    @Experience = 7,
+    @Proficiency = 3,
+    @ArmorClass = 13,
+    @MaxHealth = 22,
+    @CurrentHealth = 22,
+    @GoldDrop = 16,
+    @DamageMod = 2, -- Fuerza
+    @Abilities = N'2,3,2,-2,1,-1',
+    @Attacks = N'0,7';  -- Garras y Mordisco
+
+EXEC InsertCreature
+    @Name = 'Kobold',
+    @Description = 'Los kobolds son humanoides reptilianos sumamente cobardes, que adoran a los dragones malvados como semidioses y los sirven como esbirros. Habitan en las guaridas de los dragones siempre que pueden, pero lo más normal es que moren en mazmorras donde acumulan los tesoros y bagatelas que conforman sus pequeñas fortunas.',
+    @Rating = 2,
+    @Experience = 7,
+    @Proficiency = 1,
+    @ArmorClass = 13,
+    @MaxHealth = 15,
+    @CurrentHealth = 15,
+    @GoldDrop = 10,
+    @DamageMod = 0, -- Fuerza
+    @Abilities = N'0,2,0,-2,-1,-2',
+    @Attacks = N'17,0';  -- Daga y Garras
+
+EXEC InsertCreature
+    @Name = 'Hombre Lobo',
+    @Description = 'Los hombres lobos son depredadores salvajes. En su forma de humanoide, estas criaturas poseen sentidos muy agudos, un temperamento fuerte y la tendencia a comer carne muy poco hecha. Pero su forma híbrida se compone de un musculoso cuerpo similar al de un humanoide rematado con la cabeza de un lobo enloquecido.',
+    @Rating = 8,
+    @Experience = 7,
+    @Proficiency = 5,
+    @ArmorClass = 14,
+    @MaxHealth = 52,
+    @CurrentHealth = 52,
+    @GoldDrop = 24,
+    @DamageMod = 2, -- Fuerza
+    @Abilities = N'2,3,1,0,0,0',
+    @Attacks = N'0,7';  -- Garras y Mordisco
+
+EXEC InsertCreature
+    @Name = 'Pesadilla',
+    @Description = 'Las pesadillas aparecen rodeadas de una nube de humo, con su crin, cola y pezuñas envueltas en llamas. La espeluznante y oscura forma de estos seres se mueve con una velocidad sobrenatural, desapareciendo en una nube de azufre tan rápidamente cómo apareció.',
+    @Rating = 16,
+    @Experience = 7,
+    @Proficiency = 11,
+    @ArmorClass = 19,
+    @MaxHealth = 80,
+    @CurrentHealth = 80,
+    @GoldDrop = 40,
+    @DamageMod = 4, -- Fuerza
+    @Abilities = N'4,3,3,1,2,2',
+    @Attacks = N'18,19,20';  -- Galope Flamígero, Pezuña y Embestida
+
+EXEC InsertCreature
+    @Name = 'Vampiro',
+    @Description = 'Despertados a una noche eterna y ansiando la vida que han perdido, los vampiros se sacian bebiendo la sangre de los vivos. Odian la luz solar, ya que esta les quema.',
+    @Rating = 12,
+    @Experience = 7,
+    @Proficiency = 9,
+    @ArmorClass = 16,
+    @MaxHealth = 68,
+    @CurrentHealth = 68,
+    @GoldDrop = 32,
+    @DamageMod = 3, -- Fuerza
+    @Abilities = N'3,3,2,1,2,2',
+    @Attacks = N'0,7';  -- Garras y Mordisco
+
+
+
 
 ---Buscador de armas
 SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, A._Name AS Ability, DT._Name AS Damage_Type, I.Price
@@ -999,3 +1344,14 @@ FROM Items I
 INNER JOIN Weapons W ON I.ID_Item = W.ID_Item
 INNER JOIN Abilities A  ON W.ID_Ability = A.ID_Ability
 INNER JOIN DamageTypes DT ON W.ID_DamageType = DT.ID_DamageType
+
+---Buscador de criaturas
+
+--Tratar de encajar bien todo para que quede visible bien, probar con subquerys
+--SELECT C._Name, C._Desc, C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth, C.DamageMod
+SELECT *
+FROM Creatures C
+INNER JOIN AttacksXCreature ATTC ON C.ID_Creature = ATTC.ID_Creature
+INNER JOIN AbilitiesXCreatures ABC  ON C.ID_Creature = ABC.ID_Creature
+INNER JOIN Attacks ATT ON ATTC.ID_Attack = ATT.ID_Attack
+INNER JOIN Abilities AB ON ABC.ID_Ability =	AB.ID_Ability
