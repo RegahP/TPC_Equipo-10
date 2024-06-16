@@ -16,11 +16,10 @@ VALUES
 ('Sabiduría', 'Percepción y juicio intuitivo.'),	 
 --ID 5 - Carisma
 ('Carisma', 'Influencia y atractivo personal.');	 
-select * from Abilities;
 
 --+-- SKILL --+--
 
- INSERT INTO Skills(_Name, _Desc, ID_Ability)
+INSERT INTO Skills(_Name, _Desc, ID_Ability)
 VALUES
 --ID 0 - Acrobacias
 ('Acrobacias', 'Agilidad y coordinación en movimientos acrobáticos', 1),
@@ -38,11 +37,10 @@ VALUES
 ('Sigilo', 'Habilidad para moverse sin ser detectado', 1),
 --ID 7 - Supervivencia
 ('Supervivencia', 'Habilidad para sobrevivir en condiciones adversas', 4);
-select * from Skills
 
 --+-- RACE --+--
 
- INSERT INTO Races(_Name, _Desc, ID_Ability)
+INSERT INTO Races(_Name, _Desc, ID_Ability)
 VALUES 
 --ID 0 - Humano 
 ('Humano', 
@@ -68,7 +66,6 @@ VALUES
 ('Mediano', 
  'Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos; un buen fuego y una comida generosa; buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo.', 
  4);
-select * from Races;
 
 --+-- CLASS --+--
 
@@ -98,7 +95,6 @@ VALUES
  '“Aunque estés sumido en un peligro indescriptible, aunque tus opciones se vean cada vez más acotadas, la fe en tu dios jamás temblará. Miras al cielo, alzas los brazos entregándote a él, y en respuesta una luz sagrada baña tu cuerpo, sanándolo”. Te curas 1/2 de tu vida máxima.',
  0
 ),
-
 --ID 3 - Pícaro
 ('Pícaro', 
  'Maestros del sigilo y las habilidades, confían en las vulnerabilidades de sus oponentes para sacar ventaja. Ingeniosos y versátiles, son la piedra angular de cualquier grupo de aventureros.', 
@@ -107,7 +103,6 @@ VALUES
  '“Antes de que tu oponente siquiera note tus intenciones, en un impulso de adrenalina sales disparado hacia él, confundiéndolo con fintas, desviando sus golpes con gracia hasta que encuentras una apertura vital donde arremeter con todas tus fuerzas”. La tirada de ataque es automáticamente exitosa, haces el daño de tu arma y adicionalmente provocas una hemorragia en el enemigo hasta el final del combate que hace 2 de daño cada ronda.',
  1
 );
-select * from Classes;
 
 --+-- BACKGROUND --+--
 
@@ -155,7 +150,6 @@ VALUES
  2, 
  0, 
  10);
-select * from Backgrounds;
 
 --+-- DAMAGE TYPE --+--
 
@@ -173,12 +167,11 @@ VALUES
 ('Fuego'),
 --ID 5 - Electricidad
 ('Electricidad');
-select * from DamageTypes;
 
 --+-- WEAPON --+--
 
 --Weapon - Fuerza
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Hacha de mano',
     @Description = 'Un arma pequeña y versátil, utilizada para ataques cuerpo a cuerpo o arrojadizos. Tiene una hoja afilada montada en un mango corto.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -188,7 +181,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Espada larga',
     @Description = 'Tiene una hoja recta y afilada de buena longitud, ideal para ataques de corte y estocadas. Se maneja con una o dos manos, ofreciendo un equilibrio entre velocidad y potencia.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -198,7 +191,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Alabarda',
     @Description = 'Un arma de asta larga y pesada. Tiene una hoja de hacha combinada con una punta de lanza, permitiendo ataques de cortes profundos. Su longitud proporciona alcance adicional en combate cuerpo a cuerpo.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -208,7 +201,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 5;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Espadón',
     @Description = 'Grande y poderosa. Tiene una hoja larga y pesada diseñada para ataques devastadores. Se maneja con dos manos, sacrificando velocidad por máxima potencia y alcance en el combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -218,7 +211,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Hacha de Batalla',
     @Description = 'Un arma robusta y poderosa. Tiene una hoja pesada montada en un mango largo, ideal para infligir golpes letales. Puede manejarse con una o dos manos, equilibrando versatilidad y potencia en el combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -228,7 +221,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Gran Hacha',
     @Description = 'Tiene una hoja ancha y pesada montada en un largo mango, diseñada para ataques poderosos. Se maneja con dos manos, ofreciendo máxima potencia a costa de velocidad.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -238,7 +231,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Gran Clava',
     @Description = 'Consiste en un grueso bastón de madera o metal, a menudo con puntas o protuberancias. Ideal para aplastar enemigos con fuerza bruta.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -248,7 +241,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Maza',
     @Description = 'Compacta y contundente. Tiene una cabeza pesada, a menudo con picos o protuberancias, montada en un mango corto.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -258,7 +251,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Honda',
     @Description = 'Es un arma a distancia simple y efectiva. Consiste en una correa de cuero o tela con una bolsa en el centro, usada para lanzar proyectiles como piedras.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -268,7 +261,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Martillo de Guerra',
     @Description = 'Tiene una cabeza grande y pesada, generalmente con una forma de prisma o cónica, montada en un mango corto. Se maneja con una o dos manos, ideal para golpear y destrozar la armadura de los enemigos.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -278,7 +271,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Mayal',
     @Description = 'Consiste en una bola de metal con picos, unida a un mango mediante una cadena o cordón, permitiendo golpes devastadores que pueden atravesar la armadura y causar daño grave a los enemigos.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -288,7 +281,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Jabalina',
     @Description = 'Una vara larga con una punta afilada en un extremo y un equilibrio adecuado para el vuelo estable. Es liviana y fácil de transportar, pero requiere habilidad para ser precisa en el combate a distancia.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -298,7 +291,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Lanza de Caballería',
     @Description = 'Tiene una hoja larga y afilada montada en un mango resistente. Ofrece alcance adicional y potencia en el combate, pero puede ser difícil de maniobrar en espacios cerrados.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -308,7 +301,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Lucero del Alba',
     @Description = 'Una bola de metal con puntas afiladas, montada en un mango corto y resistente. Se maneja con una o dos manos y es especialmente efectiva contra enemigos con armadura. Su diseño único permite golpear con fuerza concentrada.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -318,7 +311,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Pica de Guerra',
     @Description = 'Diseñada para enfrentamientos en formación y defensa de posiciones. Tiene una punta larga y afilada montada en un asta robusta y larga. Es ideal para detener cargas de caballería y proteger líneas de combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -328,7 +321,7 @@ EXEC InsertItem
     @WeaponAbility = 0,
     @Damage = 5;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Tridente',
     @Description = 'Versátil y efectiva. Consiste en tres puntas afiladas montadas en un mango largo. Ofrece una combinación de ataques de estocada y corte.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -339,7 +332,7 @@ EXEC InsertItem
     @Damage = 3;
 
 --Weapon - Destreza
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Hoz',
     @Description = 'Conformada por una hoja curva montada en un mango corto. Es conocida por su capacidad para realizar ataques de corte y barrido, haciéndola efectiva en combates cercanos. Además de ser un arma, la hoz también se utiliza en tareas agrícolas, lo que la convierte en una opción versátil tanto en la granja como en el campo de batalla.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -349,7 +342,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cimitarra',
     @Description = 'Una hoja curva y afilada, similar a un sable. Es especialmente efectiva para realizar ataques de corte rápidos y precisos. Se maneja con una mano y es popular entre los guerreros ágiles y veloces. La forma curva de la hoja permite realizar ataques versátiles y fluidos en combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -359,7 +352,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Espada Corta',
     @Description = 'Tiene una hoja recta y afilada de longitud media, ideal para ataques rápidos y precisos en espacios reducidos. La espada corta es popular entre los aventureros que prefieren la movilidad y la rapidez en el combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -369,7 +362,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Látigo',
     @Description = 'Es un arma flexible y versátil que se utiliza para ataques a distancia y para restringir movimientos. Consiste en una tira larga de cuero o cuerda con un mango en un extremo. Es ideal para incapacitar a los oponentes, así como para realizar ataques a distancia en combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -379,7 +372,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Golpe Desarmado',
     @Description = 'Puede ser efectuado con los puños, los codos, las rodillas u otras partes del cuerpo.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -389,7 +382,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Martillo Ligero',
     @Description = 'Tiene una cabeza pequeña y un mango corto, lo que lo hace ideal para ataques rápidos y precisos. Aunque menos poderoso que un martillo de guerra, su ligereza permite al usuario ser más ágil en combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -399,7 +392,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Clava',
     @Description = 'Simple pero efectiva. Consiste en un palo pesado y contundente, generalmente hecho de madera o metal, con un extremo diseñado para golpear.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -409,7 +402,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Daga',
     @Description = 'Tiene una hoja corta y afilada, ideal para ataques rápidos y precisos en combate cercano. Es fácil de ocultar y útil para realizar ataques sigilosos.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -419,7 +412,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Lanza',
     @Description = 'Una vara larga con una punta afilada en un extremo, ideal para realizar ataques de estocada desde la distancia. Es popular entre guerreros y cazadores que necesitan un arma versátil que pueda ser utilizada tanto en combate a distancia como en combate cuerpo a cuerpo.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -429,7 +422,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 3;
 
-	EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Arco Corto',
     @Description = 'Un arco más pequeño que el largo, lo que lo hace más manejable en espacios reducidos o en movimiento rápido. Es ideal para ataques precisos a corta y mediana distancia. Es la elección de los arqueros que valoran la movilidad y la rapidez en el combate, ya que les permite disparar con facilidad mientras se desplazan por el campo de batalla.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -439,7 +432,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Ballesta Ligera',
     @Description = 'Se compone de un arco montado sobre un asta, con un mecanismo de tensión que permite disparar proyectiles con gran fuerza y precisión. Es más fácil de manejar que una ballesta pesada y puede dispararse con una sola mano, lo que la hace ideal para combate rápido y táctico.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -449,7 +442,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 4;
 	
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Estoque',
     @Description = 'Su hoja larga y estrecha facilita la penetración de la armadura y la realización de ataques precisos. Es especialmente efectivo en combate uno a uno, donde puede aprovechar su agilidad y velocidad para superar las defensas del oponente.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -459,7 +452,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Arco Largo',
     @Description = 'Con una estructura más larga y un mayor poder de tensión que un arco corto, el arco largo es ideal para disparos de largo alcance y ataques poderosos.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -469,7 +462,7 @@ EXEC InsertItem
     @WeaponAbility = 1,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Ballesta Pesada',
     @Description = 'Se compone de un arco montado sobre un asta más gruesa y resistente, con un mecanismo de tensión que permite disparar proyectiles con gran fuerza y precisión. A diferencia de la ballesta ligera, la ballesta pesada requiere más tiempo para cargar y apuntar, pero compensa con un mayor poder de penetración y alcance.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -480,7 +473,7 @@ EXEC InsertItem
     @Damage = 5;
 
 --Weapon - Inteligencia
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Varita de Hielo',
     @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de hielo.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -490,7 +483,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Bastón Gélido',
     @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una fría sensación de calma.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -500,7 +493,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Báculo de las Nieves',
     @Description = 'Un objeto mágico poderoso imbuido con el poder del frío y la nieve. Tallado con madera de árboles antiguos de los páramos helados y adornado con cristales de hielo, este bastón canaliza la esencia de los elementos invernales.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -510,7 +503,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cetro Glacial',
     @Description = 'Forjado a partir de los secretos más profundos del hielo y la magia glacial. Este cetro, hecho de cristal helado y adornado con runas de poder, es una encarnación de la esencia misma del frío y la congelación.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -520,7 +513,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 8;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Varita de Fuego',
     @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de fuego.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -530,7 +523,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Bastón de Fuego',
     @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una cálida sensación de coraje.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -540,7 +533,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Báculo Flamígero',
     @Description = 'Un poderoso artefacto mágico imbuido con el poder del fuego y las llamas. Hecho de madera oscura y adornado con gemas rojas resplandecientes, este báculo es una manifestación de la furia elemental del fuego.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -550,7 +543,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cetro Infernal',
     @Description = 'Este cetro es una manifestación del poder oscuro y abrasador del Infierno, capaz de desencadenar terribles fuerzas infernales sobre los enemigos del portador. Permite lanzar hechizos ardientes y destructivos.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -560,7 +553,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 8;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Varita Eléctrica',
     @Description = 'Es un instrumento mágico básico, generalmente hecho de madera y decorado con simples grabados o runas. Aunque su apariencia puede ser modesta, su potencial es significativo. En ella pueden verse talladas runas de los elementales de electricidad.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -570,7 +563,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Bastón Eléctrico',
     @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una chisporroteante sensación de adrenalina.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -580,7 +573,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Báculo Paralizante',
     @Description = 'Imbuido con el poder de la tormenta y la electricidad. Tallado con madera oscura y adornado con relámpagos esculpidos, este báculo es una manifestación del poderío elemental del trueno.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -590,7 +583,7 @@ EXEC InsertItem
     @WeaponAbility = 3,
     @Damage = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cetro de las Tormentas',
     @Description = 'Creado a partir de la esencia misma de la electricidad y la fuerza de las tormentas. Este cetro, adornado con relámpagos danzantes y grabados de nubes tormentosas, es una encarnación del poderío elemental del trueno y el relámpago. Permite a su portador lanzar hechizos de electricidad devastadores.',
     @ItemType = 1, -- Tipo 1 para Equippable
@@ -604,7 +597,7 @@ EXEC InsertItem
 --+-- PROTECTIONS --+--
 
 --Armor
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Vestimentas comunes',
     @Description = 'Ropajes iniciales de la aventura.',
     @ItemType = 1, -- Equippable
@@ -614,7 +607,7 @@ EXEC InsertItem
     @ResistanceType = 0,
     @Armor = 0;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Acolchada',
     @Description = 'Una vestimenta protectora ligera y flexible, compuesta por capas de tela acolchada o cuero endurecido.',
     @ItemType = 1, -- Equippable
@@ -624,7 +617,7 @@ EXEC InsertItem
     @ResistanceType = 1,
     @Armor = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cuero',
     @Description = 'Es una protección ligera y flexible hecha de cuero curtido y endurecido.',
     @ItemType = 1, -- Equippable
@@ -634,7 +627,7 @@ EXEC InsertItem
     @ResistanceType = 0, -- Cortante
     @Armor = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cuero Tachonado',
     @Description = 'Una mejora de la armadura de cuero básica. Está reforzada con pequeñas placas de metal, generalmente remachadas en el cuero para aumentar su resistencia.',
     @ItemType = 1, -- Equippable
@@ -644,7 +637,7 @@ EXEC InsertItem
     @ResistanceType = 2, -- Perforante
     @Armor = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Pieles',
     @Description = 'Hecha de pieles de animales curtidas y tratadas. Aunque ofrece una protección limitada en comparación con las armaduras metálicas, es ligera, flexible y proporciona cierto grado de resistencia contra ataques físicos y climáticos.',
     @ItemType = 1, -- Equippable
@@ -654,7 +647,7 @@ EXEC InsertItem
     @ResistanceType = 1, -- Contundente
     @Armor = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Camisote de mallas',
     @Description = 'Protección intermedia hecha de anillos de metal entrelazados. Ofrece una mayor defensa que las armaduras de cuero, pero sin el peso ni la rigidez de las armaduras de placas completas.',
     @ItemType = 1, -- Equippable
@@ -664,7 +657,7 @@ EXEC InsertItem
     @ResistanceType = 0, -- Cortante
     @Armor = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cota de escamas',
     @Description = 'Compuesta por pequeñas placas de metal o material duro cosidas sobre una base de cuero o tela. Las escamas se superponen como las de un pez, proporcionando una defensa sólida contra ataques de corte y perforación.',
     @ItemType = 1, -- Equippable
@@ -674,7 +667,7 @@ EXEC InsertItem
     @ResistanceType = 2, -- Perforante
     @Armor = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Coraza',
     @Description = 'Cubre el torso y la parte superior del cuerpo. Generalmente está hecha de metal, forjada en una sola pieza para proporcionar la máxima protección contra ataques físicos.',
     @ItemType = 1, -- Equippable
@@ -684,7 +677,7 @@ EXEC InsertItem
     @ResistanceType = 1, -- Contundente
     @Armor = 4;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Semiplacas',
     @Description = 'Es una versión mejorada de la coraza, que combina la protección de las placas con la flexibilidad de la malla. Está compuesta por una mezcla de placas de metal y malla, lo que proporciona una defensa sólida sin sacrificar demasiada movilidad.',
     @ItemType = 1, -- Equippable
@@ -694,7 +687,7 @@ EXEC InsertItem
     @ResistanceType = 2, -- Perforante
     @Armor = 5;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cota de anillas',
     @Description = 'Compuesta por anillos de metal unidos entre sí para formar una malla flexible. Aunque no ofrece la misma protección que las armaduras más pesadas, como la cota de mallas o la armadura de placas, la cota de anillas es más ligera y permite una mayor movilidad.',
     @ItemType = 1, -- Equippable
@@ -704,7 +697,7 @@ EXEC InsertItem
     @ResistanceType = 0, -- Cortante
     @Armor = 5;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Cota de mallas',
     @Description = 'Es una variante mejorada de la cota de anillas, reforzada con más anillos de metal y una construcción más resistente. Esta armadura proporciona una protección mejorada contra ataques de corte y perforación, mientras aún permite una cantidad razonable de movilidad.',
     @ItemType = 1, -- Equippable
@@ -714,7 +707,7 @@ EXEC InsertItem
     @ResistanceType = 2, -- Perforante
     @Armor = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Bandas',
     @Description = 'Está compuesta por tiras anchas de metal entrecruzadas y cosidas sobre una base de cuero o tela robusta. Esta armadura proporciona una defensa sólida contra golpes y cortes.',
     @ItemType = 1, -- Equippable
@@ -724,7 +717,7 @@ EXEC InsertItem
     @ResistanceType = 0, -- Cortante
     @Armor = 7;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Placas',
     @Description = 'Es una protección pesada y robusta compuesta por placas de metal articuladas o laminadas que cubren gran parte del cuerpo. Esta armadura ofrece una defensa superior contra una amplia variedad de ataques, incluidos los golpes contundentes y los cortes.',
     @ItemType = 1, -- Equippable
@@ -735,102 +728,102 @@ EXEC InsertItem
     @Armor = 8;
 
 --Shield
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Rodela',
     @Description = 'Pequeño escudo redondo, generalmente de metal o madera, que se sujeta al antebrazo con correas.',
     @ItemType = 1, -- Equippable
     @Price = 5,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 0, -- Cortante
     @Armor = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Rondache',
     @Description = 'Ligero, similar a una rodela, pero apenas más robusto. Hecho de madera o metal.',
     @ItemType = 1, -- Equippable
     @Price = 5,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 0, -- Cortante
     @Armor = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo de madera reforzada',
     @Description = 'Un escudo hecho principalmente de madera, pero con refuerzos de metal o cuero para aumentar su durabilidad y capacidad de defensa.',
     @ItemType = 1, -- Equippable
     @Price = 5,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 1, -- Contundente
     @Armor = 1;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo con correa',
     @Description = 'Especialmente diseñado para ser utilizado sin necesidad de sostenerlo directamente con la mano. Este escudo se asegura al brazo del portador mediante correas y hebillas, lo que permite al usuario mantener ambas manos libres para otras tareas.',
     @ItemType = 1, -- Equippable
     @Price = 15,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 2, -- Perforante
     @Armor = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo de Pieles',
     @Description = 'Está compuesto por capas gruesas de pieles curtidas y tratadas, reforzadas con tiras de cuero endurecido o placas de metal para aumentar su durabilidad y capacidad de defensa.',
     @ItemType = 1, -- Equippable
     @Price = 15,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 1, -- Contundente
     @Armor = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Robaespadas',
     @Description = 'Además de ofrecer protección estándar, este escudo tiene protuberancias, ganchos o ranuras que pueden atrapar las hojas de las espadas enemigas, logrando una disminución en la potencia del impacto de los enemigos.',
     @ItemType = 1, -- Equippable
     @Price = 15,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 0, -- Cortante
     @Armor = 2;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Fortaleza',
     @Description = 'Grande y robusto, diseñado para proporcionar una defensa excepcional en combate. Este escudo es más grande y más pesado que los escudos estándar, a menudo cubriendo una mayor parte del cuerpo del portador.',
     @ItemType = 1, -- Equippable
     @Price = 30,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 2, -- Perforante
     @Armor = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo Salvo',
     @Description = 'Un escudo de origen desconocido, con la apariencia de un orbe de protección pseudomágico, capaz de desviar con maestría cualquier daño perforante que se le acerque.',
     @ItemType = 1, -- Equippable
     @Price = 30,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 2, -- Perforante
     @Armor = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo de acero reforzado',
     @Description = 'Un escudo pesado y resistente hecho principalmente de acero, con refuerzos adicionales para aumentar su durabilidad y capacidad defensiva.',
     @ItemType = 1, -- Equippable
     @Price = 30,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 0, -- Cortante
     @Armor = 3;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Escudo Meteoro',
     @Description = 'Excepcionalmente resistente y poderoso, a menudo considerado un artefacto o una creación mágica. Se dice que está forjado con metales raros y materiales de meteoritos, lo que le otorga propiedades únicas y una increíble durabilidad.',
     @ItemType = 1, -- Equippable
     @Price = 50,
-    @EquippableType = 2, -- Shield
+    @EquippableType = 1, -- Shield
     @ArmorType = 1,
     @ResistanceType = 1, -- Contundente
     @Armor = 4;
@@ -838,7 +831,7 @@ EXEC InsertItem
 --+-- CONSUMABLES --+--
 
 --Cure
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Poción de curación',
     @Description = 'Restaura una cantidad pequeña de puntos de golpe al usuario. Es una herramienta común para recuperarse durante o después de una batalla.',
     @ItemType = 2, -- Consumable
@@ -846,7 +839,7 @@ EXEC InsertItem
     @Effect = -1, -- Curación
     @Amount = 6;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Tereré de Yuyos Fey',
     @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
@@ -854,7 +847,7 @@ EXEC InsertItem
     @Effect = -1, -- Curación
     @Amount = 14;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Suprema de Wyvern',
     @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
@@ -862,7 +855,7 @@ EXEC InsertItem
     @Effect = -1, -- Curación
     @Amount = 32;
 
-EXEC InsertItem
+EXEC SP_InsertItem
     @Name = 'Ojo de Bife del Contemplador',
     @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
     @ItemType = 2, -- Consumable
@@ -897,11 +890,10 @@ VALUES
     ('Galope Flamígero', 'Un ataque ardiente mientras se carga hacia adelante, envolviendo al enemigo en llamas.', 4, 5),
     ('Pezuña', 'Una patada fuerte con pezuñas que puede aplastar huesos.', 1, 3),
     ('Embestida', 'Un embate brutal que derriba y aplasta al enemigo.', 1, 3);
-select * from Attacks;
 
 --+-- Creatures --+--
-----OJO CON LOS DAMAGE MOD, REVISAR QUE SE SUBAN BIEN
-EXEC InsertCreature
+
+EXEC SP_InsertCreature
     @Name = 'Arpía',
     @Description = 'Las arpías son criaturas sádicas que cazan constantemente, disfrutando con el sufrimiento y la muerte. Su dulce canción ha llevado a una infinidad de aventureros a sus muertes, ya que provoca que se acerquen a la arpía para que esta los mate y los devore.',
     @Rating = 2,
@@ -913,7 +905,7 @@ EXEC InsertCreature
     @Abilities = N'0,1,1,1,-2,0,1',
     @Attacks = N'0,1';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Azotamentes',
     @Description = 'Los azotamentes son una plaga para las criaturas inteligentes de incontables mundos. Se trata de viajeros interdimensionales, esclavistas, tiranos psiónicos y genios insidiosos que cosechan razas enteras para sus propios fines retorcidos. De su cabeza de pulpo surgen cuatro tentáculos que se retuercen de hambre cuando una criatura inteligente se acerca.',
     @Rating = 7,
@@ -925,7 +917,7 @@ EXEC InsertCreature
     @Abilities = N'0,1,1,4,3,3',
     @Attacks = N'2,0';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Banshee',
     @Description = 'Al caer la noche, los viajeros más desafortunados escuchan los distantes lamentos de espíritus abandonados a su suerte. Este desgraciado espíritu es una banshee, almas en pena rencorosas creadas a partir de los espíritus de mujeres elfas.',
     @Rating = 4,
@@ -937,7 +929,7 @@ EXEC InsertCreature
     @Abilities = N'-5,2,0,1,0,3',
     @Attacks = N'3,4';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Cíclope',
     @Description = 'Los cíclopes son gigantes con un solo ojo que viven sumidos en la pobreza en zonas despobladas. Estas criaturas son retraídas por naturaleza y evitan el contacto con otras razas, expulsando a aquellos que se adentran en sus tierras.',
     @Rating = 6,
@@ -949,7 +941,7 @@ EXEC InsertCreature
     @Abilities = N'4,0,5,-1,2,0',
     @Attacks = N'1,5';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Contemplador',
     @Description = 'Una sola mirada a un contemplador basta para percibir su naturaleza ultraterrena e infame. Agresivas, llenas de odio y codiciosas, estas aberraciones se consideran superiores al resto de criaturas, con las que juguetean o destruyen a su antojo.',
     @Rating = 16,
@@ -961,7 +953,7 @@ EXEC InsertCreature
     @Abilities = N'0,2,4,3,2,3',
     @Attacks = N'6,7,8';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Diablo Astado',
     @Description = 'Los diablos astados son perezosos hasta límites insospechados y se muestran reacios a exponerse a situaciones peligrosas. Además, odian y temen a cualquier criatura más fuerte que ellos. Pero cuando se los provoca pueden demostrar una furia terrible.',
     @Rating = 11,
@@ -973,7 +965,7 @@ EXEC InsertCreature
     @Abilities = N'3,3,5,1,3,3',
     @Attacks = N'9,0';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Dracoliche',
     @Description = 'Todos los dragones mueren, incluso teniendo en cuenta lo longevos que pueden llegar a ser. Esta idea no suele sentar bien a muchos dragones, por lo que algunos de ellos permiten que se les transforme con energía nigromántica y rituales antiguos en poderosos dracoliches muertos vivientes.',
     @Rating = 13,
@@ -985,7 +977,7 @@ EXEC InsertCreature
     @Abilities = N'4,0,4,3,2,4',
     @Attacks = N'7,0';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Dríade',
     @Description = 'Aquellas personas que entren en un bosque podrían ser capaces de vislumbrar una figura femenina que viaja entre los árboles. Una cálida risa inunda el ambiente y atrae a quienes la escuchan a las profundidades de la sombra esmeralda.',
     @Rating = 3,
@@ -997,7 +989,7 @@ EXEC InsertCreature
     @Abilities = N'0,1,0,2,2,4',
     @Attacks = N'1,10';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Ent',
     @Description = 'Los ents son árboles despertados que habitan en bosques antiguos. Aunque prefieren pasar los días, meses y años en una quietud contemplativa, protegen con ferocidad los bosques, que son su herencia, de amenazas exteriores.',
     @Rating = 9,
@@ -1009,7 +1001,7 @@ EXEC InsertCreature
     @Abilities = N'1,1,1,-2,0,1',
     @Attacks = N'10,5';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Gigante de Escarcha',
     @Description = 'Los gigantes de escarcha, enormes saqueadores provenientes de las heladas tierras de más allá de la civilización, son fieros y duros guerreros que sobreviven de lo conseguido en sus incursiones y saqueos. Tan solo respetan la fuerza bruta y la habilidad para el combate, mostrando ambas con cicatrices y los grotescos trofeos que cogen de sus enemigos.',
     @Rating = 16,
@@ -1021,7 +1013,7 @@ EXEC InsertCreature
     @Abilities = N'5,-1,5,-1,0,1',
     @Attacks = N'11,12,13';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Gnoll',
     @Description = 'Los gnolls son humanoides salvajes que atacan sin previo aviso asentamientos en las fronteras de la civilización, asesinando a sus víctimas y devorando su carne.',
     @Rating = 2,
@@ -1033,7 +1025,7 @@ EXEC InsertCreature
     @Abilities = N'2,1,0,-2,0,-2',
     @Attacks = N'7,14';
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Goblin',
     @Description = 'Los goblins son pequeños humanoides, egoístas y de negro corazón, que habitan en cavernas, minas abandonadas, mazmorras saqueadas y otros lugares lúgubres.',
     @Rating = 1,
@@ -1045,7 +1037,7 @@ EXEC InsertCreature
     @Abilities = N'-1,2,0,0,-1,-1',
     @Attacks = N'15,16'; -- Cimitarra y Arco Corto
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Golem de Piedra',
     @Description = 'Los gólems de piedra existen en múltiples formas, pero siempre tallados en roca como altas e impresionantes estatuas. Aunque la mayoría tienen rasgos humanoides, los gólems de piedra pueden estar tallados de cualquier manera que quien los esculpe decida.',
     @Rating = 7,
@@ -1057,7 +1049,7 @@ EXEC InsertCreature
     @Abilities = N'3,-1,4,-4,0,-4',
     @Attacks = N'5,1'; -- Piedra y Garrote
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Grifo',
     @Description = 'Los grifos son feroces aves carnívoras con los musculosos cuerpos de un león y las cabezas, patas delanteras y alas de un águila. Cuando atacan, son ágiles y letales como águilas, pero luchan con el poder y la gracilidad de un león.',
     @Rating = 4,
@@ -1069,7 +1061,7 @@ EXEC InsertCreature
     @Abilities = N'2,3,2,-2,1,-1',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Kobold',
     @Description = 'Los kobolds son humanoides reptilianos sumamente cobardes, que adoran a los dragones malvados como semidioses y los sirven como esbirros. Habitan en las guaridas de los dragones siempre que pueden, pero lo más normal es que moren en mazmorras donde acumulan los tesoros y bagatelas que conforman sus pequeñas fortunas.',
     @Rating = 2,
@@ -1081,7 +1073,7 @@ EXEC InsertCreature
     @Abilities = N'0,2,0,-2,-1,-2',
     @Attacks = N'17,0'; -- Daga y Garras
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Hombre Lobo',
     @Description = 'Los hombres lobos son depredadores salvajes. En su forma de humanoide, estas criaturas poseen sentidos muy agudos, un temperamento fuerte y la tendencia a comer carne muy poco hecha. Pero su forma híbrida se compone de un musculoso cuerpo similar al de un humanoide rematado con la cabeza de un lobo enloquecido.',
     @Rating = 8,
@@ -1093,7 +1085,7 @@ EXEC InsertCreature
     @Abilities = N'2,3,1,0,0,0',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Pesadilla',
     @Description = 'Las pesadillas aparecen rodeadas de una nube de humo, con su crin, cola y pezuñas envueltas en llamas. La espeluznante y oscura forma de estos seres se mueve con una velocidad sobrenatural, desapareciendo en una nube de azufre tan rápidamente cómo apareció.',
     @Rating = 16,
@@ -1105,7 +1097,7 @@ EXEC InsertCreature
     @Abilities = N'4,3,3,1,2,2',
     @Attacks = N'18,19,20'; -- Galope Flamígero, Pezuña y Embestida
 
-EXEC InsertCreature
+EXEC SP_InsertCreature
     @Name = 'Vampiro',
     @Description = 'Despertados a una noche eterna y ansiando la vida que han perdido, los vampiros se sacian bebiendo la sangre de los vivos. Odian la luz solar, ya que esta les quema.',
     @Rating = 12,
@@ -1117,20 +1109,60 @@ EXEC InsertCreature
     @Abilities = N'3,3,2,1,2,2',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
----Buscador de armas
-SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, A._Name AS Ability, DT._Name AS Damage_Type, I.Price
-FROM Items I
-INNER JOIN Weapons W ON I.ID_Item = W.ID_Item
-INNER JOIN Abilities A  ON W.ID_Ability = A.ID_Ability
-INNER JOIN DamageTypes DT ON W.ID_DamageType = DT.ID_DamageType
+
+---Buscador de Caracteríscas
+SELECT * FROM Abilities
+---Buscador de Habilidades
+SELECT * FROM Skills
+---Buscador de Razas
+SELECT * FROM Races
+---Buscador de Clases
+SELECT * FROM Classes
+---Buscador de Trasfondo
+SELECT * FROM Backgrounds
+---Buscador de Tipos de Daño
+SELECT * FROM DamageType
+---Buscador de Ataques
+SELECT * FROM Attacks
+
+---Buscador de Armas
+EXEC SP_GetWeapons
+---Buscador de Armaduras
+EXEC SP_GetArmors
+---Buscador de Escudos
+EXEC SP_GetShiels
+---Buscador de Consumibles
+EXEC SP_GetConsumables
+---Buscador de Genéricos
+
+	
+
+
+
+
 
 ---Buscador de criaturas
 
---Tratar de encajar bien todo para que quede visible bien, probar con subquerys
 --SELECT C._Name, C._Desc, C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth, C.DamageMod
-SELECT *
-FROM Creatures C
-INNER JOIN AttacksXCreature ATTC ON C.ID_Creature = ATTC.ID_Creature
-INNER JOIN AbilitiesXCreatures ABC  ON C.ID_Creature = ABC.ID_Creature
-INNER JOIN Attacks ATT ON ATTC.ID_Attack = ATT.ID_Attack
-INNER JOIN Abilities AB ON ABC.ID_Ability =	AB.ID_Ability
+--SELECT *
+--FROM Creatures C
+--INNER JOIN AttacksXCreature ATTC ON C.ID_Creature = ATTC.ID_Creature
+--INNER JOIN AbilitiesXCreatures ABC  ON C.ID_Creature = ABC.ID_Creature
+--INNER JOIN Attacks ATT ON ATTC.ID_Attack = ATT.ID_Attack
+--INNER JOIN Abilities AB ON ABC.ID_Ability =	AB.ID_Ability
+
+
+--SELECT 
+--    C.ID_Creature,
+--    C._Name,
+--     STRING_AGG(A._Name + ': ' + CAST(AC.Modifier AS NVARCHAR(10)), ', ') AS Abilities
+--FROM 
+--    Creatures C
+--INNER JOIN 
+--    AbilitiesXcreatures AC ON C.ID_Creature = AC.ID_Creature
+--INNER JOIN 
+--    Abilities A ON AC.ID_Ability = A.ID_Ability
+--GROUP BY 
+--    C.ID_Creature, C._Name
+
+
