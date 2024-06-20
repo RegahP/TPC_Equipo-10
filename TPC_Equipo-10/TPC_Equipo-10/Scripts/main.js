@@ -96,7 +96,7 @@ function keyPressed() {
                     } else if (keyCode === RIGHT_ARROW) {
                         navIndex = (navIndex + 1) % nav.length;
                     } else if (keyCode === ENTER) {
-                        if (navIndex === 3) { //si estamos parados en el inventario
+                        if (navIndex === 3) { //si estamos parados en la accion inventario
                             navFocus = true; //focus en el inventario
                             setupInventory();
                         }
@@ -106,25 +106,31 @@ function keyPressed() {
                     if (keyCode === ESCAPE) {
                         navFocus = false;
                     }
-                    //si el focus esta en la lista, nos podemos mover
-                    if (!invFocus) {
-                        if (keyCode === UP_ARROW) {
-                            invIndex = (invIndex - 1 + items.length) % items.length;
-                        } else if (keyCode === DOWN_ARROW) {
-                            invIndex = (invIndex + 1) % items.length;
+
+                    //si la lista no esta vacia
+                    if (!invEmpty) {
+
+                        //si el focus esta en la lista, nos podemos mover
+                        if (!invFocus) {
+                            if (keyCode === UP_ARROW) {
+                                invIndex = (invIndex - 1 + items.length) % items.length;
+                            } else if (keyCode === DOWN_ARROW) {
+                                invIndex = (invIndex + 1) % items.length;
+                            }
                         }
-                    }
 
-                    //alternamos el focus de la lista a detalles
-                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
-                        invFocus = !invFocus;
-                    }
+                        //alternamos el focus de la lista a detalles
+                        if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                            invFocus = !invFocus;
+                        }
 
-                    //si estamos en detalles y el item no esta equipado
-                    if (invFocus && items[invIndex].equipped === false) {
-                        if (keyCode === ENTER) {
-                            items.forEach(item => { item.equipped = false; });
-                            items[invIndex].equipped = true;
+                        //si estamos en combate, el boton equipa/consume
+                        //si estamos en detalles y el item no esta equipado
+                        if (invFocus && items[invIndex].equipped === false) {
+                            if (keyCode === ENTER) {
+                                items.forEach(item => { item.equipped = false; });
+                                items[invIndex].equipped = true;
+                            }
                         }
                     }
                 }
@@ -141,13 +147,63 @@ function keyPressed() {
             case 3: //town
                 if (key === 'q') {
                     chr.gameState = 4;
+                    setupInventory(); //TEMP, antes de esto va el panel de compra o venta
                 }
                 else if (key === 'e') {
                     chr.gameState = 5;
                 }
                 break;
             case 4: //store
-                chr.gameState = 3;
+                if (key === 'q') {
+                    chr.gameState = 3;
+                }
+
+                //si la lista no esta vacia
+                if (!invEmpty) {
+
+                    if (!sellPopup) {
+                        //si el focus esta en la lista, nos podemos mover
+                        if (!invFocus) {
+                            if (keyCode === UP_ARROW) {
+                                invIndex = (invIndex - 1 + items.length) % items.length;
+                            } else if (keyCode === DOWN_ARROW) {
+                                invIndex = (invIndex + 1) % items.length;
+                            }
+                        }
+
+                        //alternamos el focus de la lista a detalles
+                        if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                            invFocus = !invFocus;
+                        }
+                    }
+
+                    if (invFocus) {
+                        //si el popup esta abierto
+                        if (sellPopup) {
+                            if (keyCode === ESCAPE) {
+                                sellPopup = false;
+                            }
+                            //alternamos el focus entre cancelar o confirmar
+                            if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                sellPopupFocus = !sellPopupFocus;
+                            }
+                            if (keyCode === ENTER) {
+                                if (!sellPopupFocus) {
+                                    sellPopup = false;
+                                }
+                                else {
+                                    itemSold = true;
+                                    sellPopup = false;
+                                }
+                            }
+                        }
+                        else if (keyCode === ENTER) {
+                            sellPopup = true;
+                            sellPopupFocus = false;
+                        }
+                    }
+                }
+
                 break;
             case 5: //rest
                 chr.gameState = 1;

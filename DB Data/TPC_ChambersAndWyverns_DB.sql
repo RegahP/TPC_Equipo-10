@@ -1,10 +1,9 @@
- create database TPC_ChambersAndWyverns
+create database TPC_ChambersAndWyverns
  use TPC_ChambersAndWyverns
 
  ---Items Genericos
  ---Creatures
  ---Attacks
-
 
  create table Users(
      ID_User int not null primary key identity(0,1),
@@ -25,7 +24,6 @@
      _Level int not null,        --1
      Experience int not null,    --0
      Proficiency int not null,   --2
- 	DamageMod int not null,
     
      --relacionados a gameplay, importantes para restorar el estado de la partida
      Luck int not null,          --0
@@ -127,7 +125,7 @@
      ID_Item int not null,
      Equipped bit default 0, --estos datos son relevantes para el jugador cuando tiene items, no para la db de los items del juego, aca se guarda
      Consumed bit default 0, --si el jugador tiene un item actualmente consumido, o si tiene una arma o armadura equipada
- 	CurrRound int not null
+ 	 CurrRound int not null
      --vale nombrar que ambos bools van a ser ignorados si el item que alocamos en memoria, tenia itemtype = 0, para eso el default
      primary key(ID_Item, ID_Character) -- (algo que note es que si usamos esta primary key, no podes tener pociones repetidas,
      --                                      seria mismo item en inventario del mismo jugador, pero bueno se puede revisar)
@@ -141,11 +139,7 @@
      primary key(ID_Character, ID_Ability)
  )
 
- create table SkillsXCharacter(
-     ID_Character int not null, --para que personaje
-     ID_Skill int not null, --que skill se calculo a partir de su ability
-     RolledScore int not null --por cada personaje, al crearlos, se guarda en esta tabla 8 filas, una para cada skill que calculo
- )
+--tabla de skillsxcharacter removida; sus datos seran calculados en runtime, no alojados en db
 
  create table DamageTypes(
      ID_DamageType int not null primary key identity(0,1),
@@ -367,8 +361,7 @@ BEGIN
 END;
 
 --+-- Insertar Character --+--
-
--- AUTOMATIZA CONSEGUIR EL VALOR DEL MODIFIER DE LAS ABILITIES, Y TAMBIÉN LAS MISMAS SKILL,
+-- AUTOMATIZA CONSEGUIR EL VALOR DEL MODIFIER DE LAS ABILITIES, Y TAMBIÉN LAS MISMAS SKILLS,
 --EL VALOR QUE POSEEN LAS SKILLS ES DE BASE, SIN BONIFICADORES DE NADA.
 CREATE PROCEDURE SP_InsertNewCharacter
     @ID_User int,
@@ -377,11 +370,10 @@ CREATE PROCEDURE SP_InsertNewCharacter
     @ID_Class int,
     @ID_Background int,
     @_Name nvarchar(50),
-    @DamageMod int,
-    @ArmorClass int,
-    @MaxHealth int,
-    @CurrentHealth int,
-    @Gold int,
+    @ArmorClass int, --se calcula
+    @MaxHealth int, --se calcula
+    @CurrentHealth int, --se calcula
+    @Gold int, --se calcula
     @_Level int = 1,
     @Experience int = 0,
     @Proficiency int = 2,
@@ -400,11 +392,39 @@ BEGIN
     DECLARE @AbilityModifier INT;
     DECLARE @AbilityList NVARCHAR(MAX) = @Abilities;
 
+    DECLARE @Dex INT;
+    DECLARE @Const INT;
+    --nos devuelve el valor de dexteridad
+    SET @Dex = CAST(SUBSTRING(
+    @Abilities,
+    CHARINDEX(',', @Abilities) + 1,
+    CHARINDEX(',', @Abilities + ',', CHARINDEX(',', @Abilities) + 1) - CHARINDEX(',', @Abilities) - 1) AS INT)
+    
+    --nos devuelve el valor de constitucion
+    SET @Const = CAST(SUBSTRING(
+    @Abilities,
+    CHARINDEX(',', @Abilities, CHARINDEX(',', @Abilities) + 1) + 1,
+    CHARINDEX(',', @Abilities + ',', CHARINDEX(',', @Abilities, CHARINDEX(',', @Abilities) + 1) + 1) - CHARINDEX(',', @Abilities, CHARINDEX(',', @Abilities) + 1) - 1) AS INT)
+
+    SET @ArmorClass = 10 + FLOOR((@Dex - 10) / 2.0)
+    SET @MaxHealth = (
+    SELECT CL.ClassHealth 
+    FROM Classes CL 
+    WHERE CL.ID_Class = @ID_Class
+    ) + FLOOR((@Const - 10) / 2.0);
+
+    SET @CurrentHealth = @MaxHealth
+    SET @Gold = (
+    SELECT BG.InitialGold 
+    FROM Backgrounds BG 
+    WHERE BG.ID_Background = @ID_Background
+    );
+
     -- Insertar nuevo personaje en la tabla Characters
     INSERT INTO Characters (
-        ID_User, Sex, ID_Race, ID_Class, ID_Background, _Name, _Level, Experience, Proficiency, DamageMod, Luck, Round, Encounters, GameState, ArmorClass, MaxHealth, CurrentHealth, Gold)
+        ID_User, Sex, ID_Race, ID_Class, ID_Background, _Name, _Level, Experience, Proficiency, Luck, Round, Encounters, GameState, ArmorClass, MaxHealth, CurrentHealth, Gold)
     VALUES (
-        @ID_User, @Sex, @ID_Race, @ID_Class, @ID_Background, @_Name, @_Level, @Experience, @Proficiency, @DamageMod, @Luck, @Round, @Encounters, @GameState, @ArmorClass, @MaxHealth, @CurrentHealth, @Gold);
+        @ID_User, @Sex, @ID_Race, @ID_Class, @ID_Background, @_Name, @_Level, @Experience, @Proficiency, @Luck, @Round, @Encounters, @GameState, @ArmorClass, @MaxHealth, @CurrentHealth, @Gold);
 
     SET @CharacterId = SCOPE_IDENTITY();
 
@@ -423,33 +443,35 @@ BEGIN
     INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
     VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
 
-    -- Insertar habilidades relacionadas del personaje en SkillsXCharacter directamente con el Modifier
-    DECLARE @SkillId INT;
-    DECLARE @SkillAbilityId INT;
-    DECLARE @Modifier INT;
+    -- Insertar skills relacionadas del personaje en SkillsXCharacter directamente con el Modifier
 
-    DECLARE SkillCursor CURSOR FOR
-    SELECT S.ID_Skill, S.ID_Ability
-    FROM Skills S;
+    -- sección anulada luego del cambio de la forma en la que tratamos con las skills
 
-    OPEN SkillCursor;
+    -- DECLARE @SkillId INT;
+    -- DECLARE @SkillAbilityId INT;
+    -- DECLARE @Modifier INT;
 
-    FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
+    -- DECLARE SkillCursor CURSOR FOR
+    -- SELECT S.ID_Skill, S.ID_Ability
+    -- FROM Skills S;
 
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        SELECT @Modifier = Modifier
-        FROM AbilitiesXCharacter
-        WHERE ID_Character = @CharacterId
-          AND ID_Ability = @SkillAbilityId;
+    -- OPEN SkillCursor;
 
-        INSERT INTO SkillsXCharacter (ID_Character, ID_Skill, RolledScore)
-        VALUES (@CharacterId, @SkillId, @Modifier);
+    -- FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
 
-        FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
-    END
+    -- WHILE @@FETCH_STATUS = 0
+    -- BEGIN
+    --     SELECT @Modifier = Modifier
+    --     FROM AbilitiesXCharacter
+    --     WHERE ID_Character = @CharacterId
+    --       AND ID_Ability = @SkillAbilityId;
 
-    CLOSE SkillCursor;
-    DEALLOCATE SkillCursor;
+    --     INSERT INTO SkillsXCharacter (ID_Character, ID_Skill, RolledScore)
+    --     VALUES (@CharacterId, @SkillId, @Modifier);
+
+    --     FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
+    -- END
+
+    -- CLOSE SkillCursor;
+    -- DEALLOCATE SkillCursor;
 END;
-

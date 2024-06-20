@@ -1118,11 +1118,6 @@ EXEC SP_InsertCreature
 --    @ID_Class = 1,
 --    @ID_Background = 1,
 --    @_Name = 'John Doe',
---    @DamageMod = 2,
---    @ArmorClass = 15,
---    @MaxHealth = 20,
---    @CurrentHealth = 20,
---    @Gold = 100,
 --    @Abilities = '14,12,10,8,16,10';
 
 

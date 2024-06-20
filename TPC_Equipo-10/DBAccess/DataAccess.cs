@@ -15,7 +15,6 @@ namespace DBAccess
         private SqlCommand command;
         private SqlDataReader reader;
 
-
         public SqlDataReader Reader
         {
             get { return reader; }
@@ -84,7 +83,7 @@ namespace DBAccess
         }
 
 
-        public List<User> usersList()
+        public List<User> ListUsers()
         {
             List<User> userList = new List<User>();
             DataAccess data = new DataAccess();
@@ -100,8 +99,6 @@ namespace DBAccess
                     aux.id = (int)data.Reader["ID_User"];
                     aux.userName = (string)data.Reader["Username"];
                     aux.passwordHash = (string)data.Reader["PasswordHash"];
-
-
 
                     userList.Add(aux);
                 }
@@ -134,8 +131,6 @@ namespace DBAccess
                     aux.id = reader.GetInt32(0);
                     aux.name = reader.GetString(1);
                     aux.desc = reader.GetString(2);
-                    //aux.score = reader.GetInt32(3);
-                    //aux.bonus = reader.GetInt32(4);
                     list.Add(aux);
                 }
                 return list;

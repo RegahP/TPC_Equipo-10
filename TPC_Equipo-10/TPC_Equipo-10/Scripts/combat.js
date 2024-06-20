@@ -40,15 +40,23 @@ function drawNav() {
 let items = []; //esto va a ser cargados con items reales, no los prehechos que armé
 let invIndex; //en que items estamos parados
 let invFocus; //0 = panel izq; 1 = panel der
+let invEmpty;
 
 let outerMargin = 35;
 let innerMargin = 20;
 let itemSize = 24;
-let buttonSize = 16;
+let buttonSize = 16; //invertido
+
+//inventario en tienda
+let sellPopup;
+let sellPopupFocus;
+let itemSold;
+let popupSize = 2.5; //invertido
 
 function setupInventory() {
     invIndex = 0;
     invFocus = false;
+    invEmpty = false;
     noStroke();
     items.splice(0, items.length);
     for (let i = 0; i < 7; i++) {
@@ -59,6 +67,9 @@ function setupInventory() {
         };
         items.push(item);
     }
+    sellPopup = false;
+    sellPopupFocus = false;
+    itemSold = false;
 }
 
 function drawInventory() {
@@ -104,108 +115,246 @@ function drawInventory() {
         height / 2 - innerMargin * 1.5 - outerMargin
     );
 
-    //item name
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(36);
-    push();
-    clip(detailsMask);
-    text(
-        items[invIndex].name,
-        width / 2 + innerMargin,
-        outerMargin + innerMargin + 18
-    );
-    pop();
+    //item info
+    if (items.length > 0) {
 
-    //item type
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(12);
-    push();
-    clip(detailsMask);
-    text(
-        items[invIndex].type, //esto es temp
-        width / 2 + innerMargin,
-        outerMargin + innerMargin + 24 + 36
-    );
-    pop();
-
-    //item desc
-    fill(255);
-    textAlign(LEFT, TOP);
-    textSize(16);
-    textWrap(WORD);
-    push();
-    clip(detailsMask);
-    text(
-        /*items[invIndex].name*/"bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl alblablbalb lb alb alb alb alb labla bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl alblablbalb lb alb alb alb alb labla lb alb alb alb alb labla lb alb alb alb alb labla",
-        width / 2 + innerMargin,
-        outerMargin + innerMargin + 24 + 36 + 32,
-        width / 2 - outerMargin - innerMargin * 3 - (width / (buttonSize / 2) + itemSize * 2)
-    )
-    pop();
-
-    //equipbutton
-    if (items[invIndex].equipped) {
-        fill(100);
-    } else {
-        fill(150);
-    }
-    rect(
-        width - outerMargin - innerMargin * 2 - width / (buttonSize / 2),
-        height / 2 - innerMargin * 1.5 - height / buttonSize,
-        width / (buttonSize / 2),
-        height / buttonSize
-    );
-    let equipTxt;
-    if (items[invIndex].equipped) {
-        fill(128);
-        equipTxt = "Equipado";
-    } else {
+        //item name
         fill(255);
-        equipTxt = "Equipar";
-    }
-    textSize(itemSize);
-    textAlign(CENTER, CENTER);
-    text(
-        equipTxt,
-        width -
-        outerMargin -
-        innerMargin * 2 -
-        width / (buttonSize / 2) +
-        width / buttonSize,
-        innerMargin +
-        height / 2 -
-        innerMargin * 2.5 -
-        height / buttonSize +
-        height / (buttonSize * 2)
-    );
-
-    //indicador de seleccion
-    fill(255);
-    textSize(itemSize);
-    if (!invFocus) {
         textAlign(LEFT, TOP);
+        textSize(36);
+        push();
+        clip(detailsMask);
         text(
-            ">",
-            outerMargin + innerMargin,
-            outerMargin + innerMargin + invIndex * itemSize * 1.25
+            items[invIndex].name,
+            width / 2 + innerMargin,
+            outerMargin + innerMargin + 18
         );
-    } else {
+        pop();
+
+        //item type
+        fill(255);
+        textAlign(LEFT, TOP);
+        textSize(12);
+        push();
+        clip(detailsMask);
+        text(
+            items[invIndex].type, //esto es temp
+            width / 2 + innerMargin,
+            outerMargin + innerMargin + 24 + 36
+        );
+        pop();
+
+        //item desc
+        fill(255);
+        textAlign(LEFT, TOP);
+        textSize(16);
+        textWrap(WORD);
+        push();
+        clip(detailsMask);
+        text(
+            /*items[invIndex].name*/"bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl alblablbalb lb alb alb alb alb labla bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl",
+            width / 2 + innerMargin,
+            outerMargin + innerMargin + 24 + 36 + 32,
+            width / 2 - outerMargin - innerMargin * 3 - (width / (buttonSize / 2) + itemSize * 2)
+        )
+        pop();
+
+        //equipbutton
+        if (items[invIndex].equipped) {
+            fill(100);
+        } else {
+            fill(150);
+        }
+        rect(
+            width - outerMargin - innerMargin * 2 - width / (buttonSize / 2),
+            height / 2 - innerMargin * 1.5 - height / buttonSize,
+            width / (buttonSize / 2),
+            height / buttonSize
+        );
+        let equipTxt;
+        //si estamos en combate, el boton equipa/consume
+        if (chr.gameState == 1) {
+            if (items[invIndex].equipped) {
+                fill(128);
+                equipTxt = "Equipado";
+            } else {
+                fill(255);
+                equipTxt = "Equipar";
+            }
+        }
+        //si estamos en la tienda, el boton vende
+        else if (chr.gameState == 4) {
+            fill(255);
+            equipTxt = "Vender";
+        }
+        textSize(itemSize);
         textAlign(CENTER, CENTER);
         text(
-            ">",
+            equipTxt,
             width -
             outerMargin -
             innerMargin * 2 -
-            width / (buttonSize / 2) -
-            itemSize,
+            width / (buttonSize / 2) +
+            width / buttonSize,
             innerMargin +
             height / 2 -
             innerMargin * 2.5 -
             height / buttonSize +
             height / (buttonSize * 2)
         );
+
+        //display de arma, armadura y escudo
+        fill(80);
+        rect(
+            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            (width / 2 - outerMargin - innerMargin) / 5,
+            (width / 2 - outerMargin - innerMargin) / 5
+        );
+        rect(
+            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            (width / 2 - outerMargin - innerMargin) / 5,
+            (width / 2 - outerMargin - innerMargin) / 5
+        );
+        rect(
+            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+            (width / 2 - outerMargin - innerMargin) / 5,
+            (width / 2 - outerMargin - innerMargin) / 5
+        );
+
+        //indicador de seleccion inventario
+        fill(255);
+        textSize(itemSize);
+        if (!invFocus) {
+            textAlign(LEFT, TOP);
+            text(
+                ">",
+                outerMargin + innerMargin,
+                outerMargin + innerMargin + invIndex * itemSize * 1.25
+            );
+        } else {
+            textAlign(CENTER, CENTER);
+            text(
+                ">",
+                width -
+                outerMargin -
+                innerMargin * 2 -
+                width / (buttonSize / 2) -
+                itemSize,
+                innerMargin +
+                height / 2 -
+                innerMargin * 2.5 -
+                height / buttonSize +
+                height / (buttonSize * 2)
+            );
+        }
+    }
+    else {
+        //texto de inventario vacio
+        invEmpty = true;
+        fill(255);
+        textAlign(CENTER, CENTER)
+        text(
+            'Tu inventario está vacío!',
+            width / 2 + (width / 2 - outerMargin - innerMargin) / 2,
+            outerMargin + innerMargin + (height / 2 - innerMargin * 1.5 - outerMargin) / 2
+        );
+    }
+
+    //popup de confirmacion de venta
+    if (sellPopup) {
+        fill(0, 0, 0, 128);
+        rect(0, 0, width, height);
+        fill(20);
+        rect(
+            width / 2 - (width / popupSize) / 2,
+            height / 2 - (height / popupSize) / 2,
+            width / popupSize,
+            height / popupSize
+        );
+        fill(50);
+        rect(
+            width / 2 - (width / popupSize) / 2 + innerMargin,
+            height / 2 - (height / popupSize) / 2 + innerMargin,
+            width / popupSize - innerMargin * 2,
+            height / popupSize - innerMargin * 2
+        );
+        //popup text
+        fill(255);
+        textAlign(LEFT, TOP);
+        textSize(24);
+        text(
+            'Estás seguro de que querés vender tu ' + items[invIndex].name + '?',
+            width / 2 - (width / popupSize) / 2 + innerMargin * 2,
+            height / 2 - (height / popupSize) / 2 + innerMargin * 2,
+            width / popupSize - innerMargin * 4
+        );
+        //popup cancel button
+        fill(150);
+        rect(
+            width / 2 - (width / popupSize) / 2 + innerMargin * 2,
+            height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize,
+            width / (buttonSize / 2),
+            height / buttonSize
+        );
+        fill(255);
+        textSize(itemSize);
+        textAlign(CENTER, CENTER);
+        text(
+            'Cancelar',
+            width / 2 - (width / popupSize) / 2 + innerMargin * 2 + (width / (buttonSize / 2) / 2),
+            height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize + (height / buttonSize) / 2
+        );
+
+        //popup confirm button
+        fill(150);
+        rect(
+            width / 2 - (width / popupSize) / 2 + innerMargin + width / popupSize - innerMargin * 3 - width / (buttonSize / 2),
+            height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize,
+            width / (buttonSize / 2),
+            height / buttonSize
+        );
+        fill(255);
+        textSize(itemSize);
+        textAlign(CENTER, CENTER);
+        text(
+            'Confirmar',
+            width / 2 - (width / popupSize) / 2 + innerMargin + width / popupSize - innerMargin * 3 - width / (buttonSize / 2) + (width / (buttonSize / 2) / 2),
+            height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize + (height / buttonSize) / 2
+        );
+
+        //indicador de seleccion de popup
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textSize(itemSize);
+        if (sellPopup) {
+            if (!sellPopupFocus) {
+                text(
+                    "V",
+                    width / 2 - (width / popupSize) / 2 + innerMargin * 2 + (width / (buttonSize / 2) / 2),
+                    height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize + (height / buttonSize) / 2 - itemSize * 2
+                );
+            } else {
+                text(
+                    "V",
+                    width / 2 - (width / popupSize) / 2 + innerMargin + width / popupSize - innerMargin * 3 - width / (buttonSize / 2) + (width / (buttonSize / 2) / 2),
+                    height / 2 - (height / popupSize) / 2 + innerMargin + height / popupSize - innerMargin * 3 - height / buttonSize + (height / buttonSize) / 2 - itemSize * 2
+                );
+            }
+        }
+    }
+    if (itemSold) {
+        itemSold = false;
+        
+        if (invIndex == items.length - 1) {
+            console.log("ultimo item")
+            items.splice(invIndex, 1);
+            invIndex -= 1;
+        } else {
+            items.splice(invIndex, 1);
+        }
     }
 }
 
