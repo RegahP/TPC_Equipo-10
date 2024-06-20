@@ -1,4 +1,5 @@
-﻿using DomainModel;
+﻿using DBAccess;
+using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace TPC_Equipo_10
     public partial class FinishingCharacter : System.Web.UI.Page
     {
 
+        DataAccess dataAccess = new DataAccess();
+
         public Character character = new Character();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -22,11 +25,11 @@ namespace TPC_Equipo_10
 
         protected void rb_CheckedChanged(object sender, EventArgs e)
         {
-            if(((LinkButton)sender).ID == "rbMale")
+            if(((RadioButton)sender).Text == "Hombre")
             {
                 character.sex = true;
             }
-            if (((LinkButton)sender).ID == "rbFemale")
+            if (((RadioButton)sender).Text == "Mujer")
             {
                 character.sex = false;
             }
@@ -40,6 +43,11 @@ namespace TPC_Equipo_10
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
+
+            dataAccess.NewCharacter(character);
+            Response.Redirect("Characters.aspx", false);
+
+
 
         }
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Security.Permissions;
 using DomainModel;
+using System.Xml.Linq;
 
 namespace DBAccess
 {
@@ -30,6 +31,13 @@ namespace DBAccess
         {
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;
+        }
+
+        public void SetProcedure(string procedure)
+        {
+
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = procedure;
         }
 
         public void ExecuteRead()
@@ -276,6 +284,35 @@ namespace DBAccess
                 CloseConnection();
             }
         }
+
+        public void NewCharacter(Character character)
+        {
+
+            try
+            {
+                SetProcedure("SP_InsertNewCharacter");
+
+                command.Parameters.AddWithValue("@ID_User", 1);
+                command.Parameters.AddWithValue("@Sex", character.sex);
+                command.Parameters.AddWithValue("@ID_Race", character.race.id);
+                command.Parameters.AddWithValue("@ID_Class", character.chrClass.id);
+                command.Parameters.AddWithValue("@ID_Background", character.bg.id);
+                command.Parameters.AddWithValue("@_Name", character.name);
+                command.Parameters.AddWithValue("@Abilities", "12, 10, 13, 8, 15, 16");
+
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+        }
+
 
 
 
