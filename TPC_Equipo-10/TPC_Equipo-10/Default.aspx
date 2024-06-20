@@ -31,7 +31,6 @@
                     <asp:Button ID="btnRegister" CssClass="btn btn-danger" Text="Registrarse" OnClick="btnRegister_Click" runat="server" />
                 </div>
             </div>
-
         </div>
     </div>
 </asp:Content>

@@ -8,10 +8,10 @@ namespace DomainModel
 {
     public class Ability
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int score { get; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public int score { get; set; }
         public int bonus { get; set; }
 
         //constructor sets nonset properties

@@ -8,24 +8,24 @@ namespace DomainModel
 {
     public class Class
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int classHealth { get; }
-        public string specialName { get; }
-        public string specialDesc { get; }
-        public int abilityID { get; } //ability relevant to this class
+        public int id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public int classHealth { get; set; }
+        public string specialName { get; set; }
+        public string specialDesc { get; set; }
+        public int abilityID { get; set; } //ability relevant to this class
 
         //constructor sets nonset properties
 
-        public Class()
-        {
-            id = 0;
-            name = string.Empty;
-            desc = string.Empty;
-            classHealth = 0;
-            abilityID = 0;
-        }
+        //public Class()
+        //{
+        //    id = 0;
+        //    name = string.Empty;
+        //    desc = string.Empty;
+        //    classHealth = 0;
+        //    abilityID = 0;
+        //}
     }
 
 }

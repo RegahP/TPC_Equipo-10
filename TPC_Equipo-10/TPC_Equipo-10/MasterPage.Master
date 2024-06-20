@@ -1,5 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="TPC_Equipo_10.MasterPage" %>
 
+
+<%@ Import Namespace="DomainModel" %>
+<%@ Import Namespace="DBAccess" %>
+
 <!DOCTYPE html>
 
 <html>

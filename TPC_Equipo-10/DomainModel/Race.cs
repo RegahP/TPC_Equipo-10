@@ -8,18 +8,19 @@ namespace DomainModel
 {
     public class Race
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int abilityID { get; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public int abilityID { get; set; }
 
         //constructor sets nonset properties
-        public Race()
-        {
-            id = 0;
-            name = string.Empty;
-            desc = string.Empty;
-            abilityID = 0;
-        }
+
+        //public Race()
+        //{
+        //    id = 0;
+        //    name = string.Empty;
+        //    desc = string.Empty;
+        //    abilityID = 0;
+        //}
     }
 }

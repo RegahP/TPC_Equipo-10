@@ -13,5 +13,10 @@ namespace TPC_Equipo_10
         {
 
         }
+
+        protected void charCreation_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CharacterCreator.aspx", false);
+        }
     }
 }

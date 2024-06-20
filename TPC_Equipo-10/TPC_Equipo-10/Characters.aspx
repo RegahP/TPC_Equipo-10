@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div>
         <div class="container" style="display: flex; justify-content: space-between">
-            <button class="btn btn-danger" type="submit">Crear Personaje</button>
+            <asp:Button Id="charCreation" runat="server" Cssclass="btn btn-danger" text="Crear Personaje" onClick="charCreation_Click"/>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-success" type="submit">Buscar</button>

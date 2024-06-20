@@ -265,7 +265,7 @@
                 <h5 style="text-align:center">ARTESANO</h5>
                 <p class="card-text">Eres miembro de un gremio de artesanos, especializado en un campo particular y cercanamente asociado con otros artesanos. Eres una parte bien establecida del mundo mercantil, liberado por tu talento y riqueza de las limitaciones de la sociedad feudal. Aprendiste tus habilidades como aprendiz de un maestro, bajo el patrocinio de tu gremio, hasta que te convertiste en un maestro por tus propios medios.</p>
                 <p class="card-text">Recibes +2 a Persuacion e Investigacion.</p>
-                <p class="card-text">Oro inicial: 20 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 20 monedas de oro.</p>
             </div>
         </div>
 
@@ -275,7 +275,7 @@
                 <h5 style="text-align:center">CRIMINAL</h5>
                 <p class="card-text">Eres un criminal experimentado con un historial delictivo. Has pasado mucho tiempo entre criminales y todavía tienes contactos dentro del mundo criminal. Estas mucho más cerca que la mayoría de la gente del mundo del asesinato, el robo y la violencia que prevalece en los barrios bajos de la civilización y has sobrevivido hasta ahora gracias a burlarte de las reglas y reglamentos de la sociedad.</p>
                 <p class="card-text">Recibes +2 a Sigilo e Intimidacion.</p>
-                <p class="card-text">Oro inicial: 10 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 10 monedas de oro.</p>
             </div>
         </div>
 
@@ -285,7 +285,7 @@
                 <h5 style="text-align:center">HERMITAÑO</h5>
                 <p class="card-text">Vivías en la reclusión, ya sea en una comunidad resguardada como un monasterio o completamente solo por una parte importante de tu vida. Durante el tiempo que pasaste lejos del clamor de la sociedad, encontraste quietud, soledad, y quizá alguna de las respuestas que buscabas.</p>
                 <p class="card-text">Recibes +2 a Supervivencia y Percepcion.</p>
-                <p class="card-text">Oro inicial: 10 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 10 monedas de oro.</p>
             </div>
         </div>
     </div>
@@ -297,7 +297,7 @@
                 <h5 style="text-align:center">FORASTERO</h5>
                 <p class="card-text">Creciste en las tierras salvajes, lejos de la civilización y del confort de la ciudad y la tecnología. Has sido testigo de la migración de rebaños grandes como bosques enteros, has sobrevivido a un clima más extremo que el que cualquier habitante de la ciudad haya podido padecer. Llevas las tierras salvajes en la sangre, fueras un nómada, un explorador, un eremita, un cazador-recolector o incluso un saqueador. Incluso en lugares donde no conozcas las características específicas del terreno, comprendes las formas de lo salvaje.</p>
                 <p class="card-text">Recibes +2 a Atletismo y Supervivencia.</p>
-                <p class="card-text">Oro inicial: 5 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 5 monedas de oro.</p>
             </div>
         </div>
 
@@ -307,7 +307,7 @@
                 <h5 style="text-align:center">HEROE DEL PUEBLO</h5>
                 <p class="card-text">Vienes de una clase social humilde, pero estás destinado para mucho más. Ya la gente de tu pueblo natal te considera como su campeón, y tú destino te llama a estar en contra de los tiranos y los monstruos que amenazan a la gente común en todas partes.</p>
                 <p class="card-text">Recibes +2 a Persuacion y Atletismo.</p>
-                <p class="card-text">Oro inicial: 15 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 15 monedas de oro.</p>
             </div>
         </div>
 
@@ -317,7 +317,7 @@
                 <h5 style="text-align:center">MARINERO</h5>
                 <p class="card-text">Navegaste en una nave marítima por años. En ese tiempo, enfrentaste exitosamente poderosas tormentas, monstruos de las profundidades y a aquellos que quisieron hundir tu trabajo en las infinitas profundidades. Tu primer amor es la lejana línea del horizonte, pero el tiempo llegó para probarte en algo nuevo.</p>
                 <p class="card-text">Recibes +2 a Supervivencia y Percepcion.</p>
-                <p class="card-text">Oro inicial: 15 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 15 monedas de oro.</p>
             </div>
         </div>
     </div>
@@ -329,7 +329,7 @@
                 <h5 style="text-align:center">SOLDADO</h5>
                 <p class="card-text">La guerra ha sido tu vida desde que puedes recordar. Fuiste entrenado en tu juventud en el estudio del uso de las armas y armaduras y aprendiste las técnicas básicas de supervivencia, incluida la forma de mantenerte con vida en el campo de batalla. Es posible que hayas sido parte de un ejército nacional permanente o de una compañía de mercenarios, o tal vez miembro de una milicia local que saltó a la fama durante una guerra reciente.</p>
                 <p class="card-text">Recibes +2 a Acrobacias e Intimidacion.</p>
-                <p class="card-text">Oro inicial: 10 modedas de oro.</p>
+                <p class="card-text">Oro inicial: 10 monedas de oro.</p>
             </div>
         </div>
     </div>

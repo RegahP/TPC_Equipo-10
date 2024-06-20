@@ -67,9 +67,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="backgroundSelection.aspx" />
+    <Content Include="CharacterCreator.aspx" />
     <Content Include="Characters.aspx" />
+    <Content Include="ClassSelection.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Docs.aspx" />
+    <Content Include="FinishingCharacter.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
@@ -91,12 +95,33 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="backgroundSelection.aspx.cs">
+      <DependentUpon>backgroundSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="backgroundSelection.aspx.designer.cs">
+      <DependentUpon>backgroundSelection.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterCreator.aspx.cs">
+      <DependentUpon>CharacterCreator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CharacterCreator.aspx.designer.cs">
+      <DependentUpon>CharacterCreator.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Characters.aspx.cs">
       <DependentUpon>Characters.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Characters.aspx.designer.cs">
       <DependentUpon>Characters.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ClassSelection.aspx.cs">
+      <DependentUpon>ClassSelection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClassSelection.aspx.designer.cs">
+      <DependentUpon>ClassSelection.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -111,6 +136,13 @@
     </Compile>
     <Compile Include="Docs.aspx.designer.cs">
       <DependentUpon>Docs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FinishingCharacter.aspx.cs">
+      <DependentUpon>FinishingCharacter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FinishingCharacter.aspx.designer.cs">
+      <DependentUpon>FinishingCharacter.aspx</DependentUpon>
     </Compile>
     <Compile Include="Game.aspx.cs">
       <DependentUpon>Game.aspx</DependentUpon>
@@ -174,6 +206,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DBAccess\DBAccess.csproj">
+      <Project>{0112d6dc-bf7e-4609-b581-7a275a2ac476}</Project>
+      <Name>DBAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DomainModel\DomainModel.csproj">
       <Project>{ed870c48-1e0e-4561-bdda-1f2cf734947a}</Project>
       <Name>DomainModel</Name>

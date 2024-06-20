@@ -8,12 +8,12 @@ namespace DomainModel
 {
     public class Background
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int skill1BonusID { get; }
-        public int skill2BonusID { get; }
-        public int initialGold { get; }
+        public int id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public int skill1BonusID { get; set; }
+        public int skill2BonusID { get; set; }
+        public int initialGold { get; set; }
 
         //constructor sets nonset properties
     }

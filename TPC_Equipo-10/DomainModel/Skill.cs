@@ -8,11 +8,12 @@ namespace DomainModel
 {
     public class Skill
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int abilityID { get; }
+        public int id { get; set; }
+        public int abilityID { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
         public int score { get; set; }
+      
 
         //constructor sets nonset properties
     }
