@@ -328,14 +328,11 @@ BEGIN
 
     DECLARE @CreatureId INT;
 
-    -- Insertar en la tabla Creatures
     INSERT INTO Creatures (_Name, _Desc, Rating, Experience, Proficiency, ArmorClass, MaxHealth, DamageMod)
     VALUES (@Name, @Description, @Rating, @Experience, @Proficiency, @ArmorClass, @MaxHealth, @DamageMod);
 
-    -- Obtener el ID de la nueva criatura insertada
     SET @CreatureId = SCOPE_IDENTITY();
 
-    -- Insertar habilidades (abilities) asociadas a la criatura
     DECLARE @AbilityId INT;
     DECLARE @AbilityValue INT;
     DECLARE @AbilityPosition INT = 0;
@@ -349,11 +346,9 @@ BEGIN
         SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
         SET @AbilityPosition = @AbilityPosition + 1;
     END
-    -- Insertar la última habilidad en la lista
     INSERT INTO AbilitiesXCreatures (ID_Creature, ID_Ability, Modifier)
     VALUES (@CreatureId, @AbilityPosition, @AbilityList);
 
-    -- Insertar ataques (attacks) asociados a la criatura
     DECLARE @AttackId INT;
     DECLARE @AttackPosition INT = 0;
     DECLARE @AttackList NVARCHAR(MAX) = @Attacks;
@@ -366,8 +361,95 @@ BEGIN
         SET @AttackList = SUBSTRING(@AttackList, CHARINDEX(',', @AttackList) + 1, LEN(@AttackList));
         SET @AttackPosition = @AttackPosition + 1;
     END
-    -- Insertar el último ataque en la lista
     INSERT INTO AttacksXCreature (ID_Creature, ID_Attack)
     VALUES (@CreatureId, @AttackList);
 
 END;
+
+--+-- Insertar Character --+--
+
+-- AUTOMATIZA CONSEGUIR EL VALOR DEL MODIFIER DE LAS ABILITIES, Y TAMBIÉN LAS MISMAS SKILL,
+--EL VALOR QUE POSEEN LAS SKILLS ES DE BASE, SIN BONIFICADORES DE NADA.
+CREATE PROCEDURE SP_InsertNewCharacter
+    @ID_User int,
+    @Sex bit,
+    @ID_Race int,
+    @ID_Class int,
+    @ID_Background int,
+    @_Name nvarchar(50),
+    @DamageMod int,
+    @ArmorClass int,
+    @MaxHealth int,
+    @CurrentHealth int,
+    @Gold int,
+    @_Level int = 1,
+    @Experience int = 0,
+    @Proficiency int = 2,
+    @Luck int = 0,
+    @Round int = 0,
+    @Encounters int = 0,
+    @GameState int = 0,
+    @Abilities NVARCHAR(50)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @CharacterId INT;
+    DECLARE @AbilityPosition INT = 0;
+    DECLARE @AbilityRolledScore INT;
+    DECLARE @AbilityModifier INT;
+    DECLARE @AbilityList NVARCHAR(MAX) = @Abilities;
+
+    -- Insertar nuevo personaje en la tabla Characters
+    INSERT INTO Characters (
+        ID_User, Sex, ID_Race, ID_Class, ID_Background, _Name, _Level, Experience, Proficiency, DamageMod, Luck, Round, Encounters, GameState, ArmorClass, MaxHealth, CurrentHealth, Gold)
+    VALUES (
+        @ID_User, @Sex, @ID_Race, @ID_Class, @ID_Background, @_Name, @_Level, @Experience, @Proficiency, @DamageMod, @Luck, @Round, @Encounters, @GameState, @ArmorClass, @MaxHealth, @CurrentHealth, @Gold);
+
+    SET @CharacterId = SCOPE_IDENTITY();
+
+    WHILE CHARINDEX(',', @AbilityList) > 0
+    BEGIN
+        SET @AbilityRolledScore = SUBSTRING(@AbilityList, 1, CHARINDEX(',', @AbilityList) - 1);
+		-- Calcula el modificador de la habilidad desde la db, no hace falta hacerlo en el codigo
+        SET @AbilityModifier = FLOOR((@AbilityRolledScore - 10) / 2.0);
+        INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
+        VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
+        SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
+        SET @AbilityPosition = @AbilityPosition + 1;
+    END
+    SET @AbilityRolledScore = @AbilityList;
+    SET @AbilityModifier = FLOOR((@AbilityRolledScore - 10) / 2.0);
+    INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
+    VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
+
+    -- Insertar habilidades relacionadas del personaje en SkillsXCharacter directamente con el Modifier
+    DECLARE @SkillId INT;
+    DECLARE @SkillAbilityId INT;
+    DECLARE @Modifier INT;
+
+    DECLARE SkillCursor CURSOR FOR
+    SELECT S.ID_Skill, S.ID_Ability
+    FROM Skills S;
+
+    OPEN SkillCursor;
+
+    FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SELECT @Modifier = Modifier
+        FROM AbilitiesXCharacter
+        WHERE ID_Character = @CharacterId
+          AND ID_Ability = @SkillAbilityId;
+
+        INSERT INTO SkillsXCharacter (ID_Character, ID_Skill, RolledScore)
+        VALUES (@CharacterId, @SkillId, @Modifier);
+
+        FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
+    END
+
+    CLOSE SkillCursor;
+    DEALLOCATE SkillCursor;
+END;
+

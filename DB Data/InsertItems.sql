@@ -65,7 +65,7 @@ VALUES
 --ID 5 - Mediano
 ('Mediano', 
  'Las comodidades del hogar son las metas para la mayoría de las vidas de los medianos: un lugar donde asentarse en paz y tranquilidad, lejos de monstruos merodeadores y enfrentamientos de ejércitos; un buen fuego y una comida generosa; buena bebida y buena conversación. Aunque algunos medianos viven sus días en alejadas comunidades agrícolas, otros forman grupos nómadas que viajan constantemente, atraídos por los nuevos caminos y anchos horizontes, para descubrir las maravillas de las nuevas tierras y gentes. Pero incluso estos viajeros aman la paz, comida, el bienestar y el hogar, aunque el hogar sea un vagón empujado a tirones a través de un camino embarrado o una barcaza flotando río abajo.', 
- 4);
+ 1);
 
 --+-- CLASS --+--
 
@@ -865,7 +865,7 @@ EXEC SP_InsertItem
 	
 --INSERTAR ACA TODAS LAS POCIONES REWORKEADAS
 
---+-- Attacks --+--
+--+-- ATTACKS --+--
 
 INSERT INTO Attacks (_Name, _Desc, ID_DamageType, Damage)
 VALUES 
@@ -891,7 +891,7 @@ VALUES
     ('Pezuña', 'Una patada fuerte con pezuñas que puede aplastar huesos.', 1, 3),
     ('Embestida', 'Un embate brutal que derriba y aplasta al enemigo.', 1, 3);
 
---+-- Creatures --+--
+--+-- CREATURES --+--
 
 EXEC SP_InsertCreature
     @Name = 'Arpía',
@@ -1109,6 +1109,23 @@ EXEC SP_InsertCreature
     @Abilities = N'3,3,2,1,2,2',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
+--+-- CHARACTERS --+--
+--Esto es un ejemplo de personaje nuevo, no hace falta Execute
+--EXEC SP_InsertNewCharacter 
+--    @ID_User = 1,
+--    @Sex = 1,
+--    @ID_Race = 1,
+--    @ID_Class = 1,
+--    @ID_Background = 1,
+--    @_Name = 'John Doe',
+--    @DamageMod = 2,
+--    @ArmorClass = 15,
+--    @MaxHealth = 20,
+--    @CurrentHealth = 20,
+--    @Gold = 100,
+--    @Abilities = '14,12,10,8,16,10';
+
+
 
 ---Buscador de Caracteríscas
 SELECT * FROM Abilities
@@ -1140,29 +1157,41 @@ EXEC SP_GetConsumables
 
 
 
-
+-----Esto por el momento son pruebas, no prestar atencion
 ---Buscador de criaturas
-
---SELECT C._Name, C._Desc, C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth, C.DamageMod
---SELECT *
---FROM Creatures C
---INNER JOIN AttacksXCreature ATTC ON C.ID_Creature = ATTC.ID_Creature
---INNER JOIN AbilitiesXCreatures ABC  ON C.ID_Creature = ABC.ID_Creature
---INNER JOIN Attacks ATT ON ATTC.ID_Attack = ATT.ID_Attack
---INNER JOIN Abilities AB ON ABC.ID_Ability =	AB.ID_Ability
+--SELECT * FROM Creatures
+--SELECT * FROM AttacksXCreature
+--SELECT * FROM AbilitiesXCreatures
+--SELECT * FROM Attacks
+--SELECT * FROM Abilities
 
 
 --SELECT 
 --    C.ID_Creature,
 --    C._Name,
---     STRING_AGG(A._Name + ': ' + CAST(AC.Modifier AS NVARCHAR(10)), ', ') AS Abilities
+--    Abilities.Abilities,
+--    Attacks.Attacks
 --FROM 
 --    Creatures C
---INNER JOIN 
---    AbilitiesXcreatures AC ON C.ID_Creature = AC.ID_Creature
---INNER JOIN 
---    Abilities A ON AC.ID_Ability = A.ID_Ability
---GROUP BY 
---    C.ID_Creature, C._Name
-
-
+--INNER JOIN (
+--    SELECT 
+--        AC.ID_Creature,
+--        STRING_AGG(A._Name + ': ' + CAST(AC.Modifier AS NVARCHAR(10)), ', ') AS Abilities
+--    FROM 
+--        AbilitiesXcreatures AC
+--    INNER JOIN 
+--        Abilities A ON AC.ID_Ability = A.ID_Ability
+--    GROUP BY 
+--        AC.ID_Creature
+--) Abilities ON C.ID_Creature = Abilities.ID_Creature
+--LEFT JOIN (
+--    SELECT 
+--        AXC.ID_Creature,
+--        STRING_AGG(ATK._Name, ', ') AS Attacks
+--    FROM 
+--        AttacksXCreature AXC
+--    INNER JOIN 
+--        Attacks ATK ON AXC.ID_Attack = ATK.ID_Attack
+--    GROUP BY 
+--        AXC.ID_Creature
+--) Attacks ON C.ID_Creature = Attacks.ID_Creature;
