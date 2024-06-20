@@ -1120,7 +1120,7 @@ EXEC SP_InsertCreature
 --    @_Name = 'John Doe',
 --    @Abilities = '14,12,10,8,16,10';
 
-
+SELECT * FROM Characters
 
 ---Buscador de Caracteríscas
 SELECT * FROM Abilities

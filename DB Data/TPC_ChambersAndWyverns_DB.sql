@@ -4,6 +4,7 @@ create database TPC_ChambersAndWyverns
  ---Items Genericos
  ---Creatures
  ---Attacks
+ 
 
  create table Users(
      ID_User int not null primary key identity(0,1),
@@ -370,10 +371,10 @@ CREATE PROCEDURE SP_InsertNewCharacter
     @ID_Class int,
     @ID_Background int,
     @_Name nvarchar(50),
-    @ArmorClass int, --se calcula
-    @MaxHealth int, --se calcula
-    @CurrentHealth int, --se calcula
-    @Gold int, --se calcula
+    @ArmorClass int = 1, --se calcula
+    @MaxHealth int = 1, --se calcula
+    @CurrentHealth int = 1, --se calcula
+    @Gold int = 1, --se calcula
     @_Level int = 1,
     @Experience int = 0,
     @Proficiency int = 2,
@@ -412,7 +413,7 @@ BEGIN
     FROM Classes CL 
     WHERE CL.ID_Class = @ID_Class
     ) + FLOOR((@Const - 10) / 2.0);
-
+	
     SET @CurrentHealth = @MaxHealth
     SET @Gold = (
     SELECT BG.InitialGold 

@@ -53,6 +53,8 @@ namespace DomainModel
             chrClass = new Class();
             abilities = new List<Ability>();
             skills = new List<Skill>();
+            inventory= new List<Item>();
+            equipment= new List<Item>();
 
         }
 

@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Security.Permissions;
 using DomainModel;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace DBAccess
 {
@@ -188,6 +189,99 @@ namespace DBAccess
         }
 
 
+        public List<Character> ListCharacters()
+        {
+            List<Character> list = new List<Character>();
+
+            List<Race> listRaces = new List<Race>();
+            listRaces = ListRaces();
+            List<Class> listClasses = new List<Class>();
+            listClasses = ListClasses();
+            List<Background> listBackgrounds = new List<Background>();
+            listBackgrounds = ListBackgrounds();
+            List<Ability> listAbilities = new List<Ability>();
+
+
+            try
+            {
+                SetQuery("select * from Characters");
+                ExecuteRead();
+
+                while (reader.Read())
+                {
+                    Character aux = new Character();
+
+                    aux.id = reader.GetInt32(0);
+                    aux.idUser = reader.GetInt32(1);
+                    aux.sex = reader.GetBoolean(2);
+
+                    int id = reader.GetInt32(3);
+                    foreach (Race race in listRaces)
+                    {
+                        if (race.id == id)
+                        {
+                            aux.race = race;
+                            break;
+                        }
+                    }
+                    id = reader.GetInt32(4);
+                    foreach (Class cl in listClasses)
+                    {
+                        if (cl.id == id)
+                        {
+                            aux.chrClass = cl;
+                            break;
+                        }
+                    }
+                    id = reader.GetInt32(5);
+                    foreach (Background bg in listBackgrounds)
+                    {
+                        if (bg.id == id)
+                        {
+                            aux.bg = bg;
+                            break;
+                        }
+                    }
+
+                    aux.name = reader.GetString(6);
+                    aux.level = reader.GetInt32(7);
+                    aux.xp = reader.GetInt32(8);
+                    aux.prof = reader.GetInt32(9);
+
+                    aux.luck = reader.GetInt32(10);
+                    aux.round = reader.GetInt32(11);
+                    aux.encounters = reader.GetInt32(12);
+                    aux.gameState = reader.GetInt32(13);
+
+                    aux.armor = reader.GetInt32(14);
+                    aux.maxHealth = reader.GetInt32(15);
+                    aux.currHealth = reader.GetInt32(16);
+                    aux.gold = reader.GetInt32(17);
+
+                    list.Add(aux);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+
+            foreach (Character c in list)
+            {
+                listAbilities = GetCharacterAbilities(c.id);
+                c.abilities = listAbilities;
+            }
+
+            return list;
+
+        }
+
 
         public List<Class> ListClasses()
         {
@@ -313,6 +407,44 @@ namespace DBAccess
 
         }
 
+
+        public List<Ability> GetCharacterAbilities(int idCharacter)
+        {
+            List<Ability> abilities = new List<Ability>();
+
+            try
+            {
+                SetProcedure("SP_GetCharacterAbilities");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    int chID = reader.GetInt32(0);
+
+                    if (chID == idCharacter)
+                    {
+                        Ability aux = new Ability();
+                        aux.id = reader.GetInt32(1);
+                        aux.name = reader.GetString(2);
+                        aux.desc = reader.GetString(3);
+                        aux.rolledScore = reader.GetInt32(4);
+                        aux.modifier = reader.GetInt32(5);
+
+                        abilities.Add(aux);
+                    }
+                }
+
+                return abilities;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+        }
 
 
 
