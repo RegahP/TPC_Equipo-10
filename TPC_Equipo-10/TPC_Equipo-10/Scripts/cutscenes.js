@@ -1,25 +1,25 @@
 ﻿//intro sequence; followed by first combat
 function drawIntro() {
 
-    drawTextCentered('intro', centerX, height - 24, 24, 'white')
+    drawTextCentered('intro', width / 2, width / 2 - 24, 24, 'white')
 
-    drawSpriteCentered(chr_fx_darkspotlight, centerX, centerY, 10);
-    drawChrSprite(centerX, centerY + 40, 10, false);
+    drawSpriteCentered(chr_fx_darkspotlight, width / 2, height / 2, 10);
+    drawChrSprite(width / 2, height / 2 + 40, 10, false);
 }
 
 //end of combat scene; choose next combat or visit town
 function drawEndCombat() {
-    drawTextCentered('combat or town?', centerX, height - 24, 24, 'white')
+    drawTextCentered('combat or town?', width / 2, height - 24, 24, 'white')
 }
 
 //resting sequence; followed by next combat
 function drawRest() {
-    drawTextCentered('resting', centerX, height - 24, 24, 'white')
+    drawTextCentered('resting', width / 2, height - 24, 24, 'white')
 }
 
 //dead sequence; followed by intro
 function drawDead() {
-    drawTextCentered('you died', centerX, height - 24, 24, 'white')
+    drawTextCentered('you died', width / 2, height - 24, 24, 'white')
 }
 
 //draws the character sprite (raceID, classID, sex) at position posX, posY with a size of scale

@@ -371,10 +371,10 @@ CREATE PROCEDURE SP_InsertNewCharacter
     @ID_Class int,
     @ID_Background int,
     @_Name nvarchar(50),
-    @ArmorClass int = 1, --se calcula
-    @MaxHealth int = 1, --se calcula
-    @CurrentHealth int = 1, --se calcula
-    @Gold int = 1, --se calcula
+    @ArmorClass int default 0, --se calcula
+    @MaxHealth int default 0, --se calcula
+    @CurrentHealth default 0, --se calcula
+    @Gold int default 0, --se calcula
     @_Level int = 1,
     @Experience int = 0,
     @Proficiency int = 2,
@@ -443,36 +443,18 @@ BEGIN
     SET @AbilityModifier = FLOOR((@AbilityRolledScore - 10) / 2.0);
     INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
     VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
+END;
 
-    -- Insertar skills relacionadas del personaje en SkillsXCharacter directamente con el Modifier
-
-    -- sección anulada luego del cambio de la forma en la que tratamos con las skills
-
-    -- DECLARE @SkillId INT;
-    -- DECLARE @SkillAbilityId INT;
-    -- DECLARE @Modifier INT;
-
-    -- DECLARE SkillCursor CURSOR FOR
-    -- SELECT S.ID_Skill, S.ID_Ability
-    -- FROM Skills S;
-
-    -- OPEN SkillCursor;
-
-    -- FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
-
-    -- WHILE @@FETCH_STATUS = 0
-    -- BEGIN
-    --     SELECT @Modifier = Modifier
-    --     FROM AbilitiesXCharacter
-    --     WHERE ID_Character = @CharacterId
-    --       AND ID_Ability = @SkillAbilityId;
-
-    --     INSERT INTO SkillsXCharacter (ID_Character, ID_Skill, RolledScore)
-    --     VALUES (@CharacterId, @SkillId, @Modifier);
-
-    --     FETCH NEXT FROM SkillCursor INTO @SkillId, @SkillAbilityId;
-    -- END
-
-    -- CLOSE SkillCursor;
-    -- DEALLOCATE SkillCursor;
+CREATE PROCEDURE SP_GetCharacterAbilities
+AS
+BEGIN
+    SELECT 
+        C.ID_Character AS CharacterId, A.ID_Ability, A._Name AS AbilityName,  A._Desc AS AbilityDesc, AC.RolledScore, AC.Modifier
+    FROM 
+        Characters C
+    INNER JOIN 
+        AbilitiesXCharacter AC ON C.ID_Character = AC.ID_Character
+    INNER JOIN 
+        Abilities A ON AC.ID_Ability = A.ID_Ability
+    
 END;

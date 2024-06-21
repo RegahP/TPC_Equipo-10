@@ -392,7 +392,7 @@ namespace DBAccess
                 command.Parameters.AddWithValue("@ID_Class", character.chrClass.id);
                 command.Parameters.AddWithValue("@ID_Background", character.bg.id);
                 command.Parameters.AddWithValue("@_Name", character.name);
-                command.Parameters.AddWithValue("@Abilities", "12, 10, 13, 8, 15, 16");
+                command.Parameters.AddWithValue("@Abilities", "12, 10, 13, 8, 15, 16"); //temp, deberia tomar los valores rolleados
 
                 ExecuteAction();
             }

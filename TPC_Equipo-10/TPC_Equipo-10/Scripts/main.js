@@ -3,20 +3,19 @@ let chr; //character
 //let items; //todos los items
 //let creatures; //todas las creatures
 
-let centerX;
-let centerY;
-
 //todas las imagenes
 let chr_spritesheet;
 let chr_fx_darkspotlight;
-let creatures_0;
+let creatures_0; //temp
+let merchant_spritesheet;
 
 //la carga de imagenes se hace en preload, para que el juego arranque
 //solo una vez que se cargaron todas los archivos e imagenes necesarias
 function preload() {
     chr_spritesheet = loadImage("../Sprites/chr_spritesheet.png");
     chr_fx_darkspotlight = loadImage("../Sprites/chr_fx_darkspotlight.png");
-    creatures_0 = loadImage("../Sprites/creatures_0.png");
+    creatures_0 = loadImage("../Sprites/creatures_0.png"); //temp
+    merchant_spritesheet = loadImage("../Sprites/merchant_spritesheet.png");
 }
 
 //setup asincronico para que espere a las ajax calls hasta que terminen antes de avanzar
@@ -25,8 +24,6 @@ async function setup() {
     canvas.parent("gameCanvas");
 
     noSmooth();
-    centerX = width / 2;
-    centerY = height / 2;
 
     try {
         chr = await loadCharacter();
@@ -114,8 +111,29 @@ function keyPressed() {
                         if (!invFocus) {
                             if (keyCode === UP_ARROW) {
                                 invIndex = (invIndex - 1 + items.length) % items.length;
+
+                                if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
+                                    scrollShift--;
+                                }
+
+                                if (invIndex == items.length - 1) {
+                                    let itemCount = items.length;
+                                    let scrollEnd = 0;
+                                    while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
+                                        itemCount--;
+                                        scrollEnd++;
+                                    }
+                                    scrollShift = scrollEnd - 1;
+                                }
                             } else if (keyCode === DOWN_ARROW) {
                                 invIndex = (invIndex + 1) % items.length;
+
+                                if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
+                                    scrollShift++;
+                                }
+                                if (invIndex == 0) {
+                                    scrollShift = 0;
+                                }
                             }
                         }
 
@@ -142,12 +160,13 @@ function keyPressed() {
                 }
                 else if (key === 'e') {
                     chr.gameState = 3;
+                    setupTown(); //por ahora genera el merchant, deberia generar el pueblo y otras cosas
                 }
                 break;
             case 3: //town
                 if (key === 'q') {
                     chr.gameState = 4;
-                    setupInventory(); //TEMP, antes de esto va el panel de compra o venta
+                    setupStore(); //resetea bools de navegacion de la tienda y regenera opciones de dialogo
                 }
                 else if (key === 'e') {
                     chr.gameState = 5;
@@ -157,49 +176,174 @@ function keyPressed() {
                 if (key === 'q') {
                     chr.gameState = 3;
                 }
+                if (!storeNavFocus) {
+                    //alternamos el focus del panel de pregunta buysell
+                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                        storeBuySellFocus = !storeBuySellFocus;
+                    }
+                    if (keyCode === ENTER) {
+                        storeNavFocus = true;
+                        setupInventory(); //TEMP, antes de esto va el panel de compra o venta
+                        merchantDialogueShowBoughtStatus = false; //resetea al merchant a que muestre su dialogo pre compra
+                        merchantDialoguePreSoldStatus = false; //resetea al merchant a que muestre su dialogo pre ventas
+                    }
+                }
+                else {
+                    if (keyCode === ESCAPE) {
+                        storeNavFocus = false;
+                    }
+                    //estamos en el menu de compra
+                    if (!storeBuySellFocus) {
+                        //si la lista no esta vacia
+                        if (!invEmpty) {
 
-                //si la lista no esta vacia
-                if (!invEmpty) {
+                            if (!buyPopup) {
+                                //si el focus esta en la lista, nos podemos mover
+                                if (!invFocus) {
+                                    if (keyCode === UP_ARROW) {
+                                        invIndex = (invIndex - 1 + items.length) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
-                    if (!sellPopup) {
-                        //si el focus esta en la lista, nos podemos mover
-                        if (!invFocus) {
-                            if (keyCode === UP_ARROW) {
-                                invIndex = (invIndex - 1 + items.length) % items.length;
-                            } else if (keyCode === DOWN_ARROW) {
-                                invIndex = (invIndex + 1) % items.length;
+                                        //ajusta el shift si subir en la lista se va fuera del panel
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
+                                            scrollShift--;
+                                        }
+
+                                        //si subimos y terminamos en ultimo indice, dimos la vuelta, setea el scroll al final
+                                        if (invIndex == items.length - 1) {
+                                            let itemCount = items.length;
+                                            let scrollEnd = 0;
+                                            while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
+                                                itemCount--;
+                                                scrollEnd++;
+                                            }
+                                            scrollShift = scrollEnd - 1;
+                                        }
+                                        //si movemos el indice, el merchant vuelve a dialogos pre venta
+                                        merchantDialogueShowBoughtStatus = false;
+                                    } else if (keyCode === DOWN_ARROW) {
+                                        invIndex = (invIndex + 1) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+
+                                        //ajusta el shift si bajar en la lista se va fuera del panel
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
+                                            scrollShift++;
+                                        }
+                                        //si bajamos y terminamos en indice 0, dimos la vuelta, resetea el scroll
+                                        if (invIndex == 0) {
+                                            scrollShift = 0;
+                                        }
+                                        //si movemos el indice, el merchant vuelve a dialogos pre venta
+                                        merchantDialogueShowBoughtStatus = false;
+                                    }
+                                }
+
+                                //alternamos el focus de la lista a detalles
+                                if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                    invFocus = !invFocus;
+                                }
                             }
-                        }
 
-                        //alternamos el focus de la lista a detalles
-                        if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
-                            invFocus = !invFocus;
+                            if (invFocus) {
+                                //si el popup esta abierto
+                                if (buyPopup) {
+                                    if (keyCode === ESCAPE) {
+                                        buyPopup = false;
+                                    }
+                                    //alternamos el focus entre cancelar o confirmar
+                                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                        buyPopupFocus = !buyPopupFocus;
+                                    }
+                                    if (keyCode === ENTER) {
+                                        if (!buyPopupFocus) {
+                                            buyPopup = false;
+                                        }
+                                        else {
+                                            itemBought = true;
+                                            buyPopup = false;
+                                        }
+                                    }
+                                }
+                                else if (keyCode === ENTER) {
+                                    buyPopup = true;
+                                    buyPopupFocus = false;
+                                }
+                            }
                         }
                     }
+                    //estamos en el menu de venta
+                    else {
+                        //si la lista no esta vacia
+                        if (!invEmpty) {
 
-                    if (invFocus) {
-                        //si el popup esta abierto
-                        if (sellPopup) {
-                            if (keyCode === ESCAPE) {
-                                sellPopup = false;
-                            }
-                            //alternamos el focus entre cancelar o confirmar
-                            if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
-                                sellPopupFocus = !sellPopupFocus;
-                            }
-                            if (keyCode === ENTER) {
-                                if (!sellPopupFocus) {
-                                    sellPopup = false;
+                            if (!sellPopup) {
+                                //si el focus esta en la lista, nos podemos mover
+                                if (!invFocus) {
+                                    if (keyCode === UP_ARROW) {
+                                        invIndex = (invIndex - 1 + items.length) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+
+                                        //ajusta el shift si subir en la lista se va fuera del panel
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
+                                            scrollShift--;
+                                        }
+
+                                        //si subimos y terminamos en ultimo indice, dimos la vuelta, setea el scroll al final
+                                        if (invIndex == items.length - 1) {
+                                            let itemCount = items.length;
+                                            let scrollEnd = 0;
+                                            while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
+                                                itemCount--;
+                                                scrollEnd++;
+                                            }
+                                            scrollShift = scrollEnd - 1;
+                                        }
+                                        //si movemos el indice, el merchant vuelve a dialogos pre venta
+                                        merchantDialoguePreSoldStatus = false;
+                                    } else if (keyCode === DOWN_ARROW) {
+                                        invIndex = (invIndex + 1) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+
+                                        //ajusta el shift si bajar en la lista se va fuera del panel
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
+                                            scrollShift++;
+                                        }
+                                        //si bajamos y terminamos en indice 0, dimos la vuelta, resetea el scroll
+                                        if (invIndex == 0) {
+                                            scrollShift = 0;
+                                        }
+                                        //si movemos el indice, el merchant vuelve a dialogos pre venta
+                                        merchantDialoguePreSoldStatus = false;
+                                    }
                                 }
-                                else {
-                                    itemSold = true;
-                                    sellPopup = false;
+
+                                //alternamos el focus de la lista a detalles
+                                if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                    invFocus = !invFocus;
                                 }
                             }
-                        }
-                        else if (keyCode === ENTER) {
-                            sellPopup = true;
-                            sellPopupFocus = false;
+
+                            if (invFocus) {
+                                //si el popup esta abierto
+                                if (sellPopup) {
+                                    if (keyCode === ESCAPE) {
+                                        sellPopup = false;
+                                    }
+                                    //alternamos el focus entre cancelar o confirmar
+                                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                        sellPopupFocus = !sellPopupFocus;
+                                    }
+                                    if (keyCode === ENTER) {
+                                        if (!sellPopupFocus) {
+                                            sellPopup = false;
+                                        }
+                                        else {
+                                            itemSold = true;
+                                            sellPopup = false;
+                                        }
+                                    }
+                                }
+                                else if (keyCode === ENTER) {
+                                    sellPopup = true;
+                                    sellPopupFocus = false;
+                                }
+                            }
                         }
                     }
                 }

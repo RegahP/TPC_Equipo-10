@@ -1,9 +1,9 @@
 ﻿function drawCombat() {
     setupCombat();
-    drawTextCentered('combat; lose or win?', centerX, height - 24, 24, 'white')
+    drawTextCentered('combat; lose or win?', width / 2, height - 24, 24, 'white')
 
-    drawChrSprite(centerX - (width / 4), centerY, 10, false);
-    drawSpriteCentered(creatures_0, centerX + (width / 4), centerY, 10);
+    drawChrSprite(width / 2 - (width / 4), height / 2, 10, false);
+    drawSpriteCentered(creatures_0, width / 2 + (width / 4), height / 2, 10);
 
     drawNav();
     if (navFocus) {
@@ -41,13 +41,18 @@ let items = []; //esto va a ser cargados con items reales, no los prehechos que 
 let invIndex; //en que items estamos parados
 let invFocus; //0 = panel izq; 1 = panel der
 let invEmpty;
+let scrollShift;
 
-let outerMargin = 35;
+let outerMargin = 50;
 let innerMargin = 20;
 let itemSize = 24;
 let buttonSize = 16; //invertido
 
-//inventario en tienda
+//variables relevantes para el inventario en tienda
+let buyPopup;
+let buyPopupFocus;
+let itemBought;
+
 let sellPopup;
 let sellPopupFocus;
 let itemSold;
@@ -57,9 +62,12 @@ function setupInventory() {
     invIndex = 0;
     invFocus = false;
     invEmpty = false;
+    scrollShift = 0;
     noStroke();
     items.splice(0, items.length);
-    for (let i = 0; i < 7; i++) {
+
+    //esto deberia estar dentro de un if, si estamos en el inventario de venta, esto deberia cargar los items de la tienda, no los nuestros
+    for (let i = 0; i < 25; i++) {
         let item = {
             name: "item" + int(random(100, 999)),
             equipped: false,
@@ -67,9 +75,14 @@ function setupInventory() {
         };
         items.push(item);
     }
+
     sellPopup = false;
     sellPopupFocus = false;
     itemSold = false;
+
+    buyPopup = false;
+    buyPopupFocus = false;
+    itemBought = false;
 }
 
 function drawInventory() {
@@ -92,7 +105,7 @@ function drawInventory() {
         text(
             items[i].name,
             outerMargin + innerMargin + itemSize * 1.25,
-            outerMargin + innerMargin + itemSize * 1.25 * i
+            outerMargin + innerMargin + itemSize * 1.25 * i - (itemSize * 1.25 * scrollShift)
         );
         pop();
     }
@@ -115,15 +128,17 @@ function drawInventory() {
         height / 2 - innerMargin * 1.5 - outerMargin
     );
 
+    let merchantDialogue;
+
     //item info
-    if (items.length > 0) {
+    if (!invEmpty) {
 
         //item name
         fill(255);
         textAlign(LEFT, TOP);
         textSize(36);
         push();
-        clip(detailsMask);
+        clip(topPanelMask);
         text(
             items[invIndex].name,
             width / 2 + innerMargin,
@@ -136,7 +151,7 @@ function drawInventory() {
         textAlign(LEFT, TOP);
         textSize(12);
         push();
-        clip(detailsMask);
+        clip(topPanelMask);
         text(
             items[invIndex].type, //esto es temp
             width / 2 + innerMargin,
@@ -150,7 +165,7 @@ function drawInventory() {
         textSize(16);
         textWrap(WORD);
         push();
-        clip(detailsMask);
+        clip(topPanelMask);
         text(
             /*items[invIndex].name*/"bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl alblablbalb lb alb alb alb alb labla bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl",
             width / 2 + innerMargin,
@@ -171,22 +186,68 @@ function drawInventory() {
             width / (buttonSize / 2),
             height / buttonSize
         );
+
         let equipTxt;
-        //si estamos en combate, el boton equipa/consume
+        let equipColor;
+
         if (chr.gameState == 1) {
+
+            //display de arma, armadura y escudo
+            fill(80);
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+
+            //si estamos en combate, el boton equipa/consume
             if (items[invIndex].equipped) {
-                fill(128);
+                equipColor = color(128);
                 equipTxt = "Equipado";
             } else {
-                fill(255);
+                equipColor = color(255);
                 equipTxt = "Equipar";
             }
         }
         //si estamos en la tienda, el boton vende
         else if (chr.gameState == 4) {
-            fill(255);
-            equipTxt = "Vender";
+            equipColor = color(255);
+
+            if (!storeBuySellFocus) {
+                equipTxt = "Comprar";
+
+                //configuramos el texto del merchant segun si aun no compraste o si ya compraste
+                if (!merchantDialogueShowBoughtStatus) {
+                    merchantDialogue = merchantShowDialogues[merchantPersonality][merchantShowDialogueOption];
+                } else {
+                    merchantDialogue = merchantBoughtDialogues[merchantPersonality][merchantBoughtDialogueOption];
+                }
+            }
+            else {
+                equipTxt = "Vender";
+
+                //configuramos el texto del merchant segun si aun no vendiste o si ya vendiste
+                if (!merchantDialoguePreSoldStatus) {
+                    merchantDialogue = merchantPreDialogues[merchantPersonality][merchantPreDialogueOption];
+                } else {
+                    merchantDialogue = merchantSoldDialogues[merchantPersonality][merchantSoldDialogueOption];
+                }
+            }
         }
+        fill(equipColor)
         textSize(itemSize);
         textAlign(CENTER, CENTER);
         text(
@@ -203,27 +264,6 @@ function drawInventory() {
             height / (buttonSize * 2)
         );
 
-        //display de arma, armadura y escudo
-        fill(80);
-        rect(
-            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            (width / 2 - outerMargin - innerMargin) / 5,
-            (width / 2 - outerMargin - innerMargin) / 5
-        );
-        rect(
-            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            (width / 2 - outerMargin - innerMargin) / 5,
-            (width / 2 - outerMargin - innerMargin) / 5
-        );
-        rect(
-            width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-            (width / 2 - outerMargin - innerMargin) / 5,
-            (width / 2 - outerMargin - innerMargin) / 5
-        );
-
         //indicador de seleccion inventario
         fill(255);
         textSize(itemSize);
@@ -232,7 +272,7 @@ function drawInventory() {
             text(
                 ">",
                 outerMargin + innerMargin,
-                outerMargin + innerMargin + invIndex * itemSize * 1.25
+                outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift)
             );
         } else {
             textAlign(CENTER, CENTER);
@@ -253,18 +293,59 @@ function drawInventory() {
     }
     else {
         //texto de inventario vacio
-        invEmpty = true;
         fill(255);
         textAlign(CENTER, CENTER)
+
+        //actualizamos el dialogo del merchant para reflejar el inventario vacio
+        let emptyTxt;
+        if (!storeBuySellFocus) {
+            emptyTxt = "Compraste todo en la tienda!";
+            merchantDialogue = merchantEmptyBuyDialogues[merchantPersonality];
+        } else {
+            emptyTxt = "Tu inventario está vacío!";
+            merchantDialogue = merchantEmptySellDialogues[merchantPersonality];
+        }
+
         text(
-            'Tu inventario está vacío!',
+            emptyTxt,
             width / 2 + (width / 2 - outerMargin - innerMargin) / 2,
             outerMargin + innerMargin + (height / 2 - innerMargin * 1.5 - outerMargin) / 2
         );
     }
 
+    //solo en la tienda
+    if (chr.gameState == 4) {
+        //dibujamos al merchant en el panel inferior
+        push()
+        clip(bottomPanelMask);
+        drawSpriteCentered(
+            chr_fx_darkspotlight,
+            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 + 4,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - 40,
+            10
+        );
+        drawMerchantSprite(
+            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 + 4,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2,
+            10
+        );
+
+        //y su dialogo
+        fill(255);
+        textAlign(LEFT, TOP);
+        textSize(16);
+        textWrap(WORD);
+        text(
+            merchantDialogue,
+            width / 2 + innerMargin,
+            height / 2 + innerMargin * 1.5,
+            width / 2 - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 3
+        )
+        pop();
+    }
+
     //popup de confirmacion de venta
-    if (sellPopup) {
+    if (sellPopup || buyPopup) {
         fill(0, 0, 0, 128);
         rect(0, 0, width, height);
         fill(20);
@@ -285,8 +366,14 @@ function drawInventory() {
         fill(255);
         textAlign(LEFT, TOP);
         textSize(24);
+        let popupTxt;
+        if (!storeBuySellFocus) {
+            popupTxt = 'Estás seguro de que querés comprar ' + items[invIndex].name + ' por 15 monedas de oro?'; //TEMP, oro deberia venir del item
+        } else {
+            popupTxt = 'Estás seguro de que querés vender tu ' + items[invIndex].name + ' por 15 monedas de oro?'; //TEMP, oro deberia venir del item
+        }
         text(
-            'Estás seguro de que querés vender tu ' + items[invIndex].name + '?',
+            popupTxt,
             width / 2 - (width / popupSize) / 2 + innerMargin * 2,
             height / 2 - (height / popupSize) / 2 + innerMargin * 2,
             width / popupSize - innerMargin * 4
@@ -329,8 +416,8 @@ function drawInventory() {
         fill(255);
         textAlign(CENTER, CENTER);
         textSize(itemSize);
-        if (sellPopup) {
-            if (!sellPopupFocus) {
+        if (sellPopup || buyPopup) {
+            if (!sellPopupFocus && !buyPopupFocus) {
                 text(
                     "V",
                     width / 2 - (width / popupSize) / 2 + innerMargin * 2 + (width / (buttonSize / 2) / 2),
@@ -349,22 +436,64 @@ function drawInventory() {
         itemSold = false;
         
         if (invIndex == items.length - 1) {
-            console.log("ultimo item")
             items.splice(invIndex, 1);
             invIndex -= 1;
         } else {
             items.splice(invIndex, 1);
         }
+        chr.gold += 15; //valor temp, deberia venir del item
+        //save character
+        if (items.length == 0) {
+            invEmpty = true;
+        }
+        //cambia el dialogo de pre venta a post venta
+        merchantDialoguePreSoldStatus = true;
+        //elige otra opcion de dialogo segun su personalidad
+        pickMerchantDialogueOptions();
+    }
+    if (itemBought) {
+        itemBought = false;
+
+        if (invIndex == items.length - 1) {
+            items.splice(invIndex, 1);
+            invIndex -= 1;
+        } else {
+            items.splice(invIndex, 1);
+        }
+        chr.gold -= 15; //valor temp, deberia venir del item
+        //save character
+        if (items.length == 0) {
+            invEmpty = true;
+        }
+        //cambia el dialogo de pre venta a post venta
+        merchantDialogueShowBoughtStatus = true;
+        //elige otra opcion de dialogo segun su personalidad
+        pickMerchantDialogueOptions();
     }
 }
 
 //mascaras de clipping para evitar que sobresalgan los textos en el inventario
 function listMask() {
-    rect(0, 0, width / 2 - innerMargin, height - outerMargin - innerMargin);
+    rect(
+        outerMargin,
+        outerMargin + innerMargin,
+        width / 2 - outerMargin * 2,
+        height - outerMargin * 2 - innerMargin * 2
+    );
 }
 
-function detailsMask() {
+function topPanelMask() {
     rect(width / 2, outerMargin + innerMargin,
         width / 2 - outerMargin - innerMargin - 12,
-        height / 2 - innerMargin * 2.5 - outerMargin);
+        height / 2 - innerMargin * 2.5 - outerMargin
+    );
+}
+
+function bottomPanelMask() {
+    rect(
+        width / 2 + innerMargin,
+        height / 2 + innerMargin * 1.5,
+        width / 2 - outerMargin - innerMargin * 2,
+        height / 2 - outerMargin - innerMargin * 2.5
+    );
 }
