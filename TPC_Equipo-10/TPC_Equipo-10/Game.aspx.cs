@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using DBAccess;
 using DomainModel;
 
 namespace TPC_Equipo_10
@@ -41,8 +42,22 @@ namespace TPC_Equipo_10
         [WebMethod]
         public static void SaveCharacter(Character character)
         {
-            //aca recibimos el character del juego, cuando cambien los datos
             Debug.WriteLine("Character recieved from AJAX Call to CodeBehind succesfully.");
+            //aca recibimos el character del juego, cuando cambien los datos
+        }
+
+        [WebMethod] //devuelve todas abilidades del juego al ajax
+        public static List<Ability> GetAbilities()
+        {
+            Debug.WriteLine("Abilities sent from CodeBehind to AJAX Call succesfully.");
+            return DataAccess.ListAbilities();
+        }
+
+        [WebMethod] //devuelve todos los items del juego al ajax
+        public static List<Item> GetItems()
+        {
+            Debug.WriteLine("All items sent from CodeBehind to AJAX Call succesfully.");
+            return DataAccess.GetItems();
         }
     }
 }

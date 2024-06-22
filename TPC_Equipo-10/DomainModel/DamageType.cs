@@ -8,8 +8,8 @@ namespace DomainModel
 {
     public class DamageType
     {
-        public int id { get; }
-        public string name { get; }
+        public int id { get; set; }
+        public string name { get; set; }
 
         //constructor sets nonset properties
     }

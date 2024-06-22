@@ -11,37 +11,36 @@ using System.Diagnostics;
 
 namespace DBAccess
 {
-    public class DataAccess
+    public static class DataAccess
     {
-        private SqlConnection connection;
-        private SqlCommand command;
-        private SqlDataReader reader;
+        private static SqlConnection connection = new SqlConnection("server=.\\SQLEXPRESS; database=TPC_ChambersAndWyverns; integrated security=true");
+        private static SqlCommand command = new SqlCommand();
+        private static SqlDataReader reader;
 
-        public SqlDataReader Reader
+        public static SqlDataReader Reader
         {
             get { return reader; }
         }
 
-        public DataAccess()
-        {
-            connection = new SqlConnection("server=.\\SQLEXPRESS; database=TPC_ChambersAndWyverns; integrated security=true");
-            command = new SqlCommand();
-        }
-
-        public void SetQuery(string query)
+        public static void SetQuery(string query)
         {
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = query;
         }
 
-        public void SetProcedure(string procedure)
+        public static void SetProcedure(string procedure)
         {
 
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = procedure;
         }
 
-        public void ExecuteRead()
+        public static void SetParameter(string parameter, object value)
+        {
+            command.Parameters.Add(new SqlParameter(parameter, value));
+        }
+
+        public static void ExecuteRead()
         {
             command.Connection = connection;
             try
@@ -55,7 +54,7 @@ namespace DBAccess
             }
         }
 
-        public void ExecuteAction()
+        public static void ExecuteAction()
         {
             command.Connection = connection;
             try
@@ -69,7 +68,7 @@ namespace DBAccess
             }
         }
 
-        public void runRead()
+        public static void runRead()
         {
             command.Connection = connection;
             try
@@ -82,32 +81,35 @@ namespace DBAccess
                 throw ex;
             }
         }
-        public void CloseConnection()
+        public static void CloseConnection()
         {
             if (reader != null)
             {
                 reader.Close();
             }
+            if (command != null)
+            {
+                command.Parameters.Clear();
+            }
             connection.Close();
         }
 
 
-        public List<User> ListUsers()
+        public static List<User> ListUsers()
         {
             List<User> userList = new List<User>();
-            DataAccess data = new DataAccess();
 
             try
             {
-                data.SetQuery("Select ID_User, Username, PasswordHash from Users");
-                data.runRead();
+                SetQuery("Select * from Users");
+                runRead();
 
-                while (data.Reader.Read())
+                while (reader.Read())
                 {
                     User aux = new User();
-                    aux.id = (int)data.Reader["ID_User"];
-                    aux.userName = (string)data.Reader["Username"];
-                    aux.passwordHash = (string)data.Reader["PasswordHash"];
+                    aux.id = reader.GetInt32(0);
+                    aux.userName = reader.GetString(1);
+                    aux.passwordHash = reader.GetString(2);
 
                     userList.Add(aux);
                 }
@@ -120,12 +122,12 @@ namespace DBAccess
             }
             finally
             {
-                data.CloseConnection();
+                CloseConnection();
             }
         }
 
 
-        public List<Ability> ListAbilities()
+        public static List<Ability> ListAbilities()
         {
             List<Ability> list = new List<Ability>();
 
@@ -156,7 +158,7 @@ namespace DBAccess
 
 
 
-        public List<Background> ListBackgrounds()
+        public static List<Background> ListBackgrounds()
         {
             List<Background> list = new List<Background>();
 
@@ -189,7 +191,7 @@ namespace DBAccess
         }
 
 
-        public List<Character> ListCharacters()
+        public static List<Character> ListCharacters()
         {
             List<Character> list = new List<Character>();
 
@@ -283,7 +285,7 @@ namespace DBAccess
         }
 
 
-        public List<Class> ListClasses()
+        public static List<Class> ListClasses()
         {
             List<Class> list = new List<Class>();
 
@@ -318,7 +320,7 @@ namespace DBAccess
 
 
 
-        public List<Race> ListRaces()
+        public static List<Race> ListRaces()
         {
             List<Race> list = new List<Race>();
 
@@ -349,7 +351,7 @@ namespace DBAccess
         }
 
 
-        public List<Skill> ListSkills()
+        public static List<Skill> ListSkills()
         {
             List<Skill> list = new List<Skill>();
 
@@ -379,20 +381,19 @@ namespace DBAccess
             }
         }
 
-        public void NewCharacter(Character character)
+        public static void NewCharacter(Character character)
         {
-
             try
             {
                 SetProcedure("SP_InsertNewCharacter");
 
-                command.Parameters.AddWithValue("@ID_User", 1);
-                command.Parameters.AddWithValue("@Sex", character.sex);
-                command.Parameters.AddWithValue("@ID_Race", character.race.id);
-                command.Parameters.AddWithValue("@ID_Class", character.chrClass.id);
-                command.Parameters.AddWithValue("@ID_Background", character.bg.id);
-                command.Parameters.AddWithValue("@_Name", character.name);
-                command.Parameters.AddWithValue("@Abilities", "12, 10, 13, 8, 15, 16"); //temp, deberia tomar los valores rolleados
+                SetParameter("@ID_User", 1);
+                SetParameter("@Sex", character.sex);
+                SetParameter("@ID_Race", character.race.id);
+                SetParameter("@ID_Class", character.chrClass.id);
+                SetParameter("@ID_Background", character.bg.id);
+                SetParameter("@_Name", character.name);
+                SetParameter("@Abilities", "12, 10, 13, 8, 15, 16"); //temp, deberia tomar los valores rolleados
 
                 ExecuteAction();
             }
@@ -404,33 +405,27 @@ namespace DBAccess
             {
                 CloseConnection();
             }
-
         }
 
-
-        public List<Ability> GetCharacterAbilities(int idCharacter)
+        public static List<Ability> GetCharacterAbilities(int characterID)
         {
             List<Ability> abilities = new List<Ability>();
 
             try
             {
                 SetProcedure("SP_GetCharacterAbilities");
+                SetParameter("@ID_Character", characterID);
                 ExecuteRead();
                 while (reader.Read())
                 {
-                    int chID = reader.GetInt32(0);
+                    Ability aux = new Ability();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.rolledScore = reader.GetInt32(3);
+                    aux.modifier = reader.GetInt32(4);
 
-                    if (chID == idCharacter)
-                    {
-                        Ability aux = new Ability();
-                        aux.id = reader.GetInt32(1);
-                        aux.name = reader.GetString(2);
-                        aux.desc = reader.GetString(3);
-                        aux.rolledScore = reader.GetInt32(4);
-                        aux.modifier = reader.GetInt32(5);
-
-                        abilities.Add(aux);
-                    }
+                    abilities.Add(aux);
                 }
 
                 return abilities;
@@ -446,7 +441,139 @@ namespace DBAccess
 
         }
 
+        public static List<Weapon> GetWeapons()
+        {
+            List<Weapon> weapons = new List<Weapon>();
 
+            try
+            {
+                SetProcedure("SP_GetWeapons");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Weapon aux = new Weapon();
+                    DamageType dmgAux = new DamageType();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 1; //equippable
+                    aux.equippableType = false; //weapon
+                    aux.damage = reader.GetInt32(3);
+                    aux.abilityModID = reader.GetInt32(4); //skippeamos la columna con el nombre
+                    dmgAux.id = reader.GetInt32(6);
+                    dmgAux.name = reader.GetString(7);
+                    aux.dmgType = dmgAux;
+                    aux.price = reader.GetInt32(8);
 
+                    weapons.Add(aux);
+                }
+
+                return weapons;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Armor> GetArmorsShields()
+        {
+            List<Armor> armors = new List<Armor>();
+
+            try
+            {
+                SetProcedure("SP_GetArmorsShields");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Armor aux = new Armor();
+                    DamageType dmgAux = new DamageType();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 1; //equippable
+                    aux.equippableType = true; //armor
+                    aux.armorType = reader.GetBoolean(3) ? 1 : 0;
+                    dmgAux.id = reader.GetInt32(4);
+                    dmgAux.name = reader.GetString(5);
+                    aux.resType = dmgAux;
+                    aux.armor = reader.GetInt32(6);
+                    aux.price = reader.GetInt32(7);
+
+                    armors.Add(aux);
+                }
+
+                return armors;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Consumable> GetConsumables()
+        {
+            List<Consumable> consumables = new List<Consumable>();
+
+            try
+            {
+                SetProcedure("SP_GetConsumables");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Consumable aux = new Consumable();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 2; //consumable
+                    aux.effectID = reader.GetInt32(3);
+                    aux.amount = reader.GetInt32(4);
+                    aux.price = reader.GetInt32(5);
+
+                    consumables.Add(aux);
+                }
+
+                return consumables;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Item> GetItems()
+        {
+            List<Item> items = new List<Item>();
+            
+            List<Weapon> weapons = GetWeapons();
+            List<Armor> armors = GetArmorsShields();
+            List<Consumable> consumables = GetConsumables();
+            
+            foreach (Weapon weapon in weapons)
+            {
+                items.Add(weapon);
+            }
+            foreach (Armor armor in armors)
+            {
+                items.Add(armor);
+            }
+            foreach (Consumable consumable in consumables)
+            {
+                items.Add(consumable);
+            }
+            return items;
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace TPC_Equipo_10
 {
     public partial class backgroundSelection : System.Web.UI.Page
     {
-        DataAccess dataAccess = new DataAccess();
 
         public List<Background> backgroundList = new List<Background>();
         public List<Skill> skillList = new List<Skill>();
@@ -23,8 +22,8 @@ namespace TPC_Equipo_10
         {
             character = (Character)Session["character"];
 
-            backgroundList = dataAccess.ListBackgrounds();
-            skillList = dataAccess.ListSkills();
+            backgroundList = DataAccess.ListBackgrounds();
+            skillList = DataAccess.ListSkills();
 
             rptBackgrounds.DataSource = backgroundList;
             rptBackgrounds.DataBind();

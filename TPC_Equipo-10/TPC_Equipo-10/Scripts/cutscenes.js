@@ -45,6 +45,21 @@ function drawChrSprite(posX, posY, size, flip) {
     pop();
 }
 
+function drawItemSprite(posX, posY, size, id) {
+    image(
+        items_spritesheet,
+        posX,
+        posY,
+        16 * size,
+        16 * size,
+        id * 16,
+        0,
+        16,
+        16
+    );
+}
+
+//dibuja un sprite con el origen en su centro
 function drawSpriteCentered(img, posX, posY, scale) {
     imageMode(CENTER);
     image(
@@ -57,10 +72,35 @@ function drawSpriteCentered(img, posX, posY, scale) {
     imageMode(CORNER);
 }
 
+//dibuja un texto con el origen en su centro
 function drawTextCentered(txt, posX, posY, size, color) {
     fill(color);
-    textFont('Courier New');
     textAlign(CENTER, CENTER);
     textSize(size);
     text(txt, posX, posY);
+}
+
+//devuelve un tamaño de texto maximo segun contenido limites
+function getTextSizeToFit(str, targetWidth, targetHeight) {
+    let size = 1;
+    textSize(size);
+    let bbox = textBounds(str);
+
+    // agranda el tamaño hasta que entra en los limites
+    while (bbox.w < targetWidth && bbox.h < targetHeight) {
+        size++;
+        textSize(size);
+        bbox = textBounds(str);
+    }
+
+    // reduce el tamaño en 1 por si acaso
+    size--;
+    return size;
+}
+
+//devuelve los boundaries de un texto segun contenido
+function textBounds(str) {
+    let w = textWidth(str);
+    let h = textAscent() + textDescent();
+    return { w: w, h: h };
 }

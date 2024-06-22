@@ -59,7 +59,7 @@ VALUES
  'Reinos ricos en antiguo esplendor, salas esculpidas en las raíces de las montañas, picos y martillos haciéndose eco en profundas minas y ardientes forjas, un compromiso con el clan y las tradiciones y un odio ardiente hacia orcos y goblins estos temas comunes unen a todos los enanos.', 
  2),
 --ID 4 - Tiflin
-('Tiflin', 
+('Tiflín', 
  'Ser recibido con miradas y susurros, sufrir violencia e insultos en la calle, ver la desconfianza y el miedo en todos los ojos: este es el destino de los tiflin. Y para retorcer el puñal, los tiflin saben que esto es a causa de un pacto sellado hace generaciones que infundió la esencia de Asmodeo, señor supremo de los Nueve Infiernos, en su linaje. Su apariencia y su naturaleza no tienen más culpa que el resultado de un antiguo pecado, por el que ellos y sus hijos, y los hijos de sus hijos, siempre se considerarán responsables.', 
  5),
 --ID 5 - Mediano
@@ -83,7 +83,7 @@ VALUES
 ('Mago', 
  'Practicantes supremos de la magia, lanzan hechizos explosivos, engaños sutiles y control mental. Invocan monstruos, vislumbran el futuro y transforman sustancias.', 
  6, 
- 'Lluvia de meteoritos', 
+ 'Lluvia de Meteoritos', 
  '“Orbes de fuego en llamas caen en picado sobre la tierra en un estallido abrasador que arrasa con lo que sea que se encuentre en su camino”. La tirada de ataque es automáticamente exitosa y el daño es triplicado.',
  3
 ),
@@ -161,12 +161,12 @@ VALUES
 ('Contundente'),
 --ID 2 - Perforante
 ('Perforante'),
---ID 3 - Hielo
-('Hielo'),
---ID 4 - Fuego
-('Fuego'),
---ID 5 - Electricidad
-('Electricidad');
+--ID 3 - Hielo (de)
+('de Hielo'),
+--ID 4 - Fuego (de)
+('de Fuego'),
+--ID 5 - Eléctrico
+('Eléctrico');
 
 --+-- WEAPON --+--
 
@@ -334,7 +334,7 @@ EXEC SP_InsertItem
 --Weapon - Destreza
 EXEC SP_InsertItem
     @Name = 'Hoz',
-    @Description = 'Conformada por una hoja curva montada en un mango corto. Es conocida por su capacidad para realizar ataques de corte y barrido, haciéndola efectiva en combates cercanos. Además de ser un arma, la hoz también se utiliza en tareas agrícolas, lo que la convierte en una opción versátil tanto en la granja como en el campo de batalla.',
+    @Description = 'Conformada por una hoja curva montada en un mango corto. Es conocida por su capacidad para realizar ataques de corte y barrido, haciéndola efectiva en combates cercanos. Además de ser un arma, la hoz también es una herramienta para tareas agrícolas.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 15,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -344,7 +344,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Cimitarra',
-    @Description = 'Una hoja curva y afilada, similar a un sable. Es especialmente efectiva para realizar ataques de corte rápidos y precisos. Se maneja con una mano y es popular entre los guerreros ágiles y veloces. La forma curva de la hoja permite realizar ataques versátiles y fluidos en combate.',
+    @Description = 'Una hoja curva y afilada, similar a un sable. Es especialmente efectiva para realizar ataques de corte rápidos y precisos. Se maneja con una mano y es popular entre los guerreros ágiles y veloces. La forma curva de la hoja la vuelve versátil y fluida en combate.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -414,7 +414,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Lanza',
-    @Description = 'Una vara larga con una punta afilada en un extremo, ideal para realizar ataques de estocada desde la distancia. Es popular entre guerreros y cazadores que necesitan un arma versátil que pueda ser utilizada tanto en combate a distancia como en combate cuerpo a cuerpo.',
+    @Description = 'Una vara larga con una punta afilada en un extremo, ideal para realizar ataques de estocada desde la distancia. Es popular entre guerreros y cazadores que necesitan un arma que les sirva para un combate a distancia o cuerpo a cuerpo por igual.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30, 
     @EquippableType = 0, -- Tipo 0 para armas
@@ -424,7 +424,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Arco Corto',
-    @Description = 'Un arco más pequeño que el largo, lo que lo hace más manejable en espacios reducidos o en movimiento rápido. Es ideal para ataques precisos a corta y mediana distancia. Es la elección de los arqueros que valoran la movilidad y la rapidez en el combate, ya que les permite disparar con facilidad mientras se desplazan por el campo de batalla.',
+    @Description = 'Un arco más pequeño que el largo, lo que lo hace más manejable en espacios reducidos o en movimiento rápido. Es ideal para ataques precisos a corta y mediana distancia. Rápida y ágil, es esencial para cualquier arquero que necesita estar en movimiento.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 30,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -464,7 +464,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Ballesta Pesada',
-    @Description = 'Se compone de un arco montado sobre un asta más gruesa y resistente, con un mecanismo de tensión que permite disparar proyectiles con gran fuerza y precisión. A diferencia de la ballesta ligera, la ballesta pesada requiere más tiempo para cargar y apuntar, pero compensa con un mayor poder de penetración y alcance.',
+    @Description = 'Se compone de un arco montado sobre un asta más gruesa y resistente, con un mecanismo de tensión avanzado y robusto. A diferencia de la ballesta ligera, requiere más tiempo para cargar y apuntar, pero compensa con un mayor poder de penetración y alcance.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 75, 
     @EquippableType = 0, -- Tipo 0 para armas
@@ -485,7 +485,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Bastón Gélido',
-    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una fría sensación de calma.',
+    @Description = 'Es un artefacto imbuido de energía arcana. Elaborado con madera encantada y adornado con gemas místicas, le concederá a su portador la capacidad de lanzar una variedad de hechizos. Al tocarlo uno puede sentir una fría sensación de calma.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -525,7 +525,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Bastón de Fuego',
-    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una cálida sensación de coraje.',
+    @Description = 'Es un artefacto imbuido de energía arcana. Elaborado con madera encantada y adornado con gemas místicas, le concederá a su portador la capacidad de lanzar una variedad de hechizos. Al tocarlo uno puede sentir una cálida sensación de coraje.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50, 
     @EquippableType = 0, -- Tipo 0 para armas
@@ -565,7 +565,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Bastón Eléctrico',
-    @Description = 'Es un artefacto imbuido de energía arcano. Suele ser elaborado con madera encantada o adornado con gemas místicas. Este bastón concede a su portador la capacidad de lanzar una variedad de hechizos de nivel medio con mayor facilidad y potencia. Al tocarlo uno puede sentir una chisporroteante sensación de adrenalina.',
+    @Description = 'Es un artefacto imbuido de energía arcana. Elaborado con madera encantada y adornado con gemas místicas, le concederá a su portador la capacidad de lanzar una variedad de hechizos. Al tocarlo uno puede sentir una chisporroteante sensación de adrenalina.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 50,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -585,7 +585,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Cetro de las Tormentas',
-    @Description = 'Creado a partir de la esencia misma de la electricidad y la fuerza de las tormentas. Este cetro, adornado con relámpagos danzantes y grabados de nubes tormentosas, es una encarnación del poderío elemental del trueno y el relámpago. Permite a su portador lanzar hechizos de electricidad devastadores.',
+    @Description = 'Creado a partir de la esencia misma de la electricidad y la fuerza de las tormentas. Imbuido con relámpagos divinos y puros, es una encarnación del poderío elemental del trueno y el relámpago. Permite a su portador lanzar hechizos de electricidad devastadores.',
     @ItemType = 1, -- Tipo 1 para Equippable
     @Price = 180,
     @EquippableType = 0, -- Tipo 0 para armas
@@ -599,7 +599,7 @@ EXEC SP_InsertItem
 --Armor
 EXEC SP_InsertItem
     @Name = 'Vestimentas comunes',
-    @Description = 'Ropajes iniciales de la aventura.',
+    @Description = 'Ropajes iniciales de la aventura. Te queda re fachero.',
     @ItemType = 1, -- Equippable
     @Price = 0,
     @EquippableType = 1, -- Armor
@@ -841,7 +841,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Tereré de Yuyos Fey',
-    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
+    @Description = 'Un refrescante tereré hecho con yuyos mágicos de los bosques de las hadas. Al tomarlo te sientes como nuevo.',
     @ItemType = 2, -- Consumable
     @Price = 28,
     @Effect = -1, -- Curación
@@ -849,7 +849,7 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Suprema de Wyvern',
-    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
+    @Description = 'Una deliciosa milanesa de carne de wyvern, crujiente y sazonada, al comerla una sensación de satisfacción te llena',
     @ItemType = 2, -- Consumable
     @Price = 60,
     @Effect = -1, -- Curación
@@ -857,13 +857,83 @@ EXEC SP_InsertItem
 
 EXEC SP_InsertItem
     @Name = 'Ojo de Bife del Contemplador',
-    @Description = 'NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION NO DESCRIPTION ',
+    @Description = 'Un jugoso y vibrante ojo de bife del contemplador, con un sabor rico y sobrenatural. Su energía se adentra en tu mente al consumirlo, y sientes que ves más claro.',
     @ItemType = 2, -- Consumable
     @Price = 128,
     @Effect = -1, -- Curación
     @Amount = 72;
-	
---INSERTAR ACA TODAS LAS POCIONES REWORKEADAS
+
+EXEC SP_InsertItem
+    @Name = 'Anillo de Fuerza',
+    @Description = 'Un anillo mágico que, al ser usado, otorga temporalmente un aumento en la fuerza del usuario, aunque rápidamente se hará frágil y partirá.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 0, -- Fuerza
+    @Amount = 2;
+
+EXEC SP_InsertItem
+    @Name = 'Cinturón de los Gigantes',
+    @Description = 'Un cinturón que en su interior tiene el espíritu de los gigantes. Su fuerza poseerá al portador por un tiempo. La fuerza es tal que el cinturón no se mantendrá en una pieza por mucho tiempo.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 0, -- Fuerza
+    @Amount = 4;
+
+EXEC SP_InsertItem
+    @Name = 'Ira de Ares',
+    @Description = 'Este casco desatará una furia sin igual sobre quien lo porte. La fuerza del dios de la guerra caerá sobre su portador destruyendo a quien esté a su paso. Unas enormes llamas brotarán del casco, quemándolo en el proceso.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 0, -- Fuerza
+    @Amount = 6;
+
+EXEC SP_InsertItem
+    @Name = 'Polvo de Hadas',
+    @Description = 'Al respirar este polvo mágico, tus sentidos se verán agudizados levemente y tendrás un mejor control de tu cuerpo y sus limitaciones.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 1, -- Destreza
+    @Amount = 2;
+
+EXEC SP_InsertItem
+    @Name = 'Blister Misterioso',
+    @Description = 'Tras consumir el blister, inmediatamente sentirás su efecto. Durante un tiempo, estarás más ligero y más rápido, como si percibieras a tus oponentes como lentos.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 1, -- Destreza
+    @Amount = 4;
+
+EXEC SP_InsertItem
+    @Name = 'Aguas de los Eladrins',
+    @Description = 'Este agua fue extraída del mundo de los Eladrins, hogar de la magia. Su refrescante sabor inunda tu cuerpo con una energía indescriptible, tu velocidad se dispara, tus sentidos estarán afilados como una navaja y tu velocidad de respuesta será veloz como un rayo.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 1, -- Destreza
+    @Amount = 6;
+
+    EXEC SP_InsertItem
+    @Name = 'Escrituras de Babaluk',
+    @Description = 'Babaluk, el alquimista, dejó cientos de escrituras rúnicas esparcidas por el mundo. Al activarlas, sus conocimientos serán traspasados temporalmente al portador.',
+    @ItemType = 2, -- Consumable
+    @Price = 23,
+    @Effect = 3, -- Inteligencia
+    @Amount = 2;
+
+EXEC SP_InsertItem
+    @Name = 'Pergamino Oculto',
+    @Description = 'Un viejo pergamino que, al abrirse, compartirá sus secretos con aquel cuyos ojos se posen en ellos. Tu entendimiento del mundo se profundizará a la par que el pergamino es consumido poco a poco.',
+    @ItemType = 2, -- Consumable
+    @Price = 49,
+    @Effect = 3, -- Inteligencia
+    @Amount = 4;
+
+EXEC SP_InsertItem
+    @Name = 'Últimas palabras del Archimago',
+    @Description = 'Antes de fallecer, el Archimago dejó escritos donde detalla descubrimientos que podrían cambiar las leyes de la existencia como la conocemos. Llevan una runa que transformará tu mente al leerlo. pero el conocimiento se desintegrará poco a poco.',
+    @ItemType = 2, -- Consumable
+    @Price = 94,
+    @Effect = 3, -- Inteligencia
+    @Amount = 6;
 
 --+-- ATTACKS --+--
 
@@ -1139,14 +1209,12 @@ SELECT * FROM Attacks
 
 ---Buscador de Armas
 EXEC SP_GetWeapons
----Buscador de Armaduras
-EXEC SP_GetArmors
----Buscador de Escudos
-EXEC SP_GetShiels
+---Buscador de Armaduras y Escudos
+EXEC SP_GetArmorsShields
 ---Buscador de Consumibles
 EXEC SP_GetConsumables
 ---Buscador de Genéricos
-
+EXEC SP_GetCharacterAbilities @ID_Character = 0
 	
 
 

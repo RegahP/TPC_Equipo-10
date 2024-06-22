@@ -8,6 +8,6 @@ namespace DomainModel
 {
     public class Equippable : Item
     {
-        public bool equipped { get; set; }
+        public bool equippableType { get; set; } //0 = weapon, 1 = armor
     }
 }

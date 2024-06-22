@@ -8,11 +8,8 @@ namespace DomainModel
 {
     public class Consumable : Item
     {
-        public int effectID { get; } //-1 = heal; >0 = abilityID
-        public int amount { get; }
-        public bool consumed { get; set; }
-		public bool duration { get; } //in rounds
-		public bool currRound {get; set; } //current round of effect
+        public int effectID { get; set; } //-1 = heal; >0 = abilityID
+        public int amount { get; set; }
         //constructor sets nonset properties
     }
 }

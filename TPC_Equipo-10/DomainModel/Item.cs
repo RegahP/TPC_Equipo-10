@@ -8,12 +8,10 @@ namespace DomainModel
 {
     public class Item
     {
-        public int id { get; }
-        public string name { get; }
-        public string desc { get; }
-        public int type { get; }
-        public int price { get; }
-
-        //constructor sets nonset properties
+        public int id { get; set; }
+        public string name { get; set; }
+        public string desc { get; set; }
+        public int type { get; set; }
+        public int price { get; set; }
     }
 }

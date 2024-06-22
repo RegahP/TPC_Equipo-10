@@ -14,8 +14,6 @@ namespace TPC_Equipo_10
 {
     public partial class CharacterCreator : System.Web.UI.Page
     {
-        DataAccess dataAccess = new DataAccess();
-
         public List<Race> raceList = new List<Race>();
         public List<Background> BackgroundList = new List<Background>();
         public List<Class> ClassList = new List<Class>();
@@ -25,10 +23,10 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            raceList = dataAccess.ListRaces();
-            BackgroundList = dataAccess.ListBackgrounds();
-            ClassList = dataAccess.ListClasses();
-            abilityList = dataAccess.ListAbilities();
+            raceList = DataAccess.ListRaces();
+            BackgroundList = DataAccess.ListBackgrounds();
+            ClassList = DataAccess.ListClasses();
+            abilityList = DataAccess.ListAbilities();
 
 
             rptRace.DataSource = raceList;

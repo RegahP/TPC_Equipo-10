@@ -1,11 +1,6 @@
 create database TPC_ChambersAndWyverns
  use TPC_ChambersAndWyverns
 
- ---Items Genericos
- ---Creatures
- ---Attacks
- 
-
  create table Users(
      ID_User int not null primary key identity(0,1),
      Username nvarchar(50) unique,
@@ -36,8 +31,6 @@ create database TPC_ChambersAndWyverns
      MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
      CurrentHealth int not null, --maxHealth
      Gold int not null         --BG.InitialGold where BG.ID_Background = ID_Background
-     --necesitamos una stored procedure para armar con un solo comando el pj entero, aplicando modificadores
-     --de raza, clase, trasfondo, configurando proficiencia, armorclass, maxhp y currenthp, y el oro
  )
 
  create table Races(
@@ -203,36 +196,29 @@ create database TPC_ChambersAndWyverns
 CREATE PROCEDURE SP_GetWeapons
 AS
 BEGIN
-    SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, A._Name AS Ability, DT._Name AS Damage_Type, I.Price
+    SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, W.ID_Ability, A._Name AS Ability, W.ID_DamageType, DT._Name AS DamageType, I.Price
     FROM Items I
     INNER JOIN Weapons W ON I.ID_Item = W.ID_Item
     INNER JOIN Abilities A ON W.ID_Ability = A.ID_Ability
     INNER JOIN DamageTypes DT ON W.ID_DamageType = DT.ID_DamageType;
 END;
 
---+-- Buscador de Armaduras --+--
+--+-- Buscador de Armaduras y Escudos --+--
 
-CREATE PROCEDURE SP_GetArmors
+CREATE PROCEDURE SP_GetArmorsShields
 AS
 BEGIN
-    SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, A.Armor, DT._Name AS Resistance_Type, I.Price
+    SELECT I.ID_Item AS ID,
+    I._Name AS Name,
+    I._Desc AS Description,
+    A.ArmorType,
+    A.ID_ResistanceType,
+    DT._Name AS Resistance_Type,
+    A.Armor,
+    I.Price
     FROM Items I
 	INNER JOIN Armors A ON I.ID_Item = A.ID_Item
 	INNER JOIN DamageTypes DT ON A.ID_ResistanceType = DT.ID_DamageType
-	WHERE ArmorType = 0;
-
-END;
-
---+-- Buscador de Escudos --+--
-
-CREATE PROCEDURE SP_GetShiels
-AS
-BEGIN
-    SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, A.Armor, DT._Name AS Resistance_Type, I.Price
-    FROM Items I
-	INNER JOIN Armors A ON I.ID_Item = A.ID_Item
-	INNER JOIN DamageTypes DT ON A.ID_ResistanceType = DT.ID_DamageType
-	WHERE ArmorType = 1;
 
 END;
 
@@ -241,7 +227,7 @@ END;
 CREATE PROCEDURE SP_GetConsumables
 AS
 BEGIN
-   SELECT I.ID_Item AS ID, I._Name AS Name,  I._Desc AS Description,  C.Amount, I.Price
+   SELECT I.ID_Item AS ID, I._Name AS Name,  I._Desc AS Description, C.ID_Effect,  C.Amount, I.Price
     FROM Items I
 	INNER JOIN Consumables C ON I.ID_Item = C.ID_Item
 END;
@@ -362,6 +348,7 @@ BEGIN
 END;
 
 --+-- Insertar Character --+--
+
 -- AUTOMATIZA CONSEGUIR EL VALOR DEL MODIFIER DE LAS ABILITIES, Y TAMBIÉN LAS MISMAS SKILLS,
 --EL VALOR QUE POSEEN LAS SKILLS ES DE BASE, SIN BONIFICADORES DE NADA.
 CREATE PROCEDURE SP_InsertNewCharacter
@@ -371,10 +358,10 @@ CREATE PROCEDURE SP_InsertNewCharacter
     @ID_Class int,
     @ID_Background int,
     @_Name nvarchar(50),
-    @ArmorClass int default 0, --se calcula
-    @MaxHealth int default 0, --se calcula
-    @CurrentHealth default 0, --se calcula
-    @Gold int default 0, --se calcula
+    @ArmorClass int = 1, --se calcula
+    @MaxHealth int = 1, --se calcula
+    @CurrentHealth int = 1, --se calcula
+    @Gold int = 1, --se calcula
     @_Level int = 1,
     @Experience int = 0,
     @Proficiency int = 2,
@@ -445,16 +432,17 @@ BEGIN
     VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
 END;
 
+--+-- Consigue las abilidades de todos los personajes --+--
+
 CREATE PROCEDURE SP_GetCharacterAbilities
+@ID_Character int
 AS
 BEGIN
     SELECT 
-        C.ID_Character AS CharacterId, A.ID_Ability, A._Name AS AbilityName,  A._Desc AS AbilityDesc, AC.RolledScore, AC.Modifier
+        A.ID_Ability, A._Name AS AbilityName,  A._Desc AS AbilityDesc, AC.RolledScore, AC.Modifier
     FROM 
-        Characters C
+        Abilities A
     INNER JOIN 
-        AbilitiesXCharacter AC ON C.ID_Character = AC.ID_Character
-    INNER JOIN 
-        Abilities A ON AC.ID_Ability = A.ID_Ability
+        AbilitiesXCharacter AC ON @ID_Character = AC.ID_Character AND AC.ID_Ability = A.ID_Ability
     
 END;

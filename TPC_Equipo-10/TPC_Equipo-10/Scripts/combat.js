@@ -37,7 +37,7 @@ function drawNav() {
     }
 }
 
-let items = []; //esto va a ser cargados con items reales, no los prehechos que armé
+let invItems = []; //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
 let invIndex; //en que items estamos parados
 let invFocus; //0 = panel izq; 1 = panel der
 let invEmpty;
@@ -64,17 +64,8 @@ function setupInventory() {
     invEmpty = false;
     scrollShift = 0;
     noStroke();
-    items.splice(0, items.length);
 
-    //esto deberia estar dentro de un if, si estamos en el inventario de venta, esto deberia cargar los items de la tienda, no los nuestros
-    for (let i = 0; i < 25; i++) {
-        let item = {
-            name: "item" + int(random(100, 999)),
-            equipped: false,
-            type: random([ "Genérico", "Consumible", "Arma", "Protección"])
-        };
-        items.push(item);
-    }
+    //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
 
     sellPopup = false;
     sellPopupFocus = false;
@@ -96,14 +87,14 @@ function drawInventory() {
     );
 
     //lista de items
-    for (i = 0; i < items.length; i++) {
+    for (i = 0; i < invItems.length; i++) {
         fill(255);
         textAlign(LEFT, TOP);
         textSize(itemSize);
         push();
         clip(listMask);
         text(
-            items[i].name,
+            invItems[i].name,
             outerMargin + innerMargin + itemSize * 1.25,
             outerMargin + innerMargin + itemSize * 1.25 * i - (itemSize * 1.25 * scrollShift)
         );
@@ -135,14 +126,14 @@ function drawInventory() {
 
         //item name
         fill(255);
-        textAlign(LEFT, TOP);
-        textSize(36);
+        textAlign(LEFT, CENTER);
+        textSize(getTextSizeToFit(invItems[invIndex].name, 350, 50));
         push();
         clip(topPanelMask);
         text(
-            items[invIndex].name,
+            invItems[invIndex].name,
             width / 2 + innerMargin,
-            outerMargin + innerMargin + 18
+            outerMargin + innerMargin * 2 + 18
         );
         pop();
 
@@ -153,7 +144,7 @@ function drawInventory() {
         push();
         clip(topPanelMask);
         text(
-            items[invIndex].type, //esto es temp
+            getItemTypeData(invIndex),
             width / 2 + innerMargin,
             outerMargin + innerMargin + 24 + 36
         );
@@ -167,15 +158,31 @@ function drawInventory() {
         push();
         clip(topPanelMask);
         text(
-            /*items[invIndex].name*/"bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl alblablbalb lb alb alb alb alb labla bla bla bla lbblbla lal al bla lb abl albl ab alb lalb la blal bla lbal bla lbalb lblbalb la lb alb labl",
+            invItems[invIndex].desc,
             width / 2 + innerMargin,
             outerMargin + innerMargin + 24 + 36 + 32,
-            width / 2 - outerMargin - innerMargin * 3 - (width / (buttonSize / 2) + itemSize * 2)
+            width / 2 - outerMargin - innerMargin - (width / (buttonSize / 2) + itemSize * 2)
         )
         pop();
 
+        //item sprite slot
+        fill(80);
+        rect(
+            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 6,
+            outerMargin + innerMargin * 2,
+            (width / 2 - outerMargin - innerMargin) / 6,
+            (width / 2 - outerMargin - innerMargin) / 6
+        );
+        //item sprite
+        drawItemSprite(
+            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 6,
+            outerMargin + innerMargin * 2,
+            ((width / 2 - outerMargin - innerMargin) / 6) / 16,
+            invItems[invIndex].id
+        );
+
         //equipbutton
-        if (items[invIndex].equipped) {
+        if (invItems[invIndex].equipped) {
             fill(100);
         } else {
             fill(150);
@@ -212,9 +219,10 @@ function drawInventory() {
                 (width / 2 - outerMargin - innerMargin) / 5,
                 (width / 2 - outerMargin - innerMargin) / 5
             );
+            //faltan los sprites
 
             //si estamos en combate, el boton equipa/consume
-            if (items[invIndex].equipped) {
+            if (invItems[invIndex].equipped) {
                 equipColor = color(128);
                 equipTxt = "Equipado";
             } else {
@@ -320,14 +328,14 @@ function drawInventory() {
         clip(bottomPanelMask);
         drawSpriteCentered(
             chr_fx_darkspotlight,
-            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 + 4,
-            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - 40,
-            10
+            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 + 6,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - 31,
+            9
         );
         drawMerchantSprite(
-            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 + 4,
-            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2,
-            10
+            width / 2 + (width / 2 - outerMargin - innerMargin) / 1.25 -3,
+            height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 + 5,
+            9
         );
 
         //y su dialogo
@@ -367,10 +375,10 @@ function drawInventory() {
         textAlign(LEFT, TOP);
         textSize(24);
         let popupTxt;
-        if (!storeBuySellFocus) {
-            popupTxt = 'Estás seguro de que querés comprar ' + items[invIndex].name + ' por 15 monedas de oro?'; //TEMP, oro deberia venir del item
+        if (!storeBuySellFocus) {invItems[invIndex].price
+            popupTxt = 'Estás seguro de que querés comprar ' + invItems[invIndex].name + ' por ' + invItems[invIndex].price + ' monedas de oro?';
         } else {
-            popupTxt = 'Estás seguro de que querés vender tu ' + items[invIndex].name + ' por 15 monedas de oro?'; //TEMP, oro deberia venir del item
+            popupTxt = 'Estás seguro de que querés vender tu ' + invItems[invIndex].name + ' por ' + invItems[invIndex].price + ' monedas de oro?';
         }
         text(
             popupTxt,
@@ -434,16 +442,18 @@ function drawInventory() {
     }
     if (itemSold) {
         itemSold = false;
-        
-        if (invIndex == items.length - 1) {
-            items.splice(invIndex, 1);
+
+        //lo elimina de la lista
+        if (invIndex == invItems.length - 1) {
+            invItems.splice(invIndex, 1);
             invIndex -= 1;
         } else {
-            items.splice(invIndex, 1);
+            invItems.splice(invIndex, 1);
         }
-        chr.gold += 15; //valor temp, deberia venir del item
+        //te suma el oro del item
+        chr.gold += invItems[invIndex].price;
         //save character
-        if (items.length == 0) {
+        if (invItems.length == 0) {
             invEmpty = true;
         }
         //cambia el dialogo de pre venta a post venta
@@ -454,15 +464,17 @@ function drawInventory() {
     if (itemBought) {
         itemBought = false;
 
-        if (invIndex == items.length - 1) {
-            items.splice(invIndex, 1);
+        //lo elimina de la lista
+        if (invIndex == invItems.length - 1) {
+            invItems.splice(invIndex, 1);
             invIndex -= 1;
         } else {
-            items.splice(invIndex, 1);
+            invItems.splice(invIndex, 1);
         }
-        chr.gold -= 15; //valor temp, deberia venir del item
+        //te resta el oro del item
+        chr.gold -= invItems[invIndex].price; //valor temp, deberia venir del item
         //save character
-        if (items.length == 0) {
+        if (invItems.length == 0) {
             invEmpty = true;
         }
         //cambia el dialogo de pre venta a post venta
@@ -496,4 +508,51 @@ function bottomPanelMask() {
         width / 2 - outerMargin - innerMargin * 2,
         height / 2 - outerMargin - innerMargin * 2.5
     );
+}
+
+//arma el texto con todos los datos del item dinamicamente
+function getItemTypeData(id) {
+    let itemTypeText = '';
+    itemTypeText += getItemTypeName(invItems[id].type, invItems[id].equippableType, invItems[id].armorType);
+    if (invItems[id].type == 1) { //es equipable
+        if (invItems[id].equippableType == 0) { //es un arma
+            itemTypeText += ' | ' + invItems[id].damage + ' de Daño ' + invItems[id].dmgType.name + ' | Aumenta con ' + abilities[invItems[id].abilityModID].name;
+        }
+        else if (invItems[id].equippableType == 1) { // es un armor (armadura/escudo)
+            itemTypeText += ' | ' + invItems[id].armor + ' de Armadura | Resistente al Daño ' + invItems[id].resType.name;
+        }
+    }
+    else if (invItems[id].type == 2) { //es consumible
+        let effectTxt = invItems[id].effectID == -1 ? 'Vida' : abilities[invItems[id].effectID].name
+        itemTypeText += ' | +' + invItems[id].amount + ' de ' + effectTxt;
+        if (invItems[id].effectID > -1) {
+            itemTypeText += ' | Dura 2 Rondas';
+        }
+    }
+    return itemTypeText;
+}
+
+//devuelve el nombre del tipo de item segun datos
+function getItemTypeName(itemType, equippableType = -1, armorType = -1) {
+    let itemTypeName;
+    if (itemType == 0) {
+        itemTypeName = "Genérico";
+    }
+    else if (itemType == 1) {
+        if (equippableType == 0) {
+            itemTypeName = "Arma";
+        }
+        else if (equippableType == 1) {
+            if (armorType == 0) {
+                itemTypeName = "Armadura";
+            }
+            else if (armorType == 1) {
+                itemTypeName = "Escudo";
+            }
+        }
+    }
+    else {
+        itemTypeName = "Consumible";
+    }
+    return itemTypeName;
 }

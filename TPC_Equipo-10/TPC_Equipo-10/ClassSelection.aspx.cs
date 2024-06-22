@@ -12,8 +12,6 @@ namespace TPC_Equipo_10
 {
     public partial class ClassSelection : System.Web.UI.Page
     {
-        DataAccess dataAccess = new DataAccess();
-
         public List<Class> classList = new List<Class>();
 
         public Character character = new Character();
@@ -22,7 +20,7 @@ namespace TPC_Equipo_10
         {
             character = (Character)Session["character"];
 
-            classList = dataAccess.ListClasses();
+            classList = DataAccess.ListClasses();
 
             rptClass.DataSource = classList;
             rptClass.DataBind();

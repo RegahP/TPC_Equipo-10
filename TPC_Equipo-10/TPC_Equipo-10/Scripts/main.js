@@ -1,6 +1,13 @@
 ﻿//declaraciones de vars generales
+
+let load; //0 = fallo la carga, 1 = carga exitosa
+//si cualquier dato o lista de datos que traemos del ajax falla, load falla, y el juego no corre
+
+let abilities; //abilidades
+
 let chr; //character
-//let items; //todos los items
+let chrItems; //items del jugador
+let allItems; //todos los items
 //let creatures; //todas las creatures
 
 //todas las imagenes
@@ -8,6 +15,7 @@ let chr_spritesheet;
 let chr_fx_darkspotlight;
 let creatures_0; //temp
 let merchant_spritesheet;
+let items_spritesheet;
 
 //la carga de imagenes se hace en preload, para que el juego arranque
 //solo una vez que se cargaron todas los archivos e imagenes necesarias
@@ -16,6 +24,7 @@ function preload() {
     chr_fx_darkspotlight = loadImage("../Sprites/chr_fx_darkspotlight.png");
     creatures_0 = loadImage("../Sprites/creatures_0.png"); //temp
     merchant_spritesheet = loadImage("../Sprites/merchant_spritesheet.png");
+    items_spritesheet = loadImage("../Sprites/items_spritesheet.png");
 }
 
 //setup asincronico para que espere a las ajax calls hasta que terminen antes de avanzar
@@ -24,11 +33,15 @@ async function setup() {
     canvas.parent("gameCanvas");
 
     noSmooth();
+    textFont('Courier New');
 
+    load = true;
     try {
         chr = await loadCharacter();
+        allItems = await loadItems();
+        abilities = await loadAbilities();
     } catch (error) {
-        console.error("Failed to load character in p5js:", error);
+        console.error("Failed to load something in p5js:", error);
     }
     if (chr) {
         console.log("Character loaded in p5js succesfully:", chr);
@@ -37,6 +50,19 @@ async function setup() {
         chr.race.id = 0;
         chr.chrClass.id = 0;
         //temp
+    } else {
+        load = false;
+    }
+    if (allItems) {
+        console.log("All items loaded in p5js succesfully:", allItems);
+        invItems = allItems; //TEMP estamos cargando todos los items a la lista del inventario
+    } else {
+        load = false;
+    }
+    if (abilities) {
+        console.log("Abilities loaded in p5js succesfully:", abilities);
+    } else {
+        load = false;
     }
 }
 
@@ -110,14 +136,14 @@ function keyPressed() {
                         //si el focus esta en la lista, nos podemos mover
                         if (!invFocus) {
                             if (keyCode === UP_ARROW) {
-                                invIndex = (invIndex - 1 + items.length) % items.length;
+                                invIndex = (invIndex - 1 + invItems.length) % invItems.length;
 
                                 if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
                                     scrollShift--;
                                 }
 
-                                if (invIndex == items.length - 1) {
-                                    let itemCount = items.length;
+                                if (invIndex == invItems.length - 1) {
+                                    let itemCount = invItems.length;
                                     let scrollEnd = 0;
                                     while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
                                         itemCount--;
@@ -126,7 +152,7 @@ function keyPressed() {
                                     scrollShift = scrollEnd - 1;
                                 }
                             } else if (keyCode === DOWN_ARROW) {
-                                invIndex = (invIndex + 1) % items.length;
+                                invIndex = (invIndex + 1) % invItems.length;
 
                                 if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
                                     scrollShift++;
@@ -144,10 +170,10 @@ function keyPressed() {
 
                         //si estamos en combate, el boton equipa/consume
                         //si estamos en detalles y el item no esta equipado
-                        if (invFocus && items[invIndex].equipped === false) {
+                        if (invFocus && invItems[invIndex].equipped === false) {
                             if (keyCode === ENTER) {
-                                items.forEach(item => { item.equipped = false; });
-                                items[invIndex].equipped = true;
+                                invItems.forEach(item => { item.equipped = false; });
+                                invItems[invIndex].equipped = true;
                             }
                         }
                     }
@@ -201,7 +227,7 @@ function keyPressed() {
                                 //si el focus esta en la lista, nos podemos mover
                                 if (!invFocus) {
                                     if (keyCode === UP_ARROW) {
-                                        invIndex = (invIndex - 1 + items.length) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+                                        invIndex = (invIndex - 1 + invItems.length) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
                                         //ajusta el shift si subir en la lista se va fuera del panel
                                         if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
@@ -209,8 +235,8 @@ function keyPressed() {
                                         }
 
                                         //si subimos y terminamos en ultimo indice, dimos la vuelta, setea el scroll al final
-                                        if (invIndex == items.length - 1) {
-                                            let itemCount = items.length;
+                                        if (invIndex == invItems.length - 1) {
+                                            let itemCount = invItems.length;
                                             let scrollEnd = 0;
                                             while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
                                                 itemCount--;
@@ -221,7 +247,7 @@ function keyPressed() {
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
                                         merchantDialogueShowBoughtStatus = false;
                                     } else if (keyCode === DOWN_ARROW) {
-                                        invIndex = (invIndex + 1) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+                                        invIndex = (invIndex + 1) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
                                         //ajusta el shift si bajar en la lista se va fuera del panel
                                         if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
@@ -278,7 +304,7 @@ function keyPressed() {
                                 //si el focus esta en la lista, nos podemos mover
                                 if (!invFocus) {
                                     if (keyCode === UP_ARROW) {
-                                        invIndex = (invIndex - 1 + items.length) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+                                        invIndex = (invIndex - 1 + invItems.length) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
                                         //ajusta el shift si subir en la lista se va fuera del panel
                                         if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
@@ -286,8 +312,8 @@ function keyPressed() {
                                         }
 
                                         //si subimos y terminamos en ultimo indice, dimos la vuelta, setea el scroll al final
-                                        if (invIndex == items.length - 1) {
-                                            let itemCount = items.length;
+                                        if (invIndex == invItems.length - 1) {
+                                            let itemCount = invItems.length;
                                             let scrollEnd = 0;
                                             while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
                                                 itemCount--;
@@ -298,7 +324,7 @@ function keyPressed() {
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
                                         merchantDialoguePreSoldStatus = false;
                                     } else if (keyCode === DOWN_ARROW) {
-                                        invIndex = (invIndex + 1) % items.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
+                                        invIndex = (invIndex + 1) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
                                         //ajusta el shift si bajar en la lista se va fuera del panel
                                         if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
