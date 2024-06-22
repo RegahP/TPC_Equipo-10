@@ -1,6 +1,7 @@
 ﻿//declaraciones de vars generales
 
-let load; //0 = fallo la carga, 1 = carga exitosa
+let loadSuccess = 0; //sube +1 cuando se cargan datos exitosamente
+let loadTotal = 0; //sube +1 cuando se intenta cargar datos
 //si cualquier dato o lista de datos que traemos del ajax falla, load falla, y el juego no corre
 
 let abilities; //abilidades
@@ -35,11 +36,11 @@ async function setup() {
     noSmooth();
     textFont('Courier New');
 
-    load = true;
     try {
         chr = await loadCharacter();
         allItems = await loadItems();
         abilities = await loadAbilities();
+        loadTotal = 3 //se realizan 3 cargas de datos
     } catch (error) {
         console.error("Failed to load something in p5js:", error);
     }
@@ -48,21 +49,18 @@ async function setup() {
         //temp
         chr.sex = 0;
         chr.race.id = 0;
-        chr.chrClass.id = 0;
+        chr.chrClass.id = 1;
+        chr.chrClass.abilityID = 3;
         //temp
-    } else {
-        load = false;
+        loadSuccess++;
     }
     if (allItems) {
         console.log("All items loaded in p5js succesfully:", allItems);
-        invItems = allItems; //TEMP estamos cargando todos los items a la lista del inventario
-    } else {
-        load = false;
+        loadSuccess++;
     }
     if (abilities) {
         console.log("Abilities loaded in p5js succesfully:", abilities);
-    } else {
-        load = false;
+        loadSuccess++;
     }
 }
 
@@ -142,7 +140,7 @@ function keyPressed() {
                                     scrollShift--;
                                 }
 
-                                if (invIndex == invItems.length - 1) {
+                                if (invIndex == invItems.length - 1 && outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
                                     let itemCount = invItems.length;
                                     let scrollEnd = 0;
                                     while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
@@ -235,7 +233,7 @@ function keyPressed() {
                                         }
 
                                         //si subimos y terminamos en ultimo indice, dimos la vuelta, setea el scroll al final
-                                        if (invIndex == invItems.length - 1) {
+                                        if (invIndex == invItems.length - 1 && outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
                                             let itemCount = invItems.length;
                                             let scrollEnd = 0;
                                             while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
@@ -245,7 +243,7 @@ function keyPressed() {
                                             scrollShift = scrollEnd - 1;
                                         }
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
-                                        merchantDialogueShowBoughtStatus = false;
+                                        //merchantDialogueShowBoughtStatus = false;
                                     } else if (keyCode === DOWN_ARROW) {
                                         invIndex = (invIndex + 1) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
@@ -258,7 +256,7 @@ function keyPressed() {
                                             scrollShift = 0;
                                         }
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
-                                        merchantDialogueShowBoughtStatus = false;
+                                        //merchantDialogueShowBoughtStatus = false;
                                     }
                                 }
 
@@ -322,7 +320,7 @@ function keyPressed() {
                                             scrollShift = scrollEnd - 1;
                                         }
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
-                                        merchantDialoguePreSoldStatus = false;
+                                        //merchantDialoguePreSoldStatus = false;
                                     } else if (keyCode === DOWN_ARROW) {
                                         invIndex = (invIndex + 1) % invItems.length; //cambia el indice de item seleccionado en la lista, da vuelta la lista
 
@@ -335,7 +333,7 @@ function keyPressed() {
                                             scrollShift = 0;
                                         }
                                         //si movemos el indice, el merchant vuelve a dialogos pre venta
-                                        merchantDialoguePreSoldStatus = false;
+                                        //merchantDialoguePreSoldStatus = false;
                                     }
                                 }
 

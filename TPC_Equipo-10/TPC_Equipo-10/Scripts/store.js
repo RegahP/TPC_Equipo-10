@@ -20,7 +20,8 @@ let storeBuySellFocus; // si storenavfocus = 0, selector esta parado en boton de
 //variables del merchant
 let merchantSex;
 let merchantRace;
-let merchantPersonality;
+let merchantPersonality; //1 de 5 personalidades
+let catalogueItems; //lista de item IDs, no items
 
 let merchantPreDialogueOption;
 let merchantSoldDialogueOption;
@@ -211,7 +212,7 @@ let merchantEmptySellDialogues = [
 let merchantShowDialogues = [
     [
         "¡Bienvenido, viajero! Pegale una mirada a mis mercancías. Estoy seguro de que encontrarás algo que te guste.",
-        "Hola, amigo. Tengo una variedad de productos de alta calidad. Si necesitas algo, no dudes en preguntar.",
+        "Hola, amigo. Tengo una variedad de productos de alta calidad. Si necesitás algo, no dudes en preguntar.",
         "¡Qué alegría verte! Pasá y mirá lo que tengo hoy. Siempre estoy dispuesto a ayudarte a encontrar lo que buscás."
     ],
     [
@@ -220,19 +221,19 @@ let merchantShowDialogues = [
         "Te doy la bienvenida a mi tienda. Examiná mis productos cuidadosamente, cada uno tiene su historia y su valor."
     ],
     [
-        "¡Hola! ¡Bienvenido a mi humilde puesto! Tengo cosas fascinantes para mostrarte. ¡Seguro encontrás algo que te guste!",
-        "Qué bueno verte por aquí. Tengo nuevos artículos que acabo de adquirir. ¡asomate, te vas a sorprender!",
-        "¡Ah, un comprador curioso! Checkeate esta selección, estoy seguro de que vas a encontrar algo emocionante."
+        "¡Bienvenido a mi humilde puesto! Tengo cosas fascinantes para mostrarte. ¡Seguro encontrás algo que te guste!",
+        "Qué bueno verte por aquí. Qué tal? Tengo nuevos artículos que acabo de adquirir. ¡asomate, te vas a sorprender!",
+        "¡Ah, un comprador curioso! Qué onda? Checkeate esta selección, estoy seguro de que vas a encontrar algo emocionante."
     ],
     [
         "Hola! Mirá lo que tengo, tené cuidado al tocar. Todo es auténtico y valioso, nada de pavadas.",
         "Bienvenido! Examiná con cuidado, algunos de estos objetos tienen historias complejas. Si tenés preguntas, acá estoy.",
-        "Podés mirar, pero no demasiado de cerca. Estos artículos son irremplazables, y prefiero evitar cualquier incidente."
+        "Podés mirar, pero no de tan cerca. Estos artículos son irremplazables, y prefiero evitar cualquier incidente."
     ],
     [
-        "Ah, un nuevo cliente. Espero que tengas buen gusto, porque no vendo cualquier cosa. Mira y decide rápido.",
-        "Mira lo que tengo, pero te advierto, sólo vendo lo mejor. Si no puedes apreciar la calidad, mejor sigue tu camino.",
-        "Acá vas a encontrar artículos de primera, y no trato con compradores indecisos."
+        "Ah, un nuevo cliente. Espero que tengas buen gusto, porque no vendo cualquier cosa. Mirá y decidite rápido.",
+        "Mira lo que tengo, pero te advierto, sólo vendo lo mejor. Si no puedes apreciar la calidad, mejor seguí tu camino.",
+        "Esta es mi tienda. Acá vas a encontrar artículos de primera, y no trato con compradores indecisos."
     ]
 ]
 

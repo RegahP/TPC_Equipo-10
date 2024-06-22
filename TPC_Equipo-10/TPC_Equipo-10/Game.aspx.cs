@@ -28,13 +28,8 @@ namespace TPC_Equipo_10
         {
             //esto seria de la db
             Character character = new Character();
-
             //esto iria en el constructor de character, y los datos pasados como argumentos para el mismo deben venir desde la db
-            
-            //temp
-            character.gameState = 0;
-            //temp
-
+            character.gameState = 0; //temp
             Debug.WriteLine("Character sent from CodeBehind to AJAX Call succesfully.");
             return character;
         }

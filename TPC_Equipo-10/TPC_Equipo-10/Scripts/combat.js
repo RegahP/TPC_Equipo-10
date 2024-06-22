@@ -66,6 +66,16 @@ function setupInventory() {
     noStroke();
 
     //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
+    if (chr.gameState == 1) {
+        //TEMP estamos cargando todos los item IDs, hay que cargar los del jugador
+        invItems = [];
+        for (let i = 0; i < allItems.length; i++) {
+            invItems.push(allItems[i].id);
+        }
+    }
+    else if (chr.gameState == 4) {
+        invItems = catalogueItems;//si estamos en la tienda, cargamos el catalogo de items
+    }
 
     sellPopup = false;
     sellPopupFocus = false;
@@ -94,7 +104,7 @@ function drawInventory() {
         push();
         clip(listMask);
         text(
-            invItems[i].name,
+            allItems[invItems[i]].name,
             outerMargin + innerMargin + itemSize * 1.25,
             outerMargin + innerMargin + itemSize * 1.25 * i - (itemSize * 1.25 * scrollShift)
         );
@@ -127,11 +137,11 @@ function drawInventory() {
         //item name
         fill(255);
         textAlign(LEFT, CENTER);
-        textSize(getTextSizeToFit(invItems[invIndex].name, 350, 50));
+        textSize(getTextSizeToFit(allItems[invItems[invIndex]].name, 350, 50));
         push();
         clip(topPanelMask);
         text(
-            invItems[invIndex].name,
+            allItems[invItems[invIndex]].name,
             width / 2 + innerMargin,
             outerMargin + innerMargin * 2 + 18
         );
@@ -158,7 +168,7 @@ function drawInventory() {
         push();
         clip(topPanelMask);
         text(
-            invItems[invIndex].desc,
+            allItems[invItems[invIndex]].desc,
             width / 2 + innerMargin,
             outerMargin + innerMargin + 24 + 36 + 32,
             width / 2 - outerMargin - innerMargin - (width / (buttonSize / 2) + itemSize * 2)
@@ -166,22 +176,34 @@ function drawInventory() {
         pop();
 
         //item sprite slot
-        fill(80);
+        fill(120);
         rect(
-            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 6,
+            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 5,
             outerMargin + innerMargin * 2,
-            (width / 2 - outerMargin - innerMargin) / 6,
-            (width / 2 - outerMargin - innerMargin) / 6
+            (width / 2 - outerMargin - innerMargin) / 5,
+            (width / 2 - outerMargin - innerMargin) / 5
         );
         //item sprite
         drawItemSprite(
-            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 6,
+            width - outerMargin - innerMargin * 2 - (width / 2 - outerMargin - innerMargin) / 5,
             outerMargin + innerMargin * 2,
-            ((width / 2 - outerMargin - innerMargin) / 6) / 16,
-            invItems[invIndex].id
+            ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+            invItems[invIndex]
         );
 
-        //equipbutton
+        if (chr.gameState == 4) {
+            //item price
+            fill(255);
+            textAlign(RIGHT, CENTER);
+            textSize(16);
+            text(
+                allItems[invItems[invIndex]].price + ' de Oro',
+                width - outerMargin - innerMargin * 2,
+                outerMargin + innerMargin * 3 + (width / 2 - outerMargin - innerMargin) / 5
+            );
+        }
+
+        //equipbutton TEMP todavia no hay characterItems, solo items originales
         if (invItems[invIndex].equipped) {
             fill(100);
         } else {
@@ -221,7 +243,7 @@ function drawInventory() {
             );
             //faltan los sprites
 
-            //si estamos en combate, el boton equipa/consume
+            //si estamos en combate, el boton equipa/consume TEMP
             if (invItems[invIndex].equipped) {
                 equipColor = color(128);
                 equipTxt = "Equipado";
@@ -376,9 +398,9 @@ function drawInventory() {
         textSize(24);
         let popupTxt;
         if (!storeBuySellFocus) {invItems[invIndex].price
-            popupTxt = 'Estás seguro de que querés comprar ' + invItems[invIndex].name + ' por ' + invItems[invIndex].price + ' monedas de oro?';
+            popupTxt = 'Estás seguro de que querés comprar ' + allItems[invItems[invIndex]].name + ' por ' + allItems[invItems[invIndex]].price + ' monedas de oro?';
         } else {
-            popupTxt = 'Estás seguro de que querés vender tu ' + invItems[invIndex].name + ' por ' + invItems[invIndex].price + ' monedas de oro?';
+            popupTxt = 'Estás seguro de que querés vender tu ' + allItems[invItems[invIndex]].name + ' por ' + allItems[invItems[invIndex]].price + ' monedas de oro?';
         }
         text(
             popupTxt,
@@ -443,15 +465,15 @@ function drawInventory() {
     if (itemSold) {
         itemSold = false;
 
-        //lo elimina de la lista
+        //te suma el oro del item
+        chr.gold += allItems[invItems[invIndex]].price;
+        //lo elimina de la lista de IDs
         if (invIndex == invItems.length - 1) {
             invItems.splice(invIndex, 1);
             invIndex -= 1;
         } else {
             invItems.splice(invIndex, 1);
         }
-        //te suma el oro del item
-        chr.gold += invItems[invIndex].price;
         //save character
         if (invItems.length == 0) {
             invEmpty = true;
@@ -464,6 +486,8 @@ function drawInventory() {
     if (itemBought) {
         itemBought = false;
 
+        //te resta el oro del item
+        chr.gold -= allItems[invItems[invIndex]].price;
         //lo elimina de la lista
         if (invIndex == invItems.length - 1) {
             invItems.splice(invIndex, 1);
@@ -471,8 +495,6 @@ function drawInventory() {
         } else {
             invItems.splice(invIndex, 1);
         }
-        //te resta el oro del item
-        chr.gold -= invItems[invIndex].price; //valor temp, deberia venir del item
         //save character
         if (invItems.length == 0) {
             invEmpty = true;
@@ -512,20 +534,23 @@ function bottomPanelMask() {
 
 //arma el texto con todos los datos del item dinamicamente
 function getItemTypeData(id) {
+
+    let item = allItems[invItems[id]];
     let itemTypeText = '';
-    itemTypeText += getItemTypeName(invItems[id].type, invItems[id].equippableType, invItems[id].armorType);
-    if (invItems[id].type == 1) { //es equipable
-        if (invItems[id].equippableType == 0) { //es un arma
-            itemTypeText += ' | ' + invItems[id].damage + ' de Daño ' + invItems[id].dmgType.name + ' | Aumenta con ' + abilities[invItems[id].abilityModID].name;
+
+    itemTypeText += getItemTypeName(item.type, item.equippableType, item.armorType);
+    if (item.type == 1) { //es equipable
+        if (item.equippableType == 0) { //es un arma
+            itemTypeText += ' | ' + item.damage + ' de Daño ' + item.dmgType.name + ' | Aumenta con ' + abilities[item.abilityModID].name;
         }
-        else if (invItems[id].equippableType == 1) { // es un armor (armadura/escudo)
-            itemTypeText += ' | ' + invItems[id].armor + ' de Armadura | Resistente al Daño ' + invItems[id].resType.name;
+        else if (item.equippableType == 1) { // es un armor (armadura/escudo)
+            itemTypeText += ' | ' + item.armor + ' de Armadura | Resistente al Daño ' + item.resType.name;
         }
     }
-    else if (invItems[id].type == 2) { //es consumible
-        let effectTxt = invItems[id].effectID == -1 ? 'Vida' : abilities[invItems[id].effectID].name
-        itemTypeText += ' | +' + invItems[id].amount + ' de ' + effectTxt;
-        if (invItems[id].effectID > -1) {
+    else if (item.type == 2) { //es consumible
+        let effectTxt = item.effectID == -1 ? 'Vida' : abilities[item.effectID].name
+        itemTypeText += ' | +' + item.amount + ' de ' + effectTxt;
+        if (item.effectID > -1) {
             itemTypeText += ' | Dura 2 Rondas';
         }
     }

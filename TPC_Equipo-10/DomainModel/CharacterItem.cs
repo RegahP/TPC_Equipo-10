@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    public class InventoryItem
+    public class CharacterItem
     {
-        //este objeto es relevante para construir el inventario del jugador
+        //este objeto es relevante para construir el inventario de un personaje
         //relaciona un item original, con un item en uso, y su estado actual
         public int itemID {  get; set; }
         public bool equipped {  get; set; }
