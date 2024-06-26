@@ -72,6 +72,56 @@ function drawSpriteCentered(img, posX, posY, scale) {
     imageMode(CORNER);
 }
 
+//dibuja imagenes en perspectiva horizontal
+//toma una imagen, posicion x y, cantidad de perspectiva, escala vertical, escala, y orientacion
+function drawSpritePerspective(img, x, y, skew, stretch, size, dir) {
+
+    let offset;
+    let res;
+    let w;
+
+    if (!dir) {
+
+        offset = img.width * skew;
+        res = img.height;
+        w = (1 - offset / img.width) * size;
+
+        for (let i = 0; i < res; i++) {
+            image(
+                img,
+                x + (img.width * size) / 2 - i * w - (offset * size) / 2,
+                y + i * ((img.height * size) / res) * stretch,
+                offset * size + img.width * (i / res) * w,
+                Math.max(1 * stretch * size, 1),
+                0,
+                skew == 0 ? i - 1 : i,
+                img.width,
+                1
+            );
+        }
+    }
+    else {
+
+        offset = img.width * skew;
+        res = img.height;
+        w = (1 - offset / img.width) * size;
+
+        for (let i = 0; i < res; i++) {
+            image(
+                img,
+                x + (i * w),
+                y + i * ((img.height * size) / res) * stretch,
+                (img.width * size) - (i * w) * 2,
+                Math.max(1 * stretch * size, 1),
+                0,
+                i,
+                img.width,
+                1
+            );
+        }
+    }
+}
+
 //dibuja un texto con el origen en su centro
 function drawTextCentered(txt, posX, posY, size, color) {
     fill(color);
