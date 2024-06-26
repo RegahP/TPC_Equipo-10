@@ -1,18 +1,19 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Characters.aspx.cs" Inherits="TPC_Equipo_10.Characters" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="NewGame.aspx.cs" Inherits="TPC_Equipo_10.NewGame" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
     <div>
-        <div class="container" style="display: flex; justify-content: space-between; margin-bottom:50px;">
-            <asp:Button ID="charCreation" runat="server" CssClass="btn btn-danger" Text="Crear Personaje" OnClick="charCreation_Click" />
-            <form class="d-flex">
+        <div class="container" style="display: flex; justify-content: center; margin-bottom: 50px; width: 30%;">
+            <form class="d-flex" style="width: 100%">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
                 <button class="btn btn-success" type="submit">Buscar</button>
             </form>
         </div>
 
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="justify-content: center">
             <asp:Repeater runat="server" ID="rptCharacters">
                 <ItemTemplate>
 
@@ -37,10 +38,16 @@
                             <p>Vida: <%#Eval("maxHealth") %></p>
 
                         </div>
+                        <div style="justify-content: center">
+                            <asp:LinkButton runat="server" ID="btnSelectChar" CommandArgument='<%# Eval("id")%>' CssClass="btn btn-danger btnStyle" Text="Elegir Personaje" OnClick="btnSelectChar_Click"></asp:LinkButton>
+                        </div>
                     </div>
 
                 </ItemTemplate>
             </asp:Repeater>
         </div>
+
     </div>
+
+
 </asp:Content>

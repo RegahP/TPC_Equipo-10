@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DBAccess;
+using DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +11,23 @@ namespace TPC_Equipo_10
 {
     public partial class Play : System.Web.UI.Page
     {
+
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        
+        }
+
+        protected void btnNewGame_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewGame.aspx", false);
+        }
+
+        protected void LoadGame_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewGame.aspx", false);
         }
     }
 }

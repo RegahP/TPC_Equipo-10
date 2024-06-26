@@ -14,8 +14,14 @@ namespace TPC_Equipo_10
 {
     public partial class Game : System.Web.UI.Page
     {
+       
+        static Character character = new Character();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            character = SetCharacter((int)Session["characterID"]);
+           
             //leer desde db y cargar TODO, db base + relevantes al pj
             //razas, clases, trasfondos, abilities, skills, items, creatures, TODO
             //el character relevante a la partida, sus abilities, skills, items
@@ -23,11 +29,29 @@ namespace TPC_Equipo_10
 
         //funciones WebMethod van a ser llamadas por p5js para LEER y ESCRIBIR a la db
         //recordar que el juego GUARDA en db dinamicamente, y LEE de db al principio
+        public Character SetCharacter(int charID)
+        {
+          
+            Character character = new Character();
+            List<Character> characterList = new List<Character>();
+            characterList = DataAccess.ListCharacters();
+
+            foreach (Character charac in characterList)
+            {
+                if (charac.id == charID)
+                {
+                    character = charac;
+                    break;
+                }
+            }
+
+            return character;
+        }
+
+
         [WebMethod]
         public static Character GetCharacter()
         {
-            //esto seria de la db
-            Character character = new Character();
             //esto iria en el constructor de character, y los datos pasados como argumentos para el mismo deben venir desde la db
             character.gameState = 0; //temp
             Debug.WriteLine("Character sent from CodeBehind to AJAX Call succesfully.");

@@ -47,11 +47,6 @@ async function setup() {
     if (chr) {
         console.log("Character loaded in p5js succesfully:", chr);
         //temp
-        chr.sex = 0;
-        chr.race.id = 0;
-        chr.chrClass.id = 1;
-        chr.chrClass.abilityID = 3;
-        //temp
         loadSuccess++;
     }
     if (allItems) {
