@@ -11,7 +11,11 @@ namespace TPC_Equipo_10
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["user"] == null)
+            {
+                Session.Add("error", "Debes loguearte para ingresar");
+                Response.Redirect("Login.aspx", false);
+            }
         }
     }
 }

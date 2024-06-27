@@ -1215,7 +1215,8 @@ EXEC SP_GetArmorsShields
 EXEC SP_GetConsumables
 ---Buscador de Genéricos
 EXEC SP_GetCharacterAbilities @ID_Character = 0
-	
+GO
+
 
 
 

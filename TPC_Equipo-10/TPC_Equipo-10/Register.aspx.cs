@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DBAccess;
+using DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,7 +23,18 @@ namespace TPC_Equipo_10
 
         protected void btnRegisterConfirm_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MainMenu.aspx", false);
+            try
+            {
+                User user = new User("", "");
+
+                user.userName = inputUsername.Text;
+                user.passwordHash = inputPassword.Text;
+                int id = DataAccess.userRegistration(user);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
         }
     }
 }

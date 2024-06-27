@@ -68,6 +68,21 @@ namespace DBAccess
             }
         }
 
+        public static int ExecuteActionScalar()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return int.Parse(command.ExecuteScalar().ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public static void runRead()
         {
             command.Connection = connection;
@@ -95,7 +110,7 @@ namespace DBAccess
         }
 
 
-        public static List<User> ListUsers()
+        /*public static List<User> ListUsers()
         {
             List<User> userList = new List<User>();
 
@@ -125,7 +140,7 @@ namespace DBAccess
                 CloseConnection();
             }
         }
-
+        */
 
         public static List<Ability> ListAbilities()
         {
@@ -575,5 +590,54 @@ namespace DBAccess
             }
             return items;
         }
+
+        public static bool logear(User user)
+        {
+            try
+            {
+                DataAccess.SetQuery("select ID_User, Username, PasswordHash from users where Username = @user AND PasswordHash = @pass");
+                DataAccess.command.Parameters.AddWithValue("@user", user.userName);
+                DataAccess.command.Parameters.AddWithValue("@pass", user.passwordHash);
+
+                DataAccess.ExecuteRead();
+                while (DataAccess.reader.Read())
+                {
+                    user.id = (int)DataAccess.reader["ID_User"];
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static int userRegistration(User user)
+        {
+            try
+            {
+                DataAccess.SetProcedure("SP_InsertNewUser");
+                DataAccess.command.Parameters.AddWithValue("@UserName", user.userName);
+                DataAccess.command.Parameters.AddWithValue("@PasswordHash", user.passwordHash);
+                return DataAccess.ExecuteActionScalar();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+
     }
 }

@@ -23,19 +23,19 @@
                 <h4 class="title" style="display: flex; justify-content: center">¡UNETE A LA AVENTURA!</h4>
                 <label for="inputUsername" class="col-sm-2 col-form-label">Usuario:</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputUsername" style="width: 90%">
+                    <asp:TextBox ID="inputUsername" runat="server" CssClass="form-control" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">Contraseña:</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputPassword" style="width: 90%">
+                    <asp:TextBox ID="inputPassword" runat="server" TextMode="Password" CssClass="form-control" />
                 </div>
             </div>
             <div class="mb-3 row">
                 <label for="confirmPassword" class="col-sm-2 col-form-label">Confirmar contraseña:</label>
                 <div class="col-sm-10">
-                    <input type="password" class="form-control" id="confirmPassword" style="width: 90%">
+                    <asp:TextBox ID="confirmPassword" runat="server" TextMode="Password" CssClass="form-control" />
                 </div>
             </div>
             <div class="mb-3 row">

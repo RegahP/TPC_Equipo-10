@@ -6,7 +6,7 @@ create database TPC_ChambersAndWyverns
      Username nvarchar(50) unique,
      PasswordHash nvarchar(255) not null
  )
-
+ select ID_User, Username, PasswordHash from users where Username = @user AND PasswordHash = @pass
  create table Characters(
      ID_Character int not null primary key identity(0,1),
      ID_User int not null,
@@ -446,3 +446,11 @@ BEGIN
         AbilitiesXCharacter AC ON @ID_Character = AC.ID_Character AND AC.ID_Ability = A.ID_Ability
     
 END;
+
+--+-- Inserta un Usuario Nuevo --+--
+
+CREATE PROCEDURE SP_InsertNewUser
+@UserName VARCHAR(50),
+@PasswordHash nvarchar(255)
+AS INSERT INTO Users (Username, PasswordHash) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash);
+

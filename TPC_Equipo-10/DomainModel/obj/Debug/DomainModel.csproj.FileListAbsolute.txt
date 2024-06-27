@@ -22,3 +22,9 @@ C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyv
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repo\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileInputs.cache
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repo\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.dll
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repo\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\bin\Debug\DomainModel.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\bin\Debug\DomainModel.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\Pull 8\TPC_Equipo-10\TPC_Equipo-10\DomainModel\obj\Debug\DomainModel.pdb
