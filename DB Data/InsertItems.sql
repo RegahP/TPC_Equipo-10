@@ -971,7 +971,6 @@ EXEC SP_InsertCreature
     @Proficiency = 1,
     @ArmorClass = 11,
     @MaxHealth = 15,
-    @DamageMod = 1,  -- Destreza
     @Abilities = N'0,1,1,1,-2,0,1',
     @Attacks = N'0,1';
 
@@ -983,7 +982,6 @@ EXEC SP_InsertCreature
     @Proficiency = 5,
     @ArmorClass = 15,
     @MaxHealth = 38,
-    @DamageMod = 2,  -- Constitución
     @Abilities = N'0,1,1,4,3,3',
     @Attacks = N'2,0';
 
@@ -995,7 +993,6 @@ EXEC SP_InsertCreature
     @Proficiency = 3,
     @ArmorClass = 12,
     @MaxHealth = 26,
-    @DamageMod = 1,  -- Destreza
     @Abilities = N'-5,2,0,1,0,3',
     @Attacks = N'3,4';
 
@@ -1007,7 +1004,6 @@ EXEC SP_InsertCreature
     @Proficiency = 5,
     @ArmorClass = 14,
     @MaxHealth = 32,
-    @DamageMod = 0,  -- Fuerza
     @Abilities = N'4,0,5,-1,2,0',
     @Attacks = N'1,5';
 
@@ -1019,7 +1015,6 @@ EXEC SP_InsertCreature
     @Proficiency = 11,
     @ArmorClass = 19,
     @MaxHealth = 80,
-    @DamageMod = 2,  -- Constitución
     @Abilities = N'0,2,4,3,2,3',
     @Attacks = N'6,7,8';
 
@@ -1031,7 +1026,6 @@ EXEC SP_InsertCreature
     @Proficiency = 7,
     @ArmorClass = 17,
     @MaxHealth = 60,
-    @DamageMod = 1,  -- Destreza
     @Abilities = N'3,3,5,1,3,3',
     @Attacks = N'9,0';
 
@@ -1043,7 +1037,6 @@ EXEC SP_InsertCreature
     @Proficiency = 9,
     @ArmorClass = 18,
     @MaxHealth = 67,
-    @DamageMod = 3,  -- Inteligencia
     @Abilities = N'4,0,4,3,2,4',
     @Attacks = N'7,0';
 
@@ -1055,7 +1048,6 @@ EXEC SP_InsertCreature
     @Proficiency = 3,
     @ArmorClass = 12,
     @MaxHealth = 18,
-    @DamageMod = 3,  -- Inteligencia
     @Abilities = N'0,1,0,2,2,4',
     @Attacks = N'1,10';
 
@@ -1067,7 +1059,6 @@ EXEC SP_InsertCreature
     @Proficiency = 7,
     @ArmorClass = 15,
     @MaxHealth = 55,
-    @DamageMod = 1,  -- Destreza
     @Abilities = N'1,1,1,-2,0,1',
     @Attacks = N'10,5';
 
@@ -1079,7 +1070,6 @@ EXEC SP_InsertCreature
     @Proficiency = 11,
     @ArmorClass = 19,
     @MaxHealth = 80,
-    @DamageMod = 0,  -- Fuerza
     @Abilities = N'5,-1,5,-1,0,1',
     @Attacks = N'11,12,13';
 
@@ -1091,7 +1081,6 @@ EXEC SP_InsertCreature
     @Proficiency = 1,
     @ArmorClass = 12,
     @MaxHealth = 17,
-    @DamageMod = 0,  -- Fuerza
     @Abilities = N'2,1,0,-2,0,-2',
     @Attacks = N'7,14';
 
@@ -1103,7 +1092,6 @@ EXEC SP_InsertCreature
     @Proficiency = 1,
     @ArmorClass = 11,
     @MaxHealth = 12,
-    @DamageMod = 1, -- Destreza
     @Abilities = N'-1,2,0,0,-1,-1',
     @Attacks = N'15,16'; -- Cimitarra y Arco Corto
 
@@ -1115,7 +1103,6 @@ EXEC SP_InsertCreature
     @Proficiency = 5,
     @ArmorClass = 14,
     @MaxHealth = 48,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'3,-1,4,-4,0,-4',
     @Attacks = N'5,1'; -- Piedra y Garrote
 
@@ -1127,7 +1114,6 @@ EXEC SP_InsertCreature
     @Proficiency = 3,
     @ArmorClass = 13,
     @MaxHealth = 22,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'2,3,2,-2,1,-1',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
@@ -1139,7 +1125,6 @@ EXEC SP_InsertCreature
     @Proficiency = 1,
     @ArmorClass = 13,
     @MaxHealth = 15,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'0,2,0,-2,-1,-2',
     @Attacks = N'17,0'; -- Daga y Garras
 
@@ -1151,7 +1136,6 @@ EXEC SP_InsertCreature
     @Proficiency = 5,
     @ArmorClass = 14,
     @MaxHealth = 52,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'2,3,1,0,0,0',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
@@ -1163,7 +1147,6 @@ EXEC SP_InsertCreature
     @Proficiency = 11,
     @ArmorClass = 19,
     @MaxHealth = 80,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'4,3,3,1,2,2',
     @Attacks = N'18,19,20'; -- Galope Flamígero, Pezuña y Embestida
 
@@ -1175,7 +1158,6 @@ EXEC SP_InsertCreature
     @Proficiency = 9,
     @ArmorClass = 16,
     @MaxHealth = 68,
-    @DamageMod = 0, -- Fuerza
     @Abilities = N'3,3,2,1,2,2',
     @Attacks = N'0,7'; -- Garras y Mordisco
 
@@ -1203,11 +1185,10 @@ SELECT * FROM Classes
 ---Buscador de Trasfondo
 SELECT * FROM Backgrounds
 ---Buscador de Tipos de Daño
-SELECT * FROM DamageType
+SELECT * FROM DamageTypes
 ---Buscador de Ataques
 SELECT * FROM Attacks
----Buscador de Usuarios
-SELECT * FROM Users
+
 ---Buscador de Armas
 EXEC SP_GetWeapons
 ---Buscador de Armaduras y Escudos

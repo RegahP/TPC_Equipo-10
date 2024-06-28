@@ -14,7 +14,7 @@ let allItems; //todos los items
 //todas las imagenes
 let chr_spritesheet;
 let chr_fx_darkspotlight;
-let creatures_0; //temp
+let creatures_spritesheet;
 let merchant_spritesheet;
 let items_spritesheet;
 
@@ -23,7 +23,7 @@ let items_spritesheet;
 function preload() {
     chr_spritesheet = loadImage("../Sprites/chr_spritesheet.png");
     chr_fx_darkspotlight = loadImage("../Sprites/chr_fx_darkspotlight.png");
-    creatures_0 = loadImage("../Sprites/creatures_0.png"); //temp
+    creatures_spritesheet = loadImage("../Sprites/creatures_spritesheet.png");
     merchant_spritesheet = loadImage("../Sprites/merchant_spritesheet.png");
     items_spritesheet = loadImage("../Sprites/items_spritesheet.png");
 }
@@ -97,6 +97,7 @@ function keyPressed() {
         switch (chr.gameState) {
             case 0: //intro
                 chr.gameState = 1;
+                setupCombat(); //genera el encounter
                 break;
             case 1: //combat
                 if (key === 'q') {
@@ -192,7 +193,7 @@ function keyPressed() {
                 }
                 break;
             case 4: //store
-                if (key === 'q') {
+                if (key === 'q' && !storeNavFocus) {
                     chr.gameState = 3;
                 }
                 if (!storeNavFocus) {

@@ -1,9 +1,11 @@
 ﻿function drawCombat() {
-    setupCombat();
+
     drawTextCentered('combat; lose or win?', width / 2, height - 24, 24, 'white')
 
-    drawChrSprite(width / 2 - (width / 4), height / 2, 10, false);
-    drawSpriteCentered(creatures_0, width / 2 + (width / 4), height / 2, 10);
+    drawCreatureSprite(width - (64 * 8), height - (64 * 8) - navHeight, 8, creatureID);
+
+    drawChrSprite(width / 2 - (width / 4), height - (32 * 8) - navHeight, 8, false);
+    //drawSpriteCentered(creatures_0, width / 2 + (width / 4), height / 2, 10);
 
     drawNav();
     if (navFocus) {
@@ -11,17 +13,22 @@
     }
 }
 
-let flagCombat = false; //flag para setupear la escena
 let nav = ["Atacar", "Defender", "Especial", "Inventario"]; //items del nav
 let navIndex; //en que opcion estamos parados
-let navHeight = 200;
+let navHeight = 150;
 let navFocus = false; //0 = nav; 1 = inventory
 
+//creature data
+let creatureID;
+//crop data para mostrar la parte del spritesheet correcta
+let creatureCrop = [0, 16, 32, 48, 80, 112, 160, 224, 240, 288, 336, 352, 368, 400, 464, 480, 512, 544];
+
 function setupCombat() {
-    if (!flagCombat) {
-        flagCombat = true;
-        navIndex = 0;
-    }
+
+    navIndex = 0;
+    print(creatureID);
+    //creatureID = int(random(18));
+    creatureID = 6;
 }
 
 function drawNav() {

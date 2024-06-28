@@ -4,7 +4,7 @@ function drawIntro() {
     drawTextCentered('intro', width / 2, width / 2 - 24, 24, 'white')
 
     drawSpriteCentered(chr_fx_darkspotlight, width / 2, height / 2, 10);
-    drawChrSprite(width / 2, height / 2 + 40, 10, false);
+    drawChrSprite(width / 2 - 8 * 10, height / 2 - 16 * 10 - 30, 10, false);
 }
 
 //end of combat scene; choose next combat or visit town
@@ -22,8 +22,9 @@ function drawDead() {
     drawTextCentered('you died', width / 2, height - 24, 24, 'white')
 }
 
-//draws the character sprite (raceID, classID, sex) at position posX, posY with a size of scale
+//draws the character sprite (raceID, classID, sex) at position posX, posY with a size
 function drawChrSprite(posX, posY, size, flip) {
+    imageMode(CORNER);
     push();
     if (flip) {
         translate(posX, posY);
@@ -33,8 +34,8 @@ function drawChrSprite(posX, posY, size, flip) {
     }
     image(
         chr_spritesheet,
-        posX - 8 * size,
-        posY - (16 + 7) * size,
+        posX,
+        posY,
         16 * size,
         32 * size,
         chr.race.id * 16,
@@ -44,8 +45,9 @@ function drawChrSprite(posX, posY, size, flip) {
     );
     pop();
 }
-
+//draws an item of id, at posx posy, with a size
 function drawItemSprite(posX, posY, size, id) {
+    imageMode(CORNER);
     image(
         items_spritesheet,
         posX,
@@ -57,6 +59,36 @@ function drawItemSprite(posX, posY, size, id) {
         16,
         16
     );
+}
+//draws a creature of id, at posx posy, with a size
+function drawCreatureSprite(posX, posY, size, id) {
+    imageMode(CORNER);
+    if (id == 17) {
+        image(
+            creatures_spritesheet,
+            posX,
+            posY,
+            32 * size,
+            64 * size,
+            544,
+            0,
+            32,
+            64
+        )
+    }
+    else {
+        image(
+            creatures_spritesheet,
+            posX,
+            posY,
+            (creatureCrop[id + 1] - creatureCrop[id]) * size,
+            64 * size,
+            creatureCrop[id],
+            0,
+            creatureCrop[id + 1] - creatureCrop[id],
+            64
+        )
+    }
 }
 
 //dibuja un sprite con el origen en su centro
