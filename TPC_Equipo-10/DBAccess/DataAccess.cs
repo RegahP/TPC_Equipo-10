@@ -396,13 +396,13 @@ namespace DBAccess
             }
         }
 
-        public static void NewCharacter(Character character)
+        public static void NewCharacter(Character character, int userID)
         {
             try
             {
                 SetProcedure("SP_InsertNewCharacter");
 
-                SetParameter("@ID_User", 1);
+                SetParameter("@ID_User", userID);
                 SetParameter("@Sex", character.sex);
                 SetParameter("@ID_Race", character.race.id);
                 SetParameter("@ID_Class", character.chrClass.id);

@@ -1206,7 +1206,8 @@ SELECT * FROM Backgrounds
 SELECT * FROM DamageType
 ---Buscador de Ataques
 SELECT * FROM Attacks
-
+---Buscador de Usuarios
+SELECT * FROM Users
 ---Buscador de Armas
 EXEC SP_GetWeapons
 ---Buscador de Armaduras y Escudos
