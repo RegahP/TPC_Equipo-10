@@ -110,38 +110,6 @@ namespace DBAccess
         }
 
 
-        /*public static List<User> ListUsers()
-        {
-            List<User> userList = new List<User>();
-
-            try
-            {
-                SetQuery("Select * from Users");
-                runRead();
-
-                while (reader.Read())
-                {
-                    User aux = new User();
-                    aux.id = reader.GetInt32(0);
-                    aux.userName = reader.GetString(1);
-                    aux.passwordHash = reader.GetString(2);
-
-                    userList.Add(aux);
-                }
-
-                return userList;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-        }
-        */
-
         public static List<Ability> ListAbilities()
         {
             List<Ability> list = new List<Ability>();
@@ -208,7 +176,7 @@ namespace DBAccess
 
         public static List<Character> ListCharacters()
         {
-            List<Character> list = new List<Character>();
+            List<Character> listCharacters = new List<Character>();
 
             List<Race> listRaces = new List<Race>();
             listRaces = ListRaces();
@@ -217,7 +185,7 @@ namespace DBAccess
             List<Background> listBackgrounds = new List<Background>();
             listBackgrounds = ListBackgrounds();
             List<Ability> listAbilities = new List<Ability>();
-
+            listAbilities = ListAbilities();
 
             try
             {
@@ -260,6 +228,11 @@ namespace DBAccess
                         }
                     }
 
+                    foreach (Ability ab in listAbilities)
+                    {
+                        aux.abilities.Add(ab.id);
+                    }
+
                     aux.name = reader.GetString(6);
                     aux.level = reader.GetInt32(7);
                     aux.xp = reader.GetInt32(8);
@@ -275,7 +248,7 @@ namespace DBAccess
                     aux.currHealth = reader.GetInt32(16);
                     aux.gold = reader.GetInt32(17);
 
-                    list.Add(aux);
+                    listCharacters.Add(aux);
                 }
 
             }
@@ -288,14 +261,7 @@ namespace DBAccess
                 CloseConnection();
             }
 
-
-            foreach (Character c in list)
-            {
-                listAbilities = GetCharacterAbilities(c.id);
-                c.abilities.Add(listAbilities);
-            }
-
-            return list;
+            return listCharacters;
 
         }
 
@@ -398,15 +364,16 @@ namespace DBAccess
 
         public static void NewCharacter(Character character, int userID)
         {
+
             try
             {
                 SetProcedure("SP_InsertNewCharacter");
 
                 SetParameter("@ID_User", userID);
                 SetParameter("@Sex", character.sex);
-                SetParameter("@ID_Race", character.race.id);
-                SetParameter("@ID_Class", character.chrClass.id);
-                SetParameter("@ID_Background", character.bg.id);
+                SetParameter("@ID_Race", character.race);
+                SetParameter("@ID_Class", character.chrClass);
+                SetParameter("@ID_Background", character.bg);
                 SetParameter("@_Name", character.name);
                 SetParameter("@Abilities", "12, 10, 13, 8, 15, 16"); //temp, deberia tomar los valores rolleados
 
@@ -420,41 +387,6 @@ namespace DBAccess
             {
                 CloseConnection();
             }
-        }
-
-        public static List<Ability> GetCharacterAbilities(int characterID)
-        {
-            List<Ability> abilities = new List<Ability>();
-
-            try
-            {
-                SetProcedure("SP_GetCharacterAbilities");
-                SetParameter("@ID_Character", characterID);
-                ExecuteRead();
-                while (reader.Read())
-                {
-                    Ability aux = new Ability();
-
-                    aux.id = reader.GetInt32(0);
-                    aux.name = reader.GetString(1);
-                    aux.desc = reader.GetString(2);
-                    aux.rolledScore = reader.GetInt32(3);
-                    aux.modifier = reader.GetInt32(4);
-
-                    abilities.Add(aux);
-                }
-
-                return abilities;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                CloseConnection();
-            }
-
         }
 
         public static List<Weapon> GetWeapons()
@@ -478,7 +410,7 @@ namespace DBAccess
                     aux.abilityModID = reader.GetInt32(4); //skippeamos la columna con el nombre
                     dmgAux.id = reader.GetInt32(6);
                     dmgAux.name = reader.GetString(7);
-                    aux.dmgType = dmgAux;
+                    aux.dmgTypeID = dmgAux.id;
                     aux.price = reader.GetInt32(8);
 
                     weapons.Add(aux);
@@ -516,7 +448,7 @@ namespace DBAccess
                     aux.armorType = reader.GetBoolean(3) ? 1 : 0;
                     dmgAux.id = reader.GetInt32(4);
                     dmgAux.name = reader.GetString(5);
-                    aux.resType = dmgAux;
+                    aux.dmgTypeID = dmgAux.id;
                     aux.armor = reader.GetInt32(6);
                     aux.price = reader.GetInt32(7);
 
@@ -572,11 +504,11 @@ namespace DBAccess
         public static List<Item> GetItems()
         {
             List<Item> items = new List<Item>();
-            
+
             List<Weapon> weapons = GetWeapons();
             List<Armor> armors = GetArmorsShields();
             List<Consumable> consumables = GetConsumables();
-            
+
             foreach (Weapon weapon in weapons)
             {
                 items.Add(weapon);

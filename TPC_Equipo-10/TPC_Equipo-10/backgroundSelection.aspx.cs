@@ -37,7 +37,7 @@ namespace TPC_Equipo_10
             {
                 if (background.id == backgroundId)
                 {
-                    character.bg = background;
+                    character.bg = background.id;
                     character.gold = background.initialGold;
 
                     //foreach (Skill skill in skillList)

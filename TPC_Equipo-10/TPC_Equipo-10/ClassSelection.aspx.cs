@@ -33,7 +33,7 @@ namespace TPC_Equipo_10
             {
                 if (clas.id == classId)
                 {
-                    character.chrClass = clas;
+                    character.chrClass = clas.id;
 
                     //character.maxHealth = clas.classHealth; //Tambien habria que sumar el mod de constitucion, pero todavia no tenemos las tiradas de dado armadas
                     //character.currHealth = clas.classHealth;

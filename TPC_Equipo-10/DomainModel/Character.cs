@@ -34,7 +34,7 @@ namespace DomainModel
         public int gold { get; set; } //gold
 
         public List<int> inventory { get; set; } //consumables, generic
-        public List<int> abilities { get; set; } //abilities (6)
+        public List<int> abilities = new List<int>(); //abilities (6)
         //public List<Skill> skills { get; set; } //skills (8)
 
     }

@@ -41,7 +41,7 @@ namespace TPC_Equipo_10
             {
                 if (race.id == raceId)
                 {
-                    character.race = race;
+                    character.race = race.id;
                     
                     //foreach(Ability ability in abilityList)
                     //{
