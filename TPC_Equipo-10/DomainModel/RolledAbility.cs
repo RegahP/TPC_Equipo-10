@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    public class Skill
+    internal class RolledAbility
     {
-        public int id { get; set; }
         public int abilityID { get; set; }
-        public string name { get; set; }
-        public string desc { get; set; }
-      
+        public int rolledScore {  get; set; }   
+        public int modifier { get; set; }
 
-        //constructor sets nonset properties
+
     }
 }

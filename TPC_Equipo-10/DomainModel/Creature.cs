@@ -17,9 +17,10 @@ namespace DomainModel
         public int armor { get; set; }//armor class
         public int maxHealth { get; set; } //maximum health
         public int currHealth { get; set; } //current health
-        public List<Item> drops { get; set; } //drops
+        public List<int> drops { get; set; } //drops
         public int goldDrop { get; set; }
-        public List<Ability> abilities { get; set; } //abilities (6)
+        public List<int> abilities { get; set; } //abilities (6)
+        public List<int> attacks { get; set; }  
 
         //constructor sets nonset properties
     }

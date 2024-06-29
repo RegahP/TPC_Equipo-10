@@ -237,7 +237,7 @@ namespace DBAccess
                     {
                         if (race.id == id)
                         {
-                            aux.race = race;
+                            aux.race = race.id;
                             break;
                         }
                     }
@@ -246,7 +246,7 @@ namespace DBAccess
                     {
                         if (cl.id == id)
                         {
-                            aux.chrClass = cl;
+                            aux.chrClass = cl.id;
                             break;
                         }
                     }
@@ -255,7 +255,7 @@ namespace DBAccess
                     {
                         if (bg.id == id)
                         {
-                            aux.bg = bg;
+                            aux.bg = bg.id;
                             break;
                         }
                     }
@@ -292,7 +292,7 @@ namespace DBAccess
             foreach (Character c in list)
             {
                 listAbilities = GetCharacterAbilities(c.id);
-                c.abilities = listAbilities;
+                c.abilities.Add(listAbilities);
             }
 
             return list;
@@ -434,6 +434,7 @@ namespace DBAccess
                 while (reader.Read())
                 {
                     Ability aux = new Ability();
+
                     aux.id = reader.GetInt32(0);
                     aux.name = reader.GetString(1);
                     aux.desc = reader.GetString(2);

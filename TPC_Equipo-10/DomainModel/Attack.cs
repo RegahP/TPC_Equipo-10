@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    public class Ability
+    internal class Attack
     {
         public int id { get; set; }
         public string name { get; set; }
         public string desc { get; set; }
+        public int dmgTypeID {  get; set; }
+        public int damage {  get; set; }
 
-        //constructor sets nonset properties
     }
 }
