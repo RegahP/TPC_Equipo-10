@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    internal class CreatureItem
+    public class CreatureItem
     {
 
         public int itemID {  get; set; }

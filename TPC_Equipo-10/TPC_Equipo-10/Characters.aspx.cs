@@ -39,7 +39,6 @@ namespace TPC_Equipo_10
             rptCharacters.DataSource = filteredCharacters;
             rptCharacters.DataBind();
 
-
         }
 
         protected void charCreation_Click(object sender, EventArgs e)
@@ -94,6 +93,22 @@ namespace TPC_Equipo_10
 
 
             }
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(((LinkButton)sender).CommandArgument);
+
+            DataAccess.DeleteCharacter(id);
+
+            Response.Redirect("Characters.aspx", false);
+        }
+
+        protected void btnDetail_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(((LinkButton)sender).CommandArgument);
+
+            Response.Redirect("CharacterDetail.aspx?id=" + id, false);
         }
     }
 }

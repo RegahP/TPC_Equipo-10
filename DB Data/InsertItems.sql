@@ -1176,6 +1176,8 @@ SELECT * FROM Characters
 
 ---Buscador de Caracteríscas
 SELECT * FROM Abilities
+--Buscador de Caracteristicas por jugador
+SELECT * FROM AbilitiesXCharacter
 ---Buscador de Habilidades
 SELECT * FROM Skills
 ---Buscador de Razas

@@ -110,6 +110,25 @@ namespace DBAccess
         }
 
 
+        public static void DeleteCharacter(int characterID)
+        {
+            try
+            {
+                SetProcedure("SP_DeleteCharacter");
+                SetParameter("@characterID", characterID);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+
         public static List<Ability> ListAbilities()
         {
             List<Ability> list = new List<Ability>();
@@ -388,6 +407,39 @@ namespace DBAccess
                 CloseConnection();
             }
         }
+
+
+        public static List<RolledAbility> GetCharacterAbilities(int characterID)
+        {
+            List<RolledAbility> list = new List<RolledAbility>();
+            try
+            {
+                SetQuery("SELECT * FROM AbilitiesXCharacter");
+                ExecuteRead();
+
+                while (reader.Read())
+                {
+                    if (reader.GetInt32(0) == characterID)
+                    {
+                        RolledAbility aux = new RolledAbility();
+                        aux.abilityID = reader.GetInt32(1);
+                        aux.rolledScore = reader.GetInt32(2);
+                        aux.modifier = reader.GetInt32(3);
+                        list.Add(aux);
+                    }
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
 
         public static List<Weapon> GetWeapons()
         {

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="backgroundSelection.aspx" />
     <Content Include="CharacterCreator.aspx" />
+    <Content Include="CharacterDetail.aspx" />
     <Content Include="Characters.aspx" />
     <Content Include="ClassSelection.aspx" />
     <Content Include="Default.aspx" />
@@ -109,6 +110,13 @@
     </Compile>
     <Compile Include="CharacterCreator.aspx.designer.cs">
       <DependentUpon>CharacterCreator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterDetail.aspx.cs">
+      <DependentUpon>CharacterDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CharacterDetail.aspx.designer.cs">
+      <DependentUpon>CharacterDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Characters.aspx.cs">
       <DependentUpon>Characters.aspx</DependentUpon>

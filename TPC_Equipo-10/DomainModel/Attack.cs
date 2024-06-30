@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    internal class Attack
+    public class Attack
     {
         public int id { get; set; }
         public string name { get; set; }

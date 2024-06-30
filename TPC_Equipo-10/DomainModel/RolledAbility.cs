@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    internal class RolledAbility
+    public class RolledAbility
     {
         public int abilityID { get; set; }
-        public int rolledScore {  get; set; }   
+        public int rolledScore { get; set; }   
         public int modifier { get; set; }
 
 

@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Characters.aspx.cs" Inherits="TPC_Equipo_10.Characters" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <style>
+        .size {
+            width: 40%;
+        }
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
@@ -58,6 +65,10 @@
 
                             <p>Vida: <%#Eval("maxHealth") %></p>
 
+                        </div>
+                        <div style="width: 100%; margin-bottom: 10px; margin-left: 30px;">
+                            <asp:LinkButton runat="server" ID="btnDetail" CommandArgument='<%#Eval("id")%>' CssClass="btn btn-danger size" Text="Detalle" OnClick="btnDetail_Click"></asp:LinkButton>
+                            <asp:LinkButton runat="server" ID="btnDelete" CommandArgument='<%#Eval("id")%>' CssClass="btn btn-danger size" Text="Eliminar" OnClick="btnDelete_Click"></asp:LinkButton>
                         </div>
                     </div>
 

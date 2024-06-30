@@ -455,3 +455,7 @@ CREATE PROCEDURE SP_InsertNewUser
 @PasswordHash nvarchar(255)
 AS INSERT INTO Users (Username, PasswordHash) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash);
 
+
+CREATE PROCEDURE SP_DeleteCharacter
+@characterID int
+AS DELETE FROM Characters WHERE ID_Character = @characterID

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DomainModel
 {
-    internal class Encounter
+    public class Encounter
     {
         public int creatureID {  get; set; }
         public int currHealth {  get; set; }

@@ -25,10 +25,10 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Genero</label>
+                <label class="col-sm-2 col-form-label">Sexo</label>
                 <div class="col-sm-10">
-                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton1" Text="Hombre" OnCheckedChanged="rb_CheckedChanged" />
-                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton2" Text="Mujer" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton1" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton2" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
                 </div>
             </div>
             <div class="mb-3 row">
