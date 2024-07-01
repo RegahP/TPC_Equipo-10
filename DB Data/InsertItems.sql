@@ -1198,11 +1198,10 @@ EXEC SP_GetArmorsShields
 ---Buscador de Consumibles
 EXEC SP_GetConsumables
 ---Buscador de Genéricos
-EXEC SP_GetCharacterAbilities @ID_Character = 0
-GO
+EXEC SP_GetCharacter @ID_Character = 0
 
 
-
+select * from users where Username = 'user' AND PasswordHash = '1234'
 
 
 -----Esto por el momento son pruebas, no prestar atencion

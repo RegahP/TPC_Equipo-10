@@ -27,7 +27,7 @@ namespace TPC_Equipo_10
             {
                 User user = new User("", "");
 
-                user.userName = inputUsername.Text;
+                user.username = inputUsername.Text;
                 user.passwordHash = inputPassword.Text;
                 int id = DataAccess.Register(user);
             }

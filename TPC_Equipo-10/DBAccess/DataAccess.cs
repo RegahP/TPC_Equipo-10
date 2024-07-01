@@ -674,8 +674,8 @@ namespace DBAccess
         {
             try
             {
-                SetQuery("select ID_User, Username, PasswordHash from users where Username = @user AND PasswordHash = @pass");
-                SetParameter("@user", user.userName);
+                SetQuery("select * from Users where Username = @user AND PasswordHash = @pass");
+                SetParameter("@user", user.username);
                 SetParameter("@pass", user.passwordHash);
 
                 ExecuteRead();
@@ -702,7 +702,7 @@ namespace DBAccess
             try
             {
                 SetProcedure("SP_InsertNewUser");
-                SetParameter("@UserName", user.userName);
+                SetParameter("@UserName", user.username);
                 SetParameter("@PasswordHash", user.passwordHash);
                 return ExecuteActionScalar();
             }
