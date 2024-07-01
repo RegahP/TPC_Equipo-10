@@ -1163,14 +1163,14 @@ EXEC SP_InsertCreature
 
 --+-- CHARACTERS --+--
 --Esto es un ejemplo de personaje nuevo, no hace falta Execute
---EXEC SP_InsertNewCharacter 
---    @ID_User = 1,
---    @Sex = 1,
---    @ID_Race = 1,
---    @ID_Class = 1,
---    @ID_Background = 1,
---    @_Name = 'John Doe',
---    @Abilities = '14,12,10,8,16,10';
+-- EXEC SP_InsertNewCharacter 
+--    @ID_User = 0,
+--    @Sex = 0,
+--    @ID_Race = 0,
+--    @ID_Class = 0,
+--    @ID_Background = 0,
+--    @_Name = 'Juan',
+--    @Abilities = N'14,12,10,8,16,10';
 
 SELECT * FROM Characters
 

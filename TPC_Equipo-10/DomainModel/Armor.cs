@@ -9,7 +9,7 @@ namespace DomainModel
     public class Armor : Equippable
     {
         public int armorType { get; set; } //0 = armadura; 1 = escudo
-        public int dmgTypeID { get; set; }
+        public int resTypeID { get; set; }
         public int armor { get; set; }
 
         //constructor sets nonset properties

@@ -9,9 +9,6 @@ namespace DomainModel
     public class RolledAbility
     {
         public int abilityID { get; set; }
-        public int rolledScore { get; set; }   
-        public int modifier { get; set; }
-
-
+        public int rolledScore { get; set; }
     }
 }

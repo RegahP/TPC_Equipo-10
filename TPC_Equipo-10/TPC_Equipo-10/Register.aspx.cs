@@ -29,7 +29,7 @@ namespace TPC_Equipo_10
 
                 user.userName = inputUsername.Text;
                 user.passwordHash = inputPassword.Text;
-                int id = DataAccess.userRegistration(user);
+                int id = DataAccess.Register(user);
             }
             catch (Exception ex)
             {

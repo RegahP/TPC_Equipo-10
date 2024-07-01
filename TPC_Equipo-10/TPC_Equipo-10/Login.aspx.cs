@@ -39,7 +39,7 @@ namespace TPC_Equipo_10
                 user = new User(userName, passwordHash);
 
 
-                if (DataAccess.logear(user))
+                if (DataAccess.Login(user))
                 {
 
                     Session.Add("user", user);

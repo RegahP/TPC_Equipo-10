@@ -16,11 +16,11 @@ namespace DomainModel
         public int prof { get; set; } //proficiency
         public int armor { get; set; }//armor class
         public int maxHealth { get; set; } //maximum health
-        public int currHealth { get; set; } //current health
-        public List<int> drops { get; set; } //drops
-        public int goldDrop { get; set; }
-        public List<int> abilities { get; set; } //abilities (6)
-        public List<int> attacks { get; set; }  
+        
+        public List<CreatureItem> drops = new List<CreatureItem>(); //drops
+        
+        public List<RolledAbility> abilities = new List<RolledAbility>(); //abilities (6)
+        public List<int> attacks = new List<int>(); 
 
         //constructor sets nonset properties
     }

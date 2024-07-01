@@ -27,8 +27,8 @@ function setupCombat() {
 
     navIndex = 0;
     print(creatureID);
-    //creatureID = int(random(18));
-    creatureID = 6;
+    creatureID = int(random(18));
+    //creatureID = 6;
 }
 
 function drawNav() {
@@ -47,23 +47,23 @@ function drawNav() {
 let invItems = []; //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
 let invIndex; //en que items estamos parados
 let invFocus; //0 = panel izq; 1 = panel der
-let invEmpty;
-let scrollShift;
+let invEmpty; //si esta vacio el inventario
+let scrollShift; //valor para desfazar la lista de items al scrollear
 
-let outerMargin = 50;
-let innerMargin = 20;
-let itemSize = 24;
+let outerMargin = 50; //margen exterior
+let innerMargin = 20; //margen interior
+let itemSize = 24; //tamaño de los items en la lista
 let buttonSize = 16; //invertido
 
 //variables relevantes para el inventario en tienda
-let buyPopup;
-let buyPopupFocus;
-let itemBought;
+let buyPopup; //si esta prendido el popup de compra
+let buyPopupFocus; //si el cursor esta a la izq o der del popup
+let itemBought; //si compramos el item
 
-let sellPopup;
-let sellPopupFocus;
-let itemSold;
-let popupSize = 2.5; //invertido
+let sellPopup; //si esta prendido el popup de venta
+let sellPopupFocus; //si el cursor esta a la izq o der del popup
+let itemSold; //si vendimos el item
+let popupSize = 2.5; //tamaño del popup; invertido
 
 function setupInventory() {
     invIndex = 0;
@@ -548,10 +548,10 @@ function getItemTypeData(id) {
     itemTypeText += getItemTypeName(item.type, item.equippableType, item.armorType);
     if (item.type == 1) { //es equipable
         if (item.equippableType == 0) { //es un arma
-            itemTypeText += ' | ' + item.damage + ' de Daño ' + item.dmgType.name + ' | Aumenta con ' + abilities[item.abilityModID].name;
+            itemTypeText += ' | ' + item.damage + ' de Daño ' + dmgTypes[item.dmgTypeID].name + ' | Aumenta con ' + abilities[item.abilityModID].name;
         }
         else if (item.equippableType == 1) { // es un armor (armadura/escudo)
-            itemTypeText += ' | ' + item.armor + ' de Armadura | Resistente al Daño ' + item.resType.name;
+            itemTypeText += ' | ' + item.armor + ' de Armadura | Resistente al Daño ' + dmgTypes[item.resTypeID].name;
         }
     }
     else if (item.type == 2) { //es consumible

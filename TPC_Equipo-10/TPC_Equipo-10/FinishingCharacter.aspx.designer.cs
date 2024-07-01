@@ -24,22 +24,22 @@ namespace TPC_Equipo_10
         protected global::System.Web.UI.WebControls.TextBox txtName;
 
         /// <summary>
-        /// RadioButton1 control.
+        /// rbMasculine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
+        protected global::System.Web.UI.WebControls.RadioButton rbMasculine;
 
         /// <summary>
-        /// RadioButton2 control.
+        /// rbFeminine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton2;
+        protected global::System.Web.UI.WebControls.RadioButton rbFeminine;
 
         /// <summary>
         /// btnConfirm control.

@@ -1,15 +1,16 @@
 ﻿//declaraciones de vars generales
 
-let loadSuccess = 0; //sube +1 cuando se cargan datos exitosamente
-let loadTotal = 0; //sube +1 cuando se intenta cargar datos
-//si cualquier dato o lista de datos que traemos del ajax falla, load falla, y el juego no corre
-
-let abilities; //abilidades
+let races;
+let classes;
+let abilities;
+let skills;
+let dmgTypes;
+let creatures;
+let attacks;
+let allItems;
 
 let chr; //character
 let chrItems; //items del jugador
-let allItems; //todos los items
-//let creatures; //todas las creatures
 
 //todas las imagenes
 let chr_spritesheet;
@@ -37,25 +38,44 @@ async function setup() {
     textFont('Courier New');
 
     try {
-        chr = await loadCharacter();
-        allItems = await loadItems();
+        races = await loadRaces();
+        classes = await loadClasses();
         abilities = await loadAbilities();
-        loadTotal = 3 //se realizan 3 cargas de datos
+        skills = await loadSkills();
+        dmgTypes = await loadDamageTypes();
+        creatures = await loadCreatures();
+        attacks = await loadAttacks();
+        allItems = await loadItems();
+        chr = await loadCharacter();
     } catch (error) {
         console.error("Failed to load something in p5js:", error);
     }
-    if (chr) {
-        console.log("Character loaded in p5js succesfully:", chr);
-        //temp
-        loadSuccess++;
+    if (races) {
+        console.log("Races loaded in p5js succesfully:", races);
     }
-    if (allItems) {
-        console.log("All items loaded in p5js succesfully:", allItems);
-        loadSuccess++;
+    if (classes) {
+        console.log("Classes loaded in p5js succesfully:", classes);
     }
     if (abilities) {
         console.log("Abilities loaded in p5js succesfully:", abilities);
-        loadSuccess++;
+    }
+    if (skills) {
+        console.log("Skills loaded in p5js succesfully:", skills);
+    }
+    if (dmgTypes) {
+        console.log("DamageTypes loaded in p5js succesfully:", dmgTypes);
+    }
+    if (creatures) {
+        console.log("Creatures loaded in p5js succesfully:", creatures);
+    }
+    if (attacks) {
+        console.log("Attacks loaded in p5js succesfully:", attacks);
+    }
+    if (allItems) {
+        console.log("All items loaded in p5js succesfully:", allItems);
+    }
+    if (chr) {
+        console.log("Character loaded in p5js succesfully:", chr);
     }
 }
 
@@ -371,6 +391,7 @@ function keyPressed() {
                 break;
             case 5: //rest
                 chr.gameState = 1;
+                setupCombat(); //genera el encounter
                 break;
             case 6: //dead
                 chr.gameState = 0;

@@ -130,9 +130,8 @@ go
  create table AbilitiesXCharacter(
      ID_Character int not null, --para que personaje
      ID_Ability int not null, --que ability se rolleo
-     RolledScore int not null, --que roll salio
-     Modifier int not null --por cada personaje, al crearlos, se guarda en esta tabla 6 filas, una para cada ability que rolleo
-     primary key(ID_Character, ID_Ability)
+     RolledScore int not null --que roll salio
+     primary key(ID_Character, ID_Ability) --por cada personaje, al crearlos, se guarda en esta tabla 6 filas, una para cada ability que rolleo
  )
 go
 --tabla de skillsxcharacter removida; sus datos seran calculados en runtime, no alojados en db
@@ -187,7 +186,6 @@ go
      Modifier int not null 
  	primary key(ID_Creature, ID_Ability)
  )
-
 
 --stored procedures para la creacion de toda la db (races, classes, backgrounds, abilities, skills, items)
 --stored procedures para el uso recurrente de inserciones (a usuarios, a characters, a items x character)
@@ -293,7 +291,7 @@ END;
 
 --+-- Insert Creatures --+--
 go
-CREATE PROCEDURE SP_InsertCreature
+CREATE OR ALTER PROCEDURE SP_InsertCreature
     @Name NVARCHAR(50),
     @Description TEXT,
     @Rating INT,
@@ -301,7 +299,6 @@ CREATE PROCEDURE SP_InsertCreature
     @Proficiency INT,
     @ArmorClass INT,
     @MaxHealth INT,
-    @DamageMod INT,
     @Abilities NVARCHAR(50), -- Lista de valores separados por comas: e.g., '1,2,3,0,-1,2'
     @Attacks NVARCHAR(50)   -- Lista de valores separados por comas: e.g., '0,3'
 AS
@@ -310,8 +307,8 @@ BEGIN
 
     DECLARE @CreatureId INT;
 
-    INSERT INTO Creatures (_Name, _Desc, Rating, Experience, Proficiency, ArmorClass, MaxHealth, DamageMod)
-    VALUES (@Name, @Description, @Rating, @Experience, @Proficiency, @ArmorClass, @MaxHealth, @DamageMod);
+    INSERT INTO Creatures (_Name, _Desc, Rating, Experience, Proficiency, ArmorClass, MaxHealth)
+    VALUES (@Name, @Description, @Rating, @Experience, @Proficiency, @ArmorClass, @MaxHealth);
 
     SET @CreatureId = SCOPE_IDENTITY();
 
@@ -323,12 +320,12 @@ BEGIN
     WHILE CHARINDEX(',', @AbilityList) > 0
     BEGIN
         SET @AbilityValue = SUBSTRING(@AbilityList, 1, CHARINDEX(',', @AbilityList) - 1);
-        INSERT INTO AbilitiesXCreatures (ID_Creature, ID_Ability, Modifier)
+        INSERT INTO AbilitiesXCreature (ID_Creature, ID_Ability, Modifier)
         VALUES (@CreatureId, @AbilityPosition, @AbilityValue);
         SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
         SET @AbilityPosition = @AbilityPosition + 1;
     END
-    INSERT INTO AbilitiesXCreatures (ID_Creature, ID_Ability, Modifier)
+    INSERT INTO AbilitiesXCreature (ID_Creature, ID_Ability, Modifier)
     VALUES (@CreatureId, @AbilityPosition, @AbilityList);
 
     DECLARE @AttackId INT;
@@ -421,31 +418,67 @@ BEGIN
     BEGIN
         SET @AbilityRolledScore = SUBSTRING(@AbilityList, 1, CHARINDEX(',', @AbilityList) - 1);
 		-- Calcula el modificador de la habilidad desde la db, no hace falta hacerlo en el codigo
-        SET @AbilityModifier = FLOOR((@AbilityRolledScore - 10) / 2.0);
-        INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
-        VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
+        INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore)
+        VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore);
         SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
         SET @AbilityPosition = @AbilityPosition + 1;
     END
     SET @AbilityRolledScore = @AbilityList;
-    SET @AbilityModifier = FLOOR((@AbilityRolledScore - 10) / 2.0);
-    INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
-    VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, @AbilityModifier);
+    INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore)
+    VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore);
 END;
 
---+-- Consigue las abilidades de todos los personajes --+--
+--+-- Delete Character --+--
 go
-CREATE PROCEDURE SP_GetCharacterAbilities
+CREATE PROCEDURE SP_DeleteCharacter
+@characterID int
+AS DELETE FROM Characters WHERE ID_Character = @characterID
+
+--+-- Consigue un personaje especifico --+--
+go
+CREATE PROCEDURE SP_GetCharacter
 @ID_Character int
 AS
 BEGIN
-    SELECT 
-        A.ID_Ability, A._Name AS AbilityName,  A._Desc AS AbilityDesc, AC.RolledScore, AC.Modifier
-    FROM 
-        Abilities A
-    INNER JOIN 
-        AbilitiesXCharacter AC ON @ID_Character = AC.ID_Character AND AC.ID_Ability = A.ID_Ability
+    DECLARE @Fuerza INT;
+    DECLARE @Destreza INT;
+    DECLARE @Constitucion INT;
+    DECLARE @Inteligencia INT;
+    DECLARE @Sabiduria INT;
+    DECLARE @Carisma INT;
+
+    SELECT @Fuerza = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 0 AND ID_Character = @ID_Character;
+    SELECT @Destreza = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 1 AND ID_Character = @ID_Character;
+    SELECT @Constitucion = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 2 AND ID_Character = @ID_Character;
+    SELECT @Inteligencia = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 3 AND ID_Character = @ID_Character;
+    SELECT @Sabiduria = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 4 AND ID_Character = @ID_Character;
+    SELECT @Carisma = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 5 AND ID_Character = @ID_Character;
     
+    SELECT *, @Fuerza AS Fuerza, @Destreza AS Destreza, @Constitucion AS Constitucion,
+        @Inteligencia AS Inteligencia, @Sabiduria AS Sabiduría, @Carisma AS Carisma
+    FROM Characters 
+    WHERE ID_Character = @ID_Character
+END;
+
+--+-- Consigue todos los personajes --+--
+go
+CREATE PROCEDURE SP_GetCharacters
+AS
+BEGIN
+    SELECT 
+        C.*,
+        MAX(CASE WHEN AXC.ID_Ability = 0 THEN AXC.RolledScore ELSE NULL END) AS Fuerza,
+        MAX(CASE WHEN AXC.ID_Ability = 1 THEN AXC.RolledScore ELSE NULL END) AS Destreza,
+        MAX(CASE WHEN AXC.ID_Ability = 2 THEN AXC.RolledScore ELSE NULL END) AS Constitucion,
+        MAX(CASE WHEN AXC.ID_Ability = 3 THEN AXC.RolledScore ELSE NULL END) AS Inteligencia,
+        MAX(CASE WHEN AXC.ID_Ability = 4 THEN AXC.RolledScore ELSE NULL END) AS Sabiduria,
+        MAX(CASE WHEN AXC.ID_Ability = 5 THEN AXC.RolledScore ELSE NULL END) AS Carisma
+    FROM 
+        Characters C
+    LEFT JOIN 
+        AbilitiesXCharacter AXC ON C.ID_Character = AXC.ID_Character
+    GROUP BY 
+        C.ID_Character, C.ID_User, C.Sex, C.ID_Race, C.ID_Class, C.ID_Background, C._Name, C._Level, C.Experience, C.Proficiency, C.Luck, C.Round, C.Encounters, C.GameState, C.ArmorClass, C.MaxHealth, C.CurrentHealth, C.Gold
 END;
 
 --+-- Inserta un Usuario Nuevo --+--
@@ -455,7 +488,46 @@ CREATE PROCEDURE SP_InsertNewUser
 @PasswordHash nvarchar(255)
 AS INSERT INTO Users (Username, PasswordHash) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash);
 
+--+-- Consigue todas las criaturas --+--
+go
+CREATE PROCEDURE SP_GetCreatures
+AS
+BEGIN
+    SELECT 
+        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)) AS _Desc, C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth,
+        MAX(CASE WHEN AXC.ID_Ability = 0 THEN AXC.Modifier ELSE NULL END) AS Fuerza,
+        MAX(CASE WHEN AXC.ID_Ability = 1 THEN AXC.Modifier ELSE NULL END) AS Destreza,
+        MAX(CASE WHEN AXC.ID_Ability = 2 THEN AXC.Modifier ELSE NULL END) AS Constitucion,
+        MAX(CASE WHEN AXC.ID_Ability = 3 THEN AXC.Modifier ELSE NULL END) AS Inteligencia,
+        MAX(CASE WHEN AXC.ID_Ability = 4 THEN AXC.Modifier ELSE NULL END) AS Sabiduria,
+        MAX(CASE WHEN AXC.ID_Ability = 5 THEN AXC.Modifier ELSE NULL END) AS Carisma
+    FROM 
+        Creatures C
+    LEFT JOIN 
+        AbilitiesXCreature AXC ON C.ID_Creature = AXC.ID_Creature
+    GROUP BY 
+        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)), C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth
+END;
 
-CREATE PROCEDURE SP_DeleteCharacter
-@characterID int
-AS DELETE FROM Characters WHERE ID_Character = @characterID
+--+-- Consigue los ataques de una criatura --+--
+go
+CREATE PROCEDURE SP_GetCreatureAttacks
+@ID_Creature int
+AS
+BEGIN
+    SELECT A.* 
+    FROM Attacks A
+    JOIN AttacksXCreature AXC ON A.ID_Attack = AXC.ID_Attack
+    WHERE AXC.ID_Creature = @ID_Creature
+END
+
+--+-- Consigue los items de una criatura --+--
+-- go
+-- CREATE PROCEDURE SP_GetCreatureItems
+-- @ID_Creature int
+-- AS
+-- BEGIN
+--     SELECT *
+--     FROM ItemsXCreature
+--     WHERE ID_Creature = @ID_Creature
+-- END

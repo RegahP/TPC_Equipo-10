@@ -13,9 +13,9 @@ namespace DomainModel
         public int id { get; set; } //id (db)
         public int idUser { get; set; } //id del usuario (db)
         public bool sex { get; set; } //sex  ¿0 es mujer 1 es hombre?
-        public int race { get; set; } //race
-        public int chrClass { get; set; } //class
-        public int bg { get; set; } //background
+        public int idRace { get; set; } //race
+        public int idClass { get; set; } //class
+        public int idBackground { get; set; } //background
 
         public string name { get; set; } //name
         public int level { get; set; } //level
@@ -33,8 +33,8 @@ namespace DomainModel
         public int currHealth { get; set; } //current health
         public int gold { get; set; } //gold
 
-        public List<int> inventory { get; set; } //consumables, generic
-        public List<int> abilities = new List<int>(); //abilities (6)
+        public List<CharacterItem> inventory = new List<CharacterItem>(); //consumables, generic
+        public List<RolledAbility> abilities = new List<RolledAbility>(); //abilities (6)
         //public List<Skill> skills { get; set; } //skills (8)
 
     }

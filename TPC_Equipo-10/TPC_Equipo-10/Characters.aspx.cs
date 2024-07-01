@@ -58,7 +58,7 @@ namespace TPC_Equipo_10
                     Repeater rptClasses = e.Item.FindControl("rptClasses") as Repeater;
 
                     // filtra la lista de clases basado en el race id
-                    var filteredClasses = listClasses.Where(clas => clas.id == currentCharacter.chrClass);
+                    var filteredClasses = listClasses.Where(clas => clas.id == currentCharacter.idClass);
 
                     // bindea el repeater de clases al de afuera
                     rptClasses.DataSource = filteredClasses;
@@ -71,7 +71,7 @@ namespace TPC_Equipo_10
 
                     // filtra la lista de razas basado en el race id
 
-                    var filteredRaces = listRaces.Where(race => race.id == currentCharacter.race);
+                    var filteredRaces = listRaces.Where(race => race.id == currentCharacter.idRace);
 
                     // bindea el repeater de razas al de afuera
                     rptRaces.DataSource = filteredRaces;
@@ -84,7 +84,7 @@ namespace TPC_Equipo_10
 
                     // filtra la lista de trasfondos basado en el race id
 
-                    var filteredBackgrounds = listBackgrounds.Where(bg => bg.id == currentCharacter.bg);
+                    var filteredBackgrounds = listBackgrounds.Where(bg => bg.id == currentCharacter.idBackground);
 
                     // bindea el repeater de trasfondos al de afuera
                     rptBackgrounds.DataSource = filteredBackgrounds;

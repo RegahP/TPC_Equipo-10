@@ -22,11 +22,11 @@ namespace TPC_Equipo_10
 
         protected void rb_CheckedChanged(object sender, EventArgs e)
         {
-            if(((RadioButton)sender).Text == "Hombre")
+            if(((RadioButton)sender).ID == "rbMasculine")
             {
                 character.sex = true;
             }
-            if (((RadioButton)sender).Text == "Mujer")
+            if (((RadioButton)sender).ID == "rbFeminine")
             {
                 character.sex = false;
             }

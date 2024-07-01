@@ -5,7 +5,6 @@ function drawStore() {
     
     if (!storeNavFocus) {
         drawStoreNav();
-        console.log("asd");
     }
     else {
         drawInventory();
@@ -211,28 +210,28 @@ let merchantEmptySellDialogues = [
 
 let merchantShowDialogues = [
     [
-        "¡Bienvenido, viajero! Pegale una mirada a mis mercancías. Estoy seguro de que encontrarás algo que te guste.",
+        "¡Bienvenido, viajero! Pegale una mirada a mis mercancías. Seguro que una de estas cosas te va a gustar.",
         "Hola, amigo. Tengo una variedad de productos de alta calidad. Si necesitás algo, no dudes en preguntar.",
-        "¡Qué alegría verte! Pasá y mirá lo que tengo hoy. Siempre estoy dispuesto a ayudarte a encontrar lo que buscás."
+        "¡Qué bueno verte! Pasá y mirá lo que tengo hoy. Siempre estoy dispuesto a ayudarte a encontrar lo que buscás."
     ],
     [
-        "Ah, un cliente con buen ojo para las gangas. Aquí encontrarás sólo lo mejor, pero acordate, todo tiene su precio.",
+        "Ah, un cliente con buen ojo para las gangas. Acá vas a encontrar sólo lo mejor, pero acordate, todo tiene su precio.",
         "Mirá bien, tengo objetos únicos que no encontrarás en ningún otro lugar. Estoy seguro de que podemos llegar a un buen acuerdo.",
         "Te doy la bienvenida a mi tienda. Examiná mis productos cuidadosamente, cada uno tiene su historia y su valor."
     ],
     [
-        "¡Bienvenido a mi humilde puesto! Tengo cosas fascinantes para mostrarte. ¡Seguro encontrás algo que te guste!",
-        "Qué bueno verte por aquí. Qué tal? Tengo nuevos artículos que acabo de adquirir. ¡asomate, te vas a sorprender!",
-        "¡Ah, un comprador curioso! Qué onda? Checkeate esta selección, estoy seguro de que vas a encontrar algo emocionante."
+        "¡Bienvenido a mi tiendita! Tengo cosas copadas para mostrarte. ¡Seguro encontrás algo que te gusta!",
+        "Qué bueno verte por acá. Qué tal? Tengo nuevos artículos que conseguí hace poco. ¡asomate, te vas a sorprender!",
+        "¡Hola! Andás curioseando? Qué onda? Checkeate esta selección, segurísimo que algo de acá te llama la atención."
     ],
     [
-        "Hola! Mirá lo que tengo, tené cuidado al tocar. Todo es auténtico y valioso, nada de pavadas.",
+        "Hola! Mirá lo que tengo, tené cuidado con tocar. Todo es auténtico y valioso, nada de pavadas.",
         "Bienvenido! Examiná con cuidado, algunos de estos objetos tienen historias complejas. Si tenés preguntas, acá estoy.",
         "Podés mirar, pero no de tan cerca. Estos artículos son irremplazables, y prefiero evitar cualquier incidente."
     ],
     [
-        "Ah, un nuevo cliente. Espero que tengas buen gusto, porque no vendo cualquier cosa. Mirá y decidite rápido.",
-        "Mira lo que tengo, pero te advierto, sólo vendo lo mejor. Si no puedes apreciar la calidad, mejor seguí tu camino.",
+        "Ah, un nuevo cliente. Espero que tengas buen gusto, porque no vendo boludeces. Mirá y decidite rápido.",
+        "Mira lo que tengo, pero te aviso, sólo vendo lo mejor. Si no podés apreciar la calidad, seguí en tu camino.",
         "Esta es mi tienda. Acá vas a encontrar artículos de primera, y no trato con compradores indecisos."
     ]
 ]
@@ -249,12 +248,12 @@ let merchantBoughtDialogues = [
         "Me alegra que hayas encontrado algo de tu agrado. Siempre tengo algo especial para clientes como tú."
     ],
     [
-        "¡Fantástica elección! Estoy seguro de que te encantará este objeto tanto como a mí.",
-        "¡Gracias por tu compra! Me emociona saber que este objeto tendrá un buen hogar.",
-        "¡Qué bueno que encontraste algo que te gusta! Vuelve pronto para ver más novedades."
+        "¡Bien ahí! Ese me re encanta, creeme que te va a gustar, es excelente.",
+        "¡Se aprecia el apoyo! Valoro mucho que le des un hogar a este objeto.",
+        "¡Esa! Tocalo, miralo, hacele lo que quieras, es tuyo, disfrutalo."
     ],
     [
-        "Realmente espero que te sea útil. Cuídalo bien, en serio.",
+        "Realmente espero que te sea sirva. Cuídalo bien, en serio.",
         "Gracias por tu compra. Cualquier cosa si le pasa algo, vos me avisás.",
         "Espero que todo salga bien ahora que esto es tuyo. Confío en que lo cuidarás."
     ],

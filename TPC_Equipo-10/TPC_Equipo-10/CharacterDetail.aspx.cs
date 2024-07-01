@@ -9,7 +9,7 @@ using DomainModel;
 
 namespace TPC_Equipo_10
 {
-    public partial class CharacterDetail : System.Web.UI.Page
+    public partial class CharacterDetail : Page
     {
         public int characterID;
         public Character character;
@@ -17,7 +17,6 @@ namespace TPC_Equipo_10
         public List<Class> listClasses = new List<Class>();
         public List<Race> listRaces = new List<Race>();
         public List<Background> listBackgrounds = new List<Background>();
-        public List<RolledAbility> listRA = new List<RolledAbility>();
         
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,16 +25,15 @@ namespace TPC_Equipo_10
             listClasses = DataAccess.ListClasses();
             listRaces = DataAccess.ListRaces();
             listBackgrounds = DataAccess.ListBackgrounds();
-            listRA = DataAccess.GetCharacterAbilities(characterID);
 
             List<Character> listCharacters = new List<Character>();
             listCharacters = DataAccess.ListCharacters();
 
-            foreach (Character ch in listCharacters) { 
+            foreach (Character chr in listCharacters) { 
             
-                if(ch.id == characterID)
+                if(chr.id == characterID)
                 {
-                    character = ch;
+                    character = chr;
                     break;
                 }
             }

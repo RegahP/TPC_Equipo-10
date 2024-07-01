@@ -16,16 +16,5 @@ namespace DomainModel
         public string specialDesc { get; set; }
         public int abilityID { get; set; } //ability relevant to this class
 
-        //constructor sets nonset properties
-
-        //public Class()
-        //{
-        //    id = 0;
-        //    name = string.Empty;
-        //    desc = string.Empty;
-        //    classHealth = 0;
-        //    abilityID = 0;
-        //}
     }
-
 }

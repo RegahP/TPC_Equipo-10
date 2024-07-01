@@ -38,8 +38,8 @@ function drawChrSprite(posX, posY, size, flip) {
         posY,
         16 * size,
         32 * size,
-        chr.race.id * 16,
-        chr.chrClass.id * 32 + (chr.sex * 128),
+        chr.idRace * 16,
+        chr.idClass * 32 + (chr.sex * 128),
         16,
         32
     );

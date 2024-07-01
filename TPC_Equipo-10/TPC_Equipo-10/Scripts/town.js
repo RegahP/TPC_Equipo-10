@@ -19,13 +19,13 @@ function setupTown() {
         //si el item es un arma
         if (allItems[i].type == 1 && allItems[i].equippableType == 0) {
             //el item escalea con la ability relevante a nuestra clase
-            if (allItems[i].abilityModID == chr.chrClass.abilityID) {
+            if (allItems[i].abilityModID == classes[chr.idClass].abilityID) {
                 classItems.push(i);
             }
         }
         //si el item es consumible
         if (allItems[i].type == 2) {
-            if (allItems[i].effectID == chr.chrClass.abilityID) {
+            if (allItems[i].effectID == classes[chr.idClass].abilityID) {
                 classItems.push(i);
             }
         }
@@ -37,22 +37,27 @@ function setupTown() {
     //llenamos la lista de la tienda con items
     for (let i = 0; i < catalogueSize; i++) {
 
-        let randomItem = int(random(allItems.length));
-        let randomClassItem = int(random(classItems.length));
+        //generamos ids random para elegir items de las listas de items random e items de clase random
+        //si ya esta en el catalogo, volvemos a generar
+        let randomItem;
+        do {
+            randomItem = int(random(allItems.length));
+        }
+        while (catalogueItems.includes(randomItem) || randomItem == 20 || randomItem == 42);
+        //nos aseguramos que no pueda vender ni unnarmed strike ni vestimentas comunes
+        let randomClassItem;
+        do {
+            randomClassItem = int(random(classItems.length));
+        }
+        while (catalogueItems.includes(randomClassItem) || randomClassItem == 20 || randomClassItem == 42);
 
         //50% items random
         if (random() < 0.5) {
             catalogueItems.push(allItems[randomItem].id);
-            console.log("se agrego un item random");
         }
         //50% items de la clase del jugador
         else {
             catalogueItems.push(classItems[randomClassItem]);
-            console.log("se agrego un item de clase");
         }
-    }
-
-    for (let i = 0; i < catalogueItems.length; i++) {
-        console.log(catalogueItems[i]);
     }
 }
