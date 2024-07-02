@@ -531,3 +531,4 @@ END
 --     FROM ItemsXCreature
 --     WHERE ID_Creature = @ID_Creature
 -- END
+
