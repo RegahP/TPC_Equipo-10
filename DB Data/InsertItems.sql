@@ -1200,9 +1200,9 @@ EXEC SP_GetConsumables
 ---Buscador de Genéricos
 EXEC SP_GetCharacter @ID_Character = 0
 
+--insert into users(Username, PasswordHash) values ('walter','inza')
 
 select * from users where Username = 'user' AND PasswordHash = '1234'
-
 
 -----Esto por el momento son pruebas, no prestar atencion
 ---Buscador de criaturas

@@ -21,6 +21,9 @@
         <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black;">
             <div class="mb-3 row">
                 <h4 class="title" style="display: flex; justify-content: center">¡UNETE A LA AVENTURA!</h4>
+
+                <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Visible="false" />
+
                 <label for="inputUsername" class="col-sm-2 col-form-label">Usuario:</label>
                 <div class="col-sm-10">
                     <asp:TextBox ID="inputUsername" runat="server" CssClass="form-control" />

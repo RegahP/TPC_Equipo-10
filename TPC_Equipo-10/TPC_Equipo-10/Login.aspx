@@ -20,6 +20,9 @@
     <div class="d-flex justify-content-md-center align-items-center vh-100">
         <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black;">
             <h4 class="title" style="display: flex; justify-content: center">¡VUELVE EL HEROE!</h4>
+
+            <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Visible="false" />
+
             <div class="mb-3 row">
                 <label for="inputUsername" class="col-sm-2 col-form-label">Usuario</label>
                 <div class="col-sm-10">

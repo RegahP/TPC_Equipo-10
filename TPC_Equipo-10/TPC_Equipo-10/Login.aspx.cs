@@ -30,9 +30,15 @@ namespace TPC_Equipo_10
                 string passwordHash = inputPassword.Text;
 
 
-                if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(passwordHash))
+                if (string.IsNullOrEmpty(userName))
                 {
-                    Session.Add("Error", "Usuario o contraseña vacios");
+                    lblErrorMessage.Text = "Usuario vacío";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }else if (string.IsNullOrEmpty(passwordHash))
+                {
+                    lblErrorMessage.Text = "Contraseña vacía";
+                    lblErrorMessage.Visible = true;
                     return;
                 }
 
@@ -47,15 +53,15 @@ namespace TPC_Equipo_10
                 }
                 else
                 {
-                    Session.Add("User", user);
-                    Response.Redirect("Error.aspx", false);
+                    lblErrorMessage.Text = "Usuario o contraseña incorrectos";
+                    lblErrorMessage.Visible = true;
                 }
 
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                Response.Redirect("Error.aspx", false);
+                lblErrorMessage.Text = "Ocurrio un error " + ex.Message;
+                lblErrorMessage.Visible = true;
             }
         }
     }
