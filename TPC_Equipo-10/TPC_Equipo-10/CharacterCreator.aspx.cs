@@ -21,8 +21,16 @@ namespace TPC_Equipo_10
 
         public Character character = new Character();
 
+        public int characterID = -1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Request.QueryString["characterID"] != null)
+            {
+                characterID = int.Parse(Request.QueryString["characterID"]);
+            }
+
             raceList = DataAccess.ListRaces();
             BackgroundList = DataAccess.ListBackgrounds();
             ClassList = DataAccess.ListClasses();
@@ -36,26 +44,31 @@ namespace TPC_Equipo_10
 
         protected void confirmRace_btn_Click(object sender, EventArgs e)
         {
+
             int raceId = int.Parse(((LinkButton)sender).CommandArgument);
             foreach (Race race in raceList)
             {
                 if (race.id == raceId)
                 {
                     character.idRace = race.id;
-                    
-                    //foreach(Ability ability in abilityList)
-                    //{
-                    //    if(ability.id == character.race.abilityID)
-                    //    {
-                    //        character.abilities[ability.id].score = 2;
-                    //        break;
-                    //    }
-                    //}
+                    break;
 
-                    Session.Add("character", character);
-                    Response.Redirect("ClassSelection.aspx", false);
                 }
             }
+
+            if (characterID != -1)
+            {
+                DataAccess.modifyCharacter(1, characterID, raceId, false, "");
+                Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
+            }
+            else
+            {
+                Session.Add("character", character);
+                Response.Redirect("ClassSelection.aspx", false);
+            }
+
+
+
         }
 
         protected void rptRace_ItemDataBound(object sender, RepeaterItemEventArgs e)

@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CharacterDetail.aspx.cs" Inherits="TPC_Equipo_10.CharacterDetail" %>
 
-<%@ Import Namespace="DomainModel" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -22,7 +20,6 @@
             border-color: burlywood;
             padding-bottom: 15px;
             background-color: beige;
-            height: 750px;
         }
     </style>
 
@@ -51,46 +48,56 @@
             <% } %>
 
             <div style="justify-content: right">
-                <h1 class="title" style="text-align: center"><%:character.name%></h1>
 
-                <%foreach(Race race in listRaces)
+                <div style="display:flex;justify-content:center">
+                    <h1 class="title" style="text-align: center"><%:character.name%></h1> 
+                    <div>
+                        <asp:LinkButton runat="server" ID="btnName" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
+                    </div>
+                </div>
+                
+
+                <%foreach(DomainModel.Race rc in listRaces)
                   {
-                    if(race.id == character.idRace)
+                    if(rc.id == character.idRace)
                     {%>
-                        <h4> Raza: <%:race.name%> </h4>
-                        <p><%:race.desc%></p>
+                        <h4> Raza: <%:rc.name%> </h4>
+                        <p><%:rc.desc%></p>
+                        
                     <%}
                   } %>
-
-                <%foreach(Background bg in listBackgrounds)
+                <asp:LinkButton runat="server" ID="btnRace" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
+                <%foreach(DomainModel.Background backG in listBackgrounds)
                   {
-                    if(bg.id == character.idBackground)
+                    if(backG.id == character.idBackground)
                     {%>
-                        <h4> Trasfondo: <%:bg.name%> </h4>
-                        <p><%:bg.desc%></p>
+                        <h4> Trasfondo: <%:backG.name%> </h4>
+                        <p><%:backG.desc%></p>
+                        
                   <%}
                   } %>
-
-                <%foreach (Class clss in listClasses)
-                    {
-                        if (clss.id == character.idClass)
-                        {%>
-                        <h4>Clase: <%:clss.name %></h4>
-                        <p><%:clss.desc %></p>
-                        <h4>Habilidad Especial: <%:clss.specialName%></h4>
-                        <p><%:clss.specialDesc%></p>
-                      <%foreach (RolledAbility ra in character.abilities)
+                <asp:LinkButton runat="server" ID="btnBackground" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
+                <%foreach (DomainModel.Class cl in listClasses)
+                  {
+                    if (cl.id == character.idClass)
+                    {%>
+                        <h4>Clase: <%:cl.name %></h4>
+                        <p><%:cl.desc %></p>
+                        <h4>Habilidad Especial: <%:cl.specialName%></h4>
+                        <p><%:cl.specialDesc%></p>
+                        
+                      <%foreach (DomainModel.RolledAbility ra in character.abilities)
                         {
                             if (ra.abilityID == 2)
                             {%>
-                                <h4>Puntos de vida por nivel: <%:clss.classHealth + ((ra.rolledScore - 10) / 2)%></h4>
+                                <h4>Puntos de vida por nivel ACA FALTA CALCULAR EL MOD CONSTITUCION: <%:cl.classHealth + ra.rolledScore%></h4> 
                                 <p>Vida maxima: <%:character.maxHealth%></p>
                                 <p>Vida actual: <%:character.currHealth%></p>
                           <%}
                         }%>
                   <%}
                   } %>
-
+                <asp:LinkButton runat="server" ID="btnClass" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                 <h4>Nivel: <%:character.level%></h4>
 
                 <%if(character.sex == true)
@@ -101,6 +108,7 @@
                   {%>
                     <h4>Sexo: Femenino</h4>
                 <%}%>
+                <asp:LinkButton runat="server" ID="btnGender" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
 
             </div>
         </div>

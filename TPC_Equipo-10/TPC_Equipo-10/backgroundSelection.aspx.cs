@@ -18,9 +18,19 @@ namespace TPC_Equipo_10
 
         public Character character = new Character();
 
+        public int characterID = -1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            character = (Character)Session["character"];
+
+            if (Request.QueryString["characterID"] != null)
+            {
+                characterID = int.Parse(Request.QueryString["characterID"]);
+            }
+            else
+            {
+                character = (Character)Session["character"];
+            }
 
             backgroundList = DataAccess.ListBackgrounds();
             skillList = DataAccess.ListSkills();
@@ -37,26 +47,25 @@ namespace TPC_Equipo_10
             {
                 if (background.id == backgroundId)
                 {
-                    character.idBackground = background.id;
-                    character.gold = background.initialGold;
 
-                    //foreach (Skill skill in skillList)
-                    //{
-                    //    if (skill.id == background.skill1BonusID) // Cuando tengamos la tirada de dado armada pasa a ser un += 2
-                    //    {
-                    //        skill.score = 2;
-                    //    }
-                    //    if (skill.id == background.skill2BonusID)
-                    //    {
-                    //        skill.score = 2;
-                    //    }
+                    if (characterID != -1)
+                    {
+                        DataAccess.modifyCharacter(2, characterID, backgroundId, false, "");
+                        Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
+                    }
+                    else
+                    {
+                        character.idBackground = background.id;
+                        character.gold = background.initialGold;
+                        Session.Add("character", character);
+                        Response.Redirect("FinishingCharacter.aspx", false);
+                    }
 
-                    //}
 
-                    Session.Add("character", character);
-                    Response.Redirect("FinishingCharacter.aspx", false);
                 }
             }
+
+
         }
     }
 }

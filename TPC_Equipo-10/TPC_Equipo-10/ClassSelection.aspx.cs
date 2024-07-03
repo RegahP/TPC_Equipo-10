@@ -16,9 +16,18 @@ namespace TPC_Equipo_10
 
         public Character character = new Character();
 
+        public int characterID = -1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            character = (Character)Session["character"];
+            if (Request.QueryString["characterID"] != null)
+            {
+                characterID = int.Parse(Request.QueryString["characterID"]);
+            }
+            else
+            {
+                character = (Character)Session["character"];
+            }
 
             classList = DataAccess.ListClasses();
 
@@ -33,15 +42,23 @@ namespace TPC_Equipo_10
             {
                 if (clas.id == classId)
                 {
-                    character.idClass = clas.id;
-
-                    //character.maxHealth = clas.classHealth; //Tambien habria que sumar el mod de constitucion, pero todavia no tenemos las tiradas de dado armadas
-                    //character.currHealth = clas.classHealth;
-
-                    Session.Add("character", character);
-                    Response.Redirect("backgroundSelection.aspx", false);
+                    if (characterID != -1)
+                    {
+                        DataAccess.modifyCharacter(3, characterID, classId, false, "");
+                        Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
+                    }
+                    else
+                    {
+                        character.idClass = clas.id;
+                        Session.Add("character", character);
+                        Response.Redirect("backgroundSelection.aspx", false);
+                    }
                 }
+
+
             }
         }
+
+
     }
 }
