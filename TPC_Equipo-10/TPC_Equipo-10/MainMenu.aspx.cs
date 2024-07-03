@@ -13,9 +13,9 @@ namespace TPC_Equipo_10
         {
             if (Session["user"] == null)
             {
-                Session.Add("error", "Debes loguearte para ingresar");
-                Response.Redirect("Login.aspx", false);
+                Response.Redirect("Default.aspx", false);
             }
+            
         }
     }
 }

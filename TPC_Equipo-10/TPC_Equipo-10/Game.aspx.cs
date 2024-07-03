@@ -14,14 +14,21 @@ namespace TPC_Equipo_10
 {
     public partial class Game : System.Web.UI.Page
     {
-       
+
         static Character character = new Character();
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+            else
+            {
+                character = DataAccess.GetCharacter((int)Session["characterID"]);
+            }
 
-            character = DataAccess.GetCharacter((int)Session["characterID"]);
-           
+
             //leer desde db y cargar TODO, db base + relevantes al pj
             //razas, clases, trasfondos, abilities, skills, items, creatures, TODO
             //el character relevante a la partida, sus abilities, skills, items

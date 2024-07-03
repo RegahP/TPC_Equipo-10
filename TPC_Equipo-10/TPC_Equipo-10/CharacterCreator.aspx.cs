@@ -25,21 +25,29 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Request.QueryString["characterID"] != null)
+            if (Session["user"] == null)
             {
-                characterID = int.Parse(Request.QueryString["characterID"]);
+                Response.Redirect("Default.aspx", false);
             }
-
-            raceList = DataAccess.ListRaces();
-            BackgroundList = DataAccess.ListBackgrounds();
-            ClassList = DataAccess.ListClasses();
-            abilityList = DataAccess.ListAbilities();
+            else
+            {
 
 
-            rptRace.DataSource = raceList;
-            rptRace.DataBind();
+                if (Request.QueryString["characterID"] != null)
+                {
+                    characterID = int.Parse(Request.QueryString["characterID"]);
+                }
 
+                raceList = DataAccess.ListRaces();
+                BackgroundList = DataAccess.ListBackgrounds();
+                ClassList = DataAccess.ListClasses();
+                abilityList = DataAccess.ListAbilities();
+
+
+                rptRace.DataSource = raceList;
+                rptRace.DataBind();
+
+            }
         }
 
         protected void confirmRace_btn_Click(object sender, EventArgs e)

@@ -21,23 +21,31 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            user = (User)Session["user"];
-
-            listClasses = DataAccess.ListClasses();
-            listRaces = DataAccess.ListRaces();
-            listBackgrounds = DataAccess.ListBackgrounds();
-
-            characterList = DataAccess.ListCharacters();
-            foreach (Character character in characterList) //Filtra los personajes por usuario y los carga
+            if (Session["user"] == null)
             {
-                if (character.idUser == user.id)
-                {
-                    filteredCharacters.Add(character);
-                }
+                Response.Redirect("Default.aspx", false);
             }
+            else
+            {
 
-            rptCharacters.DataSource = filteredCharacters;
-            rptCharacters.DataBind();
+                user = (User)Session["user"];
+
+                listClasses = DataAccess.ListClasses();
+                listRaces = DataAccess.ListRaces();
+                listBackgrounds = DataAccess.ListBackgrounds();
+
+                characterList = DataAccess.ListCharacters();
+                foreach (Character character in characterList) //Filtra los personajes por usuario y los carga
+                {
+                    if (character.idUser == user.id)
+                    {
+                        filteredCharacters.Add(character);
+                    }
+                }
+
+                rptCharacters.DataSource = filteredCharacters;
+                rptCharacters.DataBind();
+            }
 
         }
 
@@ -53,43 +61,43 @@ namespace TPC_Equipo_10
 
                 var currentCharacter = (Character)e.Item.DataItem;
 
-               
-                    // va y busca el repeater anidado
-                    Repeater rptClasses = e.Item.FindControl("rptClasses") as Repeater;
 
-                    // filtra la lista de clases basado en el race id
-                    var filteredClasses = listClasses.Where(clas => clas.id == currentCharacter.idClass);
+                // va y busca el repeater anidado
+                Repeater rptClasses = e.Item.FindControl("rptClasses") as Repeater;
 
-                    // bindea el repeater de clases al de afuera
-                    rptClasses.DataSource = filteredClasses;
-                    rptClasses.DataBind();
-                
+                // filtra la lista de clases basado en el race id
+                var filteredClasses = listClasses.Where(clas => clas.id == currentCharacter.idClass);
 
-               
-                    // va y busca el repeater anidado
-                    Repeater rptRaces = e.Item.FindControl("rptRaces") as Repeater;
+                // bindea el repeater de clases al de afuera
+                rptClasses.DataSource = filteredClasses;
+                rptClasses.DataBind();
 
-                    // filtra la lista de razas basado en el race id
 
-                    var filteredRaces = listRaces.Where(race => race.id == currentCharacter.idRace);
 
-                    // bindea el repeater de razas al de afuera
-                    rptRaces.DataSource = filteredRaces;
-                    rptRaces.DataBind();
-                
+                // va y busca el repeater anidado
+                Repeater rptRaces = e.Item.FindControl("rptRaces") as Repeater;
 
-               
-                    // va y busca el repeater anidado
-                    Repeater rptBackgrounds = e.Item.FindControl("rptBackgrounds") as Repeater;
+                // filtra la lista de razas basado en el race id
 
-                    // filtra la lista de trasfondos basado en el race id
+                var filteredRaces = listRaces.Where(race => race.id == currentCharacter.idRace);
 
-                    var filteredBackgrounds = listBackgrounds.Where(bg => bg.id == currentCharacter.idBackground);
+                // bindea el repeater de razas al de afuera
+                rptRaces.DataSource = filteredRaces;
+                rptRaces.DataBind();
 
-                    // bindea el repeater de trasfondos al de afuera
-                    rptBackgrounds.DataSource = filteredBackgrounds;
-                    rptBackgrounds.DataBind();
-                
+
+
+                // va y busca el repeater anidado
+                Repeater rptBackgrounds = e.Item.FindControl("rptBackgrounds") as Repeater;
+
+                // filtra la lista de trasfondos basado en el race id
+
+                var filteredBackgrounds = listBackgrounds.Where(bg => bg.id == currentCharacter.idBackground);
+
+                // bindea el repeater de trasfondos al de afuera
+                rptBackgrounds.DataSource = filteredBackgrounds;
+                rptBackgrounds.DataBind();
+
 
 
             }

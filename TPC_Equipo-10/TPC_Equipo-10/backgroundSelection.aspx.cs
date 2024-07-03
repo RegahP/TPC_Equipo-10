@@ -13,6 +13,7 @@ namespace TPC_Equipo_10
     public partial class backgroundSelection : System.Web.UI.Page
     {
 
+
         public List<Background> backgroundList = new List<Background>();
         public List<Skill> skillList = new List<Skill>();
 
@@ -23,20 +24,28 @@ namespace TPC_Equipo_10
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Request.QueryString["characterID"] != null)
+            if (Session["user"] == null)
             {
-                characterID = int.Parse(Request.QueryString["characterID"]);
+                Response.Redirect("Default.aspx", false);
             }
             else
             {
-                character = (Character)Session["character"];
+
+                if (Request.QueryString["characterID"] != null)
+                {
+                    characterID = int.Parse(Request.QueryString["characterID"]);
+                }
+                else
+                {
+                    character = (Character)Session["character"];
+                }
+
+                backgroundList = DataAccess.ListBackgrounds();
+                skillList = DataAccess.ListSkills();
+
+                rptBackgrounds.DataSource = backgroundList;
+                rptBackgrounds.DataBind();
             }
-
-            backgroundList = DataAccess.ListBackgrounds();
-            skillList = DataAccess.ListSkills();
-
-            rptBackgrounds.DataSource = backgroundList;
-            rptBackgrounds.DataBind();
 
         }
 

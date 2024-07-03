@@ -20,25 +20,32 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            user = (User)Session["user"];
-            List<Character> filteredCharacters = new List<Character>();
-
-            listClasses = DataAccess.ListClasses();
-            listRaces = DataAccess.ListRaces();
-            listBackgrounds = DataAccess.ListBackgrounds();
-
-
-            characterList = DataAccess.ListCharacters();
-            foreach (Character character in characterList) //Filtra los personajes por usuario y los carga
+            if (Session["user"] == null)
             {
-                if (character.idUser == user.id)
-                {
-                    filteredCharacters.Add(character);
-                }
+                Response.Redirect("Default.aspx", false);
             }
-            rptCharacters.DataSource = filteredCharacters;
-            rptCharacters.DataBind();
+            else
+            {
+
+                user = (User)Session["user"];
+                List<Character> filteredCharacters = new List<Character>();
+
+                listClasses = DataAccess.ListClasses();
+                listRaces = DataAccess.ListRaces();
+                listBackgrounds = DataAccess.ListBackgrounds();
+
+
+                characterList = DataAccess.ListCharacters();
+                foreach (Character character in characterList) //Filtra los personajes por usuario y los carga
+                {
+                    if (character.idUser == user.id)
+                    {
+                        filteredCharacters.Add(character);
+                    }
+                }
+                rptCharacters.DataSource = filteredCharacters;
+                rptCharacters.DataBind();
+            }
         }
 
         protected void btnSelectChar_Click(object sender, EventArgs e)

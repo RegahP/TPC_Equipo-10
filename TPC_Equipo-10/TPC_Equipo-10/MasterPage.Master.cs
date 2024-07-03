@@ -16,5 +16,13 @@ namespace TPC_Equipo_10
         {
 
         }
+
+        protected void lnkLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Default.aspx", false);
+        }
     }
 }

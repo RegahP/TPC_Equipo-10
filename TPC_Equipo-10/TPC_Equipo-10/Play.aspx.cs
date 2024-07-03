@@ -16,8 +16,10 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Default.aspx", false);
+            }
         }
 
         protected void btnNewGame_Click(object sender, EventArgs e)

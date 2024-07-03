@@ -532,3 +532,30 @@ END
 --     WHERE ID_Creature = @ID_Creature
 -- END
 
+CREATE PROCEDURE SP_ModifyCharacter
+
+@modValue int,						-- Para saber que propiedad se quiere cambiar
+@characterID int,					-- Para saber a que personaje modificar
+@propValue int = NULL,				-- Valor que reemplazara al valor actual de la propiedad definida por modValue
+@modGender bit = NULL,				-- Especifico para modificar el genero
+@modName nvarchar(50) = NULL		-- Especifico para modificar el nombre del personaje
+AS
+BEGIN
+
+IF @modValue = 0 BEGIN
+UPDATE Characters SET _Name = @modName where ID_Character = @characterID
+END
+ELSE IF @modValue = 1 BEGIN
+UPDATE Characters SET ID_Race = @propValue where ID_Character = @characterID
+END
+ELSE IF @modValue = 2 BEGIN
+UPDATE Characters SET ID_Background = @propValue where ID_Character = @characterID
+END
+ELSE IF @modValue = 3 BEGIN
+UPDATE Characters SET ID_Class = @propValue where ID_Character = @characterID
+END
+ELSE IF @modValue = 4 BEGIN
+UPDATE Characters SET Sex = @modGender where ID_Character = @characterID
+END
+
+END;

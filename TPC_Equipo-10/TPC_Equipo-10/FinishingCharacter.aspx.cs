@@ -21,15 +21,23 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["characterID"] != null)
+            if (Session["user"] == null)
             {
-                characterID = int.Parse(Request.QueryString["characterID"]);
-                nameOrGender = (bool)Session["nameOrGender"];
+                Response.Redirect("Default.aspx", false);
             }
             else
             {
-                character = (Character)Session["character"];
-                user = (User)Session["user"];
+
+                if (Request.QueryString["characterID"] != null)
+                {
+                    characterID = int.Parse(Request.QueryString["characterID"]);
+                    nameOrGender = (bool)Session["nameOrGender"];
+                }
+                else
+                {
+                    character = (Character)Session["character"];
+                    user = (User)Session["user"];
+                }
             }
 
         }

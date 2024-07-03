@@ -20,19 +20,27 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["characterID"] != null)
+            if (Session["user"] == null)
             {
-                characterID = int.Parse(Request.QueryString["characterID"]);
+                Response.Redirect("Default.aspx", false);
             }
             else
             {
-                character = (Character)Session["character"];
+
+                if (Request.QueryString["characterID"] != null)
+                {
+                    characterID = int.Parse(Request.QueryString["characterID"]);
+                }
+                else
+                {
+                    character = (Character)Session["character"];
+                }
+
+                classList = DataAccess.ListClasses();
+
+                rptClass.DataSource = classList;
+                rptClass.DataBind();
             }
-
-            classList = DataAccess.ListClasses();
-
-            rptClass.DataSource = classList;
-            rptClass.DataBind();
         }
 
         protected void confirmClass_btn_Click(object sender, EventArgs e)

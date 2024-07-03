@@ -17,31 +17,39 @@ namespace TPC_Equipo_10
         public List<Class> listClasses = new List<Class>();
         public List<Race> listRaces = new List<Race>();
         public List<Background> listBackgrounds = new List<Background>();
-       
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            characterID = int.Parse(Request.QueryString["id"]);
-
-            listClasses = DataAccess.ListClasses();
-            listRaces = DataAccess.ListRaces();
-            listBackgrounds = DataAccess.ListBackgrounds();
-        
-
-            List<Character> listCharacters = new List<Character>();
-            listCharacters = DataAccess.ListCharacters();
-
-            foreach (Character ch in listCharacters)
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+            else
             {
 
-                if (ch.id == characterID)
+                characterID = int.Parse(Request.QueryString["id"]);
+
+                listClasses = DataAccess.ListClasses();
+                listRaces = DataAccess.ListRaces();
+                listBackgrounds = DataAccess.ListBackgrounds();
+
+
+                List<Character> listCharacters = new List<Character>();
+                listCharacters = DataAccess.ListCharacters();
+
+                foreach (Character ch in listCharacters)
                 {
-                    character = ch;
-                    break;
+
+                    if (ch.id == characterID)
+                    {
+                        character = ch;
+                        break;
+                    }
                 }
+
+
             }
-
-
         }
 
         protected void editCharacter_btn_Click(object sender, EventArgs e)
@@ -53,7 +61,7 @@ namespace TPC_Equipo_10
             //Revisar que al cambiar de clase, tambien le aumente la vida maxima y actual.
             //Revisar que con el cambio de raza se le reste el modificador de caracteristica actual y se sume el nuevo.
 
-            if(btnID == "btnName")
+            if (btnID == "btnName")
             {
                 Session.Add("nameOrGender", false);
                 Response.Redirect("FinishingCharacter.aspx?characterID=" + character.id, false);
