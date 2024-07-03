@@ -10,5 +10,11 @@ namespace DomainModel
     {
         public int abilityID { get; set; }
         public int rolledScore { get; set; }
+
+        public RolledAbility(int abilityID, int rolledScore)
+        {
+            this.abilityID = abilityID;
+            this.rolledScore = rolledScore;
+        }
     }
 }

@@ -10,6 +10,10 @@
         .input {
             width: 60%;
         }
+
+        body {
+            font-family: 'Courier Prime', monospace;
+        }
     </style>
 
 </asp:Content>
@@ -31,14 +35,51 @@
                     <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
                 </div>
             </div>
+            <div class="d-flex justify-content-md-center align-items-center gap-4">
+                <div id="rollSTR"></div>
+                <div id="rollDEX"></div>
+                <div id="rollCON"></div>
+                <div id="rollINT"></div>
+                <div id="rollWIS"></div>
+                <div id="rollCHA"></div>
+            </div>
+            <div class="container text-center" style="width: 95%; margin-bottom: 30px">
+                <div class="row">
+                    <asp:HiddenField runat="server" ID="fieldCounter" />
+                    <div class="col">
+                        Fuerza
+                        <asp:HiddenField runat="server" ID="fieldSTR" />
+                    </div>
+                    <div class="col">
+                        Destreza
+                        <asp:HiddenField runat="server" ID="fieldDEX" />
+                    </div>
+                    <div class="col">
+                        Constitución
+                        <asp:HiddenField runat="server" ID="fieldCON" />
+                    </div>
+                    <div class="col">
+                        Inteligencia
+                        <asp:HiddenField runat="server" ID="fieldINT" />
+                    </div>
+                    <div class="col">
+                        Sabiduría
+                        <asp:HiddenField runat="server" ID="fieldWIS" />
+                    </div>
+                    <div class="col">
+                        Carisma
+                        <asp:HiddenField runat="server" ID="fieldCHA" />
+                    </div>
+                </div>
+            </div>
             <div class="mb-3 row">
                 <div class="container" style="display: flex; justify-content: center">
-                    <asp:LinkButton runat="server" ID="btnConfirm" CssClass="btn btn-danger margin" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="btnConfirm" CssClass="btn btn-danger margin disabled" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
                     <asp:LinkButton runat="server" ID="btnCancel" CssClass="btn btn-danger" Text="Cancelar" OnClick="btnCancel_Click"></asp:LinkButton>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="Scripts/roll.js"></script>
 
 </asp:Content>

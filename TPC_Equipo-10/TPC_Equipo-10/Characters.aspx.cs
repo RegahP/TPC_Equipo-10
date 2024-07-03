@@ -27,7 +27,6 @@ namespace TPC_Equipo_10
             }
             else
             {
-
                 user = (User)Session["user"];
 
                 listClasses = DataAccess.ListClasses();
@@ -46,7 +45,6 @@ namespace TPC_Equipo_10
                 rptCharacters.DataSource = filteredCharacters;
                 rptCharacters.DataBind();
             }
-
         }
 
         protected void charCreation_Click(object sender, EventArgs e)

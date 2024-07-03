@@ -212,9 +212,7 @@ namespace DBAccess
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility();
-                        auxRolled.abilityID = i;
-                        auxRolled.rolledScore = reader.GetInt32(17 + i);
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(18 + i));
                         aux.abilities.Add(auxRolled);
                     }
                 }
@@ -267,9 +265,7 @@ namespace DBAccess
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility();
-                        auxRolled.abilityID = i;
-                        auxRolled.rolledScore = reader.GetInt32(18 + i);
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(18 + i));
                         aux.abilities.Add(auxRolled);
                     }
 
@@ -434,9 +430,7 @@ namespace DBAccess
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility();
-                        auxRolled.abilityID = i;
-                        auxRolled.rolledScore = reader.GetInt32(8 + i);
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(8 + i));
                         aux.abilities.Add(auxRolled);
                     }
 

@@ -2,8 +2,11 @@
 using DomainModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -80,9 +83,7 @@ namespace TPC_Equipo_10
             {
                 character.name = txtName.Text;
             }
-
         }
-
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
@@ -102,16 +103,33 @@ namespace TPC_Equipo_10
             }
             else
             {
+                AddRolledAbilities();
+
                 DataAccess.NewCharacter(character, user.id);
                 Response.Redirect("Characters.aspx", false);
             }
-
-
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("MainMenu.aspx", false);
+        }
+
+        public void AddRolledAbilities ()
+        {
+            RolledAbility str = new RolledAbility(0, int.Parse(fieldSTR.Value));
+            RolledAbility dex = new RolledAbility(1, int.Parse(fieldDEX.Value));
+            RolledAbility con = new RolledAbility(2, int.Parse(fieldCON.Value));
+            RolledAbility nte = new RolledAbility(3, int.Parse(fieldINT.Value));
+            RolledAbility wis = new RolledAbility(4, int.Parse(fieldWIS.Value));
+            RolledAbility cha = new RolledAbility(5, int.Parse(fieldCHA.Value));
+
+            character.abilities.Add(str);
+            character.abilities.Add(dex);
+            character.abilities.Add(con);
+            character.abilities.Add(nte);
+            character.abilities.Add(wis);
+            character.abilities.Add(cha);
         }
     }
 }

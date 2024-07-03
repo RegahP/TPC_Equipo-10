@@ -88,6 +88,7 @@
     <Content Include="Scripts\cutscenes.js" />
     <Content Include="Scripts\domainmodel.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\roll.js" />
     <Content Include="Scripts\store.js" />
     <Content Include="Scripts\town.js" />
     <Content Include="Sprites\chr_fx_darkspotlight.png" />

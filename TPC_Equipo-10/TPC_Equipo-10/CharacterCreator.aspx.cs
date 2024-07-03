@@ -31,8 +31,6 @@ namespace TPC_Equipo_10
             }
             else
             {
-
-
                 if (Request.QueryString["characterID"] != null)
                 {
                     characterID = int.Parse(Request.QueryString["characterID"]);
@@ -43,16 +41,13 @@ namespace TPC_Equipo_10
                 ClassList = DataAccess.ListClasses();
                 abilityList = DataAccess.ListAbilities();
 
-
                 rptRace.DataSource = raceList;
                 rptRace.DataBind();
-
             }
         }
 
         protected void confirmRace_btn_Click(object sender, EventArgs e)
         {
-
             int raceId = int.Parse(((LinkButton)sender).CommandArgument);
             foreach (Race race in raceList)
             {
@@ -60,7 +55,6 @@ namespace TPC_Equipo_10
                 {
                     character.idRace = race.id;
                     break;
-
                 }
             }
 
