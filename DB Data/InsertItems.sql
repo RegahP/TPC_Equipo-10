@@ -935,6 +935,165 @@ EXEC SP_InsertItem
     @Effect = 3, -- Inteligencia
     @Amount = 6;
 
+--+-- GENERIC --+--
+
+EXEC SP_InsertItem
+    @Name = 'Joyas',
+    @Description = 'Piedras preciosas y adornos valiosos que se utilizan como moneda de cambio, en la creación de objetos mágicos o como componentes en rituales.',
+    @ItemType = 0, -- Generic
+    @Price = 15;
+
+EXEC SP_InsertItem
+    @Name = 'Ropa Elegante',
+    @Description = 'Atuendo de alta calidad y estilo, diseñado para eventos formales y sociales.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Esencia Ignífuga',
+    @Description = 'El elemento del fuego en su expresión más elemental. A partir de esta esencia pueden fabricarse todo tipo de sustancias alquímicas.',
+    @ItemType = 0, -- Generic
+    @Price = 20;
+
+EXEC SP_InsertItem
+    @Name = 'Pezuñas',
+    @Description = 'Son partes del casco de criaturas como caballos, ciervos o criaturas similares.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Sangre de Licántropo',
+    @Description = 'Obtenido de licántropos u otras criaturas similares afectadas por maldiciones o transformaciones. Es valorada por alquimistas y hechiceros por sus propiedades únicas.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Pieles',
+    @Description = 'Cueros o pelajes gruesos y robustos obtenidos de criaturas salvajes y formidables.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Harapos',
+    @Description = 'Telas desgastadas y andrajosas que han perdido su forma y utilidad original.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Piedras Brillantes',
+    @Description = 'Piedras naturales que, debido a su composición o propiedades reflectantes, tienen un brillo notable cuando se exponen a la luz.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Pluma de Monstruo',
+    @Description = 'Obtenida de criaturas extraordinarias o místicas. A menudo, estas plumas poseen propiedades especiales debido a la naturaleza única de la criatura de la que provienen.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Garra',
+    @Description = 'Apéndice afilado y curvo obtenido de criaturas depredadoras o monstruosas. Estas garras son utilizadas como componentes en la creación de armas y armaduras.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Corazón de Gólem',
+    @Description = 'Es un núcleo mágico y poderoso obtenido del corazón o la fuente de energía de un golem, una criatura constructa creada por magia.',
+    @ItemType = 0, -- Generic
+    @Price = 15;
+
+EXEC SP_InsertItem
+    @Name = 'Colmillo',
+    @Description = 'Trofeo obtenido de criaturas formidables, utilizado como material en la elaboración de diversos objetos y equipo especializado.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Orbe Gélido',
+    @Description = 'Emite un aura fría y helada. Este orbe es utilizado por hechiceros y magos para manipular el frío y el hielo, tanto en rituales como en combate.',
+    @ItemType = 0, -- Generic
+    @Price = 20;
+
+EXEC SP_InsertItem
+    @Name = 'Cuerno de Gigante',
+    @Description = 'Robusto y macizo obtenido de gigantes u otras criaturas colosales. Estos cuernos son valorados por su resistencia y tamaño imponente.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Frijoles mágicos',
+    @Description = 'Nadie sabe exactamente que los hace valiosos. Quizás quieras plantarlos ¿Que podría salir mal?',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Raíz Primigenia',
+    @Description = 'Una raíz rara y poderosa que se cree que es la fuente original de la magia natural que mantiene con vida a los Ents. Tiene propiedades místicas y se utiliza en la alquimia y la creación de objetos mágicos.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Ambrosia',
+    @Description = 'Es una esencia mágica y natural destilada de la energía vital y la conexión espiritual de una dríada con la naturaleza. Dicen que se trata de la manifestación física de la felicidad pura.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Citara',
+    @Description = 'Un instrumento musical de cuerdas utilizado para interpretar melodías y encantar a quienes escuchan.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Hueso de Dragón',
+    @Description = 'Fragmento resistente y mágicamente imbuido obtenido del esqueleto de un dragón.',
+    @ItemType = 0, -- Generic
+    @Price = 15;
+
+EXEC SP_InsertItem
+    @Name = 'Cuerno Demoníaco',
+    @Description = 'Retorcido y oscuro, obtenido de un demonio o entidad infernal. Estos cuernos son imbuidos con energías malignas y a menudo son utilizados como componentes de rituales oscuros.',
+    @ItemType = 0, -- Generic
+    @Price = 15;
+
+EXEC SP_InsertItem
+    @Name = 'Escama',
+    @Description = 'Una placa resistente y brillante diseñada a partir de las escamas de antiguos dragones.',
+    @ItemType = 0, -- Generic
+    @Price = 5;
+
+EXEC SP_InsertItem
+    @Name = 'Ojo de Contemplador',
+    @Description = 'Un órgano mágico y peculiar obtenido de la criatura mística conocida como contemplador. Este ojo flotante y multifacético tiene la capacidad de emitir rayos mágicos y detectar intrusos a distancia.',
+    @ItemType = 0, -- Generic
+    @Price = 20;
+
+EXEC SP_InsertItem
+    @Name = 'Tentáculo Aberrante',
+    @Description = 'Un apéndice tentacular y retorcido obtenido de criaturas aberrantes, seres extradimensionales o entidades con formas alienígenas.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Ojo de Cíclope',
+    @Description = 'Órgano ocular de gran tamaño, obtenido de los cíclopes. Este ojo es conocido por su capacidad para conferir visiones y percepciones extraordinarias.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Lágrima de Banshee',
+    @Description = 'Esencia espectral y etérea que se dice que emana de las Banshees, espíritus atormentados y poderosos de los no muertos. Esta lágrima tiene propiedades necrománticas y se utiliza en la alquimia y la creación de objetos mágicos.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+EXEC SP_InsertItem
+    @Name = 'Cenizas de Banshee',
+    @Description = 'Restos mortales pulverizados de una banshee, un espíritu vengativo y poderoso de los no muertos. Estas cenizas tienen propiedades místicas y son utilizadas en la alquimia para controlar energías oscuras.',
+    @ItemType = 0, -- Generic
+    @Price = 10;
+
+
 --+-- ATTACKS --+--
 
 INSERT INTO Attacks (_Name, _Desc, ID_DamageType, Damage)
@@ -1190,6 +1349,7 @@ SELECT * FROM Backgrounds
 SELECT * FROM DamageTypes
 ---Buscador de Ataques
 SELECT * FROM Attacks
+SELECT * FROM items
 
 ---Buscador de Armas
 EXEC SP_GetWeapons
