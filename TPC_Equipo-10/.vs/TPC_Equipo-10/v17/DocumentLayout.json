@@ -1,55 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\",
+  "WorkspaceRootPath": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\",
   "Documents": [
     {
-<<<<<<< Updated upstream
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\tpc_equipo-10\\finishingcharacter.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\finishingcharacter.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\tpc_equipo-10\\finishingcharacter.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\finishingcharacter.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repo\\tpc_equipo-10\\tpc_equipo-10\\characterdetail.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\characterdetail.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|solutionrelative:dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\matis\\desktop\\zerafin\\facultad\\materias\\programacion iii\\chambers \u0026 wyverns\\repo\\tpc_equipo-10\\tpc_equipo-10\\characterdetail.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\characterdetail.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-=======
-      "AbsoluteMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|solutionrelative:dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\tpc_equipo-10\\scripts\\combat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\scripts\\combat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\tpc_equipo-10\\scripts\\cutscenes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\scripts\\cutscenes.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\tpc_equipo-10\\scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\tpc_equipo-10\\scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\scripts\\main.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\tpc_equipo-10\\scripts\\combat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\scripts\\combat.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\tpc_equipo-10\\scripts\\town.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{1C1297E0-96BB-4C67-807D-C4D50C8CCC85}|TPC_Equipo-10\\TPC_Equipo-10.csproj|solutionrelative:tpc_equipo-10\\scripts\\town.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\domainmodel\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|c:\\users\\andre\\onedrive\\documentos\\prog3\\repositorios\\tpc chambers \u0026 wyverns\\tpc_equipo-10\\tpc_equipo-10\\domainmodel\\characteritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{ED870C48-1E0E-4561-BDDA-1F2CF734947A}|DomainModel\\DomainModel.csproj|solutionrelative:domainmodel\\characteritem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
->>>>>>> Stashed changes
+      "AbsoluteMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0112D6DC-BF7E-4609-B581-7A275A2AC476}|DBAccess\\DBAccess.csproj|solutionrelative:dbaccess\\dataaccess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -59,98 +26,8 @@
       "DocumentGroups": [
         {
           "DockedHeight": 258,
-<<<<<<< Updated upstream
-          "SelectedChildIndex": 3,
-=======
-          "SelectedChildIndex": 6,
->>>>>>> Stashed changes
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-<<<<<<< Updated upstream
-              "Title": "CharacterDetail.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\CharacterDetail.aspx.cs",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\CharacterDetail.aspx.cs",
-              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\CharacterDetail.aspx.cs",
-              "RelativeToolTip": "TPC_Equipo-10\\CharacterDetail.aspx.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAowAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T02:34:19.866Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CharacterDetail.aspx",
-              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\CharacterDetail.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\CharacterDetail.aspx",
-              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\CharacterDetail.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\CharacterDetail.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-07-04T02:34:14.788Z",
-=======
-              "Title": "town.js",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\town.js",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\Scripts\\town.js",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\town.js",
-              "RelativeToolTip": "TPC_Equipo-10\\Scripts\\town.js",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAowDcAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-04T08:08:13.522Z",
->>>>>>> Stashed changes
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-<<<<<<< Updated upstream
-              "DocumentIndex": 1,
-              "Title": "FinishingCharacter.aspx.cs",
-              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\FinishingCharacter.aspx.cs",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\FinishingCharacter.aspx.cs",
-              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\FinishingCharacter.aspx.cs",
-              "RelativeToolTip": "TPC_Equipo-10\\FinishingCharacter.aspx.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAowE0AAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-03T06:38:47.065Z",
-=======
-              "DocumentIndex": 6,
-              "Title": "CharacterItem.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\CharacterItem.cs",
-              "RelativeDocumentMoniker": "DomainModel\\CharacterItem.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\CharacterItem.cs",
-              "RelativeToolTip": "DomainModel\\CharacterItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T04:58:27.594Z",
->>>>>>> Stashed changes
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-<<<<<<< Updated upstream
-              "DocumentIndex": 0,
-              "Title": "FinishingCharacter.aspx",
-              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\FinishingCharacter.aspx",
-              "RelativeDocumentMoniker": "TPC_Equipo-10\\FinishingCharacter.aspx",
-              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\TPC_Equipo-10\\FinishingCharacter.aspx",
-              "RelativeToolTip": "TPC_Equipo-10\\FinishingCharacter.aspx",
-              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
-              "WhenOpened": "2024-07-03T03:37:10.544Z",
-=======
-              "DocumentIndex": 5,
-              "Title": "Character.cs",
-              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Character.cs",
-              "RelativeDocumentMoniker": "DomainModel\\Character.cs",
-              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DomainModel\\Character.cs",
-              "RelativeToolTip": "DomainModel\\Character.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAA2wCAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-04T04:54:54.52Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -159,25 +36,22 @@
               "RelativeDocumentMoniker": "TPC_Equipo-10\\Scripts\\cutscenes.js",
               "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\cutscenes.js",
               "RelativeToolTip": "TPC_Equipo-10\\Scripts\\cutscenes.js",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAkwIsAAABIAAAA",
+              "ViewState": "AQIAAGoAAAAAAAAAAAAQwIUAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-04T05:31:15.116Z",
->>>>>>> Stashed changes
+              "WhenOpened": "2024-07-04T16:58:53.426Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-<<<<<<< Updated upstream
-=======
+              "DocumentIndex": 0,
               "Title": "combat.js",
               "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\combat.js",
               "RelativeDocumentMoniker": "TPC_Equipo-10\\Scripts\\combat.js",
               "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\combat.js",
               "RelativeToolTip": "TPC_Equipo-10\\Scripts\\combat.js",
-              "ViewState": "AQIAAD8BAAAAAAAAAAAAAFYBAAAgAAAA",
+              "ViewState": "AQIAAEkBAAAAAAAAAAAAAF0BAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-04T04:11:56.234Z",
+              "WhenOpened": "2024-07-04T16:58:58.233Z",
               "EditorCaption": ""
             },
             {
@@ -188,27 +62,22 @@
               "RelativeDocumentMoniker": "TPC_Equipo-10\\Scripts\\main.js",
               "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\TPC_Equipo-10\\Scripts\\main.js",
               "RelativeToolTip": "TPC_Equipo-10\\Scripts\\main.js",
-              "ViewState": "AQIAAJwBAAAAAAAAAAAowKkBAABKAAAA",
+              "ViewState": "AQIAAK4BAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-07-03T03:35:12.826Z",
+              "WhenOpened": "2024-07-04T16:58:55.921Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
->>>>>>> Stashed changes
+              "DocumentIndex": 3,
               "Title": "DataAccess.cs",
-              "DocumentMoniker": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\DBAccess\\DataAccess.cs",
+              "DocumentMoniker": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DBAccess\\DataAccess.cs",
               "RelativeDocumentMoniker": "DBAccess\\DataAccess.cs",
-              "ToolTip": "C:\\Users\\matis\\Desktop\\Zerafin\\Facultad\\Materias\\Programacion III\\Chambers \u0026 Wyverns\\Repo\\TPC_Equipo-10\\DBAccess\\DataAccess.cs",
+              "ToolTip": "C:\\Users\\andre\\OneDrive\\Documentos\\PROG3\\Repositorios\\TPC Chambers \u0026 Wyverns\\TPC_Equipo-10\\TPC_Equipo-10\\DBAccess\\DataAccess.cs",
               "RelativeToolTip": "DBAccess\\DataAccess.cs",
-<<<<<<< Updated upstream
-              "ViewState": "AQIAABYCAAAAAAAAAAAgwDICAAAQAAAA",
-=======
-              "ViewState": "AQIAANACAAAAAAAAAAA1wM4CAAAJAAAA",
->>>>>>> Stashed changes
+              "ViewState": "AQIAAP8BAAAAAAAAAAAAwDICAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-02T23:45:58.32Z",
+              "WhenOpened": "2024-07-04T16:58:34.745Z",
               "EditorCaption": ""
             }
           ]

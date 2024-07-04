@@ -131,7 +131,7 @@ function manageWaitDialogues() {
                 break;
         }
     }
-    else if (wait2 || skip) {
+    else if (wait2 || skip2) {
         switch (waitDialogueID) {
             case 0: //atacaste
                 waitDialogue('El ataque ' + (random() < 0.5 ? 'es exitoso!' : 'falló!')); //temp random, deberia rollear

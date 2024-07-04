@@ -55,9 +55,9 @@ let innerMargin = 20; //margen interior
 let itemSize = 24; //tamaño de los items en la lista
 let buttonSize = 16; //invertido
 
-let equippedWeaponID;
-let equippedArmorID;
-let equippedShieldID;
+let equippedWeaponID = -1;
+let equippedArmorID = -1;
+let equippedShieldID = -1;
 
 //vars del inventario en tienda
 let buyPopup; //si esta prendido el popup de compra
@@ -324,25 +324,30 @@ function drawInventory() {
                 (width / 2 - outerMargin - innerMargin) / 5,
                 (width / 2 - outerMargin - innerMargin) / 5
             );
-            drawItemSprite(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                equippedWeaponID
-            );
-            drawItemSprite(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                equippedArmorID
-            );
-            drawItemSprite(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                equippedShieldID
-            );
-            //faltan los sprites
+            if (equippedWeaponID != -1) {
+                drawItemSprite(
+                    width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                    equippedWeaponID
+                );
+            }
+            if (equippedShieldID != -1) {
+                drawItemSprite(
+                    width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                    equippedShieldID
+                );
+            }
+            if (equippedArmorID != -1) {
+                drawItemSprite(
+                    width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                    ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                    equippedArmorID
+                );
+            }
         }
 
         //indicador de seleccion inventario
