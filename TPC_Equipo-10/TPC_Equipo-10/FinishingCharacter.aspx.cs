@@ -92,12 +92,12 @@ namespace TPC_Equipo_10
             {
                 if (nameOrGender == false)
                 {
-                    DataAccess.modifyCharacter(0, characterID, 0, false, modName);  //funciona siempre y cuando no le den Enter al elegir el nombre
+                    DataAccess.ModifyCharacter(0, characterID, 0, false, modName);  //funciona siempre y cuando no le den Enter al elegir el nombre
                     Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
                 }
                 else
                 {
-                    DataAccess.modifyCharacter(4, characterID, 0, mascOrFem, "");
+                    DataAccess.ModifyCharacter(4, characterID, 0, mascOrFem, "");
                     Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
                 }
             }

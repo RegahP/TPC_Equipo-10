@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -44,6 +45,12 @@ namespace TPC_Equipo_10
                     if (ch.id == characterID)
                     {
                         character = ch;
+                        Debug.WriteLine(character.abilities[0].GetModifier());
+                        Debug.WriteLine(character.abilities[1].GetModifier());
+                        Debug.WriteLine(character.abilities[2].GetModifier());
+                        Debug.WriteLine(character.abilities[3].GetModifier());
+                        Debug.WriteLine(character.abilities[4].GetModifier());
+                        Debug.WriteLine(character.abilities[5].GetModifier());
                         break;
                     }
                 }

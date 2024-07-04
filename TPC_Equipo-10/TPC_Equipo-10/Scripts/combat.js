@@ -1,11 +1,8 @@
 ﻿function drawCombat() {
 
     drawTextCentered('combat; lose or win?', width / 2, height - 24, 24, 'white')
-
     drawCreatureSprite(width - (64 * 8), height - (64 * 8) - navHeight, 8, creatureID);
-
     drawChrSprite(width / 2 - (width / 4), height - (32 * 8) - navHeight, 8, false);
-    //drawSpriteCentered(creatures_0, width / 2 + (width / 4), height / 2, 10);
 
     drawNav();
     if (navFocus) {
@@ -13,15 +10,17 @@
     }
 }
 
+//vars del navegador de combate
 let nav = ["Atacar", "Defender", "Especial", "Inventario"]; //items del nav
 let navIndex; //en que opcion estamos parados
 let navHeight = 150;
 let navFocus = false; //0 = nav; 1 = inventory
 
-//creature data
+//vars de las creatures
 let creatureID;
 //crop data para mostrar la parte del spritesheet correcta
 let creatureCrop = [0, 16, 32, 48, 80, 112, 160, 224, 240, 288, 336, 352, 368, 400, 464, 480, 512, 544];
+let creatureFemPronouns = [0, 2, 7, 16]; //lista de ids de creatures que prefieren pronombres femeninos
 
 function setupCombat() {
 
@@ -44,6 +43,7 @@ function drawNav() {
     }
 }
 
+//vars del inventario
 let invItems = []; //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
 let invIndex; //en que items estamos parados
 let invFocus; //0 = panel izq; 1 = panel der
@@ -55,7 +55,11 @@ let innerMargin = 20; //margen interior
 let itemSize = 24; //tamaño de los items en la lista
 let buttonSize = 16; //invertido
 
-//variables relevantes para el inventario en tienda
+let equippedWeaponID;
+let equippedArmorID;
+let equippedShieldID;
+
+//vars del inventario en tienda
 let buyPopup; //si esta prendido el popup de compra
 let buyPopupFocus; //si el cursor esta a la izq o der del popup
 let itemBought; //si compramos el item
@@ -211,52 +215,46 @@ function drawInventory() {
         }
 
         //equipbutton TEMP todavia no hay characterItems, solo items originales
-        if (invItems[invIndex].equipped) {
-            fill(100);
-        } else {
-            fill(150);
+
+        if (allItems[invItems[invIndex]].type != 0) {
+
+            if (invItems[invIndex] == equippedWeaponID || invItems[invIndex] == equippedArmorID || invItems[invIndex] == equippedShieldID) {
+                fill(100);
+            } else {
+                fill(150);
+            }
+            rect(
+                width - outerMargin - innerMargin * 2 - width / (buttonSize / 2),
+                height / 2 - innerMargin * 1.5 - height / buttonSize,
+                width / (buttonSize / 2),
+                height / buttonSize
+            );
         }
-        rect(
-            width - outerMargin - innerMargin * 2 - width / (buttonSize / 2),
-            height / 2 - innerMargin * 1.5 - height / buttonSize,
-            width / (buttonSize / 2),
-            height / buttonSize
-        );
 
         let equipTxt;
         let equipColor;
 
         if (chr.gameState == 1) {
-
-            //display de arma, armadura y escudo
-            fill(80);
-            rect(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                (width / 2 - outerMargin - innerMargin) / 5,
-                (width / 2 - outerMargin - innerMargin) / 5
-            );
-            rect(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                (width / 2 - outerMargin - innerMargin) / 5,
-                (width / 2 - outerMargin - innerMargin) / 5
-            );
-            rect(
-                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
-                (width / 2 - outerMargin - innerMargin) / 5,
-                (width / 2 - outerMargin - innerMargin) / 5
-            );
-            //faltan los sprites
-
             //si estamos en combate, el boton equipa/consume TEMP
-            if (invItems[invIndex].equipped) {
-                equipColor = color(128);
-                equipTxt = "Equipado";
-            } else {
-                equipColor = color(255);
-                equipTxt = "Equipar";
+            if (allItems[invItems[invIndex]].type == 1) { //es equippable
+
+                if (invItems[invIndex] == equippedWeaponID || invItems[invIndex] == equippedArmorID || invItems[invIndex] == equippedShieldID) {
+                    equipColor = color(128);
+                    equipTxt = "Equipado";
+                } else {
+                    equipColor = color(255);
+                    equipTxt = "Equipar";
+                }
+            }
+            else if (allItems[invItems[invIndex]].type == 2) { //es consumible
+
+                if (false) { //MEGA TEMP
+                    equipColor = color(128);
+                    equipTxt = "Consumido";
+                } else {
+                    equipColor = color(255);
+                    equipTxt = "Consumir";
+                }
             }
         }
         //si estamos en la tienda, el boton vende
@@ -284,22 +282,68 @@ function drawInventory() {
                 }
             }
         }
-        fill(equipColor)
-        textSize(itemSize);
-        textAlign(CENTER, CENTER);
-        text(
-            equipTxt,
-            width -
-            outerMargin -
-            innerMargin * 2 -
-            width / (buttonSize / 2) +
-            width / buttonSize,
-            innerMargin +
-            height / 2 -
-            innerMargin * 2.5 -
-            height / buttonSize +
-            height / (buttonSize * 2)
-        );
+        if (allItems[invItems[invIndex]].type != 0) { //no sea un item generico
+            fill(equipColor)
+            textSize(itemSize);
+            textAlign(CENTER, CENTER);
+            text(
+                equipTxt,
+                width -
+                outerMargin -
+                innerMargin * 2 -
+                width / (buttonSize / 2) +
+                width / buttonSize,
+                innerMargin +
+                height / 2 -
+                innerMargin * 2.5 -
+                height / buttonSize +
+                height / (buttonSize * 2)
+            );
+        }
+        
+
+        if (chr.gameState == 1) {
+
+            //display de arma, armadura y escudo
+            fill(80);
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+            rect(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                (width / 2 - outerMargin - innerMargin) / 5,
+                (width / 2 - outerMargin - innerMargin) / 5
+            );
+            drawItemSprite(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                equippedWeaponID
+            );
+            drawItemSprite(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                equippedArmorID
+            );
+            drawItemSprite(
+                width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
+                ((width / 2 - outerMargin - innerMargin) / 5) / 16,
+                equippedShieldID
+            );
+            //faltan los sprites
+        }
 
         //indicador de seleccion inventario
         fill(255);

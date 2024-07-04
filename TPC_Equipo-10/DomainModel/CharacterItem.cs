@@ -12,7 +12,7 @@ namespace DomainModel
         //relaciona un item original, con un item en uso, y su estado actual
         public int itemID {  get; set; }
         public bool equipped {  get; set; }
-        public bool consumed { get; set; }
-        public int currRound { get; set; } //current round of effect
+        public int currRound { get; set; } //state of consumable
+        // -1 unconsumed 0 consumed 1 second round 2 second round
     }
 }

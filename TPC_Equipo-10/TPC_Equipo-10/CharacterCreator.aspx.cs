@@ -60,7 +60,7 @@ namespace TPC_Equipo_10
 
             if (characterID != -1)
             {
-                DataAccess.modifyCharacter(1, characterID, raceId, false, "");
+                DataAccess.ModifyCharacter(1, characterID, raceId, false, "");
                 Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
             }
             else

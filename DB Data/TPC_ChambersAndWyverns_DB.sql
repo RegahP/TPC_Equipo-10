@@ -29,6 +29,9 @@ go
      Encounters int not null,    --0
      GameState int not null,     --0
 
+     dfRound int not null,     -- -1
+     spRound int not null,     -- -1
+
      ArmorClass int not null,    --10 + RA.Modifier where RA.ID = 1 (DEX)
      MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
      CurrentHealth int not null, --maxHealth
@@ -117,12 +120,11 @@ go
  )
 go
  create table ItemsXCharacter(
-     ID_Character int not null,
-     ID_Item int not null,
-     Equipped bit default 0, --estos datos son relevantes para el jugador cuando tiene items, no para la db de los items del juego, aca se guarda
-     Consumed bit default 0, --si el jugador tiene un item actualmente consumido, o si tiene una arma o armadura equipada
+     ID_Character int not null, --estos datos son relevantes para el jugador cuando tiene items, no para la db de los items del juego, aca se guarda
+     ID_Item int not null, --si el jugador tiene un item actualmente consumido, o si tiene una arma o armadura equipada
+     Equipped bit default 0, 
  	 CurrRound int not null
-     --vale nombrar que ambos bools van a ser ignorados si el item que alocamos en memoria, tenia itemtype = 0, para eso el default
+     --vale nombrar que ambos datos van a ser ignorados si el item que alocamos en memoria, tenia itemtype = 0, para eso el default
      primary key(ID_Item, ID_Character) -- (algo que note es que si usamos esta primary key, no podes tener pociones repetidas,
      --                                      seria mismo item en inventario del mismo jugador, pero bueno se puede revisar)
  )
@@ -192,7 +194,7 @@ go
 
 --+-- Buscador de Armas --+--
 go
-CREATE PROCEDURE SP_GetWeapons
+CREATE OR ALTER PROCEDURE SP_GetWeapons
 AS
 BEGIN
     SELECT I.ID_Item AS ID, I._Name AS Name, I._Desc AS Description, W.Damage, W.ID_Ability, A._Name AS Ability, W.ID_DamageType, DT._Name AS DamageType, I.Price
@@ -204,7 +206,7 @@ END;
 
 --+-- Buscador de Armaduras y Escudos --+--
 go
-CREATE PROCEDURE SP_GetArmorsShields
+CREATE OR ALTER PROCEDURE SP_GetArmorsShields
 AS
 BEGIN
     SELECT I.ID_Item AS ID,
@@ -223,7 +225,7 @@ END;
 
 --+-- Buscador de Consumibles --+--
 go
-CREATE PROCEDURE SP_GetConsumables
+CREATE OR ALTER PROCEDURE SP_GetConsumables
 AS
 BEGIN
    SELECT I.ID_Item AS ID, I._Name AS Name,  I._Desc AS Description, C.ID_Effect,  C.Amount, I.Price
@@ -233,7 +235,7 @@ END;
 
 --+-- Insert Items --+--
 go
-CREATE PROCEDURE SP_InsertItem
+CREATE OR ALTER PROCEDURE SP_InsertItem
     @Name NVARCHAR(50),
     @Description TEXT,
     @ItemType INT,
@@ -349,7 +351,7 @@ END;
 go
 -- AUTOMATIZA CONSEGUIR EL VALOR DEL MODIFIER DE LAS ABILITIES, Y TAMBIÉN LAS MISMAS SKILLS,
 --EL VALOR QUE POSEEN LAS SKILLS ES DE BASE, SIN BONIFICADORES DE NADA.
-CREATE PROCEDURE SP_InsertNewCharacter
+CREATE OR ALTER PROCEDURE SP_InsertNewCharacter
     @ID_User int,
     @Sex bit,
     @ID_Race int,
@@ -430,13 +432,13 @@ END;
 
 --+-- Delete Character --+--
 go
-CREATE PROCEDURE SP_DeleteCharacter
+CREATE OR ALTER PROCEDURE SP_DeleteCharacter
 @characterID int
 AS DELETE FROM Characters WHERE ID_Character = @characterID
 
 --+-- Consigue un personaje especifico --+--
 go
-CREATE PROCEDURE SP_GetCharacter
+CREATE OR ALTER PROCEDURE SP_GetCharacter
 @ID_Character int
 AS
 BEGIN
@@ -462,7 +464,7 @@ END;
 
 --+-- Consigue todos los personajes --+--
 go
-CREATE PROCEDURE SP_GetCharacters
+CREATE OR ALTER PROCEDURE SP_GetCharacters
 AS
 BEGIN
     SELECT 
@@ -483,14 +485,14 @@ END;
 
 --+-- Inserta un Usuario Nuevo --+--
 go
-CREATE PROCEDURE SP_InsertNewUser
+CREATE OR ALTER PROCEDURE SP_InsertNewUser
 @UserName VARCHAR(50),
 @PasswordHash nvarchar(255)
 AS INSERT INTO Users (Username, PasswordHash) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash);
 
 --+-- Consigue todas las criaturas --+--
 go
-CREATE PROCEDURE SP_GetCreatures
+CREATE OR ALTER PROCEDURE SP_GetCreatures
 AS
 BEGIN
     SELECT 
@@ -511,7 +513,7 @@ END;
 
 --+-- Consigue los ataques de una criatura --+--
 go
-CREATE PROCEDURE SP_GetCreatureAttacks
+CREATE OR ALTER PROCEDURE SP_GetCreatureAttacks
 @ID_Creature int
 AS
 BEGIN
@@ -531,8 +533,8 @@ END
 --     FROM ItemsXCreature
 --     WHERE ID_Creature = @ID_Creature
 -- END
-
-CREATE PROCEDURE SP_ModifyCharacter
+go
+CREATE OR ALTER PROCEDURE SP_ModifyCharacter
 
 @modValue int,						-- Para saber que propiedad se quiere cambiar
 @characterID int,					-- Para saber a que personaje modificar
@@ -542,20 +544,19 @@ CREATE PROCEDURE SP_ModifyCharacter
 AS
 BEGIN
 
-IF @modValue = 0 BEGIN
-UPDATE Characters SET _Name = @modName where ID_Character = @characterID
+    IF @modValue = 0 BEGIN
+        UPDATE Characters SET _Name = @modName where ID_Character = @characterID
+    END
+    ELSE IF @modValue = 1 BEGIN
+        UPDATE Characters SET ID_Race = @propValue where ID_Character = @characterID
+    END
+    ELSE IF @modValue = 2 BEGIN
+        UPDATE Characters SET ID_Background = @propValue where ID_Character = @characterID
+    END
+    ELSE IF @modValue = 3 BEGIN
+        UPDATE Characters SET ID_Class = @propValue where ID_Character = @characterID
+    END
+    ELSE IF @modValue = 4 BEGIN
+        UPDATE Characters SET Sex = @modGender where ID_Character = @characterID
+    END
 END
-ELSE IF @modValue = 1 BEGIN
-UPDATE Characters SET ID_Race = @propValue where ID_Character = @characterID
-END
-ELSE IF @modValue = 2 BEGIN
-UPDATE Characters SET ID_Background = @propValue where ID_Character = @characterID
-END
-ELSE IF @modValue = 3 BEGIN
-UPDATE Characters SET ID_Class = @propValue where ID_Character = @characterID
-END
-ELSE IF @modValue = 4 BEGIN
-UPDATE Characters SET Sex = @modGender where ID_Character = @characterID
-END
-
-END;

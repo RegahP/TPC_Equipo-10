@@ -205,14 +205,17 @@ namespace DBAccess
                     aux.encounters = reader.GetInt32(12);
                     aux.gameState = reader.GetInt32(13);
 
-                    aux.armor = reader.GetInt32(14);
-                    aux.maxHealth = reader.GetInt32(15);
-                    aux.currHealth = reader.GetInt32(16);
-                    aux.gold = reader.GetInt32(17);
+                    aux.dfRound = reader.GetInt32(14);
+                    aux.spRound = reader.GetInt32(15);
+
+                    aux.armor = reader.GetInt32(16);
+                    aux.maxHealth = reader.GetInt32(17);
+                    aux.currHealth = reader.GetInt32(18);
+                    aux.gold = reader.GetInt32(19);
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(18 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i));
                         aux.abilities.Add(auxRolled);
                     }
                 }
@@ -258,14 +261,17 @@ namespace DBAccess
                     aux.encounters = reader.GetInt32(12);
                     aux.gameState = reader.GetInt32(13);
 
-                    aux.armor = reader.GetInt32(14);
-                    aux.maxHealth = reader.GetInt32(15);
-                    aux.currHealth = reader.GetInt32(16);
-                    aux.gold = reader.GetInt32(17);
+                    aux.dfRound = reader.GetInt32(14);
+                    aux.spRound = reader.GetInt32(15);
+
+                    aux.armor = reader.GetInt32(16);
+                    aux.maxHealth = reader.GetInt32(17);
+                    aux.currHealth = reader.GetInt32(18);
+                    aux.gold = reader.GetInt32(19);
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(18 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i));
                         aux.abilities.Add(auxRolled);
                     }
 
@@ -530,7 +536,7 @@ namespace DBAccess
         }
 
 
-        public static void modifyCharacter(int modValue, int characterID, int propValue, bool sexValue, string modName)
+        public static void ModifyCharacter(int modValue, int characterID, int propValue, bool sexValue, string modName)
         {
 
             try
@@ -568,193 +574,224 @@ namespace DBAccess
             }
         }
 
-
-    
-
-    
-
-
-    public static List<Weapon> GetWeapons()
-    {
-        List<Weapon> weapons = new List<Weapon>();
-
-        try
+        public static List<Weapon> GetWeapons()
         {
-            SetProcedure("SP_GetWeapons");
-            ExecuteRead();
-            while (reader.Read())
-            {
-                Weapon aux = new Weapon();
-                DamageType dmgAux = new DamageType();
-                aux.id = reader.GetInt32(0);
-                aux.name = reader.GetString(1);
-                aux.desc = reader.GetString(2);
-                aux.type = 1; //equippable
-                aux.equippableType = false; //weapon
-                aux.damage = reader.GetInt32(3);
-                aux.abilityModID = reader.GetInt32(4); //skippeamos la columna con el nombre
-                dmgAux.id = reader.GetInt32(6);
-                dmgAux.name = reader.GetString(7);
-                aux.dmgTypeID = dmgAux.id;
-                aux.price = reader.GetInt32(8);
+            List<Weapon> weapons = new List<Weapon>();
 
-                weapons.Add(aux);
+            try
+            {
+                SetProcedure("SP_GetWeapons");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Weapon aux = new Weapon();
+                    DamageType dmgAux = new DamageType();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 1; //equippable
+                    aux.equippableType = false; //weapon
+                    aux.damage = reader.GetInt32(3);
+                    aux.abilityModID = reader.GetInt32(4); //skippeamos la columna con el nombre
+                    dmgAux.id = reader.GetInt32(6);
+                    dmgAux.name = reader.GetString(7);
+                    aux.dmgTypeID = dmgAux.id;
+                    aux.price = reader.GetInt32(8);
+
+                    weapons.Add(aux);
+                }
+
+                return weapons;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Armor> GetArmorsShields()
+        {
+            List<Armor> armors = new List<Armor>();
+
+            try
+            {
+                SetProcedure("SP_GetArmorsShields");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Armor aux = new Armor();
+                    DamageType dmgAux = new DamageType();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 1; //equippable
+                    aux.equippableType = true; //armor
+                    aux.armorType = reader.GetBoolean(3) ? 1 : 0;
+                    dmgAux.id = reader.GetInt32(4);
+                    dmgAux.name = reader.GetString(5);
+                    aux.resTypeID = dmgAux.id;
+                    aux.armor = reader.GetInt32(6);
+                    aux.price = reader.GetInt32(7);
+
+                    armors.Add(aux);
+                }
+
+                return armors;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Consumable> GetConsumables()
+        {
+            List<Consumable> consumables = new List<Consumable>();
+
+            try
+            {
+                SetProcedure("SP_GetConsumables");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Consumable aux = new Consumable();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.type = 2; //consumable
+                    aux.effectID = reader.GetInt32(3);
+                    aux.amount = reader.GetInt32(4);
+                    aux.price = reader.GetInt32(5);
+
+                    consumables.Add(aux);
+                }
+
+                return consumables;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Item> GetGenerics()
+        {
+            List<Item> generics = new List<Item>();
+
+            try
+            {
+                SetProcedure("SP_GetGenerics");
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Item aux = new Item();
+                    aux.id = reader.GetInt32(0);
+                    aux.name = reader.GetString(1);
+                    aux.desc = reader.GetString(2);
+                    aux.price = reader.GetInt32(3);
+                    aux.type = 0; //generic
+
+                    generics.Add(aux);
+                }
+
+                return generics;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static List<Item> GetItems()
+        {
+            List<Item> items = new List<Item>();
+
+            List<Weapon> weapons = GetWeapons();
+            List<Armor> armors = GetArmorsShields();
+            List<Consumable> consumables = GetConsumables();
+            List<Item> generics = GetGenerics();
+
+            foreach (Weapon weapon in weapons)
+            {
+                items.Add(weapon);
+            }
+            foreach (Armor armor in armors)
+            {
+                items.Add(armor);
+            }
+            foreach (Consumable consumable in consumables)
+            {
+                items.Add(consumable);
+            }
+            foreach (Item generic in generics)
+            {
+                items.Add(generic);
+            }
+            return items;
+        }
+
+
+        public static bool Login(User user)
+        {
+            try
+            {
+                SetQuery("select * from Users where Username = @user AND PasswordHash = @pass");
+                SetParameter("@user", user.username);
+                SetParameter("@pass", user.passwordHash);
+
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    user.id = (int)reader["ID_User"];
+                    return true;
+                }
+                return false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static int Register(User user)
+        {
+            try
+            {
+                SetProcedure("SP_InsertNewUser");
+                SetParameter("@UserName", user.username);
+                SetParameter("@PasswordHash", user.passwordHash);
+                return ExecuteActionScalar();
             }
 
-            return weapons;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-
-    public static List<Armor> GetArmorsShields()
-    {
-        List<Armor> armors = new List<Armor>();
-
-        try
-        {
-            SetProcedure("SP_GetArmorsShields");
-            ExecuteRead();
-            while (reader.Read())
+            catch (Exception ex)
             {
-                Armor aux = new Armor();
-                DamageType dmgAux = new DamageType();
-                aux.id = reader.GetInt32(0);
-                aux.name = reader.GetString(1);
-                aux.desc = reader.GetString(2);
-                aux.type = 1; //equippable
-                aux.equippableType = true; //armor
-                aux.armorType = reader.GetBoolean(3) ? 1 : 0;
-                dmgAux.id = reader.GetInt32(4);
-                dmgAux.name = reader.GetString(5);
-                aux.resTypeID = dmgAux.id;
-                aux.armor = reader.GetInt32(6);
-                aux.price = reader.GetInt32(7);
-
-                armors.Add(aux);
+                throw ex;
             }
-
-            return armors;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-
-    public static List<Consumable> GetConsumables()
-    {
-        List<Consumable> consumables = new List<Consumable>();
-
-        try
-        {
-            SetProcedure("SP_GetConsumables");
-            ExecuteRead();
-            while (reader.Read())
+            finally
             {
-                Consumable aux = new Consumable();
-                aux.id = reader.GetInt32(0);
-                aux.name = reader.GetString(1);
-                aux.desc = reader.GetString(2);
-                aux.type = 2; //consumable
-                aux.effectID = reader.GetInt32(3);
-                aux.amount = reader.GetInt32(4);
-                aux.price = reader.GetInt32(5);
-
-                consumables.Add(aux);
+                CloseConnection();
             }
-
-            return consumables;
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            CloseConnection();
         }
     }
-
-    public static List<Item> GetItems()
-    {
-        List<Item> items = new List<Item>();
-
-        List<Weapon> weapons = GetWeapons();
-        List<Armor> armors = GetArmorsShields();
-        List<Consumable> consumables = GetConsumables();
-
-        foreach (Weapon weapon in weapons)
-        {
-            items.Add(weapon);
-        }
-        foreach (Armor armor in armors)
-        {
-            items.Add(armor);
-        }
-        foreach (Consumable consumable in consumables)
-        {
-            items.Add(consumable);
-        }
-        return items;
-    }
-
-
-    public static bool Login(User user)
-    {
-        try
-        {
-            SetQuery("select * from Users where Username = @user AND PasswordHash = @pass");
-            SetParameter("@user", user.username);
-            SetParameter("@pass", user.passwordHash);
-
-            ExecuteRead();
-            while (reader.Read())
-            {
-                user.id = (int)reader["ID_User"];
-                return true;
-            }
-            return false;
-
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-
-    public static int Register(User user)
-    {
-        try
-        {
-            SetProcedure("SP_InsertNewUser");
-            SetParameter("@UserName", user.username);
-            SetParameter("@PasswordHash", user.passwordHash);
-            return ExecuteActionScalar();
-        }
-
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            CloseConnection();
-        }
-    }
-}
 }

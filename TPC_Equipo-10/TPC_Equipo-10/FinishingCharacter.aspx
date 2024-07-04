@@ -10,10 +10,6 @@
         .input {
             width: 60%;
         }
-
-        body {
-            font-family: 'Courier Prime', monospace;
-        }
     </style>
 
 </asp:Content>

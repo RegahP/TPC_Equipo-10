@@ -16,5 +16,10 @@ namespace DomainModel
             this.abilityID = abilityID;
             this.rolledScore = rolledScore;
         }
+
+        public int GetModifier()
+        {
+            return (int)((rolledScore - 10) / 2);
+        }
     }
 }

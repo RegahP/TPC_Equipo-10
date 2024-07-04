@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CharacterDetail.aspx.cs" Inherits="TPC_Equipo_10.CharacterDetail" %>
 
+<%@ Import Namespace="DomainModel" %>
+<%@ Import Namespace="DBAccess" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <style>
@@ -57,7 +59,7 @@
                 </div>
                 
 
-                <%foreach(DomainModel.Race rc in listRaces)
+                <%foreach(Race rc in listRaces)
                   {
                     if(rc.id == character.idRace)
                     {%>
@@ -67,7 +69,7 @@
                     <%}
                   } %>
                 <asp:LinkButton runat="server" ID="btnRace" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
-                <%foreach(DomainModel.Background backG in listBackgrounds)
+                <%foreach(Background backG in listBackgrounds)
                   {
                     if(backG.id == character.idBackground)
                     {%>
@@ -77,7 +79,7 @@
                   <%}
                   } %>
                 <asp:LinkButton runat="server" ID="btnBackground" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
-                <%foreach (DomainModel.Class cl in listClasses)
+                <%foreach (Class cl in listClasses)
                   {
                     if (cl.id == character.idClass)
                     {%>
@@ -86,11 +88,11 @@
                         <h4>Habilidad Especial: <%:cl.specialName%></h4>
                         <p><%:cl.specialDesc%></p>
                         
-                      <%foreach (DomainModel.RolledAbility ra in character.abilities)
+                      <%foreach (RolledAbility ra in character.abilities)
                         {
                             if (ra.abilityID == 2)
                             {%>
-                                <h4>Puntos de vida por nivel ACA FALTA CALCULAR EL MOD CONSTITUCION: <%:cl.classHealth + ra.rolledScore%></h4> 
+                                <h4>Puntos de vida por nivel: <%:cl.classHealth + ra.GetModifier()%></h4> 
                                 <p>Vida maxima: <%:character.maxHealth%></p>
                                 <p>Vida actual: <%:character.currHealth%></p>
                           <%}

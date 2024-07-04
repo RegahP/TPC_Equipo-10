@@ -32,7 +32,7 @@ function setupTown() {
     }
 
     //randomizamos el tamaño del catalogo
-    let catalogueSize = int(random(8, 12))
+    let catalogueSize = int(random(8, 16))
 
     //llenamos la lista de la tienda con items
     for (let i = 0; i < catalogueSize; i++) {
@@ -43,17 +43,17 @@ function setupTown() {
         do {
             randomItem = int(random(allItems.length));
         }
-        while (catalogueItems.includes(randomItem) || randomItem == 20 || randomItem == 42);
-        //nos aseguramos que no pueda vender ni unnarmed strike ni vestimentas comunes
+        while (catalogueItems.includes(allItems[randomItem].id) || allItems[randomItem].id == 20 || allItems[randomItem].id == 42 || allItems[randomItem].type == 0);
+        //nos aseguramos que no pueda vender ni unarmed strike ni vestimentas comunes
         let randomClassItem;
         do {
             randomClassItem = int(random(classItems.length));
         }
-        while (catalogueItems.includes(randomClassItem) || randomClassItem == 20 || randomClassItem == 42);
+        while (catalogueItems.includes(classItems[randomClassItem]) || classItems[randomClassItem] == 20 || classItems[randomClassItem] == 42);
 
         //50% items random
         if (random() < 0.5) {
-            catalogueItems.push(allItems[randomItem].id);
+            catalogueItems.push(randomItem);
         }
         //50% items de la clase del jugador
         else {

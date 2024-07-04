@@ -42,7 +42,21 @@ const createSketch = (parentID, hiddenFieldID) => {
 
             g.scale(0.4);
 
-            g.fill(225);
+            if (!flag) {
+                if (p.mouseX > 0 && p.mouseX < p.width &&
+                    p.mouseY > 0 && p.mouseY < p.height) {
+                    g.stroke(175);
+                    g.fill(200);
+                }
+                else {
+                    g.stroke(200);
+                    g.fill(225);
+                }
+            }
+            else {
+                g.stroke(200);
+                g.fill(225);
+            }
 
             let phi = (1 + p.sqrt(5)) / 2;
 
@@ -117,7 +131,6 @@ const createSketch = (parentID, hiddenFieldID) => {
                     p.rollDice();
                 }
             }
-            
         }
 
         p.rollDice = () => {
