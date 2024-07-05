@@ -10,7 +10,7 @@ using DomainModel;
 
 namespace TPC_Equipo_10
 {
-    public partial class CharacterDetail : System.Web.UI.Page
+    public partial class CharacterDetail : Page
     {
         public int characterID;
         public Character character;
@@ -35,8 +35,7 @@ namespace TPC_Equipo_10
                 listRaces = DataAccess.ListRaces();
                 listBackgrounds = DataAccess.ListBackgrounds();
 
-
-                List<Character> listCharacters = new List<Character>();
+                List<Character> listCharacters;
                 listCharacters = DataAccess.ListCharacters();
 
                 foreach (Character ch in listCharacters)
@@ -45,17 +44,9 @@ namespace TPC_Equipo_10
                     if (ch.id == characterID)
                     {
                         character = ch;
-                        Debug.WriteLine(character.abilities[0].GetModifier());
-                        Debug.WriteLine(character.abilities[1].GetModifier());
-                        Debug.WriteLine(character.abilities[2].GetModifier());
-                        Debug.WriteLine(character.abilities[3].GetModifier());
-                        Debug.WriteLine(character.abilities[4].GetModifier());
-                        Debug.WriteLine(character.abilities[5].GetModifier());
                         break;
                     }
                 }
-
-
             }
         }
 

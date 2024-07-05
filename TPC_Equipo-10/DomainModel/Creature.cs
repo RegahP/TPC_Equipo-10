@@ -16,6 +16,7 @@ namespace DomainModel
         public int prof { get; set; } //proficiency
         public int armor { get; set; }//armor class
         public int maxHealth { get; set; } //maximum health
+        public int gold { get; set; } //maximum health
         
         public List<CreatureItem> drops = new List<CreatureItem>(); //drops
         

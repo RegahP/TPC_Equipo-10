@@ -173,7 +173,7 @@ const createSketch = (parentID, hiddenFieldID) => {
             }
 
             if (fieldCounter.value == '6') {
-                let linkButton = document.getElementById('ContentPlaceHolder1_btnConfirm');
+                let linkButton = document.getElementById('ContentPlaceHolder1_btnConfirm1');
                 linkButton.classList.remove('disabled');
             }
         };

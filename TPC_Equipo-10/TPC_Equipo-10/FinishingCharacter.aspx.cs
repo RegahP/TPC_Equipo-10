@@ -47,7 +47,7 @@ namespace TPC_Equipo_10
 
         protected void rb_CheckedChanged(object sender, EventArgs e)
         {
-            if (((RadioButton)sender).ID == "rbMasculine")
+            if (((RadioButton)sender).ID == "rbMasculine1" || ((RadioButton)sender).ID == "rbMasculine2")
             {
                 if (characterID != -1)
                 {
@@ -58,7 +58,7 @@ namespace TPC_Equipo_10
                     character.sex = true;
                 }
             }
-            if (((RadioButton)sender).ID == "rbFeminine")
+            if (((RadioButton)sender).ID == "rbFeminine1" || ((RadioButton)sender).ID == "rbFeminine2")
             {
                 if (characterID != -1)
                 {
@@ -77,11 +77,13 @@ namespace TPC_Equipo_10
             //falta validar nombre
             if (characterID != -1)
             {
-                modName = txtName.Text;
+                modName = txtName1.Text;
+                modName = txtName2.Text;
             }
             else
             {
-                character.name = txtName.Text;
+                character.name = txtName1.Text;
+                character.name = txtName2.Text;
             }
         }
 
@@ -112,7 +114,7 @@ namespace TPC_Equipo_10
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MainMenu.aspx", false);
+            Response.Redirect("Characters.aspx", false);
         }
 
         public void AddRolledAbilities ()

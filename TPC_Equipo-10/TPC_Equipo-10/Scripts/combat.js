@@ -25,7 +25,6 @@ let creatureFemPronouns = [0, 2, 7, 16]; //lista de ids de creatures que prefier
 function setupCombat() {
 
     navIndex = 0;
-    print(creatureID);
     creatureID = int(random(18));
     //creatureID = 6;
 }
@@ -54,10 +53,6 @@ let outerMargin = 50; //margen exterior
 let innerMargin = 20; //margen interior
 let itemSize = 24; //tamaño de los items en la lista
 let buttonSize = 16; //invertido
-
-let equippedWeaponID = -1;
-let equippedArmorID = -1;
-let equippedShieldID = -1;
 
 //vars del inventario en tienda
 let buyPopup; //si esta prendido el popup de compra
@@ -218,7 +213,7 @@ function drawInventory() {
 
         if (allItems[invItems[invIndex]].type != 0) {
 
-            if (invItems[invIndex] == equippedWeaponID || invItems[invIndex] == equippedArmorID || invItems[invIndex] == equippedShieldID) {
+            if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID) {
                 fill(100);
             } else {
                 fill(150);
@@ -238,7 +233,7 @@ function drawInventory() {
             //si estamos en combate, el boton equipa/consume TEMP
             if (allItems[invItems[invIndex]].type == 1) { //es equippable
 
-                if (invItems[invIndex] == equippedWeaponID || invItems[invIndex] == equippedArmorID || invItems[invIndex] == equippedShieldID) {
+                if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID) {
                     equipColor = color(128);
                     equipTxt = "Equipado";
                 } else {
@@ -304,7 +299,7 @@ function drawInventory() {
 
         if (chr.gameState == 1) {
 
-            //display de arma, armadura y escudo
+            //display de arma, escudo y armadura
             fill(80);
             rect(
                 width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
@@ -324,28 +319,28 @@ function drawInventory() {
                 (width / 2 - outerMargin - innerMargin) / 5,
                 (width / 2 - outerMargin - innerMargin) / 5
             );
-            if (equippedWeaponID != -1) {
+            if (chr.equippedWeaponID != -1) {
                 drawItemSprite(
                     width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 4 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                    equippedWeaponID
+                    chr.equippedWeaponID
                 );
             }
-            if (equippedShieldID != -1) {
+            if (chr.equippedShieldID != -1) {
                 drawItemSprite(
                     width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 9 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                    equippedShieldID
+                    chr.equippedShieldID
                 );
             }
-            if (equippedArmorID != -1) {
+            if (chr.equippedArmorID != -1) {
                 drawItemSprite(
                     width / 2 + ((width / 2 - outerMargin - innerMargin) / 20) * 16 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     height / 2 + innerMargin * 0.5 + (height / 2 - innerMargin * 1.5 - outerMargin) / 2 - ((width / 2 - outerMargin - innerMargin) / 5) / 2,
                     ((width / 2 - outerMargin - innerMargin) / 5) / 16,
-                    equippedArmorID
+                    chr.equippedArmorID
                 );
             }
         }

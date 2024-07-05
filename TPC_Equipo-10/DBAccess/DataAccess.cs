@@ -100,7 +100,7 @@ namespace DBAccess
             try
             {
                 SetProcedure("SP_DeleteCharacter");
-                SetParameter("@characterID", characterID);
+                SetParameter("@ID_Character", characterID);
                 ExecuteAction();
             }
             catch (Exception ex)
@@ -201,12 +201,12 @@ namespace DBAccess
                     aux.prof = reader.GetInt32(9);
 
                     aux.luck = reader.GetInt32(10);
-                    aux.round = reader.GetInt32(11);
-                    aux.encounters = reader.GetInt32(12);
-                    aux.gameState = reader.GetInt32(13);
+                    aux.encounters = reader.GetInt32(11);
+                    aux.gameState = reader.GetInt32(12);
 
-                    aux.dfRound = reader.GetInt32(14);
-                    aux.spRound = reader.GetInt32(15);
+                    aux.equippedWeaponID = reader.GetInt32(13);
+                    aux.equippedArmorID = reader.GetInt32(14);
+                    aux.equippedShieldID = reader.GetInt32(15);
 
                     aux.armor = reader.GetInt32(16);
                     aux.maxHealth = reader.GetInt32(17);
@@ -257,12 +257,12 @@ namespace DBAccess
                     aux.prof = reader.GetInt32(9);
 
                     aux.luck = reader.GetInt32(10);
-                    aux.round = reader.GetInt32(11);
-                    aux.encounters = reader.GetInt32(12);
-                    aux.gameState = reader.GetInt32(13);
+                    aux.encounters = reader.GetInt32(11);
+                    aux.gameState = reader.GetInt32(12);
 
-                    aux.dfRound = reader.GetInt32(14);
-                    aux.spRound = reader.GetInt32(15);
+                    aux.equippedWeaponID = reader.GetInt32(13);
+                    aux.equippedArmorID = reader.GetInt32(14);
+                    aux.equippedShieldID = reader.GetInt32(15);
 
                     aux.armor = reader.GetInt32(16);
                     aux.maxHealth = reader.GetInt32(17);
@@ -521,7 +521,15 @@ namespace DBAccess
                 SetParameter("@ID_Class", character.idClass);
                 SetParameter("@ID_Background", character.idBackground);
                 SetParameter("@_Name", character.name);
-                SetParameter("@Abilities", "12, 10, 13, 8, 15, 16"); //temp, deberia tomar los valores rolleados
+
+                int str = character.abilities[0].rolledScore;
+                int dex = character.abilities[1].rolledScore;
+                int con = character.abilities[2].rolledScore;
+                int nte = character.abilities[3].rolledScore;
+                int wis = character.abilities[4].rolledScore;
+                int cha = character.abilities[5].rolledScore;
+
+                SetParameter("@Abilities", str + ", " + dex + ", " + con + ", " + nte + ", " + wis +", " + cha);
 
                 ExecuteAction();
             }

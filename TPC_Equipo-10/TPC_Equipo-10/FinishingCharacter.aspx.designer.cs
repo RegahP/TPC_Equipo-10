@@ -15,58 +15,58 @@ namespace TPC_Equipo_10
     {
 
         /// <summary>
-        /// TextBox1 control.
+        /// txtName1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox txtName1;
 
         /// <summary>
-        /// RadioButton1 control.
+        /// rbMasculine1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton1;
+        protected global::System.Web.UI.WebControls.RadioButton rbMasculine1;
 
         /// <summary>
-        /// RadioButton2 control.
+        /// rbFeminine1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton2;
+        protected global::System.Web.UI.WebControls.RadioButton rbFeminine1;
 
         /// <summary>
-        /// txtName control.
+        /// txtName2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtName;
+        protected global::System.Web.UI.WebControls.TextBox txtName2;
 
         /// <summary>
-        /// rbMasculine control.
+        /// rbMasculine2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbMasculine;
+        protected global::System.Web.UI.WebControls.RadioButton rbMasculine2;
 
         /// <summary>
-        /// rbFeminine control.
+        /// rbFeminine2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rbFeminine;
+        protected global::System.Web.UI.WebControls.RadioButton rbFeminine2;
 
         /// <summary>
         /// fieldCounter control.
@@ -132,22 +132,22 @@ namespace TPC_Equipo_10
         protected global::System.Web.UI.WebControls.HiddenField fieldCHA;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// btnConfirm1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.LinkButton btnConfirm1;
 
         /// <summary>
-        /// LinkButton2 control.
+        /// btnCancel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.LinkButton btnCancel1;
 
         /// <summary>
         /// btnConfirm control.

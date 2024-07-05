@@ -15,21 +15,12 @@ namespace TPC_Equipo_10
     {
 
         /// <summary>
-        /// btnNewGame control.
+        /// rptCharacters control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnNewGame;
-
-        /// <summary>
-        /// LoadGame control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LoadGame;
+        protected global::System.Web.UI.WebControls.Repeater rptCharacters;
     }
 }

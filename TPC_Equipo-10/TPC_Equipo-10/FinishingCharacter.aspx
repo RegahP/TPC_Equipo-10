@@ -24,15 +24,15 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                    <asp:TextBox runat="server" ID="TextBox1" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtName1" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Sexo</label>
                 <div class="col-sm-10">
-                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton1" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
-                    <asp:RadioButton runat="server" GroupName="gender" ID="RadioButton2" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine1" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine1" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
                 </div>
             </div>
             <%}
@@ -42,7 +42,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                    <asp:TextBox runat="server" ID="txtName" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtName2" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                 </div>
             </div>
             <%}
@@ -51,8 +51,8 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Sexo</label>
                 <div class="col-sm-10">
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine2" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine2" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
                 </div>
             </div>
             <%}
@@ -99,8 +99,8 @@
             </div>
             <div class="mb-3 row">
                 <div class="container" style="display: flex; justify-content: center">
-                    <asp:LinkButton runat="server" ID="LinkButton1" CssClass="btn btn-danger margin disabled" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
-                    <asp:LinkButton runat="server" ID="LinkButton2" CssClass="btn btn-danger" Text="Cancelar" OnClick="btnCancel_Click"></asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="btnConfirm1" CssClass="btn btn-danger margin disabled" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="btnCancel1" CssClass="btn btn-danger" Text="Cancelar" OnClick="btnCancel_Click"></asp:LinkButton>
                 </div>
             </div>
             <%}

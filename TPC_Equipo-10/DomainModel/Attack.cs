@@ -13,6 +13,7 @@ namespace DomainModel
         public string desc { get; set; }
         public int dmgTypeID {  get; set; }
         public int damage {  get; set; }
+        public int abilityID {  get; set; }
 
     }
 }

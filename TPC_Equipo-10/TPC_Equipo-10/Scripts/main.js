@@ -210,15 +210,15 @@ function keyPressed() {
                             if (keyCode === ENTER && invFocus) {
                                 //y es un arma
                                 if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 0) {
-                                    equippedWeaponID = invItems[invIndex];
+                                    chr.equippedWeapon = invItems[invIndex];
                                 }
                                 //o es una armadura
                                 else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 0) {
-                                    equippedArmorID = invItems[invIndex];
+                                    chr.equippedArmor = invItems[invIndex];
                                 }
                                 //o es un escudo
                                 else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 1) {
-                                    equippedShieldID = invItems[invIndex];
+                                    chr.equippedShield = invItems[invIndex];
                                 }
                             }
                         }

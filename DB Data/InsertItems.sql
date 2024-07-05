@@ -1096,29 +1096,29 @@ EXEC SP_InsertItem
 
 --+-- ATTACKS --+--
 
-INSERT INTO Attacks (_Name, _Desc, ID_DamageType, Damage)
+INSERT INTO Attacks (_Name, _Desc, ID_DamageType, Damage, ID_Ability)
 VALUES 
-    ('Garras', 'Un ataque con afiladas garras que puede desgarrar la piel y causar daños profundos.', 0, 1),
-    ('Garrote', 'Un golpe contundente con un garrote que puede romper huesos y causar severos hematomas.', 1, 2),
-    ('Tentáculos', 'Tentáculos que golpean con fuerza, aplastando y envolviendo a su objetivo.', 1, 1),
-    ('Daga Espectral', 'Un ataque con una daga fantasmal que atraviesa la carne con facilidad.', 2, 3),
-    ('Toque Corruptor', 'Un toque maligno que no solo corta la piel sino que también infecta con energía corrupta.', 0, 3),
-    ('Piedra', 'Un lanzamiento de piedra que impacta con fuerza bruta.', 1, 1),
-    ('Rayos Oculares', 'Poderosos rayos de energía eléctrica disparados desde los ojos.', 5, 5),
-    ('Mordisco', 'Un mordisco feroz que puede desgarrar carne y hueso.', 2, 1),
-    ('Choque Aplastante', 'Un ataque demoledor que aplasta todo a su paso.', 1, 4),
-    ('Tridente', 'Un golpe con un tridente que puede atravesar y empalar al enemigo.', 2, 3),
-    ('Látigo de Raíces', 'Un látigo hecho de raíces que desgarra la piel al contacto.', 0, 2),
-    ('Gran hacha', 'Un poderoso hachazo que puede partir al enemigo en dos.', 0, 4),
-    ('Embestida Cornamentada', 'Una carga con cuernos afilados que puede atravesar a los enemigos.', 2, 4),
-    ('Aliento Gélido', 'Un soplo de aire helado que congela a todo lo que toca.', 3, 5),
-    ('Lanza', 'Un ataque con una lanza que puede perforar armaduras y carne.', 2, 2),
-    ('Cimitarra', 'Un corte rápido y mortal con una cimitarra curva.', 0, 4),
-    ('Arco Corto', 'Una flecha disparada con precisión que perfora la piel del enemigo.', 2, 2),
-    ('Daga', 'Un ataque rápido y letal con una daga afilada.', 2, 1),
-    ('Galope Flamígero', 'Un ataque ardiente mientras se carga hacia adelante, envolviendo al enemigo en llamas.', 4, 5),
-    ('Pezuña', 'Una patada fuerte con pezuñas que puede aplastar huesos.', 1, 3),
-    ('Embestida', 'Un embate brutal que derriba y aplasta al enemigo.', 1, 3);
+    ('Garras', 'Un ataque con afiladas garras que puede desgarrar la piel y causar daños profundos.', 0, 1, 1),
+    ('Garrote', 'Un golpe contundente con un garrote que puede romper huesos y causar severos hematomas.', 1, 2, 0),
+    ('Tentáculos', 'Tentáculos que golpean con fuerza, aplastando y envolviendo a su objetivo.', 1, 1, 2),
+    ('Daga Espectral', 'Un ataque con una daga fantasmal que atraviesa la carne con facilidad.', 2, 3, 3),
+    ('Toque Corruptor', 'Un toque maligno que no solo corta la piel sino que también infecta con energía corrupta.', 0, 3, 4),
+    ('Piedra', 'Un lanzamiento de piedra que impacta con fuerza bruta.', 1, 1, 0),
+    ('Rayos Oculares', 'Poderosos rayos de energía eléctrica disparados desde los ojos.', 5, 5, 3),
+    ('Mordisco', 'Un mordisco feroz que puede desgarrar carne y hueso.', 2, 1, 0),
+    ('Choque Aplastante', 'Un ataque demoledor que aplasta todo a su paso.', 1, 4, 0),
+    ('Tridente', 'Un golpe con un tridente que puede atravesar y empalar al enemigo.', 2, 3, 0),
+    ('Látigo de Raíces', 'Un látigo hecho de raíces que desgarra la piel al contacto.', 0, 2, 1),
+    ('Gran hacha', 'Un poderoso hachazo que puede partir al enemigo en dos.', 0, 4, 0),
+    ('Embestida Cornamentada', 'Una carga con cuernos afilados que puede atravesar a los enemigos.', 2, 4, 0),
+    ('Aliento Gélido', 'Un soplo de aire helado que congela a todo lo que toca.', 3, 5, 2),
+    ('Lanza', 'Un ataque con una lanza que puede perforar armaduras y carne.', 2, 2, 1),
+    ('Cimitarra', 'Un corte rápido y mortal con una cimitarra curva.', 0, 4, 1),
+    ('Arco Corto', 'Una flecha disparada con precisión que perfora la piel del enemigo.', 2, 2, 1),
+    ('Daga', 'Un ataque rápido y letal con una daga afilada.', 2, 1, 1),
+    ('Galope Flamígero', 'Un ataque ardiente mientras se carga hacia adelante, envolviendo al enemigo en llamas.', 4, 5, 4),
+    ('Pezuña', 'Una patada fuerte con pezuñas que puede aplastar huesos.', 1, 3, 0),
+    ('Embestida', 'Un embate brutal que derriba y aplasta al enemigo.', 1, 3, 0);
 
 --+-- CREATURES --+--
 
@@ -1131,7 +1131,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 11,
     @MaxHealth = 15,
     @Abilities = N'0,1,1,1,-2,0,1',
-    @Attacks = N'0,1';
+    @Attacks = N'0,1',
+	@Gold = 10;
 
 EXEC SP_InsertCreature
     @Name = 'Azotamentes',
@@ -1142,7 +1143,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 15,
     @MaxHealth = 38,
     @Abilities = N'0,1,1,4,3,3',
-    @Attacks = N'2,0';
+    @Attacks = N'2,0',
+	@Gold = 20;
 
 EXEC SP_InsertCreature
     @Name = 'Banshee',
@@ -1153,7 +1155,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 12,
     @MaxHealth = 26,
     @Abilities = N'-5,2,0,1,0,3',
-    @Attacks = N'3,4';
+    @Attacks = N'3,4',
+	@Gold = 14;
 
 EXEC SP_InsertCreature
     @Name = 'Cíclope',
@@ -1164,7 +1167,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 14,
     @MaxHealth = 32,
     @Abilities = N'4,0,5,-1,2,0',
-    @Attacks = N'1,5';
+    @Attacks = N'1,5',
+	@Gold = 18;
 
 EXEC SP_InsertCreature
     @Name = 'Contemplador',
@@ -1175,7 +1179,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 19,
     @MaxHealth = 80,
     @Abilities = N'0,2,4,3,2,3',
-    @Attacks = N'6,7,8';
+    @Attacks = N'6,7,8',
+	@Gold = 40;
 
 EXEC SP_InsertCreature
     @Name = 'Diablo Astado',
@@ -1186,7 +1191,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 17,
     @MaxHealth = 60,
     @Abilities = N'3,3,5,1,3,3',
-    @Attacks = N'9,0';
+    @Attacks = N'9,0',
+	@Gold = 30;
 
 EXEC SP_InsertCreature
     @Name = 'Dracoliche',
@@ -1197,7 +1203,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 18,
     @MaxHealth = 67,
     @Abilities = N'4,0,4,3,2,4',
-    @Attacks = N'7,0';
+    @Attacks = N'7,0',
+	@Gold = 34;
 
 EXEC SP_InsertCreature
     @Name = 'Dríade',
@@ -1208,7 +1215,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 12,
     @MaxHealth = 18,
     @Abilities = N'0,1,0,2,2,4',
-    @Attacks = N'1,10';
+    @Attacks = N'1,10',
+	@Gold = 14;
 
 EXEC SP_InsertCreature
     @Name = 'Ent',
@@ -1219,7 +1227,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 15,
     @MaxHealth = 55,
     @Abilities = N'1,1,1,-2,0,1',
-    @Attacks = N'10,5';
+    @Attacks = N'10,5',
+	@Gold = 26;
 
 EXEC SP_InsertCreature
     @Name = 'Gigante de Escarcha',
@@ -1230,7 +1239,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 19,
     @MaxHealth = 80,
     @Abilities = N'5,-1,5,-1,0,1',
-    @Attacks = N'11,12,13';
+    @Attacks = N'11,12,13',
+	@Gold = 40;
 
 EXEC SP_InsertCreature
     @Name = 'Gnoll',
@@ -1241,7 +1251,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 12,
     @MaxHealth = 17,
     @Abilities = N'2,1,0,-2,0,-2',
-    @Attacks = N'7,14';
+    @Attacks = N'7,14',
+	@Gold = 12;
 
 EXEC SP_InsertCreature
     @Name = 'Goblin',
@@ -1252,7 +1263,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 11,
     @MaxHealth = 12,
     @Abilities = N'-1,2,0,0,-1,-1',
-    @Attacks = N'15,16'; -- Cimitarra y Arco Corto
+    @Attacks = N'15,16', -- Cimitarra y Arco Corto
+	@Gold = 10;
 
 EXEC SP_InsertCreature
     @Name = 'Golem de Piedra',
@@ -1263,7 +1275,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 14,
     @MaxHealth = 48,
     @Abilities = N'3,-1,4,-4,0,-4',
-    @Attacks = N'5,1'; -- Piedra y Garrote
+    @Attacks = N'5,1', -- Piedra y Garrote
+	@Gold = 22;
 
 EXEC SP_InsertCreature
     @Name = 'Grifo',
@@ -1274,7 +1287,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 13,
     @MaxHealth = 22,
     @Abilities = N'2,3,2,-2,1,-1',
-    @Attacks = N'0,7'; -- Garras y Mordisco
+    @Attacks = N'0,7', -- Garras y Mordisco
+	@Gold = 16;
 
 EXEC SP_InsertCreature
     @Name = 'Kobold',
@@ -1285,7 +1299,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 13,
     @MaxHealth = 15,
     @Abilities = N'0,2,0,-2,-1,-2',
-    @Attacks = N'17,0'; -- Daga y Garras
+    @Attacks = N'17,0', -- Daga y Garras
+	@Gold = 10;
 
 EXEC SP_InsertCreature
     @Name = 'Hombre Lobo',
@@ -1296,7 +1311,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 14,
     @MaxHealth = 52,
     @Abilities = N'2,3,1,0,0,0',
-    @Attacks = N'0,7'; -- Garras y Mordisco
+    @Attacks = N'0,7', -- Garras y Mordisco
+	@Gold = 24;
 
 EXEC SP_InsertCreature
     @Name = 'Pesadilla',
@@ -1307,7 +1323,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 19,
     @MaxHealth = 80,
     @Abilities = N'4,3,3,1,2,2',
-    @Attacks = N'18,19,20'; -- Galope Flamígero, Pezuña y Embestida
+    @Attacks = N'18,19,20', -- Galope Flamígero, Pezuña y Embestida
+	@Gold = 40;
 
 EXEC SP_InsertCreature
     @Name = 'Vampiro',
@@ -1318,7 +1335,8 @@ EXEC SP_InsertCreature
     @ArmorClass = 16,
     @MaxHealth = 68,
     @Abilities = N'3,3,2,1,2,2',
-    @Attacks = N'0,7'; -- Garras y Mordisco
+    @Attacks = N'0,7', -- Garras y Mordisco
+	@Gold = 32;
 
 --+-- CHARACTERS --+--
 --Esto es un ejemplo de personaje nuevo, no hace falta Execute
@@ -1349,7 +1367,8 @@ SELECT * FROM Backgrounds
 SELECT * FROM DamageTypes
 ---Buscador de Ataques
 SELECT * FROM Attacks
-SELECT * FROM items
+---Buscador de Items
+SELECT * FROM Items
 
 ---Buscador de Armas
 EXEC SP_GetWeapons
@@ -1358,11 +1377,15 @@ EXEC SP_GetArmorsShields
 ---Buscador de Consumibles
 EXEC SP_GetConsumables
 ---Buscador de Genéricos
-EXEC SP_GetCharacter @ID_Character = 0
+EXEC SP_GetGenerics
+---Buscador de personajes especificos
+EXEC SP_GetCharacter @ID_Character = 1
+---Buscador de todos los personajes
+EXEC SP_GetCharacters
 
 --insert into users(Username, PasswordHash) values ('walter','inza')
 
-select * from users where Username = 'user' AND PasswordHash = '1234'
+SELECT * FROM users WHERE Username = 'user' AND PasswordHash = '1234'
 
 -----Esto por el momento son pruebas, no prestar atencion
 ---Buscador de criaturas
