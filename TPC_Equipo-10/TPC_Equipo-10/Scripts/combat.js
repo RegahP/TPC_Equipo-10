@@ -57,11 +57,10 @@ let buttonSize = 16; //invertido
 //vars del inventario en tienda
 let buyPopup; //si esta prendido el popup de compra
 let buyPopupFocus; //si el cursor esta a la izq o der del popup
-let itemBought; //si compramos el item
 
 let sellPopup; //si esta prendido el popup de venta
 let sellPopupFocus; //si el cursor esta a la izq o der del popup
-let itemSold; //si vendimos el item
+
 let popupSize = 2.5; //tamaño del popup; invertido
 
 function setupInventory() {
@@ -72,15 +71,21 @@ function setupInventory() {
     noStroke();
 
     //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
-    if (chr.gameState == 1) {
-        //TEMP estamos cargando todos los item IDs, hay que cargar los del jugador
+    if (chr.gameState == 1 || (chr.gameState == 4 && storeBuySellFocus)) {
         invItems = [];
-        for (let i = 0; i < allItems.length; i++) {
-            invItems.push(allItems[i].id);
+        for (let i = 0; i < chr.inventory.length; i++) {
+            invItems.push(chr.inventory[i]);
         }
+        chr.equippedWeaponID = 20; //temp, equipa golpe desarmado
     }
-    else if (chr.gameState == 4) {
+    else if (chr.gameState == 4 && !storeBuySellFocus) {
+
         invItems = catalogueItems;//si estamos en la tienda, cargamos el catalogo de items
+    }
+
+    //si lo que cargamos dejo el inventario vacio, lo declaramos como vacio
+    if (invItems.length == 0) {
+        invEmpty = true;
     }
 
     sellPopup = false;
@@ -377,14 +382,22 @@ function drawInventory() {
         fill(255);
         textAlign(CENTER, CENTER)
 
-        //actualizamos el dialogo del merchant para reflejar el inventario vacio
         let emptyTxt;
-        if (!storeBuySellFocus) {
-            emptyTxt = "Compraste todo en la tienda!";
-            merchantDialogue = merchantEmptyBuyDialogues[merchantPersonality];
-        } else {
+
+        //estamos en combate
+        if (chr.gameState == 1) {
             emptyTxt = "Tu inventario está vacío!";
-            merchantDialogue = merchantEmptySellDialogues[merchantPersonality];
+        }
+        //estamos en la tienda
+        if (chr.gameState == 4) {
+            //actualizamos el dialogo del merchant para reflejar el inventario vacio
+            if (!storeBuySellFocus) {
+                emptyTxt = "Compraste todo en la tienda!";
+                merchantDialogue = merchantEmptyBuyDialogues[merchantPersonality];
+            } else {
+                emptyTxt = "Tu inventario está vacío!";
+                merchantDialogue = merchantEmptySellDialogues[merchantPersonality];
+            }
         }
 
         text(
@@ -513,48 +526,71 @@ function drawInventory() {
             }
         }
     }
-    if (itemSold) {
-        itemSold = false;
+}
 
-        //te suma el oro del item
-        chr.gold += allItems[invItems[invIndex]].price;
-        //lo elimina de la lista de IDs
-        if (invIndex == invItems.length - 1) {
-            invItems.splice(invIndex, 1);
-            invIndex -= 1;
-        } else {
-            invItems.splice(invIndex, 1);
-        }
-        //save character
-        if (invItems.length == 0) {
-            invEmpty = true;
-        }
-        //cambia el dialogo de pre venta a post venta
-        merchantDialoguePreSoldStatus = true;
-        //elige otra opcion de dialogo segun su personalidad
-        pickMerchantDialogueOptions();
+//compra el item seleccionado
+function buyItem() {
+    //te resta el oro del item
+    chr.gold -= allItems[invItems[invIndex]].price;
+    //lo agrega a tu inventario
+    chr.inventory.push(allItems[invItems[invIndex]].id);
+    //lo elimina de la lista
+    if (invIndex == invItems.length - 1) {
+        invItems.splice(invIndex, 1);
+        invIndex -= 1;
+    } else {
+        invItems.splice(invIndex, 1);
     }
-    if (itemBought) {
-        itemBought = false;
+    //save character
+    if (invItems.length == 0) {
+        invEmpty = true;
+    }
+    //cambia el dialogo de pre venta a post venta
+    merchantDialogueShowBoughtStatus = true;
+    //elige otra opcion de dialogo segun su personalidad
+    pickMerchantDialogueOptions();
+}
+//vende el item seleccionado
+function sellItem() {
+    //te suma el oro del item
+    chr.gold += allItems[invItems[invIndex]].price;
+    //lo elimina de tu inventario
+    chr.inventory.splice(invIndex, 1);
+    //lo elimina de la lista
+    if (invIndex == invItems.length - 1) {
+        invItems.splice(invIndex, 1);
+        invIndex -= 1;
+    } else {
+        invItems.splice(invIndex, 1);
+    }
+    //save character
+    if (invItems.length == 0) {
+        invEmpty = true;
+    }
+    //cambia el dialogo de pre venta a post venta
+    merchantDialoguePreSoldStatus = true;
+    //elige otra opcion de dialogo segun su personalidad
+    pickMerchantDialogueOptions();
+}
+//data relacionada al proceso de un ataque
+let attackStatus;
+function attack() {
+    let weapon = allItems[chr.equippedWeaponID];
+    let creature = creatures[creatureID];
 
-        //te resta el oro del item
-        chr.gold -= allItems[invItems[invIndex]].price;
-        //lo elimina de la lista
-        if (invIndex == invItems.length - 1) {
-            invItems.splice(invIndex, 1);
-            invIndex -= 1;
-        } else {
-            invItems.splice(invIndex, 1);
-        }
-        //save character
-        if (invItems.length == 0) {
-            invEmpty = true;
-        }
-        //cambia el dialogo de pre venta a post venta
-        merchantDialogueShowBoughtStatus = true;
-        //elige otra opcion de dialogo segun su personalidad
-        pickMerchantDialogueOptions();
+    let attackRoll = roll(20, mod(chr.abilities[weapon.abilityModID].rolledScore));
+
+    if (attackRoll > creature.armor) {
+        attackStatus = true;
+        let damage = weapon.damage + mod(chr.abilities[weapon.abilityModID].rolledScore);
     }
+    else {
+        attackStatus = false;
+    }
+    //switch turn
+    //increase round count
+
+    //algo sobre que si turn es 1, generar una decision del creature, y tirar el waitStart con id dependiendo de eso
 }
 
 //mascaras de clipping para evitar que sobresalgan los textos en el inventario

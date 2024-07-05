@@ -2,14 +2,12 @@
 function drawStore() {
     drawTextCentered('store', width / 2, height - 24, 24, 'white')
 
-    
     if (!storeNavFocus) {
         drawStoreNav();
     }
     else {
         drawInventory();
     }
-    
 }
 
 //navegacion en la tienda

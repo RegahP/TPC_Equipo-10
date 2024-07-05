@@ -137,9 +137,13 @@ const createSketch = (parentID, hiddenFieldID) => {
 
             timer = 0;
             p.background(255);
-            targetAngleX = p.floor(p.random(3)) * 4 * p.HALF_PI;
-            targetAngleY = p.floor(p.random(3)) * 4 * p.HALF_PI;
-            targetAngleZ = p.floor(p.random(3)) * 4 * p.HALF_PI;
+            do {
+                targetAngleX = p.floor(p.random(3)) * 4 * p.HALF_PI;
+                targetAngleY = p.floor(p.random(3)) * 4 * p.HALF_PI;
+                targetAngleZ = p.floor(p.random(3)) * 4 * p.HALF_PI;
+            }
+            while (targetAngleX == angleX || targetAngleY == angleY || targetAngleZ == angleZ);
+            
             rolling = true;
 
             let d6s = [];

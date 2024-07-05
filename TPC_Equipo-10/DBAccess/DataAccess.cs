@@ -430,13 +430,13 @@ namespace DBAccess
                     aux.rating = reader.GetInt32(3);
                     aux.xp = reader.GetInt32(4);
                     aux.prof = reader.GetInt32(5);
-
                     aux.armor = reader.GetInt32(6);
                     aux.maxHealth = reader.GetInt32(7);
+                    aux.gold = reader.GetInt32(8);
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(8 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(9 + i));
                         aux.abilities.Add(auxRolled);
                     }
 
@@ -495,6 +495,7 @@ namespace DBAccess
                     aux.desc = reader.GetString(2);
                     aux.dmgTypeID = reader.GetInt32(3);
                     aux.damage = reader.GetInt32(4);
+                    aux.abilityID = reader.GetInt32(5);
                     list.Add(aux);
                 }
                 return list;

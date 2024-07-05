@@ -148,6 +148,7 @@ function keyPressed() {
                             navIndex = (navIndex + 1) % nav.length;
                         } else if (keyCode === ENTER) {
                             if (navIndex === 0) { //si estamos parados en la accion ataque
+                                attack();
                                 waitStart(0); //triggerea dialogo de ataque
                             }
                             else if (navIndex === 1) { //si estamos parados en la accion defensa
@@ -254,7 +255,7 @@ function keyPressed() {
                         }
                         if (keyCode === ENTER) {
                             storeNavFocus = true;
-                            setupInventory(); //TEMP, antes de esto va el panel de compra o venta
+                            setupInventory();
                             merchantDialogueShowBoughtStatus = false; //resetea al merchant a que muestre su dialogo pre compra
                             merchantDialoguePreSoldStatus = false; //resetea al merchant a que muestre su dialogo pre ventas
                         }
@@ -328,7 +329,7 @@ function keyPressed() {
                                                 buyPopup = false;
                                             }
                                             else {
-                                                itemBought = true;
+                                                buyItem();
                                                 buyPopup = false;
                                             }
                                         }
@@ -405,7 +406,7 @@ function keyPressed() {
                                                 sellPopup = false;
                                             }
                                             else {
-                                                itemSold = true;
+                                                sellItem();
                                                 sellPopup = false;
                                             }
                                         }

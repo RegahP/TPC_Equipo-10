@@ -19,7 +19,7 @@ namespace DomainModel
 
         public int GetModifier()
         {
-            return (int)((rolledScore - 10) / 2);
+            return (rolledScore - 10) / 2;
         }
     }
 }

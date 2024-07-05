@@ -134,7 +134,7 @@ function manageWaitDialogues() {
     else if (wait2 || skip2) {
         switch (waitDialogueID) {
             case 0: //atacaste
-                waitDialogue('El ataque ' + (random() < 0.5 ? 'es exitoso!' : 'falló!')); //temp random, deberia rollear
+                waitDialogue('El ataque ' + (attackStatus ? 'es exitoso!' : 'falló!'));
                 break;
             case 1: //te defendiste
                 waitDialogue('Durante 3 rondas, tu armadura aumenta en 2.');
@@ -170,6 +170,10 @@ function manageWaitDialogues() {
 
 function roll(d, mod) {
     return int(random(d) + 1) + mod;
+}
+
+function mod(score) {
+    return int((score - 10) / 2);
 }
 
 //draws the character sprite (raceID, classID, sex) at position posX, posY with a size

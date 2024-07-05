@@ -8,8 +8,13 @@ namespace DomainModel
 {
     public class Encounter
     {
-        public int creatureID {  get; set; }
-        public int currHealth {  get; set; }
-        public int goldDrop { get; set; }
+        public int id {  get; set; }
+        public int characterID {  get; set; }
+        public int creatureID { get; set; }
+        public int creatureCurrHealth { get; set; }
+        public int currRound { get; set; }
+        public bool turn { get; set; }
+
+        public List<Effect> effects = new List<Effect>();
     }
 }
