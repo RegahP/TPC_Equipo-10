@@ -802,5 +802,17 @@ namespace DBAccess
                 CloseConnection();
             }
         }
+
+        public static void ModifyUserProfile(User user)
+        {
+            // Implementar la lógica para actualizar el perfil del usuario en la base de datos
+            //DataAccess db = new DataAccess();
+            SetProcedure("SP_ModifyUserProfile");
+            SetParameter("@ID_User", user.id);
+            SetParameter("@Username", user.username);
+            SetParameter("@PasswordHash", user.passwordHash);
+            ExecuteAction();
+        }
+
     }
 }

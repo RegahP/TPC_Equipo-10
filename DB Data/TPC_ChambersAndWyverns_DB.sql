@@ -676,3 +676,15 @@ BEGIN
 
     DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
 END
+
+--+-- Modificacion de username y paswordhash --+--
+go
+CREATE OR ALTER PROCEDURE SP_ModifyUserProfile
+    @ID_User INT,
+    @Username NVARCHAR(30),
+    @PasswordHash NVARCHAR(255)
+AS
+BEGIN
+        UPDATE users SET Username = @Username, PasswordHash = @PasswordHash
+        WHERE ID_User = @ID_User;
+END

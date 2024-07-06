@@ -74,6 +74,7 @@
     <Content Include="ClassSelection.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Docs.aspx" />
+    <Content Include="EditProfile.aspx" />
     <Content Include="FinishingCharacter.aspx" />
     <Content Include="Game.aspx" />
     <Content Include="Global.asax" />
@@ -147,6 +148,13 @@
     </Compile>
     <Compile Include="Docs.aspx.designer.cs">
       <DependentUpon>Docs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfile.aspx.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditProfile.aspx.designer.cs">
+      <DependentUpon>EditProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="FinishingCharacter.aspx.cs">
       <DependentUpon>FinishingCharacter.aspx</DependentUpon>
