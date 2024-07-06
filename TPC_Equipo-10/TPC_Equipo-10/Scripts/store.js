@@ -190,7 +190,7 @@ let merchantSoldDialogues = [
         "No sé porque presiento que esta noche tendré que dormir con un ojo abierto. Hasta donde sé, podría tener una historia oscura."
     ],
     [
-        "Bueno, me lo quedo, pero el que sale perdiendo eres tú, sé de un lugar donde comprarían esto por el doble de lo que pides.",
+        "Bueno, me lo quedo, pero el que sale perdiendo sos vos, sé de un lugar donde comprarían esto por el doble de lo que pedís.",
         "Como se nota que no eres experimentado en los negocios, un poco de humildad no te haría mal.",
         "Te lo tomo, pero más te vale que no sea una réplica. No tengo tiempo para objetos sin valor."
     ]
@@ -267,5 +267,5 @@ let merchantEmptyBuyDialogues = [
     "Has hecho una compra excelente. Agradezco profundamente el apoyo, estoy seguro de que cada objeto valdrá la pena. Cuando quieras, acá estoy.",
     "Wow, me compraste todo ya? No podría estar más agradecido. Ojalá disfrutes todo lo que te llevás de acá!",
     "Realmente te llevas todo? No lo puedo creer. Pero aún no conoces la totalidad de lo que son capaces estos objetos! Ten mucho cuidado!",
-    "¿Todo? Esa no la vi venir. Bueno, supongo que estoy agradecido. En fin, vuelve cuando quieras más, pero trae más oro la próxima."
+    "¿Todo? Esa no la vi venir. Bueno, supongo que estoy agradecido. En fin, volvé cuando quieras más, pero trae más oro la próxima."
 ]

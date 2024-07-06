@@ -99,7 +99,7 @@ function manageWaitDialogues() {
     if (wait || skip) {
         switch (waitDialogueID) {
             case 0: //vas a atacar
-                waitDialogue('Decidís atacar con tu Hacha de mano!'); //temp value, es arma equipada
+                waitDialogue('Decidís atacar con tu ' + allItems[chr.equippedWeaponID].name + '!');
                 break;
             case 1: //vas a defenderte
                 waitDialogue('Decidís defenderte!');

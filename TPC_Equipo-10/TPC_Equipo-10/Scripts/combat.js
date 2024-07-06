@@ -214,8 +214,6 @@ function drawInventory() {
             );
         }
 
-        //equipbutton TEMP todavia no hay characterItems, solo items originales
-
         if (allItems[invItems[invIndex]].type != 0) {
 
             if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID) {
