@@ -75,15 +75,32 @@ namespace TPC_Equipo_10
         {
 
             //falta validar nombre
-            if (characterID != -1)
+            if (characterID != -1) // Edicion
             {
-                modName = txtName1.Text;
+
+                if (string.IsNullOrWhiteSpace(txtName2.Text))
+                {
+                    lblErrorMessage.Text = "Nombre vacío";
+                    lblErrorMessage.Visible = true;
+                    txtName2.Text = null;
+                    return;
+                }
+
+                if (txtName2.Text.Contains(" "))
+                {
+                    lblErrorMessage.Text = "El nombre de personaje no puede contener espacios.";
+                    lblErrorMessage.Visible = true;
+                    txtName2.Text = null;
+                    return;
+                }
+
                 modName = txtName2.Text;
+
             }
-            else
+            else // Creacion
             {
+
                 character.name = txtName1.Text;
-                character.name = txtName2.Text;
             }
         }
 
@@ -117,7 +134,7 @@ namespace TPC_Equipo_10
             Response.Redirect("Characters.aspx", false);
         }
 
-        public void AddRolledAbilities ()
+        public void AddRolledAbilities()
         {
             RolledAbility str = new RolledAbility(0, int.Parse(fieldSTR.Value));
             RolledAbility dex = new RolledAbility(1, int.Parse(fieldDEX.Value));

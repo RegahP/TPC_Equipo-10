@@ -24,7 +24,8 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
-                    <asp:TextBox runat="server" ID="txtName1" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
+                    <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Visible="false" />
+                    <asp:TextBox runat="server" ID="txtName1" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                 </div>
             </div>
 
@@ -42,6 +43,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
+                    
                     <asp:TextBox runat="server" ID="txtName2" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                 </div>
             </div>
