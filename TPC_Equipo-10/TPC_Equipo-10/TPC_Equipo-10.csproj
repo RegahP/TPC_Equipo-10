@@ -87,16 +87,30 @@
     <Content Include="Scripts\combat.js" />
     <Content Include="Scripts\cutscenes.js" />
     <Content Include="Scripts\domainmodel.js" />
+    <Content Include="Scripts\dropdownmenu.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\roll.js" />
     <Content Include="Scripts\store.js" />
     <Content Include="Scripts\town.js" />
+    <Content Include="Scripts\webform.js" />
     <Content Include="Sprites\chr_fx_darkspotlight.png" />
     <Content Include="Sprites\chr_spritesheet.png" />
     <Content Include="Sprites\creatures_0.png" />
     <Content Include="Sprites\creatures_spritesheet.png" />
+    <Content Include="Sprites\Icons\0.png" />
+    <Content Include="Sprites\Icons\1.png" />
+    <Content Include="Sprites\Icons\2.png" />
+    <Content Include="Sprites\Icons\3.png" />
+    <Content Include="Sprites\Icons\4.png" />
+    <Content Include="Sprites\Icons\5.png" />
+    <Content Include="Sprites\Icons\6.png" />
+    <Content Include="Sprites\Icons\7.png" />
+    <Content Include="Sprites\Icons\8.png" />
+    <Content Include="Sprites\Icons\9.png" />
     <Content Include="Sprites\items_spritesheet.png" />
     <Content Include="Sprites\merchant_spritesheet.png" />
+    <Content Include="Sprites\webform_class_spritesheet.png" />
+    <Content Include="Sprites\webform_race_spritesheet.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
     <style>
         .containerInfo {
             background-color: beige;
-            width: 40%;
+            width: 60%;
             margin-bottom: 25px;
             margin-left: auto;
             margin-right: auto;
@@ -30,48 +30,55 @@
             font-weight: 500;
             font-style: normal;
         }
+        .icon {
+            image-rendering: pixelated;
+            background-color: antiquewhite;
+            outline: 2px solid;
+            outline-color: darkkhaki;
+        }
     </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <div class="containerInfo" style="text-align: center;">
+    <div class="containerInfo text-center">
         <h3 class="title">Selecciona tu Clase:</h3>
     </div>
 
-    <div class="containter" style="justify-content: center">
-        <asp:Repeater runat="server" ID="rptClass">
-            <ItemTemplate>
+    <asp:Repeater runat="server" ID="rptClass">
+        <ItemTemplate>
+            <div class="containerInfo" style="display: flex; justify-content: center">
+                <div class="container">
+                    <div class="row">
+                        <h4 class="title" style="text-align: center"><%# Eval("name")%></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <canvas class="class-canvas icon" data-class="<%# Eval("id") %>" data-format="0" width="128" height="192" style="margin-left: 12px"></canvas>
+                        </div>
+                        <div class="col">
+                            <div style="justify-content: left">
+                                <p><%# Eval("desc")%></p>
 
-                <div class="classInfo" style="display: flex">
-                    <h4 class="title" style="justify-content: center"><%# Eval("name")%></h4>
-                    <div style="display: flex; justify-content: left">
-                        <div runat="server" visible='<%# ((int)Eval("id")) == 0 %>'>
-                            <img class="classImg" src="https://www.dndbeyond.com/avatars/thumbnails/6/359/420/618/636272697874197438.png" alt="">
-                        </div>
-                        <div runat="server" visible='<%# ((int)Eval("id")) == 1 %>'>
-                            <img class="classImg" src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/6f055b11-30d4-4a48-85a1-774dc8d792cd/dg308lq-774ebb76-101d-49e2-afa9-6f9e523f7fc4.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzZmMDU1YjExLTMwZDQtNGE0OC04NWExLTc3NGRjOGQ3OTJjZFwvZGczMDhscS03NzRlYmI3Ni0xMDFkLTQ5ZTItYWZhOS02ZjllNTIzZjdmYzQucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.hFpv3hPHv-S99ivnKkB469BJHKMQFaIDIwNDVlh7Wyo" alt="">
-                        </div>
-                        <div runat="server" visible='<%# ((int)Eval("id")) == 2 %>'>
-                            <img class="classImg" src="https://www.worldanvil.com/uploads/images/5306b35bfec003350e5eaa79e3b5fa2e.png" alt="">
-                        </div>
-                        <div runat="server" visible='<%# ((int)Eval("id")) == 3 %>'>
-                            <img class="classImg" src="https://i0.wp.com/nerdarchy.com/wp-content/uploads/2016/04/Fe-PirateRogue.png?fit=635%2C753&ssl=1" alt="">
-                        </div>
-                        <div style="justify-content: right">
-                            <p><%# Eval("desc")%></p>
+                                <h6>Puntos de vida por nivel: <%# Eval("classHealth") %> + tu modificador de Constitución</h6>
+                                <h4>Habilidad Especial: <%# Eval("specialName")%></h4>
 
-                            <h4>Puntos de vida por nivel: <%# Eval("classHealth") %> + Modificador de Constitucion</h4>
-                            <h4>Habilidad Especial: <%# Eval("specialName")%></h4>
-                            <p><%# Eval("specialDesc")%></p>
-
-                            <asp:LinkButton ID="confirmClass_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmClass_btn_Click" Text="Seleccionar" />
+                                <div class="row" style="align-items:end; margin-bottom:16px">
+                                    <div class="col">
+                                        <p><%# Eval("specialDesc")%></p>
+                                    </div>
+                                    <div class="col-2">
+                                        <asp:LinkButton ID="confirmClass_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmClass_btn_Click" Text="Seleccionar" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </ItemTemplate>
-        </asp:Repeater>
-    </div>
+        </ItemTemplate>
+    </asp:Repeater>
+    <script src="Scripts/webform.js"></script>
 </asp:Content>

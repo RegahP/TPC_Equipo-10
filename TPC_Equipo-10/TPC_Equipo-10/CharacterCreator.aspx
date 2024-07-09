@@ -7,18 +7,10 @@
     <style>
         .containerInfo {
             background-color: beige;
-            width: 40%;
+            width: 60%;
             margin-bottom: 25px;
             margin-left: auto;
             margin-right: auto;
-
-        }
-
-        .classInfo {
-            margin-bottom: 30px;
-            border-bottom: 3px solid;
-            border-color: azure;
-            padding-bottom: 15px;
         }
 
         .title {
@@ -26,6 +18,13 @@
             font-optical-sizing: auto;
             font-weight: 500;
             font-style: normal;
+        }
+
+        .icon {
+            image-rendering: pixelated;
+            background-color: antiquewhite;
+            outline: 2px solid;
+            outline-color: darkkhaki;
         }
     </style>
 
@@ -41,40 +40,40 @@
     <asp:Repeater runat="server" ID="rptRace" OnItemDataBound="rptRace_ItemDataBound">
         <ItemTemplate>
 
-            <div class="containerInfo" style=" display: flex;justify-content: center">
-                <h4 class="title" style="text-align: center"><%# Eval("name")%></h4>
-                <div style="justify-content: left">
-                    <div  runat="server" visible='<%# ((int)Eval("id")) == 0 %>'>
-                        <img style="width: 350px; height:550px;" src="https://i.imgur.com/D9h7V1m.png" alt="">
-                    </div>
-                    <div runat="server" visible='<%# ((int)Eval("id")) == 1 %>'>
-                        <img style="width: 350px; height:550px;"  src="https://i.imgur.com/7Ax3AZe.png" alt="">
-                    </div>
-                    <div runat="server" visible='<%# ((int)Eval("id")) == 2 %>'>
-                        <img style="width: 350px; height:550px;"  src="https://www.dndbeyond.com/avatars/thumbnails/6/340/420/618/636272677995471928.png" alt="">
-                    </div>
-                    <div runat="server" visible='<%# ((int)Eval("id")) == 3 %>'>
-                        <img style="width: 350px; height:550px;"  src="https://www.dndbeyond.com/avatars/thumbnails/6/254/420/618/636271781394265550.png" alt="">
-                    </div>
-                    <div runat="server" visible='<%# ((int)Eval("id")) == 4 %>'>
-                        <img style="width: 350px; height:550px;"  src="https://www.dndbeyond.com/avatars/thumbnails/7/641/420/618/636287076637981942.png" alt="">
-                    </div>
-                    <div runat="server" visible='<%# ((int)Eval("id")) == 5 %>'>
-                        <img style="width: 350px; height:550px;"  src="https://images.squarespace-cdn.com/content/v1/5e3843beb37a0716cf512998/cc8512f0-3130-4533-8786-2872de9edbcc/halfling-urban.png" alt="">
-                    </div>
-                    <div style="justify-content: right">
-                        <p><%# Eval("desc")%></p>
+            <div class="containerInfo" style="display: flex; justify-content: center">
+                    <div class="container">
+                        <div class="row">
+                            <h4 class="title" style="text-align: center"><%# Eval("name")%></h4>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <canvas class="race-canvas icon" data-race="<%# Eval("id") %>" data-format="0" width="128" height="192" style="margin-left: 12px"></canvas>
+                            </div>
+                            <div class="col">
+                                <div style="justify-content: left">
+                                    <p><%# Eval("desc")%></p>
 
-                        <asp:Repeater runat="server" ID="rptAbilities">
-                            <ItemTemplate>
-                                <h5>Pasiva: +2 a su <%# Eval("name")%></h5>
-                            </ItemTemplate>
-                        </asp:Repeater>
+                                    <asp:Repeater runat="server" ID="rptAbilities">
+                                        <ItemTemplate>
+                                            <div class="container text-center" style="margin-bottom:24px">
+                                                <div class="row" style="align-items:end">
+                                                    <div class="col">
+                                                        <h5>Pasiva: +2 a su <%# Eval("name")%></h5>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <asp:LinkButton ID="confirmRace_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmRace_btn_Click" Text="Seleccionar" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
 
-                        <asp:LinkButton ID="confirmRace_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmRace_btn_Click" Text="Seleccionar" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
             </div>
         </ItemTemplate>
     </asp:Repeater>
+    <script src="Scripts/webform.js"></script>
 </asp:Content>

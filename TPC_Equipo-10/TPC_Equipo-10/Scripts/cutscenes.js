@@ -72,8 +72,6 @@ function waitDialogue(dialogue) {
         }
     }
     drawDialogue(dialogue);
-    //console.log('wait', 'skip', 'wait2', 'skip2', 'waitTimer');
-    //console.log(wait, skip, wait2, skip2, waitTimer);
 }
 
 //dibuja un dialogo centrado con un rectangulo detras para tapar menues
@@ -99,7 +97,7 @@ function manageWaitDialogues() {
     if (wait || skip) {
         switch (waitDialogueID) {
             case 0: //vas a atacar
-                waitDialogue('Decidís atacar con tu ' + allItems[chr.equippedWeaponID].name + '!');
+                waitDialogue('Decidís atacar con tu ' + weapon.name + '!');
                 break;
             case 1: //vas a defenderte
                 waitDialogue('Decidís defenderte!');
@@ -124,17 +122,29 @@ function manageWaitDialogues() {
                 }
                 break;
             case 3: //estas entrando en combate
-                waitDialogue((creatureFemPronouns.includes(creatureID) ? 'Una ' : 'Un ') + creatures[creatureID].name + ' quiere pelear!');
+                waitDialogue(pronounCalculator('Una', 'Un') + creatures[encounter.creatureID].name + ' quiere pelear!');
+                break;
+            case 4: //va a atacar creature
+                waitDialogue(pronounCalculator('La', 'El') + creatures[encounter.creatureID].name + ' te ataca con ' + attack.name + '!');
+                break;
+            case 5: //va a terminar el encounter
+                waitDialogue('Derrotaste ' + pronounCalculator('a la', 'al') + creatures[encounter.creatureID].name + '!');
+                break;
+            case 6: //vas a subir de nivel
+                waitDialogue('Felicitaciones! Subiste a nivel ' + chr.level + '!');
+                break;
+            case 7: //te estas muriendo
+                waitDialogue('Perdiste el combate!');
                 break;
             default:
-                console.warn('wait default');
+                console.warn('primer dialogo faltante');
                 break;
         }
     }
     else if (wait2 || skip2) {
         switch (waitDialogueID) {
             case 0: //atacaste
-                waitDialogue('El ataque ' + (attackStatus ? 'es exitoso!' : 'falló!'));
+                waitDialogue('El ataque ' + (attackStatus ? 'es exitoso! Le infligís ' + damage + ' de daño!' : 'falló!'));
                 break;
             case 1: //te defendiste
                 waitDialogue('Durante 3 rondas, tu armadura aumenta en 2.');
@@ -161,11 +171,27 @@ function manageWaitDialogues() {
             case 3: //comenzaste el combate
                 waitDialogue('Qué pensás hacer?');
                 break;
+            case 4: //atacó creature
+                waitDialogue('El ataque ' + (attackStatus ? 'es exitoso! Te inflige ' + damage + ' de daño!' : 'falló!'));
+                break;
+            case 5: //terminó el encounter
+                waitDialogue('Recibes ' + creatures[encounter.creatureID].gold + ' de oro y +7 de experiencia!');
+                break;
+            case 6: //subiste de nivel
+                waitDialogue('Sientes que esto solo se va a poner más difícil...');
+                break;
+            case 7: //subiste de nivel
+                waitDialogue('Tu personaje ha muerto.');
+                break;
             default:
-                console.warn("wait2 default");
+                console.warn("segundo dialogo faltante");
                 break;
         }
     }
+}
+//si, ese nombre no es ironico, es real
+function pronounCalculator(fem, masc) {
+    return creatureFemPronouns.includes(encounter.creatureID) ? fem + '  ' : masc + ' ';
 }
 
 function roll(d, mod) {

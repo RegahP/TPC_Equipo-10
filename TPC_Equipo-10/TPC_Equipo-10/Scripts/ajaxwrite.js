@@ -17,3 +17,19 @@ function saveCharacter(character) {
         }
     });
 }
+
+function saveEncounter(encounter, type) {
+    $.ajax({
+        type: "POST",
+        url: "Game.aspx/SaveEncounter",
+        data: JSON.stringify({ encounter: encounter, type: type }),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log("Encounter sent from AJAX Call to CodeBehind succesfully.");
+        },
+        error: function (err) {
+            console.log("Error sending Encounter from AJAX Call to CodeBehind:", err);
+        }
+    });
+}

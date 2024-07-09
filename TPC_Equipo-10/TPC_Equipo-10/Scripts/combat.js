@@ -1,8 +1,10 @@
 ﻿function drawCombat() {
 
     drawTextCentered('combat; lose or win?', width / 2, height - 24, 24, 'white')
-    drawCreatureSprite(width - (64 * 8), height - (64 * 8) - navHeight, 8, creatureID);
+    drawCreatureSprite(width - (64 * 8), height - (64 * 8) - navHeight, 8, encounter.creatureID);
     drawChrSprite(width / 2 - (width / 4), height - (32 * 8) - navHeight, 8, false);
+
+    drawCombatUI();
 
     drawNav();
     if (navFocus) {
@@ -13,20 +15,55 @@
 //vars del navegador de combate
 let nav = ["Atacar", "Defender", "Especial", "Inventario"]; //items del nav
 let navIndex; //en que opcion estamos parados
-let navHeight = 150;
+let navHeight = 120;
 let navFocus = false; //0 = nav; 1 = inventory
 
 //vars de las creatures
-let creatureID;
-//crop data para mostrar la parte del spritesheet correcta
-let creatureCrop = [0, 16, 32, 48, 80, 112, 160, 224, 240, 288, 336, 352, 368, 400, 464, 480, 512, 544];
+let creatureCrop = [0, 16, 32, 48, 80, 112, 160, 224, 240, 288, 336, 352, 368, 400, 464, 480, 512, 544]; //crop data para mostrar la parte del spritesheet correcta
 let creatureFemPronouns = [0, 2, 7, 16]; //lista de ids de creatures que prefieren pronombres femeninos
 
-function setupCombat() {
+//vars del combate
+let attackStatus; //si un ataque es exitoso o no
+let damage;
+let weapon;
+let attack;
+let levelUp;
 
+function setupCombat() {
+    //resetea el focus, indice, genera creature
+    navFocus = false;
     navIndex = 0;
-    creatureID = int(random(18));
-    //creatureID = 6;
+
+    if (encounterInProgress.id != -1) { //si el encuentro en progreso devuelto por db tiene id -1
+        encounter = encounterInProgress; //no habia ningun encuentro en progreso, asi que generamos uno
+
+        if (encounter.turn == 1) { //si el encuentro que viene de db estaba en turno 1, ataca creature
+            if (encounter.creatureCurrHealth > 0) { //creature no murio todavia
+                creatureAttack(); //creature ataca
+                waitStart(4); //dialogo del ataque de creature
+            }
+            else {
+                manageEncounter(2); //elimina en db
+                waitStart(5); //dialogo de fin del encounter
+            }
+        }
+    }
+    else {
+        //inicializa encounter
+        do {
+            encounter.creatureID = int(random(18));
+        }
+        while (creatures[encounter.creatureID].rating > chr.encounters + 3 || creatures[encounter.creatureID].rating < chr.encounters - 3);
+
+        chr.luck++; //sube tu suerte
+        manageEncounter(0); //crea en db
+        waitStart(3); //triggerea dialogo de inicio de combate
+    }
+
+    //inicializa vars de combate
+    attackStatus = false;
+    damage = 0;
+    levelUp = false;
 }
 
 function drawNav() {
@@ -68,7 +105,6 @@ function setupInventory() {
     invFocus = false;
     invEmpty = false;
     scrollShift = 0;
-    noStroke();
 
     //en combate y tienda de venta, se carga con tus items, en tienda de compra, los items del merchant
     if (chr.gameState == 1 || (chr.gameState == 4 && storeBuySellFocus)) {
@@ -76,7 +112,6 @@ function setupInventory() {
         for (let i = 0; i < chr.inventory.length; i++) {
             invItems.push(chr.inventory[i]);
         }
-        chr.equippedWeaponID = 20; //temp, equipa golpe desarmado
     }
     else if (chr.gameState == 4 && !storeBuySellFocus) {
 
@@ -98,6 +133,9 @@ function setupInventory() {
 }
 
 function drawInventory() {
+    //fondo
+    fill(0, 0, 0, 128);
+    rect(0, 0, width, height);
     //panel de inventario
     fill(20);
     rect(
@@ -570,25 +608,197 @@ function sellItem() {
     //elige otra opcion de dialogo segun su personalidad
     pickMerchantDialogueOptions();
 }
-//data relacionada al proceso de un ataque
-let attackStatus;
-function attack() {
-    let weapon = allItems[chr.equippedWeaponID];
-    let creature = creatures[creatureID];
+//calcula iniciativa (en desuso)
+function initiative() { //el rolledscore de la creature ya es modifier, no ideal
+    if (mod(chr.abilities[1].rolledScore) < creature.abilities[1].rolledScore) {
+        return true;
+    }
+    return false;
+}
+//proceso de ataque
+function characterAttack() {
 
-    let attackRoll = roll(20, mod(chr.abilities[weapon.abilityModID].rolledScore));
+    if (!allItems[chr.equippedWeaponID]) { //si no tenemos nada equipado
+        weapon = allItems[20]; //usa golpe desarmado
+    }
+    else {
+        weapon = allItems[chr.equippedWeaponID];
+    }
+    let creature = creatures[encounter.creatureID];
+    let attackRoll = roll(20, mod(chr.abilities[weapon.abilityModID].rolledScore) + chr.prof);
+    damage = 0;
 
     if (attackRoll > creature.armor) {
         attackStatus = true;
-        let damage = weapon.damage + mod(chr.abilities[weapon.abilityModID].rolledScore);
+        damage = weapon.damage + mod(chr.abilities[weapon.abilityModID].rolledScore) + chr.prof;
+        if (encounter.creatureCurrHealth - damage > 0) {
+            encounter.creatureCurrHealth -= damage;
+        }
+        else {
+            encounter.creatureCurrHealth = 0;
+            //mandar a eliminar encounter en db
+        }
     }
     else {
         attackStatus = false;
     }
-    //switch turn
-    //increase round count
+    encounter.turn = true; //turno de creature
+    manageEncounter(1); //actualiza en db
+    print('ataca chr');
+    print('attackStatus', attackStatus);
+    print('damage', damage);
+    print('creature currHealth', encounter.creatureCurrHealth);
+}
 
-    //algo sobre que si turn es 1, generar una decision del creature, y tirar el waitStart con id dependiendo de eso
+function creatureAttack() {
+    let creature = creatures[encounter.creatureID];
+    attack = attacks[creature.attacks[int(random(creature.attacks.length))]];
+    let attackRoll = roll(20, creature.abilities[attack.abilityID].rolledScore + creature.prof);
+    damage = 0;
+
+    if (attackRoll > chr.armor) {
+        attackStatus = true;
+        damage = attack.damage + creature.abilities[attack.abilityID].rolledScore;
+        if (chr.currHealth - damage > 0) {
+            chr.currHealth -= damage;
+        }
+        else {
+            chr.currHealth = 0;
+            //mandar a matar chr
+        }
+    }
+    else {
+        attackStatus = false;
+    }
+    encounter.turn = false; //turno de chr
+    encounter.currRound++;
+    manageEncounter(1); //actualiza en db
+    print('ataca creature');
+    print('attackStatus', attackStatus);
+    print('damage', damage);
+    print('chr.currHealth', chr.currHealth);
+}
+
+function manageEncounter(type) {
+    if (type == 0) {
+        encounter.characterID = chr.id;
+        encounter.creatureID = encounter.creatureID;
+        encounter.creatureCurrHealth = creatures[encounter.creatureID].maxHealth;
+        encounter.currRound = 0;
+        encounter.turn = false;
+        saveEncounter(encounter, type);
+    }
+    else if (type == 1) {
+        saveEncounter(encounter, type);
+    }
+    else {
+        encounterInProgress.id = -1;
+        chr.encounters++;
+        chr.gold += creatures[encounter.creatureID].gold;
+        if (chr.xp + 7 >= chr.level * 10) {
+            chr.xp = chr.xp + 7 - level * 10;
+            chr.level++;
+            chr.maxHealth += classes[chr.idClass].classHealth + mod(chr.abilities[2].rolledScore);
+            chr.currHealth = chr.maxHealth;
+
+            levelUp = true;
+        }
+        else {
+            chr.xp += 7;
+        }
+        saveEncounter(encounter, type);
+    }
+}
+
+function drawCombatUI() {
+    //character ui
+    //healthbar
+    noStroke();
+    fill(60);
+    rect(
+        outerMargin / 2 - 5,
+        outerMargin / 2 - 5,
+        width / 2 - 25 + 10 - outerMargin / 2,
+        (height / 20) + 10
+    )
+    fill('#24523b'); //verde oscuro
+    rect(
+        outerMargin / 2,
+        outerMargin / 2,
+        width / 2 - 25 - outerMargin / 2,
+        height / 20
+    )
+    fill('#59c135'); //verde
+    rect(
+        outerMargin / 2,
+        outerMargin / 2,
+        (width / 2 - 25 - outerMargin / 2) * (chr.currHealth / chr.maxHealth),
+        height / 20
+    )
+
+    //texto con puntos de vida
+    fill(255);
+    textSize(24);
+    textAlign(RIGHT, CENTER);
+    text(
+        chr.currHealth + ' / ' + chr.maxHealth,
+        (outerMargin / 4) + (width / 2 - 25 - outerMargin / 2) * Math.max((chr.currHealth / chr.maxHealth), 0.175),
+        (outerMargin / 2) + (height / 20) / 2
+    );
+
+    //name
+    fill(255);
+    textSize(36);
+    textAlign(LEFT, TOP);
+    text(
+        chr.name,
+        outerMargin / 2,
+        outerMargin + height / 20
+    );
+
+    //creature ui
+    //healthbar
+    fill(60);
+    rect(
+        width / 2 + outerMargin / 2 - 5,
+        outerMargin / 2 - 5,
+        width / 2 - 25 - outerMargin / 2 + 10,
+        (height / 20) + 10
+    )
+    fill('#73172d'); //rojo oscuro
+    rect(
+        width / 2 + outerMargin / 2,
+        outerMargin / 2,
+        width / 2 - 25 - outerMargin / 2,
+        height / 20
+    )
+    fill('#b4202a'); //rojo
+    rect(
+        width / 2 + outerMargin / 2 + (width / 2 - 25 - outerMargin / 2) * (1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)),
+        outerMargin / 2,
+        (width / 2 - 25 - outerMargin / 2) * (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth),
+        height / 20
+    )
+
+    //texto con puntos de vida
+    fill(255);
+    textSize(24);
+    textAlign(LEFT, CENTER);
+    text(
+        encounter.creatureCurrHealth + ' / ' + creatures[encounter.creatureID].maxHealth,
+        width / 2 + outerMargin + (width / 2 - 25 - outerMargin / 2) * Math.min((1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)), 0.78),
+        (outerMargin / 2) + (height / 20) / 2
+    );
+
+    //name
+    fill(255);
+    textSize(36);
+    textAlign(RIGHT, TOP);
+    text(
+        creatures[encounter.creatureID].name,
+        width - outerMargin / 2,
+        outerMargin + height / 20
+    );
 }
 
 //mascaras de clipping para evitar que sobresalgan los textos en el inventario

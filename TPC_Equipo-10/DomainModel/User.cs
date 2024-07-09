@@ -11,11 +11,13 @@ namespace DomainModel
         public int id { get; set; }
         public string username { get; set; }
         public string passwordHash { get; set; }
+        public int iconID { get; set; }
 
-        public User(string userName, string passwordHash)
+        public User(string username, string passwordHash, int iconID)
         {
-            this.username = userName;
+            this.username = username;
             this.passwordHash = passwordHash;
+            this.iconID = iconID;
         }
     }
 }

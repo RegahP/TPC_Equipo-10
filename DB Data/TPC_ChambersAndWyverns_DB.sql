@@ -6,7 +6,8 @@ go
  create table Users(
      ID_User int not null primary key identity(0,1),
      Username nvarchar(50) unique,
-     PasswordHash nvarchar(255) not null
+     PasswordHash nvarchar(255) not null,
+     ID_Icon int not null
  )
  go
  --select ID_User, Username, PasswordHash from users where Username = @user AND PasswordHash = @pass
@@ -147,7 +148,6 @@ go
      _Name nvarchar(50) not null,
      _Desc text not null,
      Rating int not null,
-     Experience int not null,
      Proficiency int not null,
      ArmorClass int not null,
      MaxHealth int not null,
@@ -316,7 +316,6 @@ CREATE OR ALTER PROCEDURE SP_InsertCreature
     @Name NVARCHAR(50),
     @Description TEXT,
     @Rating INT,
-    @Experience INT,
     @Proficiency INT,
     @ArmorClass INT,
     @MaxHealth INT,
@@ -329,8 +328,8 @@ BEGIN
 
     DECLARE @CreatureId INT;
 
-    INSERT INTO Creatures (_Name, _Desc, Rating, Experience, Proficiency, ArmorClass, MaxHealth, Gold)
-    VALUES (@Name, @Description, @Rating, @Experience, @Proficiency, @ArmorClass, @MaxHealth, @Gold);
+    INSERT INTO Creatures (_Name, _Desc, Rating, Proficiency, ArmorClass, MaxHealth, Gold)
+    VALUES (@Name, @Description, @Rating, @Proficiency, @ArmorClass, @MaxHealth, @Gold);
 
     SET @CreatureId = SCOPE_IDENTITY();
 
@@ -509,8 +508,9 @@ END;
 go
 CREATE OR ALTER PROCEDURE SP_InsertNewUser
 @UserName VARCHAR(50),
-@PasswordHash nvarchar(255)
-AS INSERT INTO Users (Username, PasswordHash) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash);
+@PasswordHash nvarchar(255),
+@ID_Icon int
+AS INSERT INTO Users (Username, PasswordHash, ID_Icon) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash, @ID_Icon);
 
 --+-- Consigue todas las criaturas --+--
 go
@@ -518,7 +518,7 @@ CREATE OR ALTER PROCEDURE SP_GetCreatures
 AS
 BEGIN
     SELECT 
-        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)) AS _Desc, C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth, C.Gold,
+        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)) AS _Desc, C.Rating, C.Proficiency, C.ArmorClass, C.MaxHealth, C.Gold,
         MAX(CASE WHEN AXC.ID_Ability = 0 THEN AXC.Modifier ELSE NULL END) AS Fuerza,
         MAX(CASE WHEN AXC.ID_Ability = 1 THEN AXC.Modifier ELSE NULL END) AS Destreza,
         MAX(CASE WHEN AXC.ID_Ability = 2 THEN AXC.Modifier ELSE NULL END) AS Constitucion,
@@ -530,7 +530,7 @@ BEGIN
     LEFT JOIN 
         AbilitiesXCreature AXC ON C.ID_Creature = AXC.ID_Creature
     GROUP BY 
-        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)), C.Rating, C.Experience, C.Proficiency, C.ArmorClass, C.MaxHealth, C.Gold
+        C.ID_Creature, C._Name, CAST(C._Desc AS VARCHAR(MAX)), C.Rating, C.Proficiency, C.ArmorClass, C.MaxHealth, C.Gold
 END;
 
 --+-- Consigue los ataques de una criatura --+--
@@ -587,33 +587,21 @@ END
 go 
 CREATE OR ALTER PROCEDURE SP_InsertEncounter
     @ID_Character int,
-    @ID_Creature int,
-    @Initiative bit
+    @ID_Creature int
 AS
 BEGIN
     DECLARE @MaxHealth int;
     --DECLARE @Initiative int;
     
     SELECT @MaxHealth = MaxHealth FROM Creatures WHERE ID_Creature = @ID_Creature;
-    -- SELECT @Initiative =  
-    -- (CASE 
-    --     WHEN ((ACH.RolledScore - 10) / 2) >= ACR.Modifier THEN 0
-    --     ELSE 1
-    -- END) AS IsCreatureDexHigher
-    -- FROM AbilitiesXCharacter ACH
-    -- INNER JOIN AbilitiesXCreature ACR 
-    -- ON ACR.ID_Ability = ACH.ID_Ability
-    -- WHERE ACR.ID_Ability = 1 --dexterity
-    -- AND ACH.ID_Character = @ID_Character
-    -- AND ACR.ID_Creature = @ID_Creature;
-
+    
     INSERT INTO Encounters(ID_Character, ID_Creature, CreatureCurrHealth, CurrRound, Turn)
-    VALUES (@ID_Character, @ID_Creature, @MaxHealth, 0, @Initiative);
+    VALUES (@ID_Character, @ID_Creature, @MaxHealth, 0, 0);
 END
 
 --+-- Modifica un encuentro existente  --+--
 go
-CREATE OR ALTER PROCEDURE SP_ModifyEncounter --la 
+CREATE OR ALTER PROCEDURE SP_ModifyEncounter
     @ID_Character int,
     @CreatureCurrHealth int,
     @CurrRound int,
@@ -623,7 +611,7 @@ BEGIN
     UPDATE Encounters SET CreatureCurrHealth = @CreatureCurrHealth, CurrRound = @CurrRound, Turn = @Turn WHERE ID_Character = @ID_Character;
 END
 
---+-- Elimina un encuentro existente  --+--
+--+-- Elimina un encuentro existente y sus efectos  --+--
 go
 CREATE OR ALTER PROCEDURE SP_DeleteEncounter
     @ID_Character int
@@ -636,55 +624,59 @@ BEGIN
     DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter;
 END
 
-
---+-- Inserta un efecto de encuentro --+--
+--+-- Devuelve un encuentro existente  --+--
 go
-CREATE OR ALTER PROCEDURE SP_InsertEffect
+CREATE OR ALTER PROCEDURE SP_GetEncounter
+    @ID_Character int
+AS
+BEGIN
+    SELECT * FROM Encounters WHERE ID_Character = @ID_Character;
+END
+
+--+-- Inserta, modifica o elimina un efecto de encuentro --+--
+go
+CREATE OR ALTER PROCEDURE SP_InsertModifyDeleteEffect
     @ID_Character int,
-    @ID_Item int
+    @ID_Item int,
+    @CurrRound int
 AS
 BEGIN
     DECLARE @ID_Encounter int;
     SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
     
-    INSERT INTO EffectsXEncounter(ID_Encounter, ID_Item, CurrRound)
-    VALUES (@ID_Encounter, @ID_Item, 0); --iditem -1 = defender; -2 = special
+    IF EXISTS(SELECT 1 ID_Item FROM EffectsXEncounter WHERE ID_Item = @ID_Item AND ID_Encounter = @ID_Encounter)
+    BEGIN
+        IF @CurrRound = 3
+        BEGIN
+            DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
+        END
+        ELSE
+        BEGIN
+            UPDATE EffectsXEncounter SET CurrRound = @CurrRound WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
+        END
+    END
+    ELSE
+    BEGIN
+        INSERT INTO EffectsXEncounter(ID_Encounter, ID_Item, CurrRound)
+        VALUES (@ID_Encounter, @ID_Item, 0); --iditem -1 = defender; -2 = special
+    END
 END
 
---+-- Modifica un efecto de encuentro --+--
+--+-- Devuelve los efectos de un encuentro existente  --+--
 go
-CREATE OR ALTER PROCEDURE SP_ModifyEffect
-    @ID_Character int,
-    @ID_Item int
+CREATE OR ALTER PROCEDURE SP_GetEncounterEffects
+    @ID_Character int
 AS
 BEGIN
     DECLARE @ID_Encounter int;
     SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
 
-    UPDATE EffectsXEncounter SET CurrRound = CurrRound + 1 WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
+    SELECT * FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter;
 END
 
---+-- Elimina un efecto de encuentro --+--
-go
-CREATE OR ALTER PROCEDURE SP_DeleteEffect
-    @ID_Character int,
-    @ID_Item int
-AS
-BEGIN
-    DECLARE @ID_Encounter int;
-    SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
+--+-- Elimina un usuario y sus personajes  --+--
 
-    DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
-END
+-- baja logica de usuario y sus personajes
 
---+-- Modificacion de username y paswordhash --+--
-go
-CREATE OR ALTER PROCEDURE SP_ModifyUserProfile
-    @ID_User INT,
-    @Username NVARCHAR(30),
-    @PasswordHash NVARCHAR(255)
-AS
-BEGIN
-        UPDATE users SET Username = @Username, PasswordHash = @PasswordHash
-        WHERE ID_User = @ID_User;
-END
+SELECT * FROM Encounters
+DELETE FROM Encounters

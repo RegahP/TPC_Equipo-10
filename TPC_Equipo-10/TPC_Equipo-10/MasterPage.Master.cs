@@ -14,7 +14,12 @@ namespace TPC_Equipo_10
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if ((User)Session["user"] != null){
+                int iconID = ((User)Session["user"]).iconID;
+                string userName = ((User)Session["user"]).username;
+                lblUserName.Text = userName;
+                UserIcon.ImageUrl = "~/Sprites/Icons/" + iconID + ".png";
+            }
         }
 
         protected void lnkLogout_Click(object sender, EventArgs e)

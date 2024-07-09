@@ -4,6 +4,8 @@
 
 //por ahora genera el merchant, deberia generar el pueblo y otras cosas
 function setupTown() {
+    chr.luck = 0; //fin de racha de suerte
+
     storeNavFocus = false;
     storeBuySellFocus = false;
 

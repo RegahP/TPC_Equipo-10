@@ -100,10 +100,44 @@ namespace TPC_Equipo_10
             return DataAccess.GetItems();
         }
 
+        [WebMethod] //devuelve el encounter en el que estaba el chr
+        public static Encounter GetEncounter(int characterID)
+        {
+            Debug.WriteLine("Character Encounter sent from CodeBehind to AJAX Call succesfully.");
+            return DataAccess.GetEncounter(characterID);
+        }
+
+        [WebMethod] //devuelve encounter template al ajax
+        public static Encounter GetEncounterTemplate()
+        {
+            Encounter encounter = new Encounter();
+            Debug.WriteLine("Encounter Template sent from CodeBehind to AJAX Call succesfully.");
+            return encounter;
+        }
+
         [WebMethod]
         public static void SaveCharacter(Character character)
         {
             Debug.WriteLine("Character recieved from AJAX Call to CodeBehind succesfully.");
+            //aca recibimos el character del juego, cuando cambien los datos
+        }
+
+        [WebMethod]
+        public static void SaveEncounter(Encounter encounter, int type)
+        {
+            Debug.WriteLine("Encounter recieved from AJAX Call to CodeBehind succesfully.");
+            if (type == 0) //crea en db
+            {
+                DataAccess.NewEncounter(encounter);
+            }
+            else if (type == 1) //modifica en db
+            {
+                DataAccess.ModifyEncounter(encounter);
+            }
+            else //elimina en db
+            {
+                DataAccess.DeleteEncounter(encounter);
+            }
             //aca recibimos el character del juego, cuando cambien los datos
         }
     }

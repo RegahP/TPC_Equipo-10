@@ -227,7 +227,59 @@ function loadItems() {
                 }
             },
             error: function (err) {
-                console.log("Error recieving character from CodeBehind to AJAX Call:", err);
+                console.log("Error recieving All items from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
+//lee el character encounter por codebehind y lo retorna como js vars
+function loadEncounter(characterID) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetEncounter",
+            data: JSON.stringify({ characterID: characterID }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var encounter = response.d;
+                if (encounter) {
+                    console.log("Character Encounter recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(encounter);
+                } else {
+                    reject("Character Encounter data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Character Encounter from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
+//lee la template de encounter devuelto por codebehind y lo retorna como js vars
+function loadEncounterTemplate() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetEncounterTemplate",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var encounterTemplate = response.d;
+                if (encounterTemplate) {
+                    console.log("Encounter Template recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(encounterTemplate);
+                } else {
+                    reject("Encounter Template data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Encounter Template from CodeBehind to AJAX Call:", err);
                 reject(err);
             }
         });

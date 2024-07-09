@@ -24,6 +24,17 @@ namespace TPC_Equipo_10
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //si cargo la pagina y ya esta en 6, es porque ya habiamos rolleado
+            if(fieldCounter.Value == "6")
+            {
+                if (fieldCounter != null)
+                {
+                    string btnConfirmClasses = btnConfirm1.CssClass;
+                    string newClasses = string.Join(" ", btnConfirmClasses.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Where(c => !c.Equals("disabled", StringComparison.OrdinalIgnoreCase)));
+                    btnConfirm1.CssClass = newClasses;
+                }
+            }
+            
             if (Session["user"] == null)
             {
                 Response.Redirect("Default.aspx", false);
@@ -106,6 +117,13 @@ namespace TPC_Equipo_10
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtName1.Text))
+            {
+                lblErrorMessage.Text = "Usuario vacío";
+                lblErrorMessage.Visible = true;
+                return;
+            }
+
 
             if (characterID != -1)
             {

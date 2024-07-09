@@ -12,7 +12,6 @@ namespace DomainModel
         public string name { get; set; }
         public string desc { get; set; }
         public int rating { get; set; }
-        public int xp { get; set; } //experience
         public int prof { get; set; } //proficiency
         public int armor { get; set; }//armor class
         public int maxHealth { get; set; } //maximum health

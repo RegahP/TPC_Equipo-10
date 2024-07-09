@@ -1,13 +1,15 @@
-﻿//declaraciones de vars generales
-
+﻿
+//declaraciones de vars generales
 let races;
 let classes;
 let abilities;
 let skills;
-let dmgTypes;
+let dmgTypes; 
 let creatures;
-let attacks;
+let attacks; 
 let allItems;
+let encounter; //template
+let encounterInProgress;
 
 let chr; //character
 let chrItems; //items del jugador
@@ -34,7 +36,6 @@ async function setup() {
     var canvas = createCanvas(1280, 720);
     canvas.parent("gameCanvas");
 
-
     try {
         races = await loadRaces();
         classes = await loadClasses();
@@ -44,6 +45,7 @@ async function setup() {
         creatures = await loadCreatures();
         attacks = await loadAttacks();
         allItems = await loadItems();
+        encounter = await loadEncounterTemplate();
         chr = await loadCharacter();
     } catch (error) {
         console.error("Failed to load something in p5js:", error);
@@ -72,12 +74,20 @@ async function setup() {
     if (allItems) {
         console.log("All items loaded in p5js succesfully:", allItems);
     }
+    if (encounter) {
+        console.log("Encounter Template loaded in p5js succesfully:", encounter);
+    }
     if (chr) {
         console.log("Character loaded in p5js succesfully:", chr);
+        encounterInProgress = await loadEncounter(chr.id);
+        if (encounterInProgress) {
+            console.log("Encounter loaded in p5js succesfully:", encounterInProgress);
+        }
     }
     //desps de la carga inicializamos algunas variables globales
     noSmooth();
     textFont('Courier New');
+    noStroke();
 
     wait = false;
     skip = false;
@@ -131,24 +141,26 @@ function keyPressed() {
                 case 0: //intro
                     chr.gameState = 1;
                     setupCombat(); //genera el encounter
-                    waitStart(3); //triggerea dialogo de inicio de combate
                     break;
                 case 1: //combat
-                    if (key === 'q') {
-                        chr.gameState = 6;
-                    }
-                    else if (key === 'e') {
-                        chr.gameState = 2;
-                    }
+
                     //keycontrol del nav
                     if (!navFocus) { //estamos viendo el nav
+
+                        if (key === 'q') { //DEBUGTOOLS
+                            chr.gameState = 6;
+                        }
+                        else if (key === 'e') {
+                            chr.gameState = 2;
+                        }
+
                         if (keyCode === LEFT_ARROW) {
                             navIndex = (navIndex - 1 + nav.length) % nav.length;
                         } else if (keyCode === RIGHT_ARROW) {
                             navIndex = (navIndex + 1) % nav.length;
                         } else if (keyCode === ENTER) {
                             if (navIndex === 0) { //si estamos parados en la accion ataque
-                                attack();
+                                characterAttack();
                                 waitStart(0); //triggerea dialogo de ataque
                             }
                             else if (navIndex === 1) { //si estamos parados en la accion defensa
@@ -211,24 +223,26 @@ function keyPressed() {
                             if (keyCode === ENTER && invFocus) {
                                 //y es un arma
                                 if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 0) {
-                                    chr.equippedWeapon = invItems[invIndex];
+                                    chr.equippedWeaponID = invItems[invIndex];
                                 }
                                 //o es una armadura
                                 else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 0) {
-                                    chr.equippedArmor = invItems[invIndex];
+                                    chr.equippedArmorID = invItems[invIndex];
                                 }
                                 //o es un escudo
                                 else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 1) {
-                                    chr.equippedShield = invItems[invIndex];
+                                    chr.equippedShieldID = invItems[invIndex];
                                 }
+
                             }
                         }
                     }
 
                     break;
                 case 2: //endcombat
-                    if (key === 'q') {
+                    if (key === 'q') { //DEBUGTOOLS
                         chr.gameState = 1;
+                        setupCombat(); //genera el encounter
                     }
                     else if (key === 'e') {
                         chr.gameState = 3;
@@ -236,16 +250,17 @@ function keyPressed() {
                     }
                     break;
                 case 3: //town
-                    if (key === 'q') {
+                    if (key === 'q') { //DEBUGTOOLS
                         chr.gameState = 4;
                         setupStore(); //resetea bools de navegacion de la tienda y regenera opciones de dialogo
                     }
-                    else if (key === 'e') {
+                    else if (key === 'e') { //DEBUGTOOLS
                         chr.gameState = 5;
+                        chr.currHealth = chr.maxHealth; //cura toda tu vida
                     }
                     break;
                 case 4: //store
-                    if (key === 'q' && !storeNavFocus) {
+                    if (key === 'q' && !storeNavFocus) { //DEBUGTOOLS
                         chr.gameState = 3;
                     }
                     if (!storeNavFocus) {
@@ -261,7 +276,7 @@ function keyPressed() {
                         }
                     }
                     else {
-                        if (keyCode === ESCAPE) {
+                        if (keyCode === ESCAPE && !buyPopup && !sellPopup) {
                             storeNavFocus = false;
                         }
                         //estamos en el menu de compra
@@ -424,7 +439,6 @@ function keyPressed() {
                 case 5: //rest
                     chr.gameState = 1;
                     setupCombat(); //genera el encounter
-                    waitStart(3); //triggerea dialogo de inicio de combate
                     break;
                 case 6: //dead
                     chr.gameState = 0;
@@ -448,6 +462,37 @@ function keyPressed() {
             skip2 = false;
 
             waitTimer = 0;
+
+            if ([0, 1, 2].includes(waitDialogueID)) { //si skippeamos el dialogo de una accion, que actue creature
+                if (encounter.creatureCurrHealth > 0) { //creature no murio todavia
+                    creatureAttack(); //creature ataca
+                    waitStart(4); //dialogo del ataque de creature
+                }
+                else { //creature murio
+                    manageEncounter(2); //elimina en db
+                    waitStart(5); //dialogo de fin del encounter
+                }
+            }
+            else if (waitDialogueID == 4) { //si skippeamos el dialogo de ataque creature
+                if (chr.currHealth == 0) { //y morimos
+                    waitStart(7); //dialogo de muerte
+                }
+            }
+            else if (waitDialogueID == 5) { //si skippeamos el dialogo de fin de encounter, que cambie gamestate
+                if (levelUp) {
+                    levelUp = false;
+                    waitStart(6) //si subimos de nivel, tambien mostramos eso
+                }
+                else {
+                    chr.gameState = 2; //endcombat
+                }
+            }
+            else if (waitDialogueID == 6) { //si skippeamos el dialogo de levelup, que cambie gamestate
+                chr.gameState = 2; //endcombat
+            }
+            else if (waitDialogueID == 7) { //si skippeamos dialogo de muerte
+                chr.gameState = 6; //you died
+            }
         }
     }
     //console.log("gameState ", chr.gameState)

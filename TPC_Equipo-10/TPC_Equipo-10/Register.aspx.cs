@@ -9,8 +9,10 @@ using System.Web.UI.WebControls;
 
 namespace TPC_Equipo_10
 {
-    public partial class Register : System.Web.UI.Page
+    public partial class Register : Page
     {
+        public int iconID;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -28,13 +30,15 @@ namespace TPC_Equipo_10
                 string userName = inputUsername.Text;
                 string passwordHash = inputPassword.Text;
                 string confirmPass = confirmPassword.Text;
+                
 
-                if(string.IsNullOrWhiteSpace(userName))
+                if (string.IsNullOrWhiteSpace(userName))
                 {
                     lblErrorMessage.Text = "Usuario vacío";
                     lblErrorMessage.Visible = true;
                     return;
-                }else if(string.IsNullOrWhiteSpace(passwordHash))
+                }
+                else if(string.IsNullOrWhiteSpace(passwordHash))
                 {
                     lblErrorMessage.Text = "Contraseña vacía";
                     lblErrorMessage.Visible = true;
@@ -105,7 +109,7 @@ namespace TPC_Equipo_10
                     return;
                 }
 
-                User user = new User(userName, passwordHash);
+                User user = new User(userName, passwordHash, iconID);
                 int id = DataAccess.Register(user);
 
                 if (id >= 0) 
@@ -126,6 +130,12 @@ namespace TPC_Equipo_10
                 lblErrorMessage.Text = "Ocurrio un error " + ex.Message; //Estuve pensando que la unica forma de que esto salte es con un username repetido, asi que podemos poner ese msj a no ser que se les ocurra algo mas que no me di cuenta.
                 lblErrorMessage.Visible = true;
             }
+        }
+
+        protected void icon_CheckedChanged(object sender, EventArgs e)
+        {
+            string rbID = ((RadioButton)sender).ID;
+            iconID = int.Parse(rbID[rbID.Length - 1].ToString());
         }
     }
 }

@@ -142,8 +142,6 @@ namespace DBAccess
             }
         }
 
-
-
         public static List<Background> ListBackgrounds()
         {
             List<Background> list = new List<Background>();
@@ -428,15 +426,14 @@ namespace DBAccess
                     aux.name = reader.GetString(1);
                     aux.desc = reader.GetString(2);
                     aux.rating = reader.GetInt32(3);
-                    aux.xp = reader.GetInt32(4);
-                    aux.prof = reader.GetInt32(5);
-                    aux.armor = reader.GetInt32(6);
-                    aux.maxHealth = reader.GetInt32(7);
-                    aux.gold = reader.GetInt32(8);
+                    aux.prof = reader.GetInt32(4);
+                    aux.armor = reader.GetInt32(5);
+                    aux.maxHealth = reader.GetInt32(6);
+                    aux.gold = reader.GetInt32(7);
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(9 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(8 + i));
                         aux.abilities.Add(auxRolled);
                     }
 
@@ -755,6 +752,137 @@ namespace DBAccess
             return items;
         }
 
+        public static void NewEncounter(Encounter encounter)
+        {
+            try
+            {
+                SetProcedure("SP_InsertEncounter");
+                SetParameter("@ID_Character", encounter.characterID);
+                SetParameter("@ID_Creature", encounter.creatureID);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static void ModifyEncounter(Encounter encounter)
+        {
+            try
+            {
+                SetProcedure("SP_ModifyEncounter");
+                SetParameter("@ID_Character", encounter.characterID);
+                SetParameter("@CreatureCurrHealth", encounter.creatureCurrHealth);
+                SetParameter("@CurrRound", encounter.currRound);
+                SetParameter("@Turn", encounter.turn);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            foreach (Effect effect in encounter.effects)
+            {
+                try
+                {
+                    SetProcedure("SP_InsertModifyDeleteEffect");
+                    SetParameter("@ID_Character", encounter.characterID);
+                    SetParameter("@ID_Item", effect.itemID);
+                    SetParameter("@CurrRound", effect.currRound);
+                    ExecuteAction();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+        }
+
+        public static void DeleteEncounter(Encounter encounter)
+        {
+            try
+            {
+                SetProcedure("SP_DeleteEncounter");
+                SetParameter("@ID_Character", encounter.characterID);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static Encounter GetEncounter(int characterID)
+        {
+            Encounter aux = new Encounter();
+            aux.id = -1;
+
+            try
+            {
+                SetProcedure("SP_GetEncounter");
+                SetParameter("@ID_Character", characterID);
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    
+                    aux.id = reader.GetInt32(0);
+                    aux.characterID = reader.GetInt32(1);
+                    aux.creatureID = reader.GetInt32(2);
+                    aux.creatureCurrHealth = reader.GetInt32(3);
+                    aux.currRound = reader.GetInt32(4);
+                    aux.turn = reader.GetBoolean(5);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            try
+            {
+                SetProcedure("SP_GetEncounterEffects");
+                SetParameter("@ID_Character", characterID);
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    Effect fx = new Effect();
+                    fx.itemID = reader.GetInt32(1);
+                    fx.currRound = reader.GetInt32(2);
+                    aux.effects.Add(fx);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return aux;
+        }
 
         public static bool Login(User user)
         {
@@ -783,6 +911,31 @@ namespace DBAccess
             }
         }
 
+        public static int GetUserIconID (string username)
+        {
+            int iconID = 0;
+            try
+            {
+                SetQuery("select ID_Icon from Users where Username = @Username");
+                SetParameter("@Username", username);
+
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    iconID = reader.GetInt32(0);
+                }
+                return iconID;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
         public static int Register(User user)
         {
             try
@@ -790,6 +943,7 @@ namespace DBAccess
                 SetProcedure("SP_InsertNewUser");
                 SetParameter("@UserName", user.username);
                 SetParameter("@PasswordHash", user.passwordHash);
+                SetParameter("@ID_Icon", user.iconID);
                 return ExecuteActionScalar();
             }
 
