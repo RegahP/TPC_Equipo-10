@@ -964,11 +964,23 @@ namespace DBAccess
         {
             // Implementar la lógica para actualizar el perfil del usuario en la base de datos
             //DataAccess db = new DataAccess();
+            try
+            {
             SetProcedure("SP_ModifyUserProfile");
             SetParameter("@ID_User", user.id);
             SetParameter("@Username", user.username);
             SetParameter("@PasswordHash", user.passwordHash);
+            SetParameter("@ID_Icon", user.iconID);
             ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
         }
 
     }

@@ -11,13 +11,18 @@ namespace TPC_Equipo_10
 {
     public partial class EditProfile : Page
     {
+        public int iconID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
             {
                 Response.Redirect("Default.aspx", false);
             }
-
+            //if (!IsPostBack)
+            //{
+            //    User user = (User)Session["user"];
+            //    inputNewUsername.Text = user.username;
+            //}
         }
 
         protected void btnUpdateProfile_Click(object sender, EventArgs e)
@@ -108,10 +113,9 @@ namespace TPC_Equipo_10
                 }
 
                 user.username = newUsername;
-                if (!string.IsNullOrEmpty(newPassword))
-                {
-                    user.passwordHash = newPassword;
-                }
+                user.iconID = iconID;
+                user.passwordHash = newPassword;
+              
 
                 DataAccess.ModifyUserProfile(user);
 
@@ -126,6 +130,12 @@ namespace TPC_Equipo_10
                 lblErrorMessage.Text = "Ocurrió un error al actualizar el perfil: " + ex.Message;
                 lblErrorMessage.Visible = true;
             }
+        }
+
+        protected void icon_CheckedChanged(object sender, EventArgs e)
+        {
+            string rbID = ((RadioButton)sender).ID;
+            iconID = int.Parse(rbID[rbID.Length - 1].ToString());
         }
     }
 }

@@ -516,7 +516,19 @@ CREATE OR ALTER PROCEDURE SP_InsertNewUser
 @Active bit
 AS INSERT INTO Users (Username, PasswordHash, ID_Icon, Mail, Active) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash, @ID_Icon, @Mail, @Active);
 
-
+--+-- Actualiza el Usuario --+--
+go
+CREATE OR ALTER PROCEDURE SP_ModifyUserProfile
+    @ID_User INT,
+    @Username NVARCHAR(30),
+    @PasswordHash NVARCHAR(255),
+	@ID_Icon int
+	
+AS
+BEGIN
+        UPDATE users SET Username = @Username, PasswordHash = @PasswordHash, ID_Icon = @ID_Icon
+        WHERE ID_User = @ID_User;
+END
 --+-- Consigue todas las criaturas --+--
 go
 CREATE OR ALTER PROCEDURE SP_GetCreatures
