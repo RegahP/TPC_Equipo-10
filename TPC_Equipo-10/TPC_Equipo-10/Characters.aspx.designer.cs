@@ -15,6 +15,15 @@ namespace TPC_Equipo_10
     {
 
         /// <summary>
+        /// btnFirstCharacter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFirstCharacter;
+
+        /// <summary>
         /// charCreation control.
         /// </summary>
         /// <remarks>

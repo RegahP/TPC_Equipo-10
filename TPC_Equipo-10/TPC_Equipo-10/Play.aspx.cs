@@ -12,6 +12,7 @@ namespace TPC_Equipo_10
     public partial class Play : Page
     {
         public List<Character> characterList = new List<Character>();
+        public List<Character> filteredCharacters = new List<Character>();
         public User user;
 
         public List<Class> listClasses = new List<Class>();
@@ -28,7 +29,7 @@ namespace TPC_Equipo_10
             {
 
                 user = (User)Session["user"];
-                List<Character> filteredCharacters = new List<Character>();
+                
 
                 listClasses = DataAccess.ListClasses();
                 listRaces = DataAccess.ListRaces();
@@ -99,6 +100,11 @@ namespace TPC_Equipo_10
                 rptBackgrounds.DataBind();
 
             }
+        }
+
+        protected void btnFirstCharacter_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CharacterCreator.aspx", false);
         }
     }
 }

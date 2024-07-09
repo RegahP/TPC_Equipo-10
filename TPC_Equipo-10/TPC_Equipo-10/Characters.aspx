@@ -13,11 +13,44 @@
             outline: 2px solid;
             outline-color: darkkhaki;
         }
+
+        .title {
+            font-family: "Oswald", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        #noCharacter {
+            margin-top: 17%;
+            text-align: center;
+            align-content: center;
+            width: fit-content;
+            background-color: floralwhite;
+            padding: 25px;
+            border-radius: 20px;
+            border-style: solid;
+        }
     </style>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div>
+
+
+        <%if (filteredCharacters.Count() == 0)
+            {
+        %>
+
+        <div class="container" id="noCharacter">
+            <h1 class="title">Aun no tienes personajes</h1>
+            <h3 class="title" style="margin-bottom: 25px;">¡Dale click al boton para comenzar tu aventura!</h3>
+            <asp:Button ID="btnFirstCharacter" runat="server" CssClass="btn btn-danger" Text="Crear Personaje" OnClick="charCreation_Click" />
+        </div>
+
+        <%}
+            else
+            {%>
         <div class="container" style="display: flex; justify-content: space-between; margin-bottom: 50px;">
             <asp:Button ID="charCreation" runat="server" CssClass="btn btn-danger" Text="Crear Personaje" OnClick="charCreation_Click" />
             <form class="d-flex">
@@ -71,6 +104,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
+        <%}%>
     </div>
     <script src="Scripts/webform.js"></script>
 </asp:Content>
