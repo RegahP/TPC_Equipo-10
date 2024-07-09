@@ -3,6 +3,7 @@ using DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,9 +29,10 @@ namespace TPC_Equipo_10
             try
             {
                 string userName = inputUsername.Text;
+                string mail = inputMail.Text;
                 string passwordHash = inputPassword.Text;
                 string confirmPass = confirmPassword.Text;
-                
+
 
                 if (string.IsNullOrWhiteSpace(userName))
                 {
@@ -38,33 +40,39 @@ namespace TPC_Equipo_10
                     lblErrorMessage.Visible = true;
                     return;
                 }
-                else if(string.IsNullOrWhiteSpace(passwordHash))
+                else if (string.IsNullOrWhiteSpace(mail))
+                {
+                    lblErrorMessage.Text = "Correo electrónico vacío";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+                else if (string.IsNullOrWhiteSpace(passwordHash))
                 {
                     lblErrorMessage.Text = "Contraseña vacía";
                     lblErrorMessage.Visible = true;
                     return;
                 }
-                else if(string.IsNullOrWhiteSpace(confirmPass))
+                else if (string.IsNullOrWhiteSpace(confirmPass))
                 {
                     lblErrorMessage.Text = "Confirmar contraseña vacía";
                     lblErrorMessage.Visible = true;
                     return;
                 }
 
-                if(passwordHash != confirmPass)
+                if (passwordHash != confirmPass)
                 {
                     lblErrorMessage.Text = "Las contraseñas no coinciden";
                     lblErrorMessage.Visible = true;
                     return;
                 }
-                
+
                 if (userName.Length < 6 || userName.Length > 30)
                 {
                     lblErrorMessage.Text = "El nombre de usuario debe tener entre 6 y 30 caracteres.";
                     lblErrorMessage.Visible = true;
                     return;
                 }
-                else if (passwordHash.Length < 6 || passwordHash.Length > 30) 
+                else if (passwordHash.Length < 6 || passwordHash.Length > 30)
                 {
                     lblErrorMessage.Text = "La contraseña debe tener entre 6 y 30 caracteres.";
                     lblErrorMessage.Visible = true;
@@ -80,6 +88,13 @@ namespace TPC_Equipo_10
                 else if (passwordHash.Contains(" "))
                 {
                     lblErrorMessage.Text = "La contraseña no puede contener espacios.";
+                    lblErrorMessage.Visible = true;
+                    return;
+                }
+
+                if (!IsValidMail(mail))
+                {
+                    lblErrorMessage.Text = "Correo electrónico no válido";
                     lblErrorMessage.Visible = true;
                     return;
                 }
@@ -100,19 +115,18 @@ namespace TPC_Equipo_10
                     }
 
                 }
- 
+
                 if (!letterContain || !numberContain)
                 {
-                    // Mostrar mensaje de error
                     lblErrorMessage.Text = "La contraseña debe contener al menos una letra y un número.";
                     lblErrorMessage.Visible = true;
                     return;
                 }
-
-                User user = new User(userName, passwordHash, iconID);
+                bool active = true;
+                User user = new User(userName, passwordHash, iconID, mail, active);
                 int id = DataAccess.Register(user);
 
-                if (id >= 0) 
+                if (id >= 0)
                 {
                     user.id = id;
                     Session.Add("user", user);
@@ -136,6 +150,17 @@ namespace TPC_Equipo_10
         {
             string rbID = ((RadioButton)sender).ID;
             iconID = int.Parse(rbID[rbID.Length - 1].ToString());
+        }
+        private bool IsValidMail(string mail)
+        {
+            try
+            {
+                return Regex.IsMatch(mail, @"^[^@\s]+@[^@\s]+\.[^@\s]+$", RegexOptions.IgnoreCase);
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
         }
     }
 }

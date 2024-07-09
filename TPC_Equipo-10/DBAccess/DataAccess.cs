@@ -944,6 +944,8 @@ namespace DBAccess
                 SetParameter("@UserName", user.username);
                 SetParameter("@PasswordHash", user.passwordHash);
                 SetParameter("@ID_Icon", user.iconID);
+                SetParameter("@Mail", user.mail);
+                SetParameter("@Active", user.active);
                 return ExecuteActionScalar();
             }
 
@@ -956,6 +958,7 @@ namespace DBAccess
                 CloseConnection();
             }
         }
+
 
         public static void ModifyUserProfile(User user)
         {

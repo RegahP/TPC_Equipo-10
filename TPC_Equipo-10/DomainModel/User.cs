@@ -12,7 +12,17 @@ namespace DomainModel
         public string username { get; set; }
         public string passwordHash { get; set; }
         public int iconID { get; set; }
+        public string mail { get; set; }
+        public bool active { get; set; }
 
+        public User(string username, string passwordHash, int iconID, string mail, bool active)
+        {
+            this.username = username;
+            this.passwordHash = passwordHash;
+            this.iconID = iconID;
+            this.mail = mail;
+            this.active = active;
+        }
         public User(string username, string passwordHash, int iconID)
         {
             this.username = username;

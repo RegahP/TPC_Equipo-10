@@ -1351,6 +1351,8 @@ SELECT * FROM DamageTypes
 SELECT * FROM Attacks
 ---Buscador de Items
 SELECT * FROM Items
+---Buscador de Users
+SELECT * FROM users
 
 ---Buscador de Armas
 EXEC SP_GetWeapons

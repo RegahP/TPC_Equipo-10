@@ -7,7 +7,9 @@ go
      ID_User int not null primary key identity(0,1),
      Username nvarchar(50) unique,
      PasswordHash nvarchar(255) not null,
-     ID_Icon int not null
+     ID_Icon int not null,
+	 Mail nvarchar (255) unique,
+	 Active bit not null --0 usuario borrado - 1 usuario activo
  )
  go
  --select ID_User, Username, PasswordHash from users where Username = @user AND PasswordHash = @pass
@@ -509,8 +511,11 @@ go
 CREATE OR ALTER PROCEDURE SP_InsertNewUser
 @UserName VARCHAR(50),
 @PasswordHash nvarchar(255),
-@ID_Icon int
-AS INSERT INTO Users (Username, PasswordHash, ID_Icon) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash, @ID_Icon);
+@ID_Icon int,
+@Mail nvarchar(255),
+@Active bit
+AS INSERT INTO Users (Username, PasswordHash, ID_Icon, Mail, Active) OUTPUT INSERTED.ID_USER VALUES (@UserName, @PasswordHash, @ID_Icon, @Mail, @Active);
+
 
 --+-- Consigue todas las criaturas --+--
 go

@@ -561,3 +561,17 @@ C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyv
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repositorio\TPC_Equipo-10\TPC_Equipo-10\bin\DomainModel.dll
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repositorio\TPC_Equipo-10\TPC_Equipo-10\bin\DBAccess.pdb
 C:\Users\matis\Desktop\Zerafin\Facultad\Materias\Programacion III\Chambers & Wyverns\Repositorio\TPC_Equipo-10\TPC_Equipo-10\bin\DomainModel.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\TPC_Equipo-10.dll.config
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\TPC_Equipo-10.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\TPC_Equipo-10.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\DBAccess.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\DomainModel.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\DBAccess.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\DomainModel.pdb
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\obj\Debug\TPC_Equipo-10.csproj.AssemblyReference.cache
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\obj\Debug\TPC_Equipo-10.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\obj\Debug\TPC_Equi.A026186B.Up2Date
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\obj\Debug\TPC_Equipo-10.dll
+C:\Users\Usuario\Desktop\Chambers & Wyverns\Pulls\pull 16\TPC_Equipo-10\TPC_Equipo-10\TPC_Equipo-10\obj\Debug\TPC_Equipo-10.pdb

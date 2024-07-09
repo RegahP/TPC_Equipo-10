@@ -13,12 +13,13 @@
             font-weight: 500;
             font-style: normal;
         }
+
         .icon {
             image-rendering: pixelated;
             width: 100px;
-            background-color:antiquewhite;
+            background-color: antiquewhite;
             outline: 2px solid;
-            outline-color:darkkhaki;
+            outline-color: darkkhaki;
         }
     </style>
 </asp:Content>
@@ -33,6 +34,12 @@
                 <label for="inputUsername" class="col-sm-2 col-form-label">Usuario:</label>
                 <div class="col-sm-10">
                     <asp:TextBox ID="inputUsername" runat="server" CssClass="form-control" />
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputMail" class="col-sm-2 col-form-label">Correo electrónico:</label>
+                <div class="col-sm-10">
+                    <asp:TextBox ID="inputMail" runat="server" CssClass="form-control" />
                 </div>
             </div>
             <div class="mb-3 row">
