@@ -962,8 +962,6 @@ namespace DBAccess
 
         public static void ModifyUserProfile(User user)
         {
-            // Implementar la lógica para actualizar el perfil del usuario en la base de datos
-            //DataAccess db = new DataAccess();
             try
             {
             SetProcedure("SP_ModifyUserProfile");

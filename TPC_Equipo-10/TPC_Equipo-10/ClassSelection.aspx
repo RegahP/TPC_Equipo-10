@@ -30,6 +30,7 @@
             font-weight: 500;
             font-style: normal;
         }
+
         .icon {
             image-rendering: pixelated;
             background-color: antiquewhite;
@@ -55,7 +56,7 @@
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <canvas class="class-canvas icon" data-class="<%# Eval("id") %>" data-format="0" width="128" height="192" style="margin-left: 12px"></canvas>
+                            <canvas class="chr-canvas icon" data-race="<%# character.idRace %>" data-class="<%# Eval("id") %>" data-sex="0" data-toggle="1" data-format="0" width="128" height="192" style="margin-left:12px"></canvas>
                         </div>
                         <div class="col">
                             <div style="justify-content: left">
@@ -64,7 +65,7 @@
                                 <h6>Puntos de vida por nivel: <%# Eval("classHealth") %> + tu modificador de Constitución</h6>
                                 <h4>Habilidad Especial: <%# Eval("specialName")%></h4>
 
-                                <div class="row" style="align-items:end; margin-bottom:16px">
+                                <div class="row" style="align-items: end; margin-bottom: 16px">
                                     <div class="col">
                                         <p><%# Eval("specialDesc")%></p>
                                     </div>
@@ -74,8 +75,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+            </div>
+            </div>
             </div>
 
         </ItemTemplate>

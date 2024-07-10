@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,131 +13,175 @@ namespace TPC_Equipo_10
 {
     public partial class EditProfile : Page
     {
-        public int iconID;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
             {
                 Response.Redirect("Default.aspx", false);
             }
-            //if (!IsPostBack)
-            //{
-            //    User user = (User)Session["user"];
-            //    inputNewUsername.Text = user.username;
-            //}
+            if (!IsPostBack)
+            {
+                Session["update"] = Server.UrlEncode(DateTime.Now.ToString());
+            }
         }
 
         protected void btnUpdateProfile_Click(object sender, EventArgs e)
         {
-            try
+            if (Session["update"].ToString() == ViewState["update"].ToString())
             {
-                User user = (User)Session["user"];
+                try
+                {
+                    User user = (User)Session["user"];
 
 
-                string newUsername = inputNewUsername.Text;
-                string newPassword = inputNewPassword.Text;
-                string confirmPassword = inputConfirmPassword.Text;
+                    string newUsername = inputNewUsername.Text;
+                    string newPassword = inputNewPassword.Text;
+                    string confirmPassword = inputConfirmPassword.Text;
 
-                if (string.IsNullOrWhiteSpace(newUsername))
-                {
-                    lblErrorMessage.Text = "Usuario vacío";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-                else if (string.IsNullOrWhiteSpace(newPassword))
-                {
-                    lblErrorMessage.Text = "Contraseña vacía";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-                else if (string.IsNullOrWhiteSpace(confirmPassword))
-                {
-                    lblErrorMessage.Text = "Confirmar contraseña vacía";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-
-                if (newPassword != confirmPassword)
-                {
-                    lblErrorMessage.Text = "Las contraseñas no coinciden";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-
-                if (newUsername.Length < 6 || newUsername.Length > 30)
-                {
-                    lblErrorMessage.Text = "El nombre de usuario debe tener entre 6 y 30 caracteres.";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-                else if (newPassword.Length < 6 || newPassword.Length > 30)
-                {
-                    lblErrorMessage.Text = "La contraseña debe tener entre 6 y 30 caracteres.";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-
-                if (newUsername.Contains(" "))
-                {
-                    lblErrorMessage.Text = "El nombre de usuario no puede contener espacios.";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-                else if (newPassword.Contains(" "))
-                {
-                    lblErrorMessage.Text = "La contraseña no puede contener espacios.";
-                    lblErrorMessage.Visible = true;
-                    return;
-                }
-
-                bool letterContain = false;
-                bool numberContain = false;
-
-                foreach (char pass in newPassword)
-                {
-                    if (char.IsLetter(pass))
+                    if (!string.IsNullOrWhiteSpace(newUsername))
                     {
-                        letterContain = true;
+                        if (newUsername.Length < 6 || newUsername.Length > 30)
+                        {
+                            lblErrorMessage.ForeColor = Color.Red;
+                            lblErrorMessage.Text = "El nombre de usuario debe tener entre 6 y 30 caracteres.";
+                            lblErrorMessage.Visible = true;
+                            return;
+                        }
+                        if (newUsername.Contains(" "))
+                        {
+                            lblErrorMessage.ForeColor = Color.Red;
+                            lblErrorMessage.Text = "El nombre de usuario no puede contener espacios.";
+                            lblErrorMessage.Visible = true;
+                            return;
+                        }
+                        if (string.IsNullOrWhiteSpace(newPassword))
+                        {
+                            lblErrorMessage.ForeColor = Color.Red;
+                            lblErrorMessage.Text = "Contraseña vacía";
+                            lblErrorMessage.Visible = true;
+                            return;
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(newPassword))
+                        {
+                            if (newPassword.Length < 6 || newPassword.Length > 30)
+                            {
+                                lblErrorMessage.ForeColor = Color.Red;
+                                lblErrorMessage.Text = "La contraseña debe tener entre 6 y 30 caracteres.";
+                                lblErrorMessage.Visible = true;
+                                return;
+                            }
+                            if (newPassword.Contains(" "))
+                            {
+                                lblErrorMessage.ForeColor = Color.Red;
+                                lblErrorMessage.Text = "La contraseña no puede contener espacios.";
+                                lblErrorMessage.Visible = true;
+                                return;
+                            }
+                            if (string.IsNullOrWhiteSpace(confirmPassword))
+                            {
+                                lblErrorMessage.ForeColor = Color.Red;
+                                lblErrorMessage.Text = "Confirmar contraseña vacía";
+                                lblErrorMessage.Visible = true;
+                                return;
+                            }
+                            if (newPassword != confirmPassword)
+                            {
+                                lblErrorMessage.ForeColor = Color.Red;
+                                lblErrorMessage.Text = "Las contraseñas no coinciden";
+                                lblErrorMessage.Visible = true;
+                                return;
+                            }
+                        }
+
+                        bool letterContain = false;
+                        bool numberContain = false;
+
+                        foreach (char pass in newPassword)
+                        {
+                            if (char.IsLetter(pass))
+                            {
+                                letterContain = true;
+                            }
+
+                            if (char.IsDigit(pass))
+                            {
+                                numberContain = true;
+                            }
+                        }
+
+                        if (!letterContain || !numberContain)
+                        {
+                            lblErrorMessage.ForeColor = Color.Red;
+                            lblErrorMessage.Text = "La contraseña debe contener al menos una letra y un número.";
+                            lblErrorMessage.Visible = true;
+                            return;
+                        }
+                    }
+                    else if (!string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        lblErrorMessage.ForeColor = Color.Red;
+                        lblErrorMessage.Text = "Usuario vacío";
+                        lblErrorMessage.Visible = true;
+                        return;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(confirmPassword))
+                    {
+                        lblErrorMessage.ForeColor = Color.Red;
+                        lblErrorMessage.Text = "Confirmar contraseña vacía";
+                        lblErrorMessage.Visible = true;
+                        return;
                     }
 
-                    if (char.IsDigit(pass))
+                    
+                    if (tglState.Value == 1.ToString())
                     {
-                        numberContain = true;
+                        user.iconID = rblIcons.SelectedIndex;
                     }
 
-                }
+                    if (!string.IsNullOrWhiteSpace(newUsername) && !string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        user.username = newUsername;
+                        user.passwordHash = newPassword;
+                        
+                        lblErrorMessage.ForeColor = Color.Green;
+                        lblErrorMessage.Text = "Perfil actualizado exitosamente!";
+                        lblErrorMessage.Visible = true;
+                    }
 
-                if (!letterContain || !numberContain)
+                    DataAccess.ModifyUserProfile(user);
+                    Master.RecieveUser(user);
+
+                    Session["user"] = user;
+
+                    rblIcons.SelectedIndex = 0;
+                    tglState.Value = 0.ToString();
+                }
+                catch (Exception ex)
                 {
-                    lblErrorMessage.Text = "La contraseña debe contener al menos una letra y un número.";
+                    lblErrorMessage.ForeColor = Color.Red;
+                    lblErrorMessage.Text = "Ocurrió un error al actualizar el perfil: " + ex.Message;
                     lblErrorMessage.Visible = true;
-                    return;
                 }
-
-                user.username = newUsername;
-                user.iconID = iconID;
-                user.passwordHash = newPassword;
-              
-
-                DataAccess.ModifyUserProfile(user);
-
-                lblErrorMessage.Text = "Perfil actualizado exitosamente!";
-                lblErrorMessage.ForeColor = System.Drawing.Color.Green;
-                lblErrorMessage.Visible = true;
-
-                Session["user"] = user;
-            }
-            catch (Exception ex)
-            {
-                lblErrorMessage.Text = "Ocurrió un error al actualizar el perfil: " + ex.Message;
-                lblErrorMessage.Visible = true;
+                Session["update"] = Server.UrlEncode(DateTime.Now.ToString());
             }
         }
 
-        protected void icon_CheckedChanged(object sender, EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
-            string rbID = ((RadioButton)sender).ID;
-            iconID = int.Parse(rbID[rbID.Length - 1].ToString());
+            ViewState["update"] = Session["update"];
+        }
+
+        protected void tglEditIcon_Click(object sender, EventArgs e)
+        {
+            if(tglState.Value == 0.ToString())
+            {
+                tglState.Value = "1";
+            }
+            else
+            {
+                tglState.Value = "0";
+            }
         }
     }
 }

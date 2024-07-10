@@ -6,6 +6,8 @@ const createSketch = (parentID, hiddenFieldID) => {
         let g;
 
         let flag;
+        let skipRoll;
+        let hiddenField;
         let angleX = 0, angleY = 0, angleZ = 0;
         let targetAngleX, targetAngleY, targetAngleZ;
         let rolling;
@@ -25,6 +27,13 @@ const createSketch = (parentID, hiddenFieldID) => {
 
             p.textSize(64);
             p.textAlign(p.CENTER, p.CENTER);
+
+            hiddenField = document.getElementById('ContentPlaceHolder1_' + hiddenFieldID);
+            if (hiddenField.value) {
+                
+                flag = true;
+                skipRoll = true;
+            }
         };
 
         p.draw = () => {
@@ -101,8 +110,14 @@ const createSketch = (parentID, hiddenFieldID) => {
 
             p.image(g, 0, 0);
 
-            p.fill(0, 0, 0, timer / 8 - 100);
-            if (num) {
+            if (!skipRoll) {
+                p.fill(0, 0, 0, timer / 8 - 100);
+                if (num) {
+                    p.text(num, p.width / 2, p.height / 2);
+                }
+            }
+            else {
+                num = hiddenField.value;
                 p.text(num, p.width / 2, p.height / 2);
             }
 

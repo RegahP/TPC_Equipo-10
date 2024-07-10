@@ -7,12 +7,32 @@ webform_race_spritesheet.src = "../Sprites/webform_race_spritesheet.png";
 const webform_class_spritesheet = new Image();
 webform_class_spritesheet.src = "../Sprites/webform_class_spritesheet.png";
 
+const webform_icons_spritesheet = new Image();
+webform_icons_spritesheet.src = "../Sprites/icons_spritesheet.png";
+
+let toggleCanvasesList = [];
+
+let toggle = false;
+let toggleTimer = 0;
+
 //dibuja un chr sprite con clase raza sexo para webform
-function webformDrawChrSprite(canvas, race, cls, sex) {
+function webformDrawChrSprite(canvas, race, cls, sex, format) {
     const ctx = canvas.getContext('2d');
-    const size = 5;
-    const posX = 4 * size;
-    const posY = -6.25 * size;
+    
+    let size = 5;
+    let posX = 4 * size;
+    let posY = -6.25 * size;
+
+    if (format == 0) {
+        size = 8;
+        posX = 0;
+        posY = -9 * size;
+    }
+    else if (format == 1) {
+        size = 30;
+        posX = -2 * size;
+        posY = -8 * size;
+    }
 
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -31,7 +51,7 @@ function webformDrawChrSprite(canvas, race, cls, sex) {
 }
 
 //dibuja un chr sprite de class/sex non-specific para webform
-function webformDrawRaceSprite(canvas, race, format) {
+function webformDrawRaceSprite(canvas, race, sex, format) {
 
     const ctx = canvas.getContext('2d');
 
@@ -51,7 +71,7 @@ function webformDrawRaceSprite(canvas, race, format) {
     ctx.drawImage(
         webform_race_spritesheet,
         race * 16,
-        0,
+        sex * 32,
         16,
         32,
         posX,
@@ -92,6 +112,30 @@ function webformDrawClassSprite(canvas, cls, format) {
     );
 }
 
+function webformDrawSexIcon(canvas, sex) {
+
+    const ctx = canvas.getContext('2d');
+
+    let size = 2;
+    let posX = 0;
+    let posY = 0;
+
+    ctx.imageSmoothingEnabled = false;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.drawImage(
+        webform_icons_spritesheet,
+        16 + (16 * sex),
+        32,
+        16,
+        16,
+        posX,
+        posY,
+        16 * size,
+        16 * size
+    );
+}
+
 window.onload = function () {
     //para los sprites de chr player
     const chrCanvases = document.querySelectorAll('.chr-canvas');
@@ -99,7 +143,13 @@ window.onload = function () {
         const race = parseInt(canvas.getAttribute('data-race'));
         const cls = parseInt(canvas.getAttribute('data-class'));
         const sex = parseInt(canvas.getAttribute('data-sex'));
-        webformDrawChrSprite(canvas, race, cls, sex);
+        const toggle = parseInt(canvas.getAttribute('data-toggle'));
+        const format = parseInt(canvas.getAttribute('data-format'));
+
+        if (toggle == 1) {
+            toggleCanvasesList.push(canvas);
+        }
+        webformDrawChrSprite(canvas, race, cls, sex, format);
     });
 
     //para los sprites de chr race
@@ -107,7 +157,13 @@ window.onload = function () {
     raceCanvases.forEach(canvas => {
         const race = parseInt(canvas.getAttribute('data-race'));
         const format = parseInt(canvas.getAttribute('data-format'));
-        webformDrawRaceSprite(canvas, race, format);
+        const toggle = parseInt(canvas.getAttribute('data-toggle'));
+
+        if (toggle == 1) {
+            toggleCanvasesList.push(canvas);
+        }
+
+        webformDrawRaceSprite(canvas, race, 0, format);
     });
 
     //para los sprites de chr class
@@ -117,4 +173,42 @@ window.onload = function () {
         const format = parseInt(canvas.getAttribute('data-format'));
         webformDrawClassSprite(canvas, cls, format);
     });
+
+    //para los icons de sex
+    const iconCanvases = document.querySelectorAll('.chr-sex-icon');
+    iconCanvases.forEach(canvas => {
+        const sex = parseInt(canvas.getAttribute('data-sex'));
+        webformDrawSexIcon(canvas, sex);
+    });
+}
+
+function toggleCanvases() {
+    //para los sprites de chr player
+    toggle = !toggle;
+
+    toggleCanvasesList.forEach(canvas => {
+        if (canvas.classList.contains('chr-canvas')) {
+            const race = parseInt(canvas.getAttribute('data-race'));
+            const cls = parseInt(canvas.getAttribute('data-class'));
+            const format = parseInt(canvas.getAttribute('data-format'));
+            webformDrawChrSprite(canvas, race, cls, toggle, format);
+        }
+        else if (canvas.classList.contains('race-canvas')) {
+            const race = parseInt(canvas.getAttribute('data-race'));
+            const format = parseInt(canvas.getAttribute('data-format'));
+            webformDrawRaceSprite(canvas, race, toggle, format);
+        }
+    });
+}
+
+function draw() {
+    if (toggleCanvasesList.length > 0) {
+        if (toggleTimer < 2000) {
+            toggleTimer += deltaTime;
+        }
+        else {
+            toggleTimer = 0;
+            toggleCanvases();
+        }
+    }
 }

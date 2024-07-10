@@ -15,17 +15,6 @@
             font-weight: 500;
             font-style: normal;
         }
-
-        #noCharacter {
-            margin-top: 17%;
-            text-align: center;
-            align-content: center;
-            width: fit-content;
-            background-color: floralwhite;
-            padding: 25px;
-            border-radius: 20px;
-            border-style: solid;
-        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -33,13 +22,19 @@
     <%if (filteredCharacters.Count() == 0)
         {
     %>
-
-    <div class="container" id="noCharacter">
-        <h1 class="title">Aun no tienes personajes</h1>
-        <h3 class="title" style="margin-bottom: 25px;">¡Dale click al boton para comenzar tu aventura!</h3>
-        <asp:Button ID="btnFirstCharacter" runat="server" CssClass="btn btn-danger" Text="Crear Personaje" OnClick="btnFirstCharacter_Click" />
+    <div class="d-flex justify-content-md-center align-items-center vh-100">
+        <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black; width:40%">
+            <div class="mb-3 row">
+                <h1 class="title" style="display: flex; justify-content: center">Aun no tienes personajes!</h1>
+            </div>
+            <div class="mb-3 row text-center">
+                <h3 class="title" style="margin-bottom: 25px;">¡Dale click al boton para comenzar tu aventura!</h3>
+            </div>
+            <div class="mb-3 row-3 text-center">
+                <asp:Button ID="btnFirstCharacter" runat="server" CssClass="btn btn-danger" Text="Crear Personaje" OnClick="btnFirstCharacter_Click" />
+            </div>
+        </div>
     </div>
-
     <%}
         else
         {%>

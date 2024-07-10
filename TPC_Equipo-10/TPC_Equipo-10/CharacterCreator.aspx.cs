@@ -49,14 +49,8 @@ namespace TPC_Equipo_10
         protected void confirmRace_btn_Click(object sender, EventArgs e)
         {
             int raceId = int.Parse(((LinkButton)sender).CommandArgument);
-            foreach (Race race in raceList)
-            {
-                if (race.id == raceId)
-                {
-                    character.idRace = race.id;
-                    break;
-                }
-            }
+
+            character.idRace = raceId;
 
             if (characterID != -1)
             {
@@ -68,9 +62,6 @@ namespace TPC_Equipo_10
                 Session.Add("character", character);
                 Response.Redirect("ClassSelection.aspx", false);
             }
-
-
-
         }
 
         protected void rptRace_ItemDataBound(object sender, RepeaterItemEventArgs e)

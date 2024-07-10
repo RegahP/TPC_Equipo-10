@@ -107,6 +107,7 @@
     <Content Include="Sprites\Icons\7.png" />
     <Content Include="Sprites\Icons\8.png" />
     <Content Include="Sprites\Icons\9.png" />
+    <Content Include="Sprites\icons_spritesheet.png" />
     <Content Include="Sprites\items_spritesheet.png" />
     <Content Include="Sprites\merchant_spritesheet.png" />
     <Content Include="Sprites\webform_class_spritesheet.png" />

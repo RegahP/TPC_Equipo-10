@@ -41,37 +41,37 @@
         <ItemTemplate>
 
             <div class="containerInfo" style="display: flex; justify-content: center">
-                    <div class="container">
-                        <div class="row">
-                            <h4 class="title" style="text-align: center"><%# Eval("name")%></h4>
+                <div class="container">
+                    <div class="row">
+                        <h4 class="title" style="text-align: center"><%# Eval("name")%></h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <canvas class="race-canvas icon" data-race="<%# Eval("id") %>" data-toggle="1" data-format="0" width="128" height="192" style="margin-left: 12px"></canvas>
                         </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <canvas class="race-canvas icon" data-race="<%# Eval("id") %>" data-format="0" width="128" height="192" style="margin-left: 12px"></canvas>
-                            </div>
-                            <div class="col">
-                                <div style="justify-content: left">
-                                    <p><%# Eval("desc")%></p>
+                        <div class="col">
+                            <div style="justify-content: left">
+                                <p><%# Eval("desc")%></p>
 
-                                    <asp:Repeater runat="server" ID="rptAbilities">
-                                        <ItemTemplate>
-                                            <div class="container text-center" style="margin-bottom:24px">
-                                                <div class="row" style="align-items:end">
-                                                    <div class="col">
-                                                        <h5>Pasiva: +2 a su <%# Eval("name")%></h5>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <asp:LinkButton ID="confirmRace_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmRace_btn_Click" Text="Seleccionar" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-
+                                <div class="container text-center" style="margin-bottom: 24px">
+                                    <div class="row" style="align-items: end">
+                                        <div class="col">
+                                            <asp:Repeater runat="server" ID="rptAbilities">
+                                                <ItemTemplate>
+                                                    <h5>Pasiva: +2 a su <%# Eval("name")%></h5>
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </div>
+                                        <div class="col-2">
+                                            <asp:LinkButton ID="confirmRace_btn" CommandArgument='<%# Eval("id")%>' runat="server" CssClass="btn btn-danger" OnClick="confirmRace_btn_Click" Text="Seleccionar" />
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </ItemTemplate>
     </asp:Repeater>

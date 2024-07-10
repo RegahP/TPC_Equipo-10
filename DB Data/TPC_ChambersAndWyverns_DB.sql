@@ -5,10 +5,10 @@ go
 go
  create table Users(
      ID_User int not null primary key identity(0,1),
-     Username nvarchar(50) unique,
+     Username nvarchar(50) not null unique,
      PasswordHash nvarchar(255) not null,
      ID_Icon int not null,
-	 Mail nvarchar (255) unique,
+	 Mail nvarchar (255) not null unique,
 	 Active bit not null --0 usuario borrado - 1 usuario activo
  )
  go

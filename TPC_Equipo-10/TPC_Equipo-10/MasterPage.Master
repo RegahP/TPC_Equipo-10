@@ -28,7 +28,7 @@
             outline: 2px solid;
             outline-color: darkkhaki;
         }
-        /* Estilos para el menú desplegable */
+        
         .dropdown-menu {
             display: none;
             position: absolute;
