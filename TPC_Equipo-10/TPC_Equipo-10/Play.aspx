@@ -23,7 +23,7 @@
         {
     %>
     <div class="d-flex justify-content-md-center align-items-center vh-100">
-        <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black; width:40%">
+        <div class="container form-control shadow-lg" style="padding-top: 25px; border-width: medium; border-color: black; width:40%">
             <div class="mb-3 row">
                 <h1 class="title" style="display: flex; justify-content: center">Aun no tienes personajes!</h1>
             </div>

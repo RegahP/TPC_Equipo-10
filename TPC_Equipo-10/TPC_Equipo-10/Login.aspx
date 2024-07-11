@@ -18,7 +18,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="d-flex justify-content-md-center align-items-center vh-100">
-        <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black;">
+        <div class="container form-control shadow-lg" style="padding-top: 25px; border-width: medium; border-color: black;">
             <h4 class="title" style="display: flex; justify-content: center">¡VUELVE EL HEROE!</h4>
 
             <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Visible="false" />

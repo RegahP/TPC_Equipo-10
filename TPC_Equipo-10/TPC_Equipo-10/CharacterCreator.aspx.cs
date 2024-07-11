@@ -6,13 +6,12 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using DBAccess;
 using DomainModel;
-using System.Security.Cryptography.X509Certificates;
 using System.Diagnostics;
 using System.Collections;
 
 namespace TPC_Equipo_10
 {
-    public partial class CharacterCreator : System.Web.UI.Page
+    public partial class CharacterCreator : Page
     {
         public List<Race> raceList = new List<Race>();
         public List<Background> BackgroundList = new List<Background>();
@@ -61,23 +60,6 @@ namespace TPC_Equipo_10
             {
                 Session.Add("character", character);
                 Response.Redirect("ClassSelection.aspx", false);
-            }
-        }
-
-        protected void rptRace_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                // va y busca el repeater anidado
-                Repeater rptAbilities = e.Item.FindControl("rptAbilities") as Repeater;
-
-                // filtra la lista de Abilidades basado en el race id
-                var currentRace = (Race)e.Item.DataItem;
-                var filteredAbility = abilityList.Where(ability => ability.id == currentRace.abilityID).ToList(); // Lo dejo como List porque tenemos un error en la DB (sabiduria en 2 razas)
-
-                // bindea el repeater de Abilidades al de afuera
-                rptAbilities.DataSource = filteredAbility;
-                rptAbilities.DataBind();
             }
         }
     }

@@ -19,14 +19,14 @@ let toggleTimer = 0;
 function webformDrawChrSprite(canvas, race, cls, sex, format) {
     const ctx = canvas.getContext('2d');
     
-    let size = 5;
-    let posX = 4 * size;
-    let posY = -6.25 * size;
+    let size = 6;
+    let posX = 2.5 * size;
+    let posY = -10.5 * size;
 
     if (format == 0) {
         size = 8;
         posX = 0;
-        posY = -9 * size;
+        posY = -8.5 * size;
     }
     else if (format == 1) {
         size = 30;
@@ -36,6 +36,9 @@ function webformDrawChrSprite(canvas, race, cls, sex, format) {
 
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.shadowColor = "grey";
+    ctx.shadowBlur = 5;
 
     ctx.drawImage(
         webform_chr_spritesheet,
@@ -50,7 +53,7 @@ function webformDrawChrSprite(canvas, race, cls, sex, format) {
     );
 }
 
-//dibuja un chr sprite de class/sex non-specific para webform
+//dibuja un chr race sprite de class/sex non-specific para webform
 function webformDrawRaceSprite(canvas, race, sex, format) {
 
     const ctx = canvas.getContext('2d');
@@ -68,6 +71,9 @@ function webformDrawRaceSprite(canvas, race, sex, format) {
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    ctx.shadowColor = "grey";
+    ctx.shadowBlur = 5;
+
     ctx.drawImage(
         webform_race_spritesheet,
         race * 16,
@@ -81,7 +87,7 @@ function webformDrawRaceSprite(canvas, race, sex, format) {
     );
 }
 
-//dibuja un chr sprite de class/sex non-specific para webform
+//dibuja un chr class sprite de class/sex non-specific para webform
 function webformDrawClassSprite(canvas, cls, format) {
 
     const ctx = canvas.getContext('2d');
@@ -99,6 +105,9 @@ function webformDrawClassSprite(canvas, cls, format) {
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    ctx.shadowColor = "grey";
+    ctx.shadowBlur = 5;
+
     ctx.drawImage(
         webform_class_spritesheet,
         cls * 16,
@@ -111,8 +120,8 @@ function webformDrawClassSprite(canvas, cls, format) {
         32 * size
     );
 }
-
-function webformDrawSexIcon(canvas, sex) {
+//REWORKEAR
+function webformDrawIcon(canvas, id, format) {
 
     const ctx = canvas.getContext('2d');
 
@@ -172,13 +181,6 @@ window.onload = function () {
         const cls = parseInt(canvas.getAttribute('data-class'));
         const format = parseInt(canvas.getAttribute('data-format'));
         webformDrawClassSprite(canvas, cls, format);
-    });
-
-    //para los icons de sex
-    const iconCanvases = document.querySelectorAll('.chr-sex-icon');
-    iconCanvases.forEach(canvas => {
-        const sex = parseInt(canvas.getAttribute('data-sex'));
-        webformDrawSexIcon(canvas, sex);
     });
 }
 

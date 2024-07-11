@@ -25,7 +25,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="d-flex justify-content-md-center align-items-center vh-100">
-        <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black;">
+        <div class="container form-control shadow-lg" style="padding-top: 25px; border-width: medium; border-color: black;">
             <div class="mb-3 row">
                 <h4 class="title" style="display: flex; justify-content: center">¡UNETE A LA AVENTURA!</h4>
 
