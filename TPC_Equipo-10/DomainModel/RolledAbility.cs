@@ -10,16 +10,13 @@ namespace DomainModel
     {
         public int abilityID { get; set; }
         public int rolledScore { get; set; }
+        public int modifier {  get; set; }
 
-        public RolledAbility(int abilityID, int rolledScore)
+        public RolledAbility(int abilityID, int rolledScore, int modifier)
         {
             this.abilityID = abilityID;
             this.rolledScore = rolledScore;
-        }
-
-        public int GetModifier()
-        {
-            return (rolledScore - 10) / 2;
+            this.modifier = modifier;
         }
     }
 }

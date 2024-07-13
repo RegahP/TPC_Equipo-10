@@ -6,7 +6,7 @@
 
 document.addEventListener('click', function (event) {
     var dropdown = document.getElementById('dropdownMenu');
-    if (!document.getElementById('UserIcon').contains(event.target) && !dropdown.contains(event.target)) {
+    if (dropdown && !document.getElementById('UserIcon').contains(event.target) && !dropdown.contains(event.target)) {
         dropdown.classList.remove('show');
     }
 });

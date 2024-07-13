@@ -94,6 +94,7 @@
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\roll.js" />
     <Content Include="Scripts\store.js" />
+    <Content Include="Scripts\tools.js" />
     <Content Include="Scripts\town.js" />
     <Content Include="Scripts\webform.js" />
     <Content Include="Sprites\chr_fx_darkspotlight.png" />

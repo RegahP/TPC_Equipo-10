@@ -12,7 +12,7 @@ using DomainModel;
 
 namespace TPC_Equipo_10
 {
-    public partial class Game : System.Web.UI.Page
+    public partial class Game : Page
     {
 
         static Character character = new Character();
@@ -27,19 +27,14 @@ namespace TPC_Equipo_10
             {
                 character = DataAccess.GetCharacter((int)Session["characterID"]);
             }
-
-
-            //leer desde db y cargar TODO, db base + relevantes al pj
-            //razas, clases, trasfondos, abilities, skills, items, creatures, TODO
-            //el character relevante a la partida, sus abilities, skills, items
         }
 
         //funciones WebMethod van a ser llamadas por p5js para LEER y ESCRIBIR a la db
         //recordar que el juego GUARDA en db dinamicamente, y LEE de db al principio
+
         [WebMethod] //devuelve el personaje del usuario al ajax
         public static Character GetCharacter()
         {
-            character.gameState = 0; //temp
             Debug.WriteLine("Character sent from CodeBehind to AJAX Call succesfully.");
             return character;
         }
@@ -64,6 +59,14 @@ namespace TPC_Equipo_10
             Debug.WriteLine("Abilities sent from CodeBehind to AJAX Call succesfully.");
             return DataAccess.ListAbilities();
         }
+
+        [WebMethod] //devuelve todas las abilities del juego al ajax
+        public static List<Background> GetBackgrounds()
+        {
+            Debug.WriteLine("Backgrounds sent from CodeBehind to AJAX Call succesfully.");
+            return DataAccess.ListBackgrounds();
+        }
+        
 
         [WebMethod] //devuelve todas las skills del juego al ajax
         public static List<Skill> GetSkills()
@@ -119,7 +122,7 @@ namespace TPC_Equipo_10
         public static void SaveCharacter(Character character)
         {
             Debug.WriteLine("Character recieved from AJAX Call to CodeBehind succesfully.");
-            //aca recibimos el character del juego, cuando cambien los datos
+            DataAccess.ModifyCharacter(character);
         }
 
         [WebMethod]
@@ -138,7 +141,6 @@ namespace TPC_Equipo_10
             {
                 DataAccess.DeleteEncounter(encounter);
             }
-            //aca recibimos el character del juego, cuando cambien los datos
         }
     }
 }

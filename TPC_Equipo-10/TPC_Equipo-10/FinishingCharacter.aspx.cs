@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace TPC_Equipo_10
 {
-    public partial class FinishingCharacter : System.Web.UI.Page
+    public partial class FinishingCharacter : Page
     {
         public Character character = new Character();
         public User user;
@@ -25,16 +25,16 @@ namespace TPC_Equipo_10
         protected void Page_Load(object sender, EventArgs e)
         {
             //si cargo la pagina y ya esta en 6, es porque ya habiamos rolleado
-            if(fieldCounter.Value == "6")
+            if (fieldCounter.Value == "6")
             {
                 if (fieldCounter != null)
                 {
-                    string btnConfirmClasses = btnConfirm1.CssClass;
+                    string btnConfirmClasses = btnConfirm.CssClass;
                     string newClasses = string.Join(" ", btnConfirmClasses.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Where(c => !c.Equals("disabled", StringComparison.OrdinalIgnoreCase)));
-                    btnConfirm1.CssClass = newClasses;
+                    btnConfirm.CssClass = newClasses;
                 }
             }
-            
+
             if (Session["user"] == null)
             {
                 Response.Redirect("Default.aspx", false);
@@ -58,93 +58,40 @@ namespace TPC_Equipo_10
 
         protected void rb_CheckedChanged(object sender, EventArgs e)
         {
-            if (((RadioButton)sender).ID == "rbMasculine1" || ((RadioButton)sender).ID == "rbMasculine2")
+            if (((RadioButton)sender).ID == "rbMasculine")
             {
-                if (characterID != -1)
-                {
-                    mascOrFem = true;
-                }
-                else
-                {
-                    character.sex = true;
-                }
+                character.sex = true;
             }
-            if (((RadioButton)sender).ID == "rbFeminine1" || ((RadioButton)sender).ID == "rbFeminine2")
+            if (((RadioButton)sender).ID == "rbFeminine")
             {
-                if (characterID != -1)
-                {
-                    mascOrFem = false;
-                }
-                else
-                {
-                    character.sex = false;
-                }
+                character.sex = false;
             }
         }
 
         protected void txtName_TextChanged(object sender, EventArgs e)
         {
-
-            //falta validar nombre
-            if (characterID != -1) // Edicion
-            {
-
-                if (string.IsNullOrWhiteSpace(txtName2.Text))
-                {
-                    lblErrorMessage.Text = "Nombre vacío";
-                    lblErrorMessage.Visible = true;
-                    txtName2.Text = null;
-                    return;
-                }
-
-                if (txtName2.Text.Contains(" "))
-                {
-                    lblErrorMessage.Text = "El nombre de personaje no puede contener espacios.";
-                    lblErrorMessage.Visible = true;
-                    txtName2.Text = null;
-                    return;
-                }
-
-                modName = txtName2.Text;
-
-            }
-            else // Creacion
-            {
-
-                character.name = txtName1.Text;
-            }
+            character.name = txtName.Text;
         }
 
         protected void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName1.Text))
+            if (string.IsNullOrWhiteSpace(txtName.Text))
             {
-                lblErrorMessage.Text = "Usuario vacío";
+                lblErrorMessage.Text = "Nombre vacío";
                 lblErrorMessage.Visible = true;
                 return;
             }
-
-
-            if (characterID != -1)
+            if (txtName.Text.Contains(" "))
             {
-                if (nameOrGender == false)
-                {
-                    DataAccess.ModifyCharacter(0, characterID, 0, false, modName);  //funciona siempre y cuando no le den Enter al elegir el nombre
-                    Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
-                }
-                else
-                {
-                    DataAccess.ModifyCharacter(4, characterID, 0, mascOrFem, "");
-                    Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
-                }
+                lblErrorMessage.Text = "El nombre de personaje no puede contener espacios.";
+                lblErrorMessage.Visible = true;
+                txtName.Text = null;
+                return;
             }
-            else
-            {
-                AddRolledAbilities();
+            AddRolledAbilities();
 
-                DataAccess.NewCharacter(character, user.id);
-                Response.Redirect("Characters.aspx", false);
-            }
+            DataAccess.NewCharacter(character, user.id);
+            Response.Redirect("Characters.aspx", false);
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -154,12 +101,12 @@ namespace TPC_Equipo_10
 
         public void AddRolledAbilities()
         {
-            RolledAbility str = new RolledAbility(0, int.Parse(fieldSTR.Value));
-            RolledAbility dex = new RolledAbility(1, int.Parse(fieldDEX.Value));
-            RolledAbility con = new RolledAbility(2, int.Parse(fieldCON.Value));
-            RolledAbility nte = new RolledAbility(3, int.Parse(fieldINT.Value));
-            RolledAbility wis = new RolledAbility(4, int.Parse(fieldWIS.Value));
-            RolledAbility cha = new RolledAbility(5, int.Parse(fieldCHA.Value));
+            RolledAbility str = new RolledAbility(0, int.Parse(fieldSTR.Value), (int.Parse(fieldSTR.Value) - 10) / 2);
+            RolledAbility dex = new RolledAbility(1, int.Parse(fieldDEX.Value), (int.Parse(fieldDEX.Value) - 10) / 2);
+            RolledAbility con = new RolledAbility(2, int.Parse(fieldCON.Value), (int.Parse(fieldCON.Value) - 10) / 2);
+            RolledAbility nte = new RolledAbility(3, int.Parse(fieldINT.Value), (int.Parse(fieldINT.Value) - 10) / 2);
+            RolledAbility wis = new RolledAbility(4, int.Parse(fieldWIS.Value), (int.Parse(fieldWIS.Value) - 10) / 2);
+            RolledAbility cha = new RolledAbility(5, int.Parse(fieldCHA.Value), (int.Parse(fieldCHA.Value) - 10) / 2);
 
             character.abilities.Add(str);
             character.abilities.Add(dex);

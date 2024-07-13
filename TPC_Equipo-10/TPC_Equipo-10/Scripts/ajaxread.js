@@ -104,6 +104,32 @@ function loadAbilities() {
     });
 }
 
+//lee los trasfondos del juego devueltas por codebehind y lo retorna como js vars
+function loadBackgrounds() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetBackgrounds",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var backgrounds = response.d;
+                if (backgrounds) {
+                    console.log("Backgrounds recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(backgrounds);
+                } else {
+                    reject("Backgrounds data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Backgrounds from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
 //lee las skills del juego devueltas por codebehind y lo retorna como js vars
 function loadSkills() {
     return new Promise((resolve, reject) => {

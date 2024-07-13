@@ -267,38 +267,38 @@ function drawInventory() {
             );
         }
 
-        let equipTxt;
-        let equipColor;
+        let buttonTxt;
+        let buttonColor;
 
         if (chr.gameState == 1) {
             //si estamos en combate, el boton equipa/consume TEMP
             if (allItems[invItems[invIndex]].type == 1) { //es equippable
 
                 if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID) {
-                    equipColor = color(128);
-                    equipTxt = "Equipado";
+                    buttonColor = color(128);
+                    buttonTxt = "Equipado";
                 } else {
-                    equipColor = color(255);
-                    equipTxt = "Equipar";
+                    buttonColor = color(255);
+                    buttonTxt = "Equipar";
                 }
             }
             else if (allItems[invItems[invIndex]].type == 2) { //es consumible
 
                 if (false) { //MEGA TEMP
-                    equipColor = color(128);
-                    equipTxt = "Consumido";
+                    buttonColor = color(128);
+                    buttonTxt = "Consumido";
                 } else {
-                    equipColor = color(255);
-                    equipTxt = "Consumir";
+                    buttonColor = color(255);
+                    buttonTxt = "Consumir";
                 }
             }
         }
         //si estamos en la tienda, el boton vende
         else if (chr.gameState == 4) {
-            equipColor = color(255);
+            buttonColor = color(255);
 
             if (!storeBuySellFocus) {
-                equipTxt = "Comprar";
+                buttonTxt = "Comprar";
 
                 //configuramos el texto del merchant segun si aun no compraste o si ya compraste
                 if (!merchantDialogueShowBoughtStatus) {
@@ -308,7 +308,7 @@ function drawInventory() {
                 }
             }
             else {
-                equipTxt = "Vender";
+                buttonTxt = "Vender";
 
                 //configuramos el texto del merchant segun si aun no vendiste o si ya vendiste
                 if (!merchantDialoguePreSoldStatus) {
@@ -319,11 +319,11 @@ function drawInventory() {
             }
         }
         if (allItems[invItems[invIndex]].type != 0) { //no sea un item generico
-            fill(equipColor)
+            fill(buttonColor)
             textSize(itemSize);
             textAlign(CENTER, CENTER);
             text(
-                equipTxt,
+                buttonTxt,
                 width -
                 outerMargin -
                 innerMargin * 2 -
@@ -610,7 +610,7 @@ function sellItem() {
 }
 //calcula iniciativa (en desuso)
 function initiative() { //el rolledscore de la creature ya es modifier, no ideal
-    if (mod(chr.abilities[1].rolledScore) < creature.abilities[1].rolledScore) {
+    if (chr.abilities[1].modifier < creature.abilities[1]) {
         return true;
     }
     return false;
@@ -625,12 +625,12 @@ function characterAttack() {
         weapon = allItems[chr.equippedWeaponID];
     }
     let creature = creatures[encounter.creatureID];
-    let attackRoll = roll(20, mod(chr.abilities[weapon.abilityModID].rolledScore) + chr.prof);
+    let attackRoll = roll(20, chr.abilities[weapon.abilityModID].modifier + chr.prof);
     damage = 0;
 
     if (attackRoll > creature.armor) {
         attackStatus = true;
-        damage = weapon.damage + mod(chr.abilities[weapon.abilityModID].rolledScore) + chr.prof;
+        damage = weapon.damage + chr.abilities[weapon.abilityModID].modifier + chr.prof;
         if (encounter.creatureCurrHealth - damage > 0) {
             encounter.creatureCurrHealth -= damage;
         }
@@ -653,12 +653,12 @@ function characterAttack() {
 function creatureAttack() {
     let creature = creatures[encounter.creatureID];
     attack = attacks[creature.attacks[int(random(creature.attacks.length))]];
-    let attackRoll = roll(20, creature.abilities[attack.abilityID].rolledScore + creature.prof);
+    let attackRoll = roll(20, creature.abilities[attack.abilityID] + creature.prof);
     damage = 0;
 
     if (attackRoll > chr.armor) {
         attackStatus = true;
-        damage = attack.damage + creature.abilities[attack.abilityID].rolledScore;
+        damage = attack.damage + creature.abilities[attack.abilityID];
         if (chr.currHealth - damage > 0) {
             chr.currHealth -= damage;
         }
@@ -686,7 +686,7 @@ function manageEncounter(type) {
         encounter.creatureCurrHealth = creatures[encounter.creatureID].maxHealth;
         encounter.currRound = 0;
         encounter.turn = false;
-        saveEncounter(encounter, type);
+        saveEncounter(encounter, type); 
     }
     else if (type == 1) {
         saveEncounter(encounter, type);
@@ -696,10 +696,6 @@ function manageEncounter(type) {
         chr.encounters++;
         chr.gold += creatures[encounter.creatureID].gold;
         if (chr.xp + 7 >= chr.level * 10) {
-            chr.xp = chr.xp + 7 - level * 10;
-            chr.level++;
-            chr.maxHealth += classes[chr.idClass].classHealth + mod(chr.abilities[2].rolledScore);
-            chr.currHealth = chr.maxHealth;
 
             levelUp = true;
         }
@@ -708,6 +704,19 @@ function manageEncounter(type) {
         }
         saveEncounter(encounter, type);
     }
+}
+//calcula las nuevas estadisticas segun nuevos modificadores
+function levelUpCalculator() {
+
+    for (let i = 0; i < chr.abilities.length; i++) { //aplica pluses
+        chr.abilities[i].modifier += pluses[i];
+    }
+
+    chr.xp += 7 - chr.level * 10;
+    chr.level++;
+    chr.armor = 10 + chr.abilities[1].modifier;
+    chr.maxHealth += classes[chr.idClass].classHealth + chr.abilities[2].modifier;
+    chr.currHealth = chr.maxHealth;
 }
 
 function drawCombatUI() {
@@ -718,21 +727,21 @@ function drawCombatUI() {
     rect(
         outerMargin / 2 - 5,
         outerMargin / 2 - 5,
-        width / 2 - 25 + 10 - outerMargin / 2,
+        width / 2 - innerMargin + 10 - outerMargin / 2,
         (height / 20) + 10
     )
     fill('#24523b'); //verde oscuro
     rect(
         outerMargin / 2,
         outerMargin / 2,
-        width / 2 - 25 - outerMargin / 2,
+        width / 2 - innerMargin - outerMargin / 2,
         height / 20
     )
     fill('#59c135'); //verde
     rect(
         outerMargin / 2,
         outerMargin / 2,
-        (width / 2 - 25 - outerMargin / 2) * (chr.currHealth / chr.maxHealth),
+        (width / 2 - innerMargin - outerMargin / 2) * (chr.currHealth / chr.maxHealth),
         height / 20
     )
 
@@ -742,7 +751,7 @@ function drawCombatUI() {
     textAlign(RIGHT, CENTER);
     text(
         chr.currHealth + ' / ' + chr.maxHealth,
-        (outerMargin / 4) + (width / 2 - 25 - outerMargin / 2) * Math.max((chr.currHealth / chr.maxHealth), 0.175),
+        (outerMargin / 4) + (width / 2 - innerMargin - outerMargin / 2) * Math.max((chr.currHealth / chr.maxHealth), 0.175),
         (outerMargin / 2) + (height / 20) / 2
     );
 
@@ -762,21 +771,21 @@ function drawCombatUI() {
     rect(
         width / 2 + outerMargin / 2 - 5,
         outerMargin / 2 - 5,
-        width / 2 - 25 - outerMargin / 2 + 10,
+        width / 2 - innerMargin - outerMargin / 2 + 10,
         (height / 20) + 10
     )
     fill('#73172d'); //rojo oscuro
     rect(
         width / 2 + outerMargin / 2,
         outerMargin / 2,
-        width / 2 - 25 - outerMargin / 2,
+        width / 2 - innerMargin - outerMargin / 2,
         height / 20
     )
     fill('#b4202a'); //rojo
     rect(
-        width / 2 + outerMargin / 2 + (width / 2 - 25 - outerMargin / 2) * (1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)),
+        width / 2 + outerMargin / 2 + (width / 2 - innerMargin - outerMargin / 2) * (1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)),
         outerMargin / 2,
-        (width / 2 - 25 - outerMargin / 2) * (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth),
+        (width / 2 - innerMargin - outerMargin / 2) * (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth),
         height / 20
     )
 
@@ -786,7 +795,7 @@ function drawCombatUI() {
     textAlign(LEFT, CENTER);
     text(
         encounter.creatureCurrHealth + ' / ' + creatures[encounter.creatureID].maxHealth,
-        width / 2 + outerMargin + (width / 2 - 25 - outerMargin / 2) * Math.min((1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)), 0.78),
+        width / 2 + outerMargin + (width / 2 - innerMargin - outerMargin / 2) * Math.min((1 - (encounter.creatureCurrHealth / creatures[encounter.creatureID].maxHealth)), 0.78),
         (outerMargin / 2) + (height / 20) / 2
     );
 

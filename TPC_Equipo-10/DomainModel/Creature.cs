@@ -19,7 +19,7 @@ namespace DomainModel
         
         public List<CreatureItem> drops = new List<CreatureItem>(); //drops
         
-        public List<RolledAbility> abilities = new List<RolledAbility>(); //abilities (6)
+        public List<int> abilities = new List<int>(); //abilities (6)
         public List<int> attacks = new List<int>(); 
 
         //constructor sets nonset properties

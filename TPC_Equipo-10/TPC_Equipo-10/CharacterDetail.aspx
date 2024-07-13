@@ -29,14 +29,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="characterInfo" style="display: flex">
-        <div class="col" style="margin:4%">
+        <div class="col" style="margin: 4%">
             <canvas class="chr-canvas icon" data-class="<%= character.idClass %>" data-race="<%= character.idRace %>" data-sex="<%= Convert.ToInt32(character.sex) %>" data-format="1" width="320" height="756"></canvas>
         </div>
         <div style="justify-content: right">
             <div style="display: flex; justify-content: center">
                 <h1 class="title" style="text-align: center"><%:character.name%></h1>
                 <div style="margin-top: 14px; margin-left: 10px;">
-                    <asp:LinkButton runat="server" ID="btnName" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                 </div>
             </div>
             <div class="row" style="column-gap: 8%; margin-bottom: 15px;">
@@ -50,7 +49,6 @@
 
                     <%}
                         } %>
-                    <asp:LinkButton runat="server" ID="btnRace" CssClass="btn btn-danger btn-sm btnMarginBottom" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                 </div>
                 <div class="col-5" style="text-align: center; border-style: solid; border-width: thin; border-radius: 10px; background-color: floralwhite;">
                     <%foreach (Background backG in listBackgrounds)
@@ -62,7 +60,6 @@
 
                     <%}
                         } %>
-                    <asp:LinkButton runat="server" ID="btnBackground" CssClass="btn btn-danger btn-sm btnMarginBottom" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 15px;">
@@ -80,14 +77,13 @@
                         {
                             if (ra.abilityID == 2)
                             {%>
-                    <h4>Puntos de vida por nivel: <%:cl.classHealth + ra.GetModifier()%></h4>
+                    <h4>Puntos de vida por nivel: <%:cl.classHealth + ra.modifier%></h4>
                     <p>Vida maxima: <%:character.maxHealth%></p>
                     <p>Vida actual: <%:character.currHealth%></p>
                     <%}
                         }%>
                     <%}
                         } %>
-                    <asp:LinkButton runat="server" ID="btnClass" CssClass="btn btn-danger btn-sm btnMarginBottom" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                 </div>
             </div>
             <div class="row" style="column-gap: 8%; margin-bottom: 15px;">
@@ -107,7 +103,6 @@
                         <h4 style="text-align: center; margin-right: 10px;">Sexo: Femenino</h4>
                         <%}%>
                         <div>
-                            <asp:LinkButton runat="server" ID="btnGender" CssClass="btn btn-danger btn-sm" Text="Editar" OnClick="editCharacter_btn_Click"></asp:LinkButton>
                         </div>
                     </div>
 

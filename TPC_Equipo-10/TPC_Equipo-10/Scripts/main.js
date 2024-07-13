@@ -3,6 +3,7 @@
 let races;
 let classes;
 let abilities;
+let backgrounds;
 let skills;
 let dmgTypes; 
 let creatures;
@@ -40,6 +41,7 @@ async function setup() {
         races = await loadRaces();
         classes = await loadClasses();
         abilities = await loadAbilities();
+        backgrounds = await loadBackgrounds();
         skills = await loadSkills();
         dmgTypes = await loadDamageTypes();
         creatures = await loadCreatures();
@@ -58,6 +60,9 @@ async function setup() {
     }
     if (abilities) {
         console.log("Abilities loaded in p5js succesfully:", abilities);
+    }
+    if (backgrounds) {
+        console.log("Backgrounds loaded in p5js succesfully:", backgrounds);
     }
     if (skills) {
         console.log("Skills loaded in p5js succesfully:", skills);
@@ -83,6 +88,8 @@ async function setup() {
         if (encounterInProgress) {
             console.log("Encounter loaded in p5js succesfully:", encounterInProgress);
         }
+        chr.gameState = 7; //TEMPPPP
+        setupLevelUp();
     }
     //desps de la carga inicializamos algunas variables globales
     noSmooth();
@@ -125,6 +132,9 @@ function draw() {
             case 6: //dead
                 drawDead();
                 break;
+            case 7: //levelup
+                drawLevelUp();
+                break;
             default:
                 break;
         }
@@ -139,7 +149,7 @@ function keyPressed() {
 
             switch (chr.gameState) {
                 case 0: //intro
-                    chr.gameState = 1;
+                    chr.gameState = 1; //combat
                     setupCombat(); //genera el encounter
                     break;
                 case 1: //combat
@@ -148,17 +158,19 @@ function keyPressed() {
                     if (!navFocus) { //estamos viendo el nav
 
                         if (key === 'q') { //DEBUGTOOLS
-                            chr.gameState = 6;
+                            resetChr(); //resetea y manda chr a gameState 6
                         }
                         else if (key === 'e') {
-                            chr.gameState = 2;
+                            chr.gameState = 2; //endcombat
                         }
 
                         if (keyCode === LEFT_ARROW) {
                             navIndex = (navIndex - 1 + nav.length) % nav.length;
-                        } else if (keyCode === RIGHT_ARROW) {
+                        }
+                        else if (keyCode === RIGHT_ARROW) {
                             navIndex = (navIndex + 1) % nav.length;
-                        } else if (keyCode === ENTER) {
+                        }
+                        else if (keyCode === ENTER) {
                             if (navIndex === 0) { //si estamos parados en la accion ataque
                                 characterAttack();
                                 waitStart(0); //triggerea dialogo de ataque
@@ -237,31 +249,30 @@ function keyPressed() {
                             }
                         }
                     }
-
                     break;
                 case 2: //endcombat
                     if (key === 'q') { //DEBUGTOOLS
-                        chr.gameState = 1;
+                        chr.gameState = 1; //combat
                         setupCombat(); //genera el encounter
                     }
                     else if (key === 'e') {
-                        chr.gameState = 3;
+                        chr.gameState = 3; //town
                         setupTown(); //por ahora genera el merchant, deberia generar el pueblo y otras cosas
                     }
                     break;
                 case 3: //town
                     if (key === 'q') { //DEBUGTOOLS
-                        chr.gameState = 4;
+                        chr.gameState = 4; //store
                         setupStore(); //resetea bools de navegacion de la tienda y regenera opciones de dialogo
                     }
                     else if (key === 'e') { //DEBUGTOOLS
-                        chr.gameState = 5;
+                        chr.gameState = 5; //rest
                         chr.currHealth = chr.maxHealth; //cura toda tu vida
                     }
                     break;
                 case 4: //store
                     if (key === 'q' && !storeNavFocus) { //DEBUGTOOLS
-                        chr.gameState = 3;
+                        chr.gameState = 3; //town
                     }
                     if (!storeNavFocus) {
                         //alternamos el focus del panel de pregunta buysell
@@ -437,11 +448,37 @@ function keyPressed() {
 
                     break;
                 case 5: //rest
-                    chr.gameState = 1;
+                    chr.gameState = 1; //combat
                     setupCombat(); //genera el encounter
                     break;
                 case 6: //dead
-                    chr.gameState = 0;
+                    chr.gameState = 0; //intro
+                    break;
+                case 7: //levelup
+
+                    if (keyCode === LEFT_ARROW) { //mueve indice de ability
+                        lvlNavIndex = (lvlNavIndex - 1 + chr.abilities.length) % chr.abilities.length;
+                    }
+                    else if (keyCode === RIGHT_ARROW) { //mueve indice de ability
+                        lvlNavIndex = (lvlNavIndex + 1) % chr.abilities.length;
+                    }
+
+                    if (keyCode === UP_ARROW) { //suma puntos al plus de ability
+                        if (pluses[lvlNavIndex] < 2 && lvlPts > 0) {
+                            pluses[lvlNavIndex]++;
+                            lvlPts--;
+                        }
+                    }
+                    else if (keyCode === DOWN_ARROW) { //resta puntos al plus de ability
+                        if (pluses[lvlNavIndex] > 0) {
+                            pluses[lvlNavIndex]--;
+                            lvlPts++;
+                        }
+                    }
+                    if (keyCode === ENTER && lvlPts == 0) { //confirmar solo si consumiste todos los puntos
+                        levelUpCalculator(); //calcula las nuevas estadisticas segun nuevos modificadores
+                        chr.gameState = 2; //endcombat
+                    }
                     break;
                 default:
                     break;
@@ -457,7 +494,7 @@ function keyPressed() {
 
             typeStart();
         }
-        else if (skip2) {
+        else if (skip2) { //manejo de eventos que ocurren desps de dialogue skip
             wait2 = false;
             skip2 = false;
 
@@ -481,20 +518,19 @@ function keyPressed() {
             else if (waitDialogueID == 5) { //si skippeamos el dialogo de fin de encounter, que cambie gamestate
                 if (levelUp) {
                     levelUp = false;
-                    waitStart(6) //si subimos de nivel, tambien mostramos eso
+                    chr.gameState = 7; //levelup
+                    setupLevelUp()
                 }
                 else {
                     chr.gameState = 2; //endcombat
                 }
             }
-            else if (waitDialogueID == 6) { //si skippeamos el dialogo de levelup, que cambie gamestate
-                chr.gameState = 2; //endcombat
-            }
             else if (waitDialogueID == 7) { //si skippeamos dialogo de muerte
                 chr.gameState = 6; //you died
+                resetChr(); //resetea y manda chr a gameState 6
             }
         }
     }
-    //console.log("gameState ", chr.gameState)
+    console.log("gameState ", chr.gameState)
     //saveCharacter(chr);
 }

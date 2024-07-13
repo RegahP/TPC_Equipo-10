@@ -1131,6 +1131,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 15,
     @Abilities = N'0,1,1,1,-2,0,1',
     @Attacks = N'0,1',
+    @Item1 = 86, --pluma de monstruo
+    @Item2 = 87, --garra
 	@Gold = 10;
 
 EXEC SP_InsertCreature
@@ -1142,6 +1144,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 38,
     @Abilities = N'0,1,1,4,3,3',
     @Attacks = N'2,0',
+    @Item1 = 100, --tentaculo aberrante
+    @Item2 = 87,  --garra
 	@Gold = 20;
 
 EXEC SP_InsertCreature
@@ -1153,6 +1157,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 26,
     @Abilities = N'-5,2,0,1,0,3',
     @Attacks = N'3,4',
+    @Item1 = 102, --lagrimas de banshee
+    @Item2 = 103, --cenizas de banshee
 	@Gold = 14;
 
 EXEC SP_InsertCreature
@@ -1164,6 +1170,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 32,
     @Abilities = N'4,0,5,-1,2,0',
     @Attacks = N'1,5',
+    @Item1 = 101, --ojo de ciclope
+    @Item2 = 84,  --harapos
 	@Gold = 18;
 
 EXEC SP_InsertCreature
@@ -1175,6 +1183,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 80,
     @Abilities = N'0,2,4,3,2,3',
     @Attacks = N'6,7,8',
+    @Item1 = 99,  --ojo de contemplador
+    @Item2 = 100, --tentaculo aberrante
 	@Gold = 40;
 
 EXEC SP_InsertCreature
@@ -1186,6 +1196,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 60,
     @Abilities = N'3,3,5,1,3,3',
     @Attacks = N'9,0',
+    @Item1 = 97, --cuerno demoniaco
+    @Item2 = 98, --escama
 	@Gold = 30;
 
 EXEC SP_InsertCreature
@@ -1197,6 +1209,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 67,
     @Abilities = N'4,0,4,3,2,4',
     @Attacks = N'7,0',
+    @Item1 = 96, --hueso de dragon
+    @Item2 = 89, --colmillo
 	@Gold = 34;
 
 EXEC SP_InsertCreature
@@ -1208,6 +1222,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 18,
     @Abilities = N'0,1,0,2,2,4',
     @Attacks = N'1,10',
+    @Item1 = 94, --ambrosia
+    @Item2 = 95, --citara
 	@Gold = 14;
 
 EXEC SP_InsertCreature
@@ -1219,6 +1235,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 55,
     @Abilities = N'1,1,1,-2,0,1',
     @Attacks = N'10,5',
+    @Item1 = 92, --frijoles magicos
+    @Item2 = 93, --raiz primigenia
 	@Gold = 26;
 
 EXEC SP_InsertCreature
@@ -1230,6 +1248,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 80,
     @Abilities = N'5,-1,5,-1,0,1',
     @Attacks = N'11,12,13',
+    @Item1 = 90, --orbe gelido
+    @Item2 = 91, --cuerno de gigante
 	@Gold = 40;
 
 EXEC SP_InsertCreature
@@ -1241,6 +1261,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 17,
     @Abilities = N'2,1,0,-2,0,-2',
     @Attacks = N'7,14',
+    @Item1 = 84, --harapos
+    @Item2 = 89, --colmillo
 	@Gold = 12;
 
 EXEC SP_InsertCreature
@@ -1252,6 +1274,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 12,
     @Abilities = N'-1,2,0,0,-1,-1',
     @Attacks = N'15,16', -- Cimitarra y Arco Corto
+    @Item1 = 84, --harapos
+    @Item2 = 85, --piedras brillantes
 	@Gold = 10;
 
 EXEC SP_InsertCreature
@@ -1263,6 +1287,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 48,
     @Abilities = N'3,-1,4,-4,0,-4',
     @Attacks = N'5,1', -- Piedra y Garrote
+    @Item1 = 85, --piedras brillantes
+    @Item2 = 88, --corazon de golem
 	@Gold = 22;
 
 EXEC SP_InsertCreature
@@ -1274,6 +1300,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 22,
     @Abilities = N'2,3,2,-2,1,-1',
     @Attacks = N'0,7', -- Garras y Mordisco
+    @Item1 = 86, --pluma de monstruo
+    @Item2 = 87, --garra
 	@Gold = 16;
 
 EXEC SP_InsertCreature
@@ -1285,6 +1313,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 15,
     @Abilities = N'0,2,0,-2,-1,-2',
     @Attacks = N'17,0', -- Daga y Garras
+    @Item1 = 84, --harapos
+    @Item2 = 85, --piedras brillantes
 	@Gold = 10;
 
 EXEC SP_InsertCreature
@@ -1296,6 +1326,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 52,
     @Abilities = N'2,3,1,0,0,0',
     @Attacks = N'0,7', -- Garras y Mordisco
+    @Item1 = 82, --sangre de licantropo
+    @Item2 = 83, --pieles
 	@Gold = 24;
 
 EXEC SP_InsertCreature
@@ -1307,6 +1339,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 80,
     @Abilities = N'4,3,3,1,2,2',
     @Attacks = N'18,19,20', -- Galope Flamígero, Pezuña y Embestida
+    @Item1 = 80, --esencia ignifuga
+    @Item2 = 81, --pezuñas
 	@Gold = 40;
 
 EXEC SP_InsertCreature
@@ -1318,6 +1352,8 @@ EXEC SP_InsertCreature
     @MaxHealth = 68,
     @Abilities = N'3,3,2,1,2,2',
     @Attacks = N'0,7', -- Garras y Mordisco
+    @Item1 = 78, --joyas
+    @Item2 = 79, --ropa elegante
 	@Gold = 32;
 
 --+-- CHARACTERS --+--
@@ -1353,6 +1389,8 @@ SELECT * FROM Attacks
 SELECT * FROM Items
 ---Buscador de Users
 SELECT * FROM users
+---Buscador de Encounters
+SELECT * FROM Encounters
 
 ---Buscador de Armas
 EXEC SP_GetWeapons
@@ -1363,9 +1401,13 @@ EXEC SP_GetConsumables
 ---Buscador de Genéricos
 EXEC SP_GetGenerics
 ---Buscador de personajes especificos
-EXEC SP_GetCharacter @ID_Character = 1
+EXEC SP_GetCharacter @ID_Character = 0
 ---Buscador de todos los personajes
 EXEC SP_GetCharacters
+---Buscador de creatures
+EXEC SP_GetCreatures
+---Buscador de items de creatures especificas
+EXEC SP_GetCreatureItems @ID_Creature = 0
 
 --insert into users(Username, PasswordHash) values ('walter','inza')
 

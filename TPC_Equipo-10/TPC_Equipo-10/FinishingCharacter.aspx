@@ -18,50 +18,23 @@
     <div class="d-flex justify-content-md-center align-items-center vh-100">
         <div class="container form-control" style="padding-top: 25px; border-width: medium; border-color: black;">
 
-            <%if (characterID == -1)
-                {%>
             <h4 class="title" style="display: flex; justify-content: center">¡ULTIMOS DETALLES!</h4>
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Nombre</label>
                 <div class="col-sm-10">
                     <asp:Label ID="lblErrorMessage" runat="server" ForeColor="Red" Visible="false" />
-                    <asp:TextBox runat="server" ID="txtName1" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="txtName" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
                 </div>
             </div>
 
             <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">Sexo</label>
                 <div class="col-sm-10">
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine1" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine1" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
+                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
                 </div>
             </div>
-            <%}
-                else if (characterID != -1 && nameOrGender == false)
-                {%>
-            <h4 class="title" style="display: flex; justify-content: center">¡ULTIMOS DETALLES!</h4>
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Nombre</label>
-                <div class="col-sm-10">
-                    
-                    <asp:TextBox runat="server" ID="txtName2" AutoPostBack="false" CssClass="input" OnTextChanged="txtName_TextChanged"></asp:TextBox>
-                </div>
-            </div>
-            <%}
-                else if (characterID != -1 && nameOrGender == true)
-                {%>
-            <div class="mb-3 row">
-                <label class="col-sm-2 col-form-label">Sexo</label>
-                <div class="col-sm-10">
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbMasculine2" Text="Masculino" OnCheckedChanged="rb_CheckedChanged" />
-                    <asp:RadioButton runat="server" GroupName="gender" ID="rbFeminine2" Text="Femenino" OnCheckedChanged="rb_CheckedChanged" />
-                </div>
-            </div>
-            <%}
-                if (characterID == -1)
-                {
 
-            %>
             <div class="d-flex justify-content-md-center align-items-center gap-4">
                 <div id="rollSTR"></div>
                 <div id="rollDEX"></div>
@@ -101,20 +74,10 @@
             </div>
             <div class="mb-3 row">
                 <div class="container" style="display: flex; justify-content: center">
-                    <asp:LinkButton runat="server" ID="btnConfirm1" CssClass="btn btn-danger margin disabled" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
-                    <asp:LinkButton runat="server" ID="btnCancel1" CssClass="btn btn-danger" Text="Cancelar" OnClick="btnCancel_Click"></asp:LinkButton>
-                </div>
-            </div>
-            <%}
-                else
-                {  %>
-            <div class="mb-3 row">
-                <div class="container" style="display: flex; justify-content: center">
-                    <asp:LinkButton runat="server" ID="btnConfirm" CssClass="btn btn-danger margin" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
+                    <asp:LinkButton runat="server" ID="btnConfirm" CssClass="btn btn-danger margin disabled" Text="Confirmar" OnClick="btnConfirm_Click"></asp:LinkButton>
                     <asp:LinkButton runat="server" ID="btnCancel" CssClass="btn btn-danger" Text="Cancelar" OnClick="btnCancel_Click"></asp:LinkButton>
                 </div>
             </div>
-            <%} %>
         </div>
     </div>
     <script src="Scripts/roll.js"></script>

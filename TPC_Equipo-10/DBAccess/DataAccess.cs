@@ -211,9 +211,9 @@ namespace DBAccess
                     aux.currHealth = reader.GetInt32(18);
                     aux.gold = reader.GetInt32(19);
 
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 12; i+=2)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i), reader.GetInt32(20 + i + 1));
                         aux.abilities.Add(auxRolled);
                     }
                 }
@@ -267,9 +267,9 @@ namespace DBAccess
                     aux.currHealth = reader.GetInt32(18);
                     aux.gold = reader.GetInt32(19);
 
-                    for (int i = 0; i < 6; i++)
+                    for (int i = 0; i < 12; i += 2)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i), reader.GetInt32(20 + i + 1));
                         aux.abilities.Add(auxRolled);
                     }
 
@@ -433,8 +433,7 @@ namespace DBAccess
 
                     for (int i = 0; i < 6; i++)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(8 + i));
-                        aux.abilities.Add(auxRolled);
+                        aux.abilities.Add(reader.GetInt32(8 + i));
                     }
 
                     listCreatures.Add(aux);
@@ -460,6 +459,32 @@ namespace DBAccess
                     while (reader.Read())
                     {
                         creature.attacks.Add(reader.GetInt32(0));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+
+            foreach (Creature creature in listCreatures)
+            {
+                try
+                {
+                    SetProcedure("SP_GetCreatureItems");
+                    SetParameter("@ID_Creature", creature.id);
+
+                    ExecuteRead();
+                    while (reader.Read())
+                    {
+                        CreatureItem aux = new CreatureItem();
+                        aux.itemID = reader.GetInt32(0);
+                        aux.chance = reader.GetBoolean(1);
+                        creature.drops.Add(aux);
                     }
                 }
                 catch (Exception ex)
@@ -541,34 +566,26 @@ namespace DBAccess
             }
         }
 
-
-        public static void ModifyCharacter(int modValue, int characterID, int propValue, bool sexValue, string modName)
+        public static void ModifyCharacter(Character chr)
         {
-
             try
             {
                 SetProcedure("SP_ModifyCharacter");
-
-                if (modValue == 0 && string.IsNullOrWhiteSpace(modName) == true)
-                {
-                    //llama a SP validando primero el nombre
-                    SetParameter("@modValue", modValue);
-                    SetParameter("@characterID", characterID);
-                    SetParameter("@propValue", propValue);
-                    SetParameter("@modGender", sexValue);
-                    SetParameter("@modName", modName);  
-                }
-                else //MODIFICAR QUE SI SE LE MODIFICA LA CLASE, SE LE TIENE QUE CAMBIAR TAMBIEN LA VIDA MAXIMA Y LA ACTUAL.
-                {
-                    SetParameter("@modValue", modValue);
-                    SetParameter("@characterID", characterID);
-                    SetParameter("@propValue", propValue);
-                    SetParameter("@modGender", sexValue);
-                    SetParameter("@modName", modName);
-                }
-
+                SetParameter("@ID_Character", chr.id);
+                SetParameter("@Level", chr.level);
+                SetParameter("@Experience", chr.xp);
+                SetParameter("@Proficiency", chr.prof);
+                SetParameter("@Luck", chr.luck);
+                SetParameter("@Encounters", chr.encounters);
+                SetParameter("@GameState", chr.gameState);
+                SetParameter("@EquippedWeapon", chr.equippedWeaponID);
+                SetParameter("@EquippedArmor", chr.equippedArmorID);
+                SetParameter("@EquippedShield", chr.equippedShieldID);
+                SetParameter("@ArmorClass", chr.armor);
+                SetParameter("@MaxHealth", chr.maxHealth);
+                SetParameter("@CurrentHealth", chr.currHealth);
+                SetParameter("@Gold", chr.gold);
                 ExecuteAction();
-
             }
             catch (Exception ex)
             {
@@ -577,6 +594,48 @@ namespace DBAccess
             finally
             {
                 CloseConnection();
+            }
+            foreach (int item in chr.inventory)
+            {
+                try
+                {
+                    SetProcedure("SP_InsertItem");
+                    SetParameter("@ID_Character", chr.id);
+                    SetParameter("@ID_Character", item);
+                    ExecuteAction();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+        }
+
+        public static void ModifyCharacterAbilities(Character chr)
+        {
+            foreach (RolledAbility ability in chr.abilities)
+            {
+                try
+                {
+                    SetProcedure("SP_ModifyAbility");
+                    SetParameter("@ID_Character", chr.id);
+                    SetParameter("@ID_Ability", ability.abilityID);
+                    SetParameter("@RolledScore", ability.rolledScore);
+                    SetParameter("@Modifier", ability.modifier);
+                    ExecuteAction();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
             }
         }
 

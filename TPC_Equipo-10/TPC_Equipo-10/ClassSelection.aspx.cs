@@ -10,13 +10,11 @@ using System.Web.UI.WebControls;
 
 namespace TPC_Equipo_10
 {
-    public partial class ClassSelection : System.Web.UI.Page
+    public partial class ClassSelection : Page
     {
         public List<Class> classList = new List<Class>();
 
         public Character character = new Character();
-
-        public int characterID = -1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,15 +24,7 @@ namespace TPC_Equipo_10
             }
             else
             {
-
-                if (Request.QueryString["characterID"] != null)
-                {
-                    characterID = int.Parse(Request.QueryString["characterID"]);
-                }
-                else
-                {
-                    character = (Character)Session["character"];
-                }
+                character = (Character)Session["character"];
 
                 classList = DataAccess.ListClasses();
 
@@ -50,17 +40,9 @@ namespace TPC_Equipo_10
             {
                 if (clas.id == classId)
                 {
-                    if (characterID != -1)
-                    {
-                        DataAccess.ModifyCharacter(3, characterID, classId, false, "");
-                        Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
-                    }
-                    else
-                    {
-                        character.idClass = clas.id;
-                        Session.Add("character", character);
-                        Response.Redirect("backgroundSelection.aspx", false);
-                    }
+                    character.idClass = clas.id;
+                    Session.Add("character", character);
+                    Response.Redirect("backgroundSelection.aspx", false);
                 }
 
 

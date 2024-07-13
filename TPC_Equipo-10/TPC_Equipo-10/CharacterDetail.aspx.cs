@@ -49,38 +49,5 @@ namespace TPC_Equipo_10
                 }
             }
         }
-
-        protected void editCharacter_btn_Click(object sender, EventArgs e)
-        {
-            string btnID = ((LinkButton)sender).ID.ToString();
-
-
-            //Revisar que en el nombre al darle Enter no se rompa
-            //Revisar que al cambiar de clase, tambien le aumente la vida maxima y actual.
-            //Revisar que con el cambio de raza se le reste el modificador de caracteristica actual y se sume el nuevo.
-
-            if (btnID == "btnName")
-            {
-                Session.Add("nameOrGender", false);
-                Response.Redirect("FinishingCharacter.aspx?characterID=" + character.id, false);
-            }
-            if (btnID == "btnRace")
-            {
-                Response.Redirect("CharacterCreator.aspx?characterID=" + character.id, false);
-            }
-            if (btnID == "btnBackground")
-            {
-                Response.Redirect("backgroundSelection.aspx?characterID=" + character.id, false);
-            }
-            if (btnID == "btnClass")
-            {
-                Response.Redirect("ClassSelection.aspx?characterID=" + character.id, false);
-            }
-            if (btnID == "btnGender")
-            {
-                Session.Add("nameOrGender", true);
-                Response.Redirect("FinishingCharacter.aspx?characterID=" + character.id, false);
-            }
-        }
     }
 }

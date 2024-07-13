@@ -133,8 +133,9 @@ go
 go
  create table AbilitiesXCharacter(
      ID_Character int not null, --para que personaje
-     ID_Ability int not null, --que ability se rolleo
-     RolledScore int not null --que roll salio
+     ID_Ability int not null,   --que ability se rolleo
+     RolledScore int not null,  --que roll salio
+     Modifier int not null      --modificador a partir de score
      primary key(ID_Character, ID_Ability) --por cada personaje, al crearlos, se guarda en esta tabla 6 filas, una para cada ability que rolleo
  )
 go
@@ -190,7 +191,7 @@ go
  create table ItemsXCreature(
      ID_Creature int not null,
      ID_Item int not null,
-     Chance int not null
+     Chance bit not null
      primary key(ID_Item, ID_Creature)
  )
 go
@@ -323,6 +324,8 @@ CREATE OR ALTER PROCEDURE SP_InsertCreature
     @MaxHealth INT,
     @Abilities NVARCHAR(50), -- Lista de valores separados por comas: e.g., '1,2,3,0,-1,2'
     @Attacks NVARCHAR(50),   -- Lista de valores separados por comas: e.g., '0,3'
+    @Item1 INT,
+    @Item2 INT,
     @Gold INT
 AS
 BEGIN
@@ -366,6 +369,11 @@ BEGIN
     INSERT INTO AttacksXCreature (ID_Creature, ID_Attack)
     VALUES (@CreatureId, @AttackList);
 
+    INSERT INTO ItemsXCreature(ID_Creature, ID_Item, Chance)
+    VALUES (@CreatureId, @Item1, 1);
+
+    INSERT INTO ItemsXCreature(ID_Creature, ID_Item, Chance)
+    VALUES (@CreatureId, @Item2, 0);
 END;
 
 --+-- Insertar Character --+--
@@ -443,14 +451,14 @@ BEGIN
     BEGIN
         SET @AbilityRolledScore = SUBSTRING(@AbilityList, 1, CHARINDEX(',', @AbilityList) - 1);
 		-- Calcula el modificador de la habilidad desde la db, no hace falta hacerlo en el codigo
-        INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore)
-        VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore);
+        INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
+        VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, FLOOR((@AbilityRolledScore - 10) / 2.0));
         SET @AbilityList = SUBSTRING(@AbilityList, CHARINDEX(',', @AbilityList) + 1, LEN(@AbilityList));
         SET @AbilityPosition = @AbilityPosition + 1;
     END
     SET @AbilityRolledScore = @AbilityList;
-    INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore)
-    VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore);
+    INSERT INTO AbilitiesXCharacter (ID_Character, ID_Ability, RolledScore, Modifier)
+    VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, FLOOR((@AbilityRolledScore - 10) / 2.0));
 END;
 
 --+-- Delete Character --+--
@@ -466,21 +474,27 @@ CREATE OR ALTER PROCEDURE SP_GetCharacter
 AS
 BEGIN
     DECLARE @Fuerza INT;
+    DECLARE @ModFuerza INT;
     DECLARE @Destreza INT;
+    DECLARE @ModDestreza INT;
     DECLARE @Constitucion INT;
+    DECLARE @ModConstitucion INT;
     DECLARE @Inteligencia INT;
+    DECLARE @ModInteligencia INT;
     DECLARE @Sabiduria INT;
+    DECLARE @ModSabiduria INT;
     DECLARE @Carisma INT;
+    DECLARE @ModCarisma INT;
 
-    SELECT @Fuerza = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 0 AND ID_Character = @ID_Character;
-    SELECT @Destreza = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 1 AND ID_Character = @ID_Character;
-    SELECT @Constitucion = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 2 AND ID_Character = @ID_Character;
-    SELECT @Inteligencia = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 3 AND ID_Character = @ID_Character;
-    SELECT @Sabiduria = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 4 AND ID_Character = @ID_Character;
-    SELECT @Carisma = RolledScore FROM AbilitiesXCharacter WHERE ID_Ability = 5 AND ID_Character = @ID_Character;
+    SELECT @Fuerza = RolledScore, @ModFuerza = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 0 AND ID_Character = @ID_Character;
+    SELECT @Destreza = RolledScore, @ModDestreza = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 1 AND ID_Character = @ID_Character;
+    SELECT @Constitucion = RolledScore, @ModConstitucion = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 2 AND ID_Character = @ID_Character;
+    SELECT @Inteligencia = RolledScore, @ModInteligencia = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 3 AND ID_Character = @ID_Character;
+    SELECT @Sabiduria = RolledScore, @ModSabiduria = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 4 AND ID_Character = @ID_Character;
+    SELECT @Carisma = RolledScore, @ModCarisma = Modifier FROM AbilitiesXCharacter WHERE ID_Ability = 5 AND ID_Character = @ID_Character;
     
-    SELECT *, @Fuerza AS Fuerza, @Destreza AS Destreza, @Constitucion AS Constitucion,
-        @Inteligencia AS Inteligencia, @Sabiduria AS Sabiduría, @Carisma AS Carisma
+    SELECT *, @Fuerza AS Fuerza, @ModFuerza AS ModFuerza, @Destreza AS Destreza, @ModDestreza AS ModDestreza, @Constitucion AS Constitucion, @ModConstitucion AS ModConstitucion,
+        @Inteligencia AS Inteligencia, @ModInteligencia AS ModInteligencia, @Sabiduria AS Sabiduría, @ModSabiduria AS ModSabiduría, @Carisma AS Carisma, @ModCarisma AS ModCarisma
     FROM Characters 
     WHERE ID_Character = @ID_Character
 END;
@@ -493,11 +507,17 @@ BEGIN
     SELECT 
         C.*,
         MAX(CASE WHEN AXC.ID_Ability = 0 THEN AXC.RolledScore ELSE NULL END) AS Fuerza,
+        MAX(CASE WHEN AXC.ID_Ability = 0 THEN AXC.Modifier ELSE NULL END) AS ModFuerza,
         MAX(CASE WHEN AXC.ID_Ability = 1 THEN AXC.RolledScore ELSE NULL END) AS Destreza,
+        MAX(CASE WHEN AXC.ID_Ability = 1 THEN AXC.Modifier ELSE NULL END) AS ModDestreza,
         MAX(CASE WHEN AXC.ID_Ability = 2 THEN AXC.RolledScore ELSE NULL END) AS Constitucion,
+        MAX(CASE WHEN AXC.ID_Ability = 2 THEN AXC.Modifier ELSE NULL END) AS ModConstitucion,
         MAX(CASE WHEN AXC.ID_Ability = 3 THEN AXC.RolledScore ELSE NULL END) AS Inteligencia,
+        MAX(CASE WHEN AXC.ID_Ability = 3 THEN AXC.Modifier ELSE NULL END) AS ModInteligencia,
         MAX(CASE WHEN AXC.ID_Ability = 4 THEN AXC.RolledScore ELSE NULL END) AS Sabiduria,
-        MAX(CASE WHEN AXC.ID_Ability = 5 THEN AXC.RolledScore ELSE NULL END) AS Carisma
+        MAX(CASE WHEN AXC.ID_Ability = 4 THEN AXC.Modifier ELSE NULL END) AS ModSabiduria,
+        MAX(CASE WHEN AXC.ID_Ability = 5 THEN AXC.RolledScore ELSE NULL END) AS Carisma,
+        MAX(CASE WHEN AXC.ID_Ability = 5 THEN AXC.Modifier ELSE NULL END) AS ModCarisma
     FROM 
         Characters C
     LEFT JOIN 
@@ -509,7 +529,7 @@ END;
 --+-- Inserta un Usuario Nuevo --+--
 go
 CREATE OR ALTER PROCEDURE SP_InsertNewUser
-@UserName VARCHAR(50),
+@UserName varchar(50),
 @PasswordHash nvarchar(255),
 @ID_Icon int,
 @Mail nvarchar(255),
@@ -519,9 +539,9 @@ AS INSERT INTO Users (Username, PasswordHash, ID_Icon, Mail, Active) OUTPUT INSE
 --+-- Actualiza el Usuario --+--
 go
 CREATE OR ALTER PROCEDURE SP_ModifyUserProfile
-    @ID_User INT,
-    @Username NVARCHAR(30),
-    @PasswordHash NVARCHAR(255),
+    @ID_User int,
+    @Username nvarchar(30),
+    @PasswordHash nvarchar(255),
 	@ID_Icon int
 	
 AS
@@ -563,41 +583,75 @@ BEGIN
 END
 
 --+-- Consigue los items de una criatura --+--
--- go
--- CREATE PROCEDURE SP_GetCreatureItems
--- @ID_Creature int
--- AS
--- BEGIN
---     SELECT *
---     FROM ItemsXCreature
---     WHERE ID_Creature = @ID_Creature
--- END
 go
-CREATE OR ALTER PROCEDURE SP_ModifyCharacter
-
-@modValue int,						-- Para saber que propiedad se quiere cambiar
-@characterID int,					-- Para saber a que personaje modificar
-@propValue int = NULL,				-- Valor que reemplazara al valor actual de la propiedad definida por modValue
-@modGender bit = NULL,				-- Especifico para modificar el genero
-@modName nvarchar(50) = NULL		-- Especifico para modificar el nombre del personaje
+CREATE OR ALTER PROCEDURE SP_GetCreatureItems
+@ID_Creature int
 AS
 BEGIN
+    SELECT ID_Item, Chance
+    FROM ItemsXCreature
+    WHERE ID_Creature = @ID_Creature
+END
 
-    IF @modValue = 0 BEGIN
-        UPDATE Characters SET _Name = @modName where ID_Character = @characterID
-    END
-    ELSE IF @modValue = 1 BEGIN
-        UPDATE Characters SET ID_Race = @propValue where ID_Character = @characterID
-    END
-    ELSE IF @modValue = 2 BEGIN
-        UPDATE Characters SET ID_Background = @propValue where ID_Character = @characterID
-    END
-    ELSE IF @modValue = 3 BEGIN
-        UPDATE Characters SET ID_Class = @propValue where ID_Character = @characterID
-    END
-    ELSE IF @modValue = 4 BEGIN
-        UPDATE Characters SET Sex = @modGender where ID_Character = @characterID
-    END
+--+-- Modifica un character --+--
+go
+CREATE OR ALTER PROCEDURE SP_ModifyCharacter
+@ID_Character int,
+@Level int,
+@Experience int,
+@Proficiency int,
+@Luck int,
+@Encounters int,
+@GameState int,
+@EquippedWeapon int,
+@EquippedArmor int,
+@EquippedShield int,
+@ArmorClass int,
+@MaxHealth int,
+@CurrentHealth int,
+@Gold int
+AS
+BEGIN
+    UPDATE Characters SET
+    _Level = @Level,
+    Experience = @Experience,
+    Proficiency = @Proficiency,
+    Luck = @Luck,
+    Encounters = @Encounters,
+    GameState = @GameState,
+    EquippedWeapon = @EquippedWeapon,
+    EquippedArmor = @EquippedArmor,
+    EquippedShield = @EquippedShield,
+    ArmorClass = ArmorClass,
+    MaxHealth = @MaxHealth,
+    CurrentHealth = @CurrentHealth,
+    Gold = @Gold
+    WHERE ID_Character = @ID_Character;
+
+    DELETE FROM ItemsXCharacter WHERE ID_Character = @ID_Character;
+END
+
+--+-- Inserta un item de character --+--
+go
+CREATE OR ALTER PROCEDURE SP_InsertCharacterItem
+@ID_Character int,
+@ID_Item int
+AS
+BEGIN
+    INSERT INTO ItemsXCharacter(ID_Character, ID_Item)
+    VALUES (@ID_Character, @ID_Item);
+END
+
+--+-- Modifica una abilidad de character --+--
+go
+CREATE OR ALTER PROCEDURE SP_ModifyAbility
+@ID_Character int,
+@ID_Ability int,
+@RolledScore int,
+@Modifier int
+AS
+BEGIN
+    UPDATE AbilitiesXCharacter SET RolledScore = @RolledScore, Modifier = @Modifier WHERE ID_Character = @ID_Character AND ID_Ability = @ID_Ability;
 END
 
 --+-- Inserta un encuentro --+--
@@ -694,6 +748,3 @@ END
 --+-- Elimina un usuario y sus personajes  --+--
 
 -- baja logica de usuario y sus personajes
-
-SELECT * FROM Encounters
-DELETE FROM Encounters

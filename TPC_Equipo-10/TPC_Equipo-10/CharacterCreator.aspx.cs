@@ -20,8 +20,6 @@ namespace TPC_Equipo_10
 
         public Character character = new Character();
 
-        public int characterID = -1;
-
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["user"] == null)
@@ -30,11 +28,6 @@ namespace TPC_Equipo_10
             }
             else
             {
-                if (Request.QueryString["characterID"] != null)
-                {
-                    characterID = int.Parse(Request.QueryString["characterID"]);
-                }
-
                 raceList = DataAccess.ListRaces();
                 BackgroundList = DataAccess.ListBackgrounds();
                 ClassList = DataAccess.ListClasses();
@@ -51,16 +44,8 @@ namespace TPC_Equipo_10
 
             character.idRace = raceId;
 
-            if (characterID != -1)
-            {
-                DataAccess.ModifyCharacter(1, characterID, raceId, false, "");
-                Response.Redirect("CharacterDetail.aspx?id=" + characterID, false);
-            }
-            else
-            {
-                Session.Add("character", character);
-                Response.Redirect("ClassSelection.aspx", false);
-            }
+            Session.Add("character", character);
+            Response.Redirect("ClassSelection.aspx", false);
         }
     }
 }
