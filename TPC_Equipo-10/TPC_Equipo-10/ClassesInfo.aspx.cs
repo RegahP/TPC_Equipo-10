@@ -30,5 +30,10 @@ namespace TPC_Equipo_10
 
 
         }
+
+        protected void btnBack_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Docs.aspx", false);
+        }
     }
 }

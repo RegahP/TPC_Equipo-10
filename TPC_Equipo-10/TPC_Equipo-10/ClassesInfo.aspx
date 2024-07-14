@@ -10,24 +10,7 @@
             font-style: normal;
         }
 
-        .container-xl {
-            background-color: beige;
-            padding-top: 10px;
-            position: absolute;
-        }
-
-        .classImg {
-            width: 40%;
-        }
-
         .classInfo {
-            margin-bottom: 30px;
-            border-bottom: 3px solid;
-            border-color: azure;
-            padding-bottom: 15px;
-        }
-
-        .raceInfo {
             margin-bottom: 30px;
             border-bottom: 3px solid;
             border-color: azure;
@@ -74,9 +57,9 @@
                 <ItemTemplate>
                     <div class="classInfo" style="display: flex">
                         <div style="display: flex; justify-content: left">
-                            <canvas class="chr-canvas icon" data-race="<%# 0 %>" data-class="<%# Eval("id") %>" data-sex="0" data-toggle="1" data-format="0" width="128" height="192" style="margin-left: 12px; margin-top: -16px; margin-right: 20px;"></canvas>
+                            <canvas class="chr-canvas icon" data-race="0" data-class="<%# Eval("id") %>" data-sex="0" data-toggle="1" data-format="0" width="128" height="192" style="margin-left: 12px; margin-top: -16px; margin-right: 20px;"></canvas>
                             <div style="justify-content: right">
-                                <div style="text-align:center">
+                                <div style="text-align:center; margin-right:15%;">
                                     <h3 id="<%#Eval("name")%>" class="title"><%#Eval("name")%></h3>
                                 </div>
                                 <p><%#Eval("desc")%></p>
@@ -89,6 +72,9 @@
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+        </div>
+        <div style="text-align:center; padding-bottom:3%;">
+            <asp:LinkButton runat="server" ID="btnBack" CssClass="btn btn-danger btn-lg" OnClick="btnBack_Click" Text="Volver"></asp:LinkButton>
         </div>
     </div>
 
