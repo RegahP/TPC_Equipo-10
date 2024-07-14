@@ -41,17 +41,12 @@ namespace TPC_Equipo_10
 
         protected void confirmBackground_btn_Click(object sender, EventArgs e)
         {
-            int backgroundId = int.Parse(((LinkButton)sender).CommandArgument);
-            foreach (Background background in backgroundList)
-            {
-                if (background.id == backgroundId)
-                {
-                    character.idBackground = background.id;
-                    character.gold = background.initialGold;
-                    Session.Add("character", character);
-                    Response.Redirect("FinishingCharacter.aspx", false);
-                }
-            }
+            int idBackground = int.Parse(((LinkButton)sender).CommandArgument);
+
+            character.idBackground = idBackground;
+            character.gold = backgroundList[idBackground].initialGold;
+            Session.Add("character", character);
+            Response.Redirect("CharacterRoll.aspx", false);
         }
     }
 }

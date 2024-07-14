@@ -11,9 +11,24 @@ function mod(score) {
     return int((score - 10) / 2);
 }
 
-//reseta chr a cuando comenzó
+//revive chr al comienzo del combate o lo desactiva si es hardcore
 function resetChr() {
-    chr.level = 1;
+    if (chr.hardCore == 0) {
+        chr.luck = 0;
+        chr.currHealth = chr.maxHealth;
+        chr.gold = int(chr.gold / 2);
+
+        encounter.creatureCurrHealth = creatures[encounter.creatureID].maxHealth;
+        encounter.effects.splice(0, encounter.effects.length);
+        encounter.round = 0;
+        encounter.turn = 0;
+        waitStart(8); //dialogo de softcore death info
+    }
+    else {
+        waitStart(9); //dialogo de hardcore death info
+    }
+
+    /*chr.level = 1;
     chr.xp = 0;
     chr.prof = 2;
     chr.luck = 0;
@@ -29,7 +44,7 @@ function resetChr() {
     chr.inventory.splice(0, chr.inventory.length);
     for (let i = 0; i < 6; i++) {
         chr.abilities[i].modifier = mod(chr.abilities[i].rolledScore);
-    }
+    }*/
 }
 
 //draws the character sprite (raceID, classID, sex) at position posX, posY with a size

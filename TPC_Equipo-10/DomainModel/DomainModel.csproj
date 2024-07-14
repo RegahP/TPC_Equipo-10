@@ -59,6 +59,7 @@
     <Compile Include="Race.cs" />
     <Compile Include="RolledAbility.cs" />
     <Compile Include="Skill.cs" />
+    <Compile Include="Town.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>

@@ -35,20 +35,11 @@ namespace TPC_Equipo_10
 
         protected void confirmClass_btn_Click(object sender, EventArgs e)
         {
-            int classId = int.Parse(((LinkButton)sender).CommandArgument);
-            foreach (Class clas in classList)
-            {
-                if (clas.id == classId)
-                {
-                    character.idClass = clas.id;
-                    Session.Add("character", character);
-                    Response.Redirect("backgroundSelection.aspx", false);
-                }
+            int idClass = int.Parse(((LinkButton)sender).CommandArgument);
 
-
-            }
+            character.idClass = idClass;
+            Session.Add("character", character);
+            Response.Redirect("backgroundSelection.aspx", false);
         }
-
-
     }
 }

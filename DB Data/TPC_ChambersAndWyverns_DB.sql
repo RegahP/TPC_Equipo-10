@@ -39,7 +39,8 @@ go
      ArmorClass int not null,    --10 + RA.Modifier where RA.ID = 1 (DEX)
      MaxHealth int not null,     --(CL.ClassHealth where CL.ID_Class = ID_Class) + (RA.Modifier where = RA.ID_Character = ID_Character)
      CurrentHealth int not null, --maxHealth
-     Gold int not null         --BG.InitialGold where BG.ID_Background = ID_Background
+     Gold int not null,          --BG.InitialGold where BG.ID_Background = ID_Background
+     Hardcore bit not null
  )
 go
  create table Races(
@@ -200,6 +201,19 @@ go
      ID_Ability int not null, --que ability se rolleo
      Modifier int not null 
  	primary key(ID_Creature, ID_Ability)
+ )
+ go
+ create table Towns(
+    ID_Town int not null primary key identity(0,1),
+    ID_Character int not null,
+    MerchantSex int not null,
+    MerchantRace int not null,
+    MerchantPersonality int not null
+ )
+ go
+ create table ItemsXTown(
+    ID_Town int not null,
+    ID_Item int not null
  )
 
 --stored procedures para la creacion de toda la db (races, classes, backgrounds, abilities, skills, items)
@@ -387,10 +401,6 @@ CREATE OR ALTER PROCEDURE SP_InsertNewCharacter
     @ID_Class int,
     @ID_Background int,
     @_Name nvarchar(50),
-    @ArmorClass int = 1, --se calcula
-    @MaxHealth int = 1, --se calcula
-    @CurrentHealth int = 1, --se calcula
-    @Gold int = 1, --se calcula
     @_Level int = 1,
     @Experience int = 0,
     @Proficiency int = 2,
@@ -400,6 +410,11 @@ CREATE OR ALTER PROCEDURE SP_InsertNewCharacter
     @EquippedWpn int = -1,
     @EquippedArm int = -1,
     @EquippedShl int = -1,
+    @ArmorClass int = 1, --se calcula
+    @MaxHealth int = 1, --se calcula
+    @CurrentHealth int = 1, --se calcula
+    @Gold int = 1, --se calcula
+    @Hardcore bit,
     @Abilities NVARCHAR(50)
 AS
 BEGIN
@@ -441,9 +456,9 @@ BEGIN
 
     -- Insertar nuevo personaje en la tabla Characters
     INSERT INTO Characters (
-        ID_User, Sex, ID_Race, ID_Class, ID_Background, _Name, _Level, Experience, Proficiency, Luck, Encounters, GameState, EquippedWeapon, EquippedArmor, EquippedShield, ArmorClass, MaxHealth, CurrentHealth, Gold)
+        ID_User, Sex, ID_Race, ID_Class, ID_Background, _Name, _Level, Experience, Proficiency, Luck, Encounters, GameState, EquippedWeapon, EquippedArmor, EquippedShield, ArmorClass, MaxHealth, CurrentHealth, Gold, Hardcore)
     VALUES (
-        @ID_User, @Sex, @ID_Race, @ID_Class, @ID_Background, @_Name, @_Level, @Experience, @Proficiency, @Luck, @Encounters, @GameState, @EquippedWpn, @EquippedArm, @EquippedShl, @ArmorClass, @MaxHealth, @CurrentHealth, @Gold);
+        @ID_User, @Sex, @ID_Race, @ID_Class, @ID_Background, @_Name, @_Level, @Experience, @Proficiency, @Luck, @Encounters, @GameState, @EquippedWpn, @EquippedArm, @EquippedShl, @ArmorClass, @MaxHealth, @CurrentHealth, @Gold, @Hardcore);
 
     SET @CharacterId = SCOPE_IDENTITY();
 
@@ -461,11 +476,14 @@ BEGIN
     VALUES (@CharacterId, @AbilityPosition, @AbilityRolledScore, FLOOR((@AbilityRolledScore - 10) / 2.0));
 END;
 
---+-- Delete Character --+--
+--+-- Baja fisica de character --+--
 go
 CREATE OR ALTER PROCEDURE SP_DeleteCharacter
 @ID_Character int
-AS DELETE FROM Characters WHERE ID_Character = @ID_Character
+AS
+BEGIN
+    DELETE FROM Characters WHERE ID_Character = @ID_Character;
+END
 
 --+-- Consigue un personaje especifico --+--
 go
@@ -499,6 +517,15 @@ BEGIN
     WHERE ID_Character = @ID_Character
 END;
 
+--+-- Consigue los items de un personaje especifico --+--
+go
+CREATE OR ALTER PROCEDURE SP_GetCharacterItems
+@ID_Character int
+AS
+BEGIN
+    SELECT ID_Item FROM ItemsXCharacter WHERE ID_Character = @ID_Character;
+END
+
 --+-- Consigue todos los personajes --+--
 go
 CREATE OR ALTER PROCEDURE SP_GetCharacters
@@ -523,7 +550,7 @@ BEGIN
     LEFT JOIN 
         AbilitiesXCharacter AXC ON C.ID_Character = AXC.ID_Character
     GROUP BY 
-        C.ID_Character, C.ID_User, C.Sex, C.ID_Race, C.ID_Class, C.ID_Background, C._Name, C._Level, C.Experience, C.Proficiency, C.Luck, C.Encounters, C.GameState, C.EquippedWeapon, C.EquippedArmor, C.EquippedShield, C.ArmorClass, C.MaxHealth, C.CurrentHealth, C.Gold
+        C.ID_Character, C.ID_User, C.Sex, C.ID_Race, C.ID_Class, C.ID_Background, C._Name, C._Level, C.Experience, C.Proficiency, C.Luck, C.Encounters, C.GameState, C.EquippedWeapon, C.EquippedArmor, C.EquippedShield, C.ArmorClass, C.MaxHealth, C.CurrentHealth, C.Gold, C.Hardcore
 END;
 
 --+-- Inserta un Usuario Nuevo --+--
@@ -742,9 +769,78 @@ BEGIN
     DECLARE @ID_Encounter int;
     SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
 
-    SELECT * FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter;
+    SELECT ID_Item, CurrRound FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter;
 END
 
 --+-- Elimina un usuario y sus personajes  --+--
 
--- baja logica de usuario y sus personajes
+--+-- Inserta o modifica un pueblo --+--
+go 
+CREATE OR ALTER PROCEDURE SP_InsertModifyTown
+    @ID_Character int,
+    @MerchantSex int = -1,
+    @MerchantRace int = 0,
+    @MerchantPersonality int = 0
+AS
+BEGIN
+    IF (@MerchantSex = -1)
+        BEGIN
+            DECLARE @ID_Town int;
+            SELECT @ID_Town = ID_Town FROM Towns WHERE ID_Character = @ID_Character; 
+            
+            DELETE FROM ItemsXTown WHERE ID_Town = @ID_Town;
+        END
+    ELSE
+        BEGIN
+            INSERT INTO Towns(ID_Character, MerchantSex, MerchantRace, MerchantPersonality)
+            VALUES (@ID_Character, @MerchantSex, @MerchantRace, @MerchantPersonality);
+        END
+END
+
+--+-- Inserta un item de pueblo --+--
+go
+CREATE OR ALTER PROCEDURE SP_InsertTownItem
+@ID_Character int,
+@ID_Item int
+AS
+BEGIN
+    DECLARE @ID_Town int;
+    SELECT @ID_Town = ID_Town FROM Towns WHERE ID_Character = @ID_Character; 
+    
+    INSERT INTO ItemsXTown(ID_Town, ID_Item)
+    VALUES (@ID_Town, @ID_Item);
+END
+
+--+-- Elimina un pueblo existente y sus items  --+--
+go
+CREATE OR ALTER PROCEDURE SP_DeleteTown
+    @ID_Character int
+AS
+BEGIN
+    DECLARE @ID_Town int;
+    SELECT @ID_Town = ID_Town FROM Towns WHERE ID_Character = @ID_Character; 
+    
+    DELETE FROM Towns WHERE ID_Town = @ID_Town;
+    DELETE FROM ItemsXTown WHERE ID_Town = @ID_Town;
+END
+
+--+-- Devuelve un pueblo existente  --+--
+go
+CREATE OR ALTER PROCEDURE SP_GetTown
+    @ID_Character int
+AS
+BEGIN
+    SELECT * FROM Towns WHERE ID_Character = @ID_Character;
+END
+
+--+-- Devuelve los items de un pueblo existente  --+--
+go
+CREATE OR ALTER PROCEDURE SP_GetTownItems
+    @ID_Character int
+AS
+BEGIN
+    DECLARE @ID_Town int;
+    SELECT @ID_Town = ID_Town FROM Towns WHERE ID_Character = @ID_Character;
+
+    SELECT ID_Item FROM ItemsXTown WHERE ID_Town = @ID_Town;
+END

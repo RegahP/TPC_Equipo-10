@@ -118,11 +118,33 @@ namespace TPC_Equipo_10
             return encounter;
         }
 
+        [WebMethod] //devuelve el town en el que estaba el chr
+        public static Town GetTown(int characterID)
+        {
+            Debug.WriteLine("Character Town sent from CodeBehind to AJAX Call succesfully.");
+            return DataAccess.GetTown(characterID);
+        }
+
+        [WebMethod] //devuelve town template al ajax
+        public static Town GetTownTemplate()
+        {
+            Town town = new Town();
+            Debug.WriteLine("Town Template sent from CodeBehind to AJAX Call succesfully.");
+            return town;
+        }
+
         [WebMethod]
         public static void SaveCharacter(Character character)
         {
             Debug.WriteLine("Character recieved from AJAX Call to CodeBehind succesfully.");
             DataAccess.ModifyCharacter(character);
+        }
+
+        [WebMethod]
+        public static void SaveCharacterAbilities(Character character)
+        {
+            Debug.WriteLine("Character Abilities recieved from AJAX Call to CodeBehind succesfully.");
+            DataAccess.ModifyCharacterAbilities(character);
         }
 
         [WebMethod]
@@ -140,6 +162,24 @@ namespace TPC_Equipo_10
             else //elimina en db
             {
                 DataAccess.DeleteEncounter(encounter);
+            }
+        }
+
+        [WebMethod]
+        public static void SaveTown(Town town, int type)
+        {
+            Debug.WriteLine("Town recieved from AJAX Call to CodeBehind succesfully.");
+            if (type == 0) //crea en db
+            {
+                DataAccess.NewTown(town);
+            }
+            else if (type == 1) //modifica en db
+            {
+                DataAccess.ModifyTown(town);
+            }
+            else //elimina en db
+            {
+                DataAccess.DeleteTown(town);
             }
         }
     }

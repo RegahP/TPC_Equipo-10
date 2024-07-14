@@ -115,7 +115,7 @@ function setupInventory() {
     }
     else if (chr.gameState == 4 && !storeBuySellFocus) {
 
-        invItems = catalogueItems;//si estamos en la tienda, cargamos el catalogo de items
+        invItems = town.catalogue;//si estamos en la tienda, cargamos el catalogo de items
     }
 
     //si lo que cargamos dejo el inventario vacio, lo declaramos como vacio
@@ -302,9 +302,9 @@ function drawInventory() {
 
                 //configuramos el texto del merchant segun si aun no compraste o si ya compraste
                 if (!merchantDialogueShowBoughtStatus) {
-                    merchantDialogue = merchantShowDialogues[merchantPersonality][merchantShowDialogueOption];
+                    merchantDialogue = merchantShowDialogues[town.merchantPersonality][merchantShowDialogueOption];
                 } else {
-                    merchantDialogue = merchantBoughtDialogues[merchantPersonality][merchantBoughtDialogueOption];
+                    merchantDialogue = merchantBoughtDialogues[town.merchantPersonality][merchantBoughtDialogueOption];
                 }
             }
             else {
@@ -312,9 +312,9 @@ function drawInventory() {
 
                 //configuramos el texto del merchant segun si aun no vendiste o si ya vendiste
                 if (!merchantDialoguePreSoldStatus) {
-                    merchantDialogue = merchantPreDialogues[merchantPersonality][merchantPreDialogueOption];
+                    merchantDialogue = merchantPreDialogues[town.merchantPersonality][merchantPreDialogueOption];
                 } else {
-                    merchantDialogue = merchantSoldDialogues[merchantPersonality][merchantSoldDialogueOption];
+                    merchantDialogue = merchantSoldDialogues[town.merchantPersonality][merchantSoldDialogueOption];
                 }
             }
         }
@@ -429,10 +429,10 @@ function drawInventory() {
             //actualizamos el dialogo del merchant para reflejar el inventario vacio
             if (!storeBuySellFocus) {
                 emptyTxt = "Compraste todo en la tienda!";
-                merchantDialogue = merchantEmptyBuyDialogues[merchantPersonality];
+                merchantDialogue = merchantEmptyBuyDialogues[town.merchantPersonality];
             } else {
                 emptyTxt = "Tu inventario está vacío!";
-                merchantDialogue = merchantEmptySellDialogues[merchantPersonality];
+                merchantDialogue = merchantEmptySellDialogues[town.merchantPersonality];
             }
         }
 
@@ -644,6 +644,7 @@ function characterAttack() {
     }
     encounter.turn = true; //turno de creature
     manageEncounter(1); //actualiza en db
+
     print('ataca chr');
     print('attackStatus', attackStatus);
     print('damage', damage);
@@ -673,6 +674,8 @@ function creatureAttack() {
     encounter.turn = false; //turno de chr
     encounter.currRound++;
     manageEncounter(1); //actualiza en db
+    saveCharacter(chr); //guardamos el progreso
+
     print('ataca creature');
     print('attackStatus', attackStatus);
     print('damage', damage);
@@ -703,6 +706,7 @@ function manageEncounter(type) {
             chr.xp += 7;
         }
         saveEncounter(encounter, type);
+        saveCharacter(chr); //guardamos el progreso
     }
 }
 //calcula las nuevas estadisticas segun nuevos modificadores

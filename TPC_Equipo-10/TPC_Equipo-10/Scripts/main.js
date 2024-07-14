@@ -11,6 +11,8 @@ let attacks;
 let allItems;
 let encounter; //template
 let encounterInProgress;
+let town; //template
+let townInProgress;
 
 let chr; //character
 let chrItems; //items del jugador
@@ -48,6 +50,7 @@ async function setup() {
         attacks = await loadAttacks();
         allItems = await loadItems();
         encounter = await loadEncounterTemplate();
+        town = await loadTownTemplate();
         chr = await loadCharacter();
     } catch (error) {
         console.error("Failed to load something in p5js:", error);
@@ -88,8 +91,10 @@ async function setup() {
         if (encounterInProgress) {
             console.log("Encounter loaded in p5js succesfully:", encounterInProgress);
         }
-        chr.gameState = 7; //TEMPPPP
-        setupLevelUp();
+        townInProgress = await loadTown(chr.id);
+        if (townInProgress) {
+            console.log("Town loaded in p5js succesfully:", townInProgress);
+        }
     }
     //desps de la carga inicializamos algunas variables globales
     noSmooth();
@@ -104,6 +109,39 @@ async function setup() {
 
     waitTimer = 0;
     waitDialogueID = 0;
+
+    //llamamos a algun setupscene que sea necesario segun gamestate
+    if (chr) {
+        switch (chr.gameState) {
+            case 0: //intro
+                //setupIntro();
+                break;
+            case 1: //combat
+                setupCombat();
+                break;
+            case 2: //endcombat
+                //setupEndCombat();
+                break;
+            case 3: //town
+                setupTown();
+                break;
+            case 4: //store
+                setupTown();
+                setupStore();
+                break;
+            case 5: //rest
+                //setupRest();
+                break;
+            case 6: //dead
+                setupDead();
+                break;
+            case 7: //levelup
+                setupLevelUp();
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 function draw() {
@@ -151,6 +189,7 @@ function keyPressed() {
                 case 0: //intro
                     chr.gameState = 1; //combat
                     setupCombat(); //genera el encounter
+                    saveCharacter(chr); //guardamos el progreso
                     break;
                 case 1: //combat
 
@@ -158,10 +197,13 @@ function keyPressed() {
                     if (!navFocus) { //estamos viendo el nav
 
                         if (key === 'q') { //DEBUGTOOLS
-                            resetChr(); //resetea y manda chr a gameState 6
+                            chr.gameState = 6; //you died
+                            resetChr(); //revive chr si estaba en softcore
+                            saveCharacter(chr); //guardamos el progreso
                         }
                         else if (key === 'e') {
                             chr.gameState = 2; //endcombat
+                            saveCharacter(chr); //guardamos el progreso
                         }
 
                         if (keyCode === LEFT_ARROW) {
@@ -245,7 +287,8 @@ function keyPressed() {
                                 else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 1) {
                                     chr.equippedShieldID = invItems[invIndex];
                                 }
-
+                                //TEMP HAY QUE CONSUMIR ITEMSS
+                                saveCharacter(chr); //guardamos el progreso
                             }
                         }
                     }
@@ -254,25 +297,31 @@ function keyPressed() {
                     if (key === 'q') { //DEBUGTOOLS
                         chr.gameState = 1; //combat
                         setupCombat(); //genera el encounter
+                        saveCharacter(chr); //guardamos el progreso
                     }
                     else if (key === 'e') {
                         chr.gameState = 3; //town
                         setupTown(); //por ahora genera el merchant, deberia generar el pueblo y otras cosas
+                        saveCharacter(chr); //guardamos el progreso
                     }
                     break;
                 case 3: //town
                     if (key === 'q') { //DEBUGTOOLS
                         chr.gameState = 4; //store
                         setupStore(); //resetea bools de navegacion de la tienda y regenera opciones de dialogo
+                        saveCharacter(chr); //guardamos el progreso
                     }
                     else if (key === 'e') { //DEBUGTOOLS
                         chr.gameState = 5; //rest
                         chr.currHealth = chr.maxHealth; //cura toda tu vida
+                        saveCharacter(chr); //guardamos el progreso
+                        manageTown(2); //eliminamos en db
                     }
                     break;
                 case 4: //store
                     if (key === 'q' && !storeNavFocus) { //DEBUGTOOLS
                         chr.gameState = 3; //town
+                        saveCharacter(chr); //guardamos el progreso
                     }
                     if (!storeNavFocus) {
                         //alternamos el focus del panel de pregunta buysell
@@ -357,6 +406,8 @@ function keyPressed() {
                                             else {
                                                 buyItem();
                                                 buyPopup = false;
+                                                saveCharacter(chr); //guardamos el progreso
+                                                manageTown(1); //actualizamos en db
                                             }
                                         }
                                     }
@@ -434,6 +485,7 @@ function keyPressed() {
                                             else {
                                                 sellItem();
                                                 sellPopup = false;
+                                                saveCharacter(chr); //guardamos el progreso
                                             }
                                         }
                                     }
@@ -450,9 +502,13 @@ function keyPressed() {
                 case 5: //rest
                     chr.gameState = 1; //combat
                     setupCombat(); //genera el encounter
+                    saveCharacter(chr); //guardamos el progreso
                     break;
                 case 6: //dead
-                    chr.gameState = 0; //intro
+                    if (chr.hardCore == 0) {
+                        chr.gameState = 1; //combat
+                        saveCharacter(chr); //guardamos el progreso
+                    }
                     break;
                 case 7: //levelup
 
@@ -478,6 +534,8 @@ function keyPressed() {
                     if (keyCode === ENTER && lvlPts == 0) { //confirmar solo si consumiste todos los puntos
                         levelUpCalculator(); //calcula las nuevas estadisticas segun nuevos modificadores
                         chr.gameState = 2; //endcombat
+                        saveCharacter(chr); //guardamos el progreso
+                        saveCharacterAbilities(chr); //y sus abilities
                     }
                     break;
                 default:
@@ -520,17 +578,23 @@ function keyPressed() {
                     levelUp = false;
                     chr.gameState = 7; //levelup
                     setupLevelUp()
+                    saveCharacter(chr); //guardamos el progreso
                 }
                 else {
                     chr.gameState = 2; //endcombat
+                    saveCharacter(chr); //guardamos el progreso
                 }
             }
             else if (waitDialogueID == 7) { //si skippeamos dialogo de muerte
                 chr.gameState = 6; //you died
                 resetChr(); //resetea y manda chr a gameState 6
+                saveCharacter(chr); //guardamos el progreso
+            }
+            else if (waitDialogueID == 8) { //si skippeamos dialogo de softcore death info
+                chr.gameState = 1; //combat
+                saveCharacter(chr); //guardamos el progreso
             }
         }
     }
     console.log("gameState ", chr.gameState)
-    //saveCharacter(chr);
 }

@@ -32,6 +32,17 @@ function drawRest() {
     drawTextCentered('resting', width / 2, height - 24, 24, 'white')
 }
 
+//triggerea dialogo de death info
+function setupDead() {
+    if (chr.hardCore == 0) {
+        waitStart(8); //dialogo de softcore death info
+    }
+    else {
+        waitStart(9); //dialogo de hardcore death info
+    }
+    
+}
+
 //dead sequence; followed by intro
 function drawDead() {
     drawTextCentered('you died', width / 2, height - 24, 24, 'white')
@@ -203,7 +214,13 @@ function manageWaitDialogues() {
                 waitDialogue('Felicitaciones! Subiste a nivel ' + chr.level + '!');
                 break;
             case 7: //te estas muriendo
-                waitDialogue('Perdiste el combate!');
+                waitDialogue('Recibiste un golpe mortal!');
+                break;
+            case 8: //softcore death info
+                waitDialogue('Estás muerto! Pero podés volver a intentarlo.');
+                break;
+            case 9: //hardcore death info
+                waitDialogue('Tu personaje estaba en Hardmode, no podés volverlo a jugar. :c');
                 break;
             default:
                 console.warn('primer dialogo faltante');
@@ -251,6 +268,12 @@ function manageWaitDialogues() {
                 break;
             case 7: //subiste de nivel
                 waitDialogue('Tu personaje ha muerto.');
+                break;
+            case 8: //softcore death info
+                waitDialogue('Vas a perder tu racha de suerte y la mitad de tu oro.');
+                break;
+            case 9: //hardcore death info
+                waitDialogue('Aú así vas a poder ver tus estadísticas en Personajes -> Cementerio.');
                 break;
             default:
                 console.warn("segundo dialogo faltante");

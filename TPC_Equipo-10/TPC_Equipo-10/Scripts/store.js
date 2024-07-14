@@ -15,11 +15,6 @@ let storeNavFocus; // 0 = estamos en panel de pregunta 1 = estamos viendo buy o 
 let storeBuySellFocus; // si storenavfocus = 0, selector esta parado en boton de 0 = buy o 1= sell, si storenavfocus = 1, 0 = inventario buy 1 = inventario sell
 
 //variables del merchant
-let merchantSex;
-let merchantRace;
-let merchantPersonality; //1 de 5 personalidades
-let catalogueItems; //lista de item IDs, no items
-
 let merchantPreDialogueOption;
 let merchantSoldDialogueOption;
 let merchantDialoguePreSoldStatus;
@@ -35,10 +30,10 @@ function setupStore() {
 }
 
 function pickMerchantDialogueOptions() {
-    merchantPreDialogueOption = int(random(merchantPreDialogues[merchantPersonality].length));
-    merchantSoldDialogueOption = int(random(merchantSoldDialogues[merchantPersonality].length));
-    merchantShowDialogueOption = int(random(merchantShowDialogues[merchantPersonality].length));
-    merchantBoughtDialogueOption = int(random(merchantBoughtDialogues[merchantPersonality].length));
+    merchantPreDialogueOption = int(random(merchantPreDialogues[town.merchantPersonality].length));
+    merchantSoldDialogueOption = int(random(merchantSoldDialogues[town.merchantPersonality].length));
+    merchantShowDialogueOption = int(random(merchantShowDialogues[town.merchantPersonality].length));
+    merchantBoughtDialogueOption = int(random(merchantBoughtDialogues[town.merchantPersonality].length));
 }
 
 function drawMerchantSprite(posX, posY, size) {
@@ -48,8 +43,8 @@ function drawMerchantSprite(posX, posY, size) {
         posY - (16 + 7) * size,
         16 * size,
         32 * size,
-        merchantRace * 16,
-        merchantSex * 32,
+        town.merchantRace * 16,
+        town.merchantSex * 32,
         16,
         32
     );

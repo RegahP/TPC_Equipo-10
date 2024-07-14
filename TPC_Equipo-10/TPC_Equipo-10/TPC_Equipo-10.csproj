@@ -71,6 +71,7 @@
     <Content Include="BackgroundsInfo.aspx" />
     <Content Include="CharacterCreator.aspx" />
     <Content Include="CharacterDetail.aspx" />
+    <Content Include="CharacterRoll.aspx" />
     <Content Include="Characters.aspx" />
     <Content Include="ClassesInfo.aspx" />
     <Content Include="ClassSelection.aspx" />
@@ -146,6 +147,13 @@
     </Compile>
     <Compile Include="CharacterDetail.aspx.designer.cs">
       <DependentUpon>CharacterDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CharacterRoll.aspx.cs">
+      <DependentUpon>CharacterRoll.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CharacterRoll.aspx.designer.cs">
+      <DependentUpon>CharacterRoll.aspx</DependentUpon>
     </Compile>
     <Compile Include="Characters.aspx.cs">
       <DependentUpon>Characters.aspx</DependentUpon>

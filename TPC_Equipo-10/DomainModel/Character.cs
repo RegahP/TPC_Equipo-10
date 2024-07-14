@@ -35,6 +35,7 @@ namespace DomainModel
         public int maxHealth { get; set; } //maximum health
         public int currHealth { get; set; } //current health
         public int gold { get; set; } //gold
+        public bool hardCore { get; set; } //hardcore
 
         public List<int> inventory = new List<int>(); //consumables, generic
         public List<RolledAbility> abilities = new List<RolledAbility>(); //abilities (6)

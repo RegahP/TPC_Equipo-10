@@ -12,6 +12,8 @@ namespace DomainModel
         public int rolledScore { get; set; }
         public int modifier {  get; set; }
 
+        public RolledAbility() { }
+
         public RolledAbility(int abilityID, int rolledScore, int modifier)
         {
             this.abilityID = abilityID;

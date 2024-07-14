@@ -260,7 +260,7 @@ function loadItems() {
     });
 }
 
-//lee el character encounter por codebehind y lo retorna como js vars
+//lee el character encounter devuelto por codebehind y lo retorna como js vars
 function loadEncounter(characterID) {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -286,7 +286,7 @@ function loadEncounter(characterID) {
     });
 }
 
-//lee la template de encounter devuelto por codebehind y lo retorna como js vars
+//lee la template de encounter devuelta por codebehind y lo retorna como js vars
 function loadEncounterTemplate() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -306,6 +306,58 @@ function loadEncounterTemplate() {
             },
             error: function (err) {
                 console.log("Error recieving Encounter Template from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
+//lee el character town devuelto por codebehind y lo retorna como js vars
+function loadTown(characterID) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetTown",
+            data: JSON.stringify({ characterID: characterID }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var town = response.d;
+                if (town) {
+                    console.log("Character Town recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(town);
+                } else {
+                    reject("Character Town data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Character Town from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
+//lee la template de town devuelta por codebehind y lo retorna como js vars
+function loadTownTemplate() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetTownTemplate",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var townTemplate = response.d;
+                if (townTemplate) {
+                    console.log("Town Template recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(townTemplate);
+                } else {
+                    reject("Town Template data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Town Template from CodeBehind to AJAX Call:", err);
                 reject(err);
             }
         });

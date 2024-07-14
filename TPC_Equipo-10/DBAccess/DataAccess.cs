@@ -210,10 +210,11 @@ namespace DBAccess
                     aux.maxHealth = reader.GetInt32(17);
                     aux.currHealth = reader.GetInt32(18);
                     aux.gold = reader.GetInt32(19);
+                    aux.hardCore = reader.GetBoolean(20);
 
                     for (int i = 0; i < 12; i+=2)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i), reader.GetInt32(20 + i + 1));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(21 + i), reader.GetInt32(21 + i + 1));
                         aux.abilities.Add(auxRolled);
                     }
                 }
@@ -226,6 +227,26 @@ namespace DBAccess
             {
                 CloseConnection();
             }
+
+            try
+            {
+                SetProcedure("SP_GetCharacterItems");
+                SetParameter("@ID_Character", aux.id);
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    aux.inventory.Add(reader.GetInt32(0));
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
             return aux;
         }
 
@@ -266,17 +287,16 @@ namespace DBAccess
                     aux.maxHealth = reader.GetInt32(17);
                     aux.currHealth = reader.GetInt32(18);
                     aux.gold = reader.GetInt32(19);
+                    aux.hardCore = reader.GetBoolean(20);
 
                     for (int i = 0; i < 12; i += 2)
                     {
-                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(20 + i), reader.GetInt32(20 + i + 1));
+                        RolledAbility auxRolled = new RolledAbility(i, reader.GetInt32(21 + i), reader.GetInt32(21 + i + 1));
                         aux.abilities.Add(auxRolled);
                     }
 
                     listCharacters.Add(aux);
                 }
-                return listCharacters;
-
             }
             catch (Exception ex)
             {
@@ -286,6 +306,29 @@ namespace DBAccess
             {
                 CloseConnection();
             }
+
+            foreach (Character character in listCharacters)
+            {
+                try
+                {
+                    SetProcedure("SP_GetCharacterItems");
+                    SetParameter("@ID_Character", character.id);
+                    ExecuteRead();
+                    while (reader.Read())
+                    {
+                        character.inventory.Add(reader.GetInt32(0));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+            return listCharacters;
         }
 
         public static List<Class> ListClasses()
@@ -544,6 +587,7 @@ namespace DBAccess
                 SetParameter("@ID_Class", character.idClass);
                 SetParameter("@ID_Background", character.idBackground);
                 SetParameter("@_Name", character.name);
+                SetParameter("@Hardcore", character.hardCore);
 
                 int str = character.abilities[0].rolledScore;
                 int dex = character.abilities[1].rolledScore;
@@ -599,9 +643,9 @@ namespace DBAccess
             {
                 try
                 {
-                    SetProcedure("SP_InsertItem");
+                    SetProcedure("SP_InsertCharacterItem");
                     SetParameter("@ID_Character", chr.id);
-                    SetParameter("@ID_Character", item);
+                    SetParameter("@ID_Item", item);
                     ExecuteAction();
                 }
                 catch (Exception ex)
@@ -901,7 +945,6 @@ namespace DBAccess
                 ExecuteRead();
                 while (reader.Read())
                 {
-                    
                     aux.id = reader.GetInt32(0);
                     aux.characterID = reader.GetInt32(1);
                     aux.creatureID = reader.GetInt32(2);
@@ -930,6 +973,149 @@ namespace DBAccess
                     fx.itemID = reader.GetInt32(1);
                     fx.currRound = reader.GetInt32(2);
                     aux.effects.Add(fx);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return aux;
+        }
+
+        public static void NewTown(Town town)
+        {
+            try
+            {
+                SetProcedure("SP_InsertModifyTown");
+                SetParameter("@ID_Character", town.characterID);
+                SetParameter("@MerchantSex", town.merchantSex);
+                SetParameter("@MerchantRace", town.merchantRace);
+                SetParameter("@MerchantPersonality", town.merchantPersonality);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            foreach (int item in town.catalogue)
+            {
+                try
+                {
+                    SetProcedure("SP_InsertTownItem");
+                    SetParameter("@ID_Character", town.characterID);
+                    SetParameter("@ID_Item", item);
+                    ExecuteAction();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+        }
+
+        public static void ModifyTown(Town town)
+        {
+            try
+            {
+                SetProcedure("SP_InsertModifyTown");
+                SetParameter("@ID_Character", town.characterID);
+                SetParameter("@MerchantSex", -1);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            foreach (int item in town.catalogue)
+            {
+                try
+                {
+                    SetProcedure("SP_InsertTownItem");
+                    SetParameter("@ID_Character", town.characterID);
+                    SetParameter("@ID_Item", item);
+                    ExecuteAction();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    CloseConnection();
+                }
+            }
+        }
+
+        public static void DeleteTown (Town town)
+        {
+            try
+            {
+                SetProcedure("SP_DeleteTown");
+                SetParameter("@ID_Character", town.characterID);
+                ExecuteAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public static Town GetTown(int characterID)
+        {
+            Town aux = new Town();
+            aux.id = -1;
+
+            try
+            {
+                SetProcedure("SP_GetTown");
+                SetParameter("@ID_Character", characterID);
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    aux.id = reader.GetInt32(0);
+                    aux.characterID = reader.GetInt32(1);
+                    aux.merchantSex = reader.GetInt32(2);
+                    aux.merchantRace = reader.GetInt32(3);
+                    aux.merchantPersonality = reader.GetInt32(4);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            try
+            {
+                SetProcedure("SP_GetTownItems");
+                SetParameter("@ID_Character", characterID);
+                ExecuteRead();
+                while (reader.Read())
+                {
+                    aux.catalogue.Add(reader.GetInt32(0));
                 }
             }
             catch (Exception ex)

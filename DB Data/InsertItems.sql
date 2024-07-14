@@ -1,3 +1,4 @@
+go
 use TPC_ChambersAndWyverns
 
 --+-- ABILITY --+--
@@ -1388,9 +1389,14 @@ SELECT * FROM Attacks
 ---Buscador de Items
 SELECT * FROM Items
 ---Buscador de Users
-SELECT * FROM users
+SELECT * FROM Users
 ---Buscador de Encounters
 SELECT * FROM Encounters
+---Buscador de Towns
+SELECT * FROM Towns
+--DELETE FROM Towns
+SELECT * FROM ItemsXTown
+--DELETE FROM ItemsXTown
 
 ---Buscador de Armas
 EXEC SP_GetWeapons
@@ -1404,6 +1410,8 @@ EXEC SP_GetGenerics
 EXEC SP_GetCharacter @ID_Character = 0
 ---Buscador de todos los personajes
 EXEC SP_GetCharacters
+---Buscador de items de personaje
+EXEC SP_GetCharacterItems @ID_Character = 0
 ---Buscador de creatures
 EXEC SP_GetCreatures
 ---Buscador de items de creatures especificas
