@@ -1357,22 +1357,13 @@ EXEC SP_InsertCreature
     @Item2 = 79, --ropa elegante
 	@Gold = 32;
 
---+-- CHARACTERS --+--
---Esto es un ejemplo de personaje nuevo, no hace falta Execute
--- EXEC SP_InsertNewCharacter 
---    @ID_User = 0,
---    @Sex = 0,
---    @ID_Race = 0,
---    @ID_Class = 0,
---    @ID_Background = 0,
---    @_Name = 'Juan',
---    @Abilities = N'14,12,10,8,16,10';
-
+---Buscador de Personajes
 SELECT * FROM Characters
-
----Buscador de Caracteríscas
+---Buscador de Items de Personaje
+SELECT * FROM ItemsXCharacter
+---Buscador de Habilidades
 SELECT * FROM Abilities
---Buscador de Caracteristicas por jugador
+--Buscador de Habilidades de Personaje
 SELECT * FROM AbilitiesXCharacter
 ---Buscador de Habilidades
 SELECT * FROM Skills
@@ -1392,11 +1383,18 @@ SELECT * FROM Items
 SELECT * FROM Users
 ---Buscador de Encounters
 SELECT * FROM Encounters
+---Buscador de Efectos
+SELECT * FROM EffectsXEncounter
 ---Buscador de Towns
 SELECT * FROM Towns
---DELETE FROM Towns
+---Buscador de Town Items
 SELECT * FROM ItemsXTown
---DELETE FROM ItemsXTown
+
+---Limpieza de Datos
+DELETE FROM Encounters
+DELETE FROM EffectsXEncounter
+DELETE FROM Towns
+DELETE FROM ItemsXTown
 
 ---Buscador de Armas
 EXEC SP_GetWeapons

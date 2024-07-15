@@ -482,7 +482,19 @@ CREATE OR ALTER PROCEDURE SP_DeleteCharacter
 @ID_Character int
 AS
 BEGIN
+    DECLARE @ID_Encounter int;
+    DECLARE @ID_Town int;
+    SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
+    SELECT @ID_Town = ID_Town FROM Towns WHERE ID_Character = @ID_Character;
+
     DELETE FROM Characters WHERE ID_Character = @ID_Character;
+    DELETE FROM ItemsXCharacter WHERE ID_Character = @ID_Character;
+
+    DELETE FROM Encounters WHERE ID_Encounter = @ID_Encounter;
+    DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Character;
+
+    DELETE FROM Towns WHERE ID_Town = @ID_Town;
+    DELETE FROM ItemsXTown WHERE ID_Town = @ID_Town;
 END
 
 --+-- Consigue un personaje especifico --+--
@@ -706,7 +718,11 @@ CREATE OR ALTER PROCEDURE SP_ModifyEncounter
     @Turn bit
 AS
 BEGIN
-    UPDATE Encounters SET CreatureCurrHealth = @CreatureCurrHealth, CurrRound = @CurrRound, Turn = @Turn WHERE ID_Character = @ID_Character;
+    DECLARE @ID_Encounter int;
+    SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
+    
+    UPDATE Encounters SET CreatureCurrHealth = @CreatureCurrHealth, CurrRound = @CurrRound, Turn = @Turn WHERE ID_Encounter = @ID_Encounter;
+    DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter;
 END
 
 --+-- Elimina un encuentro existente y sus efectos  --+--
@@ -731,9 +747,9 @@ BEGIN
     SELECT * FROM Encounters WHERE ID_Character = @ID_Character;
 END
 
---+-- Inserta, modifica o elimina un efecto de encuentro --+--
+--+-- Inserta un efecto de encuentro --+--
 go
-CREATE OR ALTER PROCEDURE SP_InsertModifyDeleteEffect
+CREATE OR ALTER PROCEDURE SP_InsertEffect
     @ID_Character int,
     @ID_Item int,
     @CurrRound int
@@ -741,23 +757,9 @@ AS
 BEGIN
     DECLARE @ID_Encounter int;
     SELECT @ID_Encounter = ID_Encounter FROM Encounters WHERE ID_Character = @ID_Character;
-    
-    IF EXISTS(SELECT 1 ID_Item FROM EffectsXEncounter WHERE ID_Item = @ID_Item AND ID_Encounter = @ID_Encounter)
-    BEGIN
-        IF @CurrRound = 3
-        BEGIN
-            DELETE FROM EffectsXEncounter WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
-        END
-        ELSE
-        BEGIN
-            UPDATE EffectsXEncounter SET CurrRound = @CurrRound WHERE ID_Encounter = @ID_Encounter AND ID_Item = @ID_Item;
-        END
-    END
-    ELSE
-    BEGIN
-        INSERT INTO EffectsXEncounter(ID_Encounter, ID_Item, CurrRound)
-        VALUES (@ID_Encounter, @ID_Item, 0); --iditem -1 = defender; -2 = special
-    END
+
+    INSERT INTO EffectsXEncounter(ID_Encounter, ID_Item, CurrRound)
+    VALUES (@ID_Encounter, @ID_Item, @CurrRound); --iditem -1 = defender; -2 = special
 END
 
 --+-- Devuelve los efectos de un encuentro existente  --+--

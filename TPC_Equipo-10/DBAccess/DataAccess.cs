@@ -898,7 +898,7 @@ namespace DBAccess
             {
                 try
                 {
-                    SetProcedure("SP_InsertModifyDeleteEffect");
+                    SetProcedure("SP_InsertEffect");
                     SetParameter("@ID_Character", encounter.characterID);
                     SetParameter("@ID_Item", effect.itemID);
                     SetParameter("@CurrRound", effect.currRound);
@@ -970,8 +970,8 @@ namespace DBAccess
                 while (reader.Read())
                 {
                     Effect fx = new Effect();
-                    fx.itemID = reader.GetInt32(1);
-                    fx.currRound = reader.GetInt32(2);
+                    fx.itemID = reader.GetInt32(0);
+                    fx.currRound = reader.GetInt32(1);
                     aux.effects.Add(fx);
                 }
             }

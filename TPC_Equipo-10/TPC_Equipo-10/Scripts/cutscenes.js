@@ -40,7 +40,6 @@ function setupDead() {
     else {
         waitStart(9); //dialogo de hardcore death info
     }
-    
 }
 
 //dead sequence; followed by intro
@@ -177,7 +176,12 @@ function manageWaitDialogues() {
     if (wait || skip) {
         switch (waitDialogueID) {
             case 0: //vas a atacar
-                waitDialogue('Decidís atacar con tu ' + weapon.name + '!');
+                if (weapon.type == 1) { //con un arma
+                    waitDialogue('Decidís atacar con ' + singularPlural('tu ','tus ', weapon.id) + weapon.name + '!');
+                }
+                else { //con un consumible (?)
+                    waitDialogue('Decidís ' + (weapon.effectID == -1 ? 'consumir ' : 'usar ') + singularPlural('tu ', 'tus ', weapon.id) + weapon.name + '!');
+                }
                 break;
             case 1: //vas a defenderte
                 waitDialogue('Decidís defenderte!');
@@ -202,13 +206,13 @@ function manageWaitDialogues() {
                 }
                 break;
             case 3: //estas entrando en combate
-                waitDialogue(pronounCalculator('Una ', 'Un ') + creatures[encounter.creatureID].name + ' quiere pelear!');
+                waitDialogue(pronouns('Una ', 'Un ') + creatures[encounter.creatureID].name + ' quiere pelear!');
                 break;
             case 4: //va a atacar creature
-                waitDialogue(pronounCalculator('La ', 'El ') + creatures[encounter.creatureID].name + ' te ataca con ' + attack.name + '!');
+                waitDialogue(pronouns('La ', 'El ') + creatures[encounter.creatureID].name + ' te ataca con ' + attack.name + '!');
                 break;
             case 5: //va a terminar el encounter
-                waitDialogue('Derrotaste ' + pronounCalculator('a la ', 'al ') + creatures[encounter.creatureID].name + '!');
+                waitDialogue('Derrotaste ' + pronouns('a la ', 'al ') + creatures[encounter.creatureID].name + '!');
                 break;
             case 6: //vas a subir de nivel
                 waitDialogue('Felicitaciones! Subiste a nivel ' + chr.level + '!');
@@ -230,7 +234,12 @@ function manageWaitDialogues() {
     else if (wait2 || skip2) {
         switch (waitDialogueID) {
             case 0: //atacaste
-                waitDialogue('El ataque ' + (attackStatus ? 'es exitoso! Le infligís ' + damage + ' de daño!' : 'falló!'));
+                if (weapon.type == 1) {
+                    waitDialogue('El ataque ' + (attackStatus ? 'es exitoso! Le infligís ' + damage + ' de daño!' : 'falló!'));
+                }
+                else {
+                    waitDialogue((weapon.effectID == -1 ? 'Te curás ' + weapon.amount + ' de Vida' : 'Tu ' + abilities[weapon.effectID].name + ' aumenta en ' + weapon.amount) + '!');
+                }
                 break;
             case 1: //te defendiste
                 waitDialogue('Durante 3 rondas, tu armadura aumenta en 2.');

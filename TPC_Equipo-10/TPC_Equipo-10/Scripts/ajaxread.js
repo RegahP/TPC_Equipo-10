@@ -312,6 +312,32 @@ function loadEncounterTemplate() {
     });
 }
 
+//lee la template de effect devuelta por codebehind y lo retorna como js vars
+function loadEffectTemplate() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "POST",
+            url: "Game.aspx/GetEffectTemplate",
+            data: '{}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                var effectTemplate = response.d;
+                if (effectTemplate) {
+                    console.log("Effect Template recieved from CodeBehind to AJAX Call succesfully.")
+                    resolve(effectTemplate);
+                } else {
+                    reject("Effect Template data is undefined or null.");
+                }
+            },
+            error: function (err) {
+                console.log("Error recieving Effect Template from CodeBehind to AJAX Call:", err);
+                reject(err);
+            }
+        });
+    });
+}
+
 //lee el character town devuelto por codebehind y lo retorna como js vars
 function loadTown(characterID) {
     return new Promise((resolve, reject) => {

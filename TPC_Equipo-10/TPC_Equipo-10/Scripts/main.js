@@ -10,12 +10,12 @@ let creatures;
 let attacks; 
 let allItems;
 let encounter; //template
+let effect; //template
 let encounterInProgress;
 let town; //template
 let townInProgress;
 
 let chr; //character
-let chrItems; //items del jugador
 
 //todas las imagenes
 let chr_spritesheet;
@@ -50,6 +50,7 @@ async function setup() {
         attacks = await loadAttacks();
         allItems = await loadItems();
         encounter = await loadEncounterTemplate();
+        effect = await loadEffectTemplate();
         town = await loadTownTemplate();
         chr = await loadCharacter();
     } catch (error) {
@@ -85,6 +86,9 @@ async function setup() {
     if (encounter) {
         console.log("Encounter Template loaded in p5js succesfully:", encounter);
     }
+    if (effect) {
+        console.log("Effect Template loaded in p5js succesfully:", effect);
+    }
     if (chr) {
         console.log("Character loaded in p5js succesfully:", chr);
         encounterInProgress = await loadEncounter(chr.id);
@@ -95,6 +99,7 @@ async function setup() {
         if (townInProgress) {
             console.log("Town loaded in p5js succesfully:", townInProgress);
         }
+        chr.inventory.push(74);
     }
     //desps de la carga inicializamos algunas variables globales
     noSmooth();
@@ -214,13 +219,15 @@ function keyPressed() {
                         }
                         else if (keyCode === ENTER) {
                             if (navIndex === 0) { //si estamos parados en la accion ataque
-                                characterAttack();
+                                characterAttack(); //atacamos
                                 waitStart(0); //triggerea dialogo de ataque
                             }
                             else if (navIndex === 1) { //si estamos parados en la accion defensa
+                                characterDefend(); //defendemos
                                 waitStart(1); //triggerea dialogo de defensa
                             }
                             else if (navIndex === 2) { //si estamos parados en la accion especial
+                                characterSpecial(); //usamos el especial
                                 waitStart(2); //triggerea dialogo del especial
                             }
                             else { //si estamos parados en la accion inventario
@@ -236,59 +243,94 @@ function keyPressed() {
 
                         //si la lista no esta vacia
                         if (!invEmpty) {
+                            if (!consumePopup) { //no esta el popup abierto
 
-                            //si el focus esta en la lista, nos podemos mover
-                            if (!invFocus) {
-                                if (keyCode === UP_ARROW) {
-                                    invIndex = (invIndex - 1 + invItems.length) % invItems.length;
+                                //si el focus esta en la lista, nos podemos mover
+                                if (!invFocus) {
+                                    if (keyCode === UP_ARROW) {
+                                        invIndex = (invIndex - 1 + invItems.length) % invItems.length;
 
-                                    if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
-                                        scrollShift--;
-                                    }
-
-                                    if (invIndex == invItems.length - 1 && outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
-                                        let itemCount = invItems.length;
-                                        let scrollEnd = 0;
-                                        while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
-                                            itemCount--;
-                                            scrollEnd++;
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) < outerMargin + innerMargin) {
+                                            scrollShift--;
                                         }
-                                        scrollShift = scrollEnd - 1;
-                                    }
-                                } else if (keyCode === DOWN_ARROW) {
-                                    invIndex = (invIndex + 1) % invItems.length;
 
-                                    if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
-                                        scrollShift++;
-                                    }
-                                    if (invIndex == 0) {
-                                        scrollShift = 0;
+                                        if (invIndex == invItems.length - 1 && outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
+                                            let itemCount = invItems.length;
+                                            let scrollEnd = 0;
+                                            while (outerMargin + innerMargin + itemCount * itemSize * 1.25 > height - outerMargin - innerMargin * 2) {
+                                                itemCount--;
+                                                scrollEnd++;
+                                            }
+                                            scrollShift = scrollEnd - 1;
+                                        }
+                                    } else if (keyCode === DOWN_ARROW) {
+                                        invIndex = (invIndex + 1) % invItems.length;
+
+                                        if (outerMargin + innerMargin + invIndex * itemSize * 1.25 - (itemSize * 1.25 * scrollShift) > height - outerMargin - innerMargin * 2) {
+                                            scrollShift++;
+                                        }
+                                        if (invIndex == 0) {
+                                            scrollShift = 0;
+                                        }
                                     }
                                 }
-                            }
 
-                            //alternamos el focus de la lista a detalles
-                            if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
-                                invFocus = !invFocus;
+                                //alternamos el focus de la lista a detalles
+                                if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                    invFocus = !invFocus;
+                                }
                             }
 
                             //si estamos en combate, el boton equipa/consume
-                            //si estamos en detalles y el item no esta equipado
-                            if (keyCode === ENTER && invFocus) {
-                                //y es un arma
-                                if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 0) {
-                                    chr.equippedWeaponID = invItems[invIndex];
+                            //si estamos en detalles y toque enter
+                            if (invFocus) {
+                                if (consumePopup) {
+                                    if (keyCode === ESCAPE) {
+                                        consumePopup = false;
+                                    }
+                                    //alternamos el focus entre cancelar o confirmar
+                                    if (keyCode === RIGHT_ARROW || keyCode === LEFT_ARROW) {
+                                        consumePopupFocus = !consumePopupFocus;
+                                    }
+                                    if (keyCode === ENTER) {
+                                        if (!consumePopupFocus) {
+                                            consumePopup = false;
+                                        }
+                                        else {
+                                            consumeItem();
+                                            waitStart(0); //triggerea dialogo de ataque
+                                            consumePopup = false;
+                                            saveCharacter(chr); //guardamos el progreso
+                                        }
+                                    }
                                 }
-                                //o es una armadura
-                                else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 0) {
-                                    chr.equippedArmorID = invItems[invIndex];
+                                else if (keyCode === ENTER) {
+                                    //y es un arma
+                                    if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 0) {
+                                        chr.equippedWeaponID = invItems[invIndex];
+                                        saveCharacter(chr); //guardamos el progreso
+                                    }
+                                    //o es una armadura
+                                    else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1) {
+
+                                        if (allItems[invItems[invIndex]].armorType == 0) {
+                                            chr.equippedArmorID = invItems[invIndex];
+                                        }
+                                        else { //o es un escudo
+                                            chr.equippedShieldID = invItems[invIndex];
+                                        }
+                                        saveCharacter(chr); //guardamos el progreso
+                                    }
+                                    //o es un consumible
+
+                                    else if (allItems[invItems[invIndex]].type == 2) {
+
+                                        if (!consumePopup) { //no esta abierto el popup
+                                            consumePopup = true;
+                                            consumePopupFocus = false;
+                                        }
+                                    }
                                 }
-                                //o es un escudo
-                                else if (allItems[invItems[invIndex]].type == 1 && allItems[invItems[invIndex]].equippableType == 1 && allItems[invItems[invIndex]].armorType == 1) {
-                                    chr.equippedShieldID = invItems[invIndex];
-                                }
-                                //TEMP HAY QUE CONSUMIR ITEMSS
-                                saveCharacter(chr); //guardamos el progreso
                             }
                         }
                     }
@@ -412,8 +454,10 @@ function keyPressed() {
                                         }
                                     }
                                     else if (keyCode === ENTER) {
-                                        buyPopup = true;
-                                        buyPopupFocus = false;
+                                        if (allItems[invItems[invIndex]].price <= chr.gold) {
+                                            buyPopup = true;
+                                            buyPopupFocus = false;
+                                        }
                                     }
                                 }
                             }
@@ -596,5 +640,4 @@ function keyPressed() {
             }
         }
     }
-    console.log("gameState ", chr.gameState)
 }

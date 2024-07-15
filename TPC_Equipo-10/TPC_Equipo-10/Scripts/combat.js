@@ -21,6 +21,7 @@ let navFocus = false; //0 = nav; 1 = inventory
 //vars de las creatures
 let creatureCrop = [0, 16, 32, 48, 80, 112, 160, 224, 240, 288, 336, 352, 368, 400, 464, 480, 512, 544]; //crop data para mostrar la parte del spritesheet correcta
 let creatureFemPronouns = [0, 2, 7, 16]; //lista de ids de creatures que prefieren pronombres femeninos
+let itemNamePlural = [42, 46, 50, 53, 54, 74, 75, 77, 81, 83, 84, 85, 103]; //lista de ids de items cuyos nombres van en plural
 
 //vars del combate
 let attackStatus; //si un ataque es exitoso o no
@@ -98,6 +99,9 @@ let buyPopupFocus; //si el cursor esta a la izq o der del popup
 let sellPopup; //si esta prendido el popup de venta
 let sellPopupFocus; //si el cursor esta a la izq o der del popup
 
+let consumePopup; //si esta prendido el popup de consumir
+let consumePopupFocus; //si el cursor esta a la izq o der del popup
+
 let popupSize = 2.5; //tamaño del popup; invertido
 
 function setupInventory() {
@@ -125,11 +129,12 @@ function setupInventory() {
 
     sellPopup = false;
     sellPopupFocus = false;
-    itemSold = false;
 
     buyPopup = false;
     buyPopupFocus = false;
-    itemBought = false;
+
+    consumePopup = false;
+    consumePopupFocus = false;
 }
 
 function drawInventory() {
@@ -254,7 +259,7 @@ function drawInventory() {
 
         if (allItems[invItems[invIndex]].type != 0) {
 
-            if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID) {
+            if (invItems[invIndex] == chr.equippedWeaponID || invItems[invIndex] == chr.equippedArmorID || invItems[invIndex] == chr.equippedShieldID || (!storeBuySellFocus && allItems[invItems[invIndex]].price > chr.gold)) {
                 fill(100);
             } else {
                 fill(150);
@@ -284,13 +289,8 @@ function drawInventory() {
             }
             else if (allItems[invItems[invIndex]].type == 2) { //es consumible
 
-                if (false) { //MEGA TEMP
-                    buttonColor = color(128);
-                    buttonTxt = "Consumido";
-                } else {
-                    buttonColor = color(255);
-                    buttonTxt = "Consumir";
-                }
+                buttonColor = color(255);
+                buttonTxt = "Consumir";
             }
         }
         //si estamos en la tienda, el boton vende
@@ -299,6 +299,10 @@ function drawInventory() {
 
             if (!storeBuySellFocus) {
                 buttonTxt = "Comprar";
+
+                if (allItems[invItems[invIndex]].price > chr.gold) {
+                    buttonColor = color(128);
+                }
 
                 //configuramos el texto del merchant segun si aun no compraste o si ya compraste
                 if (!merchantDialogueShowBoughtStatus) {
@@ -475,7 +479,7 @@ function drawInventory() {
     }
 
     //popup de confirmacion de venta
-    if (sellPopup || buyPopup) {
+    if (sellPopup || buyPopup || consumePopup) {
         fill(0, 0, 0, 128);
         rect(0, 0, width, height);
         fill(20);
@@ -496,11 +500,15 @@ function drawInventory() {
         fill(255);
         textAlign(LEFT, TOP);
         textSize(24);
+        let popupItem = allItems[invItems[invIndex]];
         let popupTxt;
-        if (!storeBuySellFocus) {invItems[invIndex].price
-            popupTxt = 'Estás seguro de que querés comprar ' + allItems[invItems[invIndex]].name + ' por ' + allItems[invItems[invIndex]].price + ' monedas de oro?';
-        } else {
-            popupTxt = 'Estás seguro de que querés vender tu ' + allItems[invItems[invIndex]].name + ' por ' + allItems[invItems[invIndex]].price + ' monedas de oro?';
+        if (!storeBuySellFocus) {
+            popupTxt = 'Estás seguro de que querés comprar ' + popupItem.name + ' por ' + popupItem.price + ' monedas de Oro?';
+        } else if (storeBuySellFocus) {
+            popupTxt = 'Estás seguro de que querés vender ' + singularPlural('tu ', 'tus ', popupItem.id) + popupItem.name + ' por ' + popupItem.price + ' monedas de Oro?';
+        }
+        if (consumePopup) {
+            popupTxt = 'Estás seguro de que querés ' + (popupItem.effectID == -1 ? 'consumir' : 'usar') + singularPlural(' tu ', ' tus ', popupItem.id) + popupItem.name + '?';
         }
         text(
             popupTxt,
@@ -546,8 +554,8 @@ function drawInventory() {
         fill(255);
         textAlign(CENTER, CENTER);
         textSize(itemSize);
-        if (sellPopup || buyPopup) {
-            if (!sellPopupFocus && !buyPopupFocus) {
+        if (sellPopup || buyPopup || consumePopup) {
+            if (!sellPopupFocus && !buyPopupFocus && !consumePopupFocus) {
                 text(
                     "V",
                     width / 2 - (width / popupSize) / 2 + innerMargin * 2 + (width / (buttonSize / 2) / 2),
@@ -570,17 +578,7 @@ function buyItem() {
     chr.gold -= allItems[invItems[invIndex]].price;
     //lo agrega a tu inventario
     chr.inventory.push(allItems[invItems[invIndex]].id);
-    //lo elimina de la lista
-    if (invIndex == invItems.length - 1) {
-        invItems.splice(invIndex, 1);
-        invIndex -= 1;
-    } else {
-        invItems.splice(invIndex, 1);
-    }
-    //save character
-    if (invItems.length == 0) {
-        invEmpty = true;
-    }
+    removeSelectedItem(0); //lo elimina de la lista
     //cambia el dialogo de pre venta a post venta
     merchantDialogueShowBoughtStatus = true;
     //elige otra opcion de dialogo segun su personalidad
@@ -593,22 +591,49 @@ function sellItem() {
     //lo elimina de tu inventario
     chr.inventory.splice(invIndex, 1);
     //lo elimina de la lista
+    removeSelectedItem(1); //lo elimina de la lista
+    //cambia el dialogo de pre venta a post venta
+    merchantDialoguePreSoldStatus = true;
+    //elige otra opcion de dialogo segun su personalidad
+    pickMerchantDialogueOptions();
+}
+//consume el item seleccionado
+function consumeItem() {
+    //no es realmente un arma, es un consumible, pero nos sirve para no repetir variables
+    weapon = allItems[invItems[invIndex]];
+
+    if (weapon.effectID == -1) { //es de curacion
+
+        chr.currHealth += weapon.amount;
+
+        if (chr.currHealth > chr.maxHealth) {
+            chr.currHealth = chr.maxHealth;
+        }
+    }
+    else { //es de habilidad
+        addEncounterEffect(weapon.id);
+        encounter.turn = true; //turno de creature
+        manageEncounter(1); //actualiza en db
+        navFocus = false; //cierra el inventario
+    }
+    removeSelectedItem(1); //lo elimina de la lista
+}
+
+function removeSelectedItem(type) {
+    if (type == 1) { //tambien lo elimina del chr
+        chr.inventory.splice(invIndex, 1);
+    }
     if (invIndex == invItems.length - 1) {
         invItems.splice(invIndex, 1);
         invIndex -= 1;
     } else {
         invItems.splice(invIndex, 1);
     }
-    //save character
     if (invItems.length == 0) {
         invEmpty = true;
     }
-    //cambia el dialogo de pre venta a post venta
-    merchantDialoguePreSoldStatus = true;
-    //elige otra opcion de dialogo segun su personalidad
-    pickMerchantDialogueOptions();
 }
-//calcula iniciativa (en desuso)
+//calcula iniciativa (deprecated)
 function initiative() { //el rolledscore de la creature ya es modifier, no ideal
     if (chr.abilities[1].modifier < creature.abilities[1]) {
         return true;
@@ -646,9 +671,25 @@ function characterAttack() {
     manageEncounter(1); //actualiza en db
 
     print('ataca chr');
-    print('attackStatus', attackStatus);
     print('damage', damage);
-    print('creature currHealth', encounter.creatureCurrHealth);
+}
+//proceso de defensa
+function characterDefend() {
+    addEncounterEffect(-1); //agrega el defender al encuentro como efecto
+    encounter.turn = true; //turno de creature
+    manageEncounter(1); //actualiza en db
+}
+
+function characterSpecial() {
+    addEncounterEffect(-2); //agrega el special al encuentro como efecto
+    encounter.turn = true; //turno de creature
+    manageEncounter(1); //actualiza en db
+}
+//agrega un efecto al encuentro
+function addEncounterEffect(itemID) {
+    effect.itemID = itemID;
+    effect.currRound = 0;
+    encounter.effects.push(effect);
 }
 
 function creatureAttack() {
@@ -657,7 +698,24 @@ function creatureAttack() {
     let attackRoll = roll(20, creature.abilities[attack.abilityID] + creature.prof);
     damage = 0;
 
-    if (attackRoll > chr.armor) {
+    //aplica modificadores de armadura
+    let chrMod = 0;
+    for (let i = 0; i < encounter.effects.length; i++) { //a partir de efectos
+        if (encounter.effects[i].itemID == -1) { //defender
+            chrMod += 2;
+        }
+        else if (encounter.effects[i].itemID == -2 && chr.idClass == 0) { //cobertura implacable
+            chrMod += 2;
+        }
+    }
+    if (chr.equippedArmorID != -1) { //a partir de armadura equipada
+        chrMod += allItems[equippedArmorID].armor;
+    }
+    if (chr.equippedShieldID != -1) { //a partir de escudo equipada
+        chrMod += allItems[equippedShieldID].armor;
+    }
+
+    if (attackRoll > chr.armor + chrMod) {
         attackStatus = true;
         damage = attack.damage + creature.abilities[attack.abilityID];
         if (chr.currHealth - damage > 0) {
@@ -673,13 +731,28 @@ function creatureAttack() {
     }
     encounter.turn = false; //turno de chr
     encounter.currRound++;
+
+    //termino la ronda, subimos la ronda de todos los efectos
+    for (let i = 0; i < encounter.effects.length; i++) {
+        encounter.effects[i].currRound++; //si algun efecto llega a 3, en la db se eliminará solo
+        if (encounter.effects[i].itemID == -2) {
+            if (chr.idClass == 0) {
+                if (encounter.effects[i].currRound == 4) {
+                    encounter.effects.splice(i, 1);
+                }
+            }
+        }
+        else if (encounter.effects[i].currRound >= 3) {
+            encounter.effects.splice(i, 1);
+        }
+    }
+
     manageEncounter(1); //actualiza en db
+
     saveCharacter(chr); //guardamos el progreso
 
     print('ataca creature');
-    print('attackStatus', attackStatus);
     print('damage', damage);
-    print('chr.currHealth', chr.currHealth);
 }
 
 function manageEncounter(type) {

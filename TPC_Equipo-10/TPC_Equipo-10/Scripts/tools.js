@@ -1,7 +1,12 @@
 ﻿//si, ese nombre no es ironico, es real
-function pronounCalculator(fem, masc) {
+function pronouns(fem, masc) {
     return creatureFemPronouns.includes(encounter.creatureID) ? fem : masc;
 }
+
+function singularPlural(singular, plural, itemID) {
+    return itemNamePlural.includes(itemID) ? plural : singular;
+}
+
 //hace un roll con un dado d y modificador mod
 function roll(d, mod) {
     return int(random(d) + 1) + mod;

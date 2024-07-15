@@ -118,6 +118,14 @@ namespace TPC_Equipo_10
             return encounter;
         }
 
+        [WebMethod] //devuelve effect template al ajax
+        public static Effect GetEffectTemplate()
+        {
+            Effect effect = new Effect();
+            Debug.WriteLine("Effect Template sent from CodeBehind to AJAX Call succesfully.");
+            return effect;
+        }
+
         [WebMethod] //devuelve el town en el que estaba el chr
         public static Town GetTown(int characterID)
         {
